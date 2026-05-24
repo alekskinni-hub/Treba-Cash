@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TREBA CASH — Порівняння фінансових пропозицій України</title>
+<meta name="description" content="Безкоштовний сервіс порівняння фінансових пропозицій. Перша позика від 0,01% для нових клієнтів. Рішення за 5 хвилин онлайн.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #27ae60;
+    --green-light: #2ecc71;
+    --green-dark: #1e8449;
+    --bg: #f8f9fa;
+    --white: #ffffff;
+    --text: #2d3436;
+    --text-muted: #636e72;
+    --gold: #f1c40f;
+    --dark: #1e272e;
+    --shadow: 0 8px 32px rgba(39,174,96,0.12);
+    --shadow-lg: 0 20px 60px rgba(39,174,96,0.18);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(39,174,96,0.12);
+    padding: 0 24px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: box-shadow 0.3s;
+  }
+  .header.scrolled { box-shadow: 0 4px 24px rgba(39,174,96,0.13); }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--green), var(--green-light));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(39,174,96,0.35);
+  }
+  .logo-text {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+  .logo-text span { color: var(--green); }
+
+  .nav { display: flex; gap: 6px; align-items: center; }
+  .nav a {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav a:hover { color: var(--green); background: rgba(39,174,96,0.08); }
+
+  .btn-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(90deg, var(--green), var(--green-light));
+    color: #fff !important;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 10px 20px;
+    border-radius: 10px;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(39,174,96,0.35);
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-header::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    animation: flare 3s infinite 1s;
+  }
+  .btn-header:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(39,174,96,0.45); filter: brightness(1.05); }
+
+  @keyframes flare {
+    0% { left: -100%; }
+    40%, 100% { left: 150%; }
+  }
+
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+  .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: 0.3s; }
+
+  /* ===== MAIN BTN ===== */
+  .btn-main {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--green), var(--green-light));
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 15px;
+    padding: 16px 36px;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(39,174,96,0.38);
+    transition: transform 0.22s, box-shadow 0.22s, filter 0.22s;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    letter-spacing: 0.2px;
+  }
+  .btn-main::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+    animation: flare 3.5s infinite 0.5s;
+  }
+  .btn-main:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 12px 36px rgba(39,174,96,0.48); filter: brightness(1.06); }
+
+  .btn-outline {
+    display: inline-block;
+    border: 2px solid var(--green);
+    color: var(--green);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 36px;
+    border-radius: 14px;
+    transition: all 0.22s;
+    text-align: center;
+  }
+  .btn-outline:hover { background: var(--green); color: #fff; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(39,174,96,0.3); }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 80px 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    background: rgba(39,174,96,0.1);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  h2.section-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  h2.section-title span { color: var(--green); }
+  .section-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  .text-center { text-align: center; }
+  .text-center .section-sub { margin: 0 auto; }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(145deg, #f0fdf4 0%, #e8f8ef 50%, #f8f9fa 100%);
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(39,174,96,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -80px;
+    width: 350px; height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(46,204,113,0.09) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    border: 1.5px solid rgba(39,174,96,0.22);
+    border-radius: 30px;
+    padding: 8px 18px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 16px rgba(39,174,96,0.1);
+  }
+  .hero-badge-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse-dot 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+  .hero-badge span { font-size: 12px; font-weight: 700; color: var(--green); }
+
+  .hero-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(26px, 4.5vw, 48px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .hero-title .accent { color: var(--green); }
+  .hero-title .gold { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 32px;
+    max-width: 480px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 28px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .hero-stat { }
+  .hero-stat-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--green);
+    line-height: 1;
+  }
+  .hero-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  /* ===== CALCULATOR ===== */
+  .calc-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 16px 56px rgba(39,174,96,0.14), 0 4px 16px rgba(0,0,0,0.06);
+    border: 1px solid rgba(39,174,96,0.12);
+    position: relative;
+    z-index: 1;
+  }
+
+  .tc-main-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .tc-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+
+  .tc-slider-container { margin-bottom: 24px; }
+  .tc-label-group { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center; }
+  .tc-label-text { font-size: 14px; font-weight: 600; color: var(--text); }
+  .tc-current-val { font-weight: 900; color: var(--green); font-size: 19px; font-family: 'Unbounded', sans-serif; }
+
+  .tc-range-input {
+    width: 100%;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(90deg, var(--green) var(--pct, 38%), #e0f5e9 var(--pct, 38%));
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .tc-range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    background: #fff;
+    border: 3px solid var(--green);
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(39,174,96,0.35);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .tc-range-input::-webkit-slider-thumb:hover { transform: scale(1.2); box-shadow: 0 4px 16px rgba(39,174,96,0.5); }
+  .tc-range-input::-moz-range-thumb {
+    width: 22px; height: 22px;
+    background: #fff;
+    border: 3px solid var(--green);
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(39,174,96,0.35);
+    cursor: pointer;
+  }
+
+  .tc-result-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    background: linear-gradient(135deg, #f0fdf4, #e8f8ef);
+    padding: 18px;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(39,174,96,0.14);
+  }
+  .tc-res-block { text-align: center; }
+  .tc-res-label { font-size: 11px; color: var(--text-muted); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .tc-res-num { font-family: 'Unbounded', sans-serif; font-weight: 900; font-size: 20px; color: var(--text); }
+  .tc-res-num.green { color: var(--green); }
+
+  .tc-promo-text {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(90deg, rgba(241,196,15,0.12), rgba(241,196,15,0.06));
+    border: 1px solid rgba(241,196,15,0.4);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #b8860b;
+    margin-bottom: 18px;
+  }
+  .tc-promo-text::before { content: '⚡'; font-size: 16px; }
+
+  .tc-submit-btn {
+    display: block;
+    background: linear-gradient(90deg, var(--green), var(--green-light));
+    color: #fff;
+    text-decoration: none;
+    padding: 18px;
+    border-radius: 14px;
+    font-weight: 800;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 24px rgba(39,174,96,0.4);
+    transition: transform 0.22s, box-shadow 0.22s, filter 0.22s;
+    position: relative;
+    overflow: hidden;
+  }
+  .tc-submit-btn::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: flare 2.8s infinite 0.8s;
+  }
+  .tc-submit-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 36px rgba(39,174,96,0.5); filter: brightness(1.06); }
+
+  .tc-legal { font-size: 11px; color: #aaa; margin-top: 14px; line-height: 1.5; }
+
+  /* ===== ABOUT ===== */
+  .about {
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .about::before {
+    content: '₴';
+    font-size: 400px;
+    font-weight: 900;
+    position: absolute;
+    right: -40px; top: -60px;
+    color: rgba(39,174,96,0.04);
+    line-height: 1;
+    pointer-events: none;
+    font-family: 'Unbounded', sans-serif;
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .about-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 28px 0;
+  }
+  .about-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    background: var(--bg);
+    border-radius: 12px;
+    border-left: 3px solid var(--green);
+  }
+  .about-feature-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .about-feature-text { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  .about-feature-text strong { color: var(--text); display: block; margin-bottom: 3px; font-size: 15px; }
+
+  .about-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-circle {
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(39,174,96,0.12), rgba(46,204,113,0.06));
+    border: 2px dashed rgba(39,174,96,0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  .about-circle-inner {
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--green-light));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 60px rgba(39,174,96,0.4);
+    color: #fff;
+    text-align: center;
+  }
+  .about-circle-num {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 1;
+  }
+  .about-circle-label { font-size: 11px; font-weight: 600; opacity: 0.85; margin-top: 6px; letter-spacing: 1px; }
+
+  .orbit-item {
+    position: absolute;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .orbit-item:nth-child(2) { top: 20px; right: 30px; }
+  .orbit-item:nth-child(3) { bottom: 40px; left: 10px; }
+  .orbit-item:nth-child(4) { top: 50%; right: -10px; transform: translateY(-50%); }
+
+  /* ===== TIPS ===== */
+  .tips { background: var(--bg); }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 48px 0 40px;
+  }
+  .tip-card {
+    background: #fff;
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(39,174,96,0.1);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .tip-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    height: 4px; width: 100%;
+    background: linear-gradient(90deg, var(--green), var(--green-light));
+  }
+  .tip-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+  .tip-icon {
+    font-size: 42px;
+    margin-bottom: 18px;
+    display: block;
+    line-height: 1;
+  }
+  .tip-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .tip-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ===== BENEFITS ===== */
+  .benefits { background: linear-gradient(160deg, #1a3a2a 0%, #1e272e 100%); position: relative; overflow: hidden; }
+  .benefits::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2327ae60' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .benefits .section-label { background: rgba(39,174,96,0.2); }
+  .benefits h2.section-title { color: #fff; }
+  .benefits .section-sub { color: rgba(255,255,255,0.6); }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin: 48px 0 40px;
+  }
+  .benefit-item {
+    display: flex;
+    gap: 20px;
+    padding: 28px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: background 0.25s, transform 0.25s;
+    align-items: flex-start;
+  }
+  .benefit-item:hover { background: rgba(39,174,96,0.12); transform: translateX(4px); }
+  .benefit-icon {
+    font-size: 36px;
+    flex-shrink: 0;
+    width: 60px; height: 60px;
+    background: rgba(39,174,96,0.15);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .benefit-body {}
+  .benefit-title { font-size: 16px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+  .benefit-text { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+  .benefits .btn-center { text-align: center; }
+
+  /* ===== STEPS ===== */
+  .steps { background: #fff; }
+  .steps-timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin: 56px 0 44px;
+    position: relative;
+  }
+  .steps-timeline::before {
+    content: '';
+    position: absolute;
+    top: 44px; left: 16.6%; right: 16.6%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--green-light));
+    border-radius: 2px;
+    z-index: 0;
+  }
+  .step-item {
+    text-align: center;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .step-num {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--green-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    color: #fff;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 28px rgba(39,174,96,0.38);
+    position: relative;
+  }
+  .step-num::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 2px dashed rgba(39,174,96,0.35);
+    animation: spin-slow 10s linear infinite;
+  }
+  @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .step-title { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+  .step-text { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+  /* ===== FAQ ===== */
+  .faq { background: var(--bg); }
+  .faq-list { max-width: 800px; margin: 48px auto 44px; display: flex; flex-direction: column; gap: 12px; }
+
+  .faq-item {
+    background: #fff;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(39,174,96,0.12);
+    overflow: hidden;
+    transition: box-shadow 0.25s;
+  }
+  .faq-item:hover { box-shadow: 0 6px 24px rgba(39,174,96,0.1); }
+  .faq-item.open { box-shadow: 0 8px 32px rgba(39,174,96,0.14); border-color: rgba(39,174,96,0.3); }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    gap: 16px;
+    user-select: none;
+  }
+  .faq-question-text { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.4; }
+  .faq-icon {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: rgba(39,174,96,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background 0.25s, transform 0.35s;
+  }
+  .faq-icon svg { width: 14px; height: 14px; stroke: var(--green); fill: none; stroke-width: 2.5; transition: transform 0.35s; }
+  .faq-item.open .faq-icon { background: var(--green); }
+  .faq-item.open .faq-icon svg { stroke: #fff; transform: rotate(45deg); }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+  }
+  .faq-answer-inner {
+    padding: 0 24px 22px;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.75;
+    border-top: 1px solid rgba(39,174,96,0.1);
+    padding-top: 16px;
+  }
+
+  /* pulsing btn */
+  .btn-pulse {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--green), var(--green-light));
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 20px 48px;
+    border-radius: 16px;
+    box-shadow: 0 6px 28px rgba(39,174,96,0.4);
+    transition: transform 0.22s, box-shadow 0.22s;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    animation: pulse-btn 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-btn {
+    0%, 100% { box-shadow: 0 6px 28px rgba(39,174,96,0.4), 0 0 0 0 rgba(39,174,96,0.4); }
+    50% { box-shadow: 0 6px 28px rgba(39,174,96,0.5), 0 0 0 16px rgba(39,174,96,0); }
+  }
+  .btn-pulse::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: flare 2.5s infinite 0.3s;
+  }
+  .btn-pulse:hover { transform: translateY(-3px) scale(1.03); }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: var(--dark);
+    padding: 48px 0;
+    color: rgba(255,255,255,0.45);
+    font-size: 11px;
+    line-height: 1.7;
+  }
+  .footer-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; }
+  .footer-logo-wrap { margin-bottom: 16px; }
+  .footer-logo-text {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 8px;
+  }
+  .footer-logo-text span { color: var(--green); }
+  .footer-contact { margin-top: 14px; }
+  .footer-contact a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  .footer-contact a:hover { color: var(--green); }
+  .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 28px 0; }
+  .footer-bottom { text-align: center; color: rgba(255,255,255,0.3); font-size: 11px; }
+  .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--green); }
+  .footer-partners { margin-top: 10px; }
+
+  /* ===== UTILITIES ===== */
+  .btn-center { text-align: center; margin-top: 36px; }
+  .mt-4 { margin-top: 16px; }
+  .mt-8 { margin-top: 32px; }
+
+  /* ===== MOBILE NAV ===== */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(16px);
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(39,174,96,0.12);
+    flex-direction: column;
+    gap: 4px;
+    z-index: 999;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.1);
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    text-decoration: none;
+    padding: 12px 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .nav { display: none; }
+    .hamburger { display: flex; }
+    .btn-header { display: none; }
+    .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+    .about-inner { grid-template-columns: 1fr; }
+    .about-visual { display: none; }
+    .tips-grid { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .steps-timeline { grid-template-columns: 1fr; gap: 32px; }
+    .steps-timeline::before { display: none; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+  }
+  @media (max-width: 640px) {
+    section { padding: 56px 0; }
+    .hero { padding: 96px 0 56px; }
+    .hero-stats { gap: 16px; }
+    .calc-card { padding: 24px 18px; }
+    .btn-main, .btn-pulse { font-size: 14px; padding: 15px 28px; }
+    .btn-pulse { padding: 18px 32px; }
+    .hero-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="main-header">
+  <a href="#" class="logo">
+    <div class="logo-icon">💳</div>
+    <div class="logo-text">TREBA&nbsp;<span>CASH</span></div>
+  </a>
+  <nav class="nav">
+    <a href="#about">Про нас</a>
+    <a href="#tips">Поради</a>
+    <a href="#benefits">Переваги</a>
+    <a href="#steps">Як працює</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" class="btn-header">Підібрати умови →</a>
+  <div class="hamburger" id="hamburger" aria-label="Меню">
+    <span></span><span></span><span></span>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="#about" onclick="closeMobileNav()">Про нас</a>
+  <a href="#tips" onclick="closeMobileNav()">Поради</a>
+  <a href="#benefits" onclick="closeMobileNav()">Переваги</a>
+  <a href="#steps" onclick="closeMobileNav()">Як працює</a>
+  <a href="#faq" onclick="closeMobileNav()">FAQ</a>
+  <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" style="color: #27ae60; font-weight: 800;">Підібрати умови →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <div class="hero-badge-dot"></div>
+          <span>Безкоштовний сервіс порівняння</span>
+        </div>
+        <h1 class="hero-title">
+          Перша пропозиція<br>під <span class="accent">0,01%</span><br>для нових клієнтів
+        </h1>
+        <p class="hero-sub">Безкоштовний аналіз та порівняння умов серед ліцензованих фінансових установ України. Оберіть параметри та отримайте рішення за 5 хвилин.</p>
+        <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" class="btn-main">Підібрати пропозицію →</a>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num">24/7</div>
+            <div class="hero-stat-label">Режим роботи</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">5 хв</div>
+            <div class="hero-stat-label">Рішення онлайн</div>
+          </div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">0 грн</div>
+            <div class="hero-stat-label">Вартість сервісу</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CALCULATOR -->
+      <div class="hero-right">
+        <div class="calc-card">
+          <h2 class="tc-main-title">Калькулятор вигідної пропозиції</h2>
+          <p class="tc-subtitle">Оберіть суму і ми підберемо для вас вигідні пропозиції</p>
+
+          <div class="tc-slider-container">
+            <div class="tc-label-group">
+              <span class="tc-label-text">Сума позики</span>
+              <span class="tc-current-val" id="val-amt">10 000 грн</span>
+            </div>
+            <input type="range" min="500" max="25000" step="100" value="10000" class="tc-range-input" id="slide-amt">
+          </div>
+
+          <div class="tc-slider-container">
+            <div class="tc-label-group">
+              <span class="tc-label-text">Термін користування*</span>
+              <span class="tc-current-val" id="val-days">15 днів</span>
+            </div>
+            <input type="range" min="5" max="365" step="1" value="15" class="tc-range-input" id="slide-days">
+          </div>
+
+          <div class="tc-result-info">
+            <div class="tc-res-block">
+              <div class="tc-res-label">Отримуєте</div>
+              <div class="tc-res-num" id="res-in">10 000 грн</div>
+            </div>
+            <div class="tc-res-block">
+              <div class="tc-res-label">Повертаєте</div>
+              <div class="tc-res-num green" id="res-out">10 015 грн</div>
+            </div>
+          </div>
+
+          <div class="tc-promo-text">Вам доступна акційна ставка 0,01%*</div>
+
+          <div class="tc-btn-container">
+            <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" class="tc-submit-btn">ПОРІВНЯТИ ТА ОБРАТИ ПРОПОЗИЦІЮ</a>
+          </div>
+
+          <div class="tc-legal">*Увага: Даний розрахунок є попереднім. Максимальний термін погашення позики становить до 365 днів. Мінімальний термін з урахуванням пролонгації — 62 дні. Детальні умови кредитування та приклади розрахунку APR вказані у футері сайту.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-left">
+        <span class="section-label">Хто ми</span>
+        <h2 class="section-title">TREBA CASH — Ваш надійний <span>фінансовий компас</span></h2>
+        <p class="section-sub">Ми — незалежний та безкоштовний онлайн-сервіс порівняння фінансових пропозицій в Україні. Наша головна мета — допомогти вам швидко, прозоро та безпечно знайти оптимальні умови серед ліцензованих фінансових установ.</p>
+        <div class="about-features">
+          <div class="about-feature">
+            <div class="about-feature-icon">🔍</div>
+            <div class="about-feature-text"><strong>Незалежний аналіз ринку</strong>Ми аналізуємо актуальний ринок і фільтруємо пропозиції за ставками, термінами та рівнем лояльності.</div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">🚫</div>
+            <div class="about-feature-text"><strong>Не видаємо позики</strong>Сервіс не є кредитором. Ми допомагаємо зробити зважений вибір без прихованих комісій.</div>
+          </div>
+          <div class="about-feature">
+            <div class="about-feature-icon">✅</div>
+            <div class="about-feature-text"><strong>Тільки ліцензовані установи</strong>Всі партнери мають відповідні ліцензії НБУ та Нацкомфінпослуг.</div>
+          </div>
+        </div>
+        <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" class="btn-main">Знайти вигідні умови →</a>
+      </div>
+      <div class="about-visual">
+        <div class="about-circle">
+          <div class="about-circle-inner">
+            <div class="about-circle-num">100%</div>
+            <div class="about-circle-label">БЕЗКОШТОВНО</div>
+          </div>
+          <div class="orbit-item">💳</div>
+          <div class="orbit-item">🛡</div>
+          <div class="orbit-item">⚡</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="tips" id="tips">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Корисно знати</span>
+      <h2 class="section-title">Цікава інформація та <span>поради</span></h2>
+      <p class="section-sub">Розуміння умов — ключ до вигідного рішення. Дізнайтесь більше перед подачею заявки.</p>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <span class="tip-icon">💡</span>
+        <div class="tip-title">Що таке ставка 0,01%?</div>
+        <p class="tip-text">Маркетинговий інструмент ліцензованих МФО для нових клієнтів. Дозволяє протестувати сервіс майже без переплат під час першого звернення. Головне — повернути кошти вчасно.</p>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">🛡</span>
+        <div class="tip-title">Безпека ваших даних</div>
+        <p class="tip-text">Ми рекомендуємо працювати виключно з компаніями, які мають ліцензію НБУ. Вони використовують 256-бітне SSL-шифрування, що повністю виключає витік інформації.</p>
+      </div>
+      <div class="tip-card">
+        <span class="tip-icon">📈</span>
+        <div class="tip-title">Кредитна історія</div>
+        <p class="tip-text">Вчасне погашення навіть невеликих онлайн-позик автоматично передається в УБКІ, що допомагає ефективно відновити ваш фінансовий рейтинг для майбутніх великих банківських кредитів.</p>
+      </div>
+    </div>
+    <div class="btn-center">
+      <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" class="btn-main">Перейти до перевірених пропозицій →</a>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Чому обирають нас</span>
+      <h2 class="section-title">Переваги сервісу <span>TREBA CASH</span></h2>
+      <p class="section-sub">Ми зробили все, щоб підбір фінансових умов був максимально зручним та ефективним.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <div class="benefit-icon">⚡</div>
+        <div class="benefit-body">
+          <div class="benefit-title">Економія часу</div>
+          <div class="benefit-text">Автоматизовані системи партнерів аналізують анкети за 5-15 хвилин у режимі 24/7. Жодного очікування та черг.</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">📑</div>
+        <div class="benefit-body">
+          <div class="benefit-title">Без паперової тяганини</div>
+          <div class="benefit-text">Потрібні лише паспорт, ІПН та картка. Жодних довідок про доходи чи дзвінків родичам.</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">💎</div>
+        <div class="benefit-body">
+          <div class="benefit-title">Акційні програми</div>
+          <div class="benefit-text">Регулярне оновлення пропозицій зі зниженими ставками для нових відвідувачів. Не пропустіть вигідні умови.</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">⚖️</div>
+        <div class="benefit-body">
+          <div class="benefit-title">Висока лояльність</div>
+          <div class="benefit-text">Системи скорингу лояльно ставляться до студентів, пенсіонерів або осіб з неідеальним кредитним минулим.</div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-center">
+      <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" class="btn-main">Скористатися перевагами →</a>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps" id="steps">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Просто та зрозуміло</span>
+      <h2 class="section-title">Як це <span>працює?</span></h2>
+      <p class="section-sub">Лише 3 простих кроки відокремлюють вас від фінансового рішення.</p>
+    </div>
+    <div class="steps-timeline">
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-title">Параметри</div>
+        <p class="step-text">Задайте бажану суму та термін на нашому інтерактивному калькуляторі вище. Миттєво побачите орієнтовну суму до повернення.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-title">Перехід</div>
+        <p class="step-text">Натисніть кнопку підбору для переходу до автоматизованої системи фінансових пропозицій від ліцензованих партнерів.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-title">Отримання</div>
+        <p class="step-text">Заповніть коротку анкету на сайті обраного партнера та отримайте рішення онлайн. Кошти надходять на картку протягом 1-5 хвилин.</p>
+      </div>
+    </div>
+    <div class="btn-center">
+      <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" class="btn-main">Почати підбір →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label">Підтримка</span>
+      <h2 class="section-title">Часті запитання <span>користувачів</span></h2>
+      <p class="section-sub">Відповіді на найпоширеніші питання про роботу сервісу та умови партнерів.</p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">Скільки коштують послуги сервісу TREBA CASH?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Наш онлайн-сервіс є абсолютно безкоштовним. Ми не беремо жодних прихованих платежів, підписок чи комісій. Сервіс монетизується за рахунок партнерських відносин із ліцензованими установами, що ніяк не впливає на об'єктивність порівняння.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">На який термін можна отримати фінансову допомогу?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Згідно з вимогами законодавства та правилами партнерів, мінімальний термін становить 62 дні (з урахуванням пролонгації), а максимальний — до 365 днів. Конкретні умови залежать від обраної фінансової установи.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">Що потрібно для успішного оформлення?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Вам необхідно бути громадянином України віком від 18 років, мати паспорт, ІПН, мобільний телефон та активну картку будь-якого українського банку. Жодних довідок про доходи, поручителів чи застав не потрібно.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">Чи можна подати заявку вночі або у вихідний день?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Так, сервіси наших партнерів повністю автоматизовані та працюють цілодобово (24/7), без перерв та вихідних. Ви можете подати заявку в будь-який зручний для вас час.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">Як швидко кошти надходять на картку після схвалення?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Зазвичай переказ здійснюється миттєво після підписання електронного договору. Швидкість зарахування залежить виключно від вашого банку (від 1 до 5 хвилин).</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">Що таке пролонгація позики?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Це послуга продовження терміну дії договору без нарахування штрафів. Для цього потрібно сплатити лише вже нараховані відсотки. Вона забезпечує мінімальний термін користування коштами від 62 днів.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">Чи можна звернутися, якщо офіційно не працевлаштований?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">Так. Ліцензовані фінансові компанії враховують різні види доходів (стипендії, пенсії, дохід від фрілансу), тому довідка з місця роботи не є обов'язковою. Кожна заявка розглядається індивідуально.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-question-text">Що буде, якщо вчасно не повернути кошти?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </div>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">У разі прострочення компанії можуть нараховувати штрафні санкції, а інформація буде передана в Бюро кредитних історій, що погіршить ваш рейтинг. Рекомендуємо завжди користуватися послугою пролонгації та повертати кошти вчасно.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-center">
+      <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" class="btn-pulse">ПЕРЕЙТИ ДО ПІДБОРУ ПРОПОЗИЦІЙ →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo-wrap">
+          <div class="footer-logo-text">TREBA <span>CASH</span></div>
+        </div>
+        <p>Інформаційний сервіс порівняння фінансових послуг «TREBA CASH».</p>
+        <div class="footer-contact">
+          <p>Адреса для листування: 01015, м. Київ, вул. Лейпцизька, буд. 15, літ. Б.</p>
+          <p>Email: <a href="mailto:trebacash@outlook.com">trebacash@outlook.com</a></p>
+        </div>
+        <p style="margin-top: 12px;">Сайт trebacash.site є безкоштовним онлайн-агрегатором та не є фінансовою установою, банком або кредитором. Ми не видаємо позики і не беремо плату за послуги.</p>
+      </div>
+      <div>
+        <p style="font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 10px;">Умови надання послуг партнерами:</p>
+        <p>Мінімальний термін погашення позики становить 62 дні*, максимальний — 365 днів. Максимальна річна відсоткова ставка (APR) може становити до 620%. Для нових клієнтів діє акція від 0,01% на день.</p>
+        <p style="margin-top: 10px;">Приклад розрахунку: При сумі 5000 грн на 90 днів під 0,01% на день, сума відсотків складе 45 грн. Загальна сума до повернення — 5045 грн.</p>
+        <p style="margin-top: 10px;">*Мінімальний термін 62 дні вказано з урахуванням можливості безкоштовної або планової пролонгації позики. Невиконання зобов'язань перед кредитором може призвести до нарахування пені та погіршення кредитної історії.</p>
+        <div class="footer-partners" style="margin-top: 14px;">
+          <p style="font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 6px;">Партнери (ліцензовані установи України):</p>
+          <p>ТОВ «МАНІВЕО ШВИДКА ДОПОМОГА» (ЄДРПОУ 38569246, ліцензія Нацкомфінпослуг №161), ТОВ «ЛІНЕУРА УКРАЇНА» (ЄДРПОУ 42783922, свідоцтво ФК №1162), ТОВ «АВЕНТУС УКРАЇНА» (ЄДРПОУ 41050505, свідоцтво ФК №871).</p>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <p>© 2026 TREBA CASH. Всі права захищено. <a href="#">Політика конфіденційності</a> | <a href="#">Умови використання</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== HEADER SCROLL =====
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // ===== HAMBURGER =====
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  hamburger.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+  });
+  function closeMobileNav() { mobileNav.classList.remove('open'); }
+
+  // ===== CALCULATOR =====
+  function fmt(n) {
+    return n.toLocaleString('uk-UA', { maximumFractionDigits: 0 }) + ' грн';
+  }
+  function getDaysText(n) {
+    const abs = Math.abs(n);
+    const mod10 = abs % 10;
+    const mod100 = abs % 100;
+    if (mod100 >= 11 && mod100 <= 14) return n + ' днів';
+    if (mod10 === 1) return n + ' день';
+    if (mod10 >= 2 && mod10 <= 4) return n + ' дні';
+    return n + ' днів';
+  }
+
+  const slideAmt = document.getElementById('slide-amt');
+  const slideDays = document.getElementById('slide-days');
+  const valAmt = document.getElementById('val-amt');
+  const valDays = document.getElementById('val-days');
+  const resIn = document.getElementById('res-in');
+  const resOut = document.getElementById('res-out');
+
+  function updateCalc() {
+    const amt = parseFloat(slideAmt.value);
+    const days = parseFloat(slideDays.value);
+    const rate = 0.0001; // 0.01% per day
+    const interest = amt * rate * days;
+    const total = amt + interest;
+
+    valAmt.textContent = fmt(amt);
+    valDays.textContent = getDaysText(days);
+    resIn.textContent = fmt(amt);
+    resOut.textContent = fmt(Math.round(total));
+
+    // Update slider track fill
+    const amtPct = ((amt - 500) / (25000 - 500)) * 100;
+    const daysPct = ((days - 5) / (365 - 5)) * 100;
+    slideAmt.style.setProperty('--pct', amtPct.toFixed(1) + '%');
+    slideDays.style.setProperty('--pct', daysPct.toFixed(1) + '%');
+  }
+
+  slideAmt.addEventListener('input', updateCalc);
+  slideDays.addEventListener('input', updateCalc);
+  updateCalc();
+
+  // ===== FAQ ACCORDION =====
+  function toggleFaq(questionEl) {
+    const item = questionEl.parentElement;
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+      openItem.classList.remove('open');
+      openItem.querySelector('.faq-answer').style.maxHeight = '0';
+    });
+
+    if (!isOpen) {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + 40 + 'px';
+    }
+  }
+</script>
+</body>
+</html>
