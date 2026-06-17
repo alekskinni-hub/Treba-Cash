@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TREBA CASH — Підбір фінансових пропозицій за 30 секунд</title>
+<meta name="description" content="Дізнайтесь, які фінансові пропозиції доступні саме для вас. Три швидкі питання — і готово.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #27ae60;
+    --green-light: #2ecc71;
+    --green-dark: #1e8449;
+    --bg: #f8f9fa;
+    --white: #ffffff;
+    --text: #2d3436;
+    --text-muted: #636e72;
+    --gold: #f1c40f;
+    --dark: #1e272e;
+    --shadow: 0 8px 32px rgba(39,174,96,0.12);
+    --shadow-lg: 0 20px 60px rgba(39,174,96,0.18);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== HEADER ===== */
+  .qheader {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(39,174,96,0.12);
+    flex-shrink: 0;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--green), var(--green-light));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(39,174,96,0.35);
+  }
+  .logo-text {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+  .logo-text span { color: var(--green); }
+
+  /* ===== MAIN SHELL ===== */
+  .quiz-shell {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 28px 16px 48px;
+  }
+
+  .quiz-card {
+    width: 100%;
+    max-width: 480px;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg), 0 4px 16px rgba(0,0,0,0.05);
+    border: 1px solid rgba(39,174,96,0.1);
+    padding: 28px 22px 26px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* progress dots for q1-q3 */
+  .progress-dots {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 22px;
+  }
+  .progress-dots .dot {
+    flex: 1;
+    height: 4px;
+    border-radius: 4px;
+    background: #e7ece9;
+    overflow: hidden;
+  }
+  .progress-dots .dot.filled { background: var(--green); }
+
+  /* ===== STEPS ===== */
+  .step {
+    display: none;
+    animation: fadeUp 0.4s ease;
+  }
+  .step.active { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(20px, 5vw, 24px);
+    font-weight: 900;
+    line-height: 1.25;
+    color: var(--text);
+    margin-bottom: 26px;
+  }
+
+  /* ===== SLIDER (matches site calculator) ===== */
+  .tc-slider-container { margin-bottom: 28px; }
+  .tc-label-group { display: flex; justify-content: center; margin-bottom: 16px; }
+  .tc-current-val {
+    font-weight: 900;
+    color: var(--green);
+    font-size: 30px;
+    font-family: 'Unbounded', sans-serif;
+  }
+  .tc-range-input {
+    width: 100%;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(90deg, var(--green) var(--pct, 0%), #e0f5e9 var(--pct, 0%));
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    transition: background 0.1s;
+  }
+  .tc-range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 28px; height: 28px;
+    background: #fff;
+    border: 4px solid var(--green);
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(39,174,96,0.4);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .tc-range-input::-webkit-slider-thumb:hover,
+  .tc-range-input::-webkit-slider-thumb:active { transform: scale(1.15); box-shadow: 0 4px 16px rgba(39,174,96,0.55); }
+  .tc-range-input::-moz-range-thumb {
+    width: 28px; height: 28px;
+    background: #fff;
+    border: 4px solid var(--green);
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(39,174,96,0.4);
+    cursor: pointer;
+  }
+  .range-minmax {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn-main {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--green), var(--green-light));
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 17px 36px;
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 6px 24px rgba(39,174,96,0.38);
+    transition: transform 0.22s, box-shadow 0.22s, filter 0.22s;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+  }
+  .btn-main::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+    animation: flare 3.5s infinite 0.5s;
+  }
+  .btn-main:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 10px 30px rgba(39,174,96,0.46); filter: brightness(1.05); }
+  .btn-main:focus-visible { outline: 3px solid var(--green-dark); outline-offset: 2px; }
+  .btn-block { display: block; width: 100%; }
+
+  @keyframes flare {
+    0% { left: -100%; }
+    40%, 100% { left: 150%; }
+  }
+
+  .btn-pulse {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--green), var(--green-light));
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 16px;
+    padding: 19px 40px;
+    border-radius: 16px;
+    box-shadow: 0 6px 28px rgba(39,174,96,0.4);
+    transition: transform 0.22s, box-shadow 0.22s;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    animation: pulse-btn 2.5s ease-in-out infinite;
+  }
+  @keyframes pulse-btn {
+    0%, 100% { box-shadow: 0 6px 28px rgba(39,174,96,0.4), 0 0 0 0 rgba(39,174,96,0.4); }
+    50% { box-shadow: 0 6px 28px rgba(39,174,96,0.5), 0 0 0 16px rgba(39,174,96,0); }
+  }
+  .btn-pulse::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: flare 2.5s infinite 0.3s;
+  }
+  .btn-pulse:hover { transform: translateY(-3px) scale(1.03); }
+  .btn-pulse:focus-visible { outline: 3px solid var(--green-dark); outline-offset: 2px; }
+  .btn-center { text-align: center; margin: 28px 0 18px; }
+
+  /* ===== STATUS OPTIONS (step 3) ===== */
+  .status-options { display: flex; flex-direction: column; gap: 12px; }
+  .status-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    background: var(--bg);
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    padding: 18px 18px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s, transform 0.12s;
+  }
+  .status-btn .arrow { color: var(--green); font-size: 18px; flex-shrink: 0; transition: transform 0.18s; }
+  .status-btn:hover { border-color: rgba(39,174,96,0.35); background: #f0fdf4; }
+  .status-btn:hover .arrow { transform: translateX(3px); }
+  .status-btn:active { transform: scale(0.98); }
+  .status-btn:focus-visible { outline: 3px solid var(--green-dark); outline-offset: 2px; }
+  .status-btn.selected { border-color: var(--green); background: #f0fdf4; }
+
+  /* ===== STEP 4: PROCESSING ===== */
+  .processing-wrap { text-align: center; padding: 18px 4px 6px; }
+  .spinner {
+    width: 64px; height: 64px;
+    margin: 0 auto 28px;
+    border-radius: 50%;
+    border: 5px solid #e0f5e9;
+    border-top-color: var(--green);
+    animation: spin 0.9s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .progress-track {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: #e7ece9;
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--green), var(--green-light));
+    border-radius: 4px;
+    transition: width 1s linear;
+  }
+  .processing-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-muted);
+    min-height: 22px;
+    transition: opacity 0.25s ease;
+  }
+
+  /* ===== STEP 5: RESULT ===== */
+  .result-icon {
+    width: 64px; height: 64px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--green-light));
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 8px 24px rgba(39,174,96,0.35);
+  }
+  .result-icon svg { width: 30px; height: 30px; stroke: #fff; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  #step5 .step-title { text-align: center; margin-bottom: 10px; }
+  .result-sub {
+    text-align: center;
+    font-size: 14.5px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+  .info-block {
+    background: linear-gradient(135deg, #f0fdf4, #e8f8ef);
+    border: 1px solid rgba(39,174,96,0.18);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--green-dark);
+    line-height: 1.6;
+    text-align: center;
+  }
+  .fine-print {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.6;
+    opacity: 0.85;
+  }
+
+  /* ===== FOOTER (reused from main site) ===== */
+  .footer {
+    background: var(--dark);
+    padding: 40px 0;
+    color: rgba(255,255,255,0.45);
+    font-size: 11px;
+    line-height: 1.7;
+    flex-shrink: 0;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .footer-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; }
+  .footer-logo-wrap { margin-bottom: 16px; }
+  .footer-logo-text {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 8px;
+  }
+  .footer-logo-text span { color: var(--green); }
+  .footer-contact { margin-top: 14px; }
+  .footer-contact a { color: rgba(255,255,255,0.5); text-decoration: none; }
+  .footer-contact a:hover { color: var(--green); }
+  .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 28px 0; }
+  .footer-bottom { text-align: center; color: rgba(255,255,255,0.3); font-size: 11px; }
+  .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--green); }
+  .footer-partners { margin-top: 10px; }
+
+  @media (max-width: 700px) {
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  @media (max-width: 420px) {
+    .quiz-card { padding: 24px 18px 22px; }
+    .tc-current-val { font-size: 26px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="qheader">
+  <a href="index.html" class="logo">
+    <div class="logo-icon">💸</div>
+    <div class="logo-text">TREBA <span>CASH</span></div>
+  </a>
+</header>
+
+<!-- QUIZ -->
+<main class="quiz-shell">
+  <div class="quiz-card">
+
+    <div class="progress-dots" id="progressDots">
+      <div class="dot filled" data-dot="1"></div>
+      <div class="dot" data-dot="2"></div>
+      <div class="dot" data-dot="3"></div>
+    </div>
+
+    <!-- STEP 1: AMOUNT -->
+    <section class="step active" id="step1">
+      <h1 class="step-title">Яка сума вам потрібна?</h1>
+      <div class="tc-slider-container">
+        <div class="tc-label-group">
+          <span class="tc-current-val" id="val-amt">15 000 грн</span>
+        </div>
+        <input type="range" min="500" max="30000" step="100" value="15000" id="slide-amt" class="tc-range-input" aria-label="Сума коштів">
+        <div class="range-minmax"><span>500 грн</span><span>30 000 грн</span></div>
+      </div>
+      <button class="btn-main btn-block" onclick="goStep(2)">Далі</button>
+    </section>
+
+    <!-- STEP 2: TERM -->
+    <section class="step" id="step2">
+      <h1 class="step-title">На який термін вам потрібні кошти?</h1>
+      <div class="tc-slider-container">
+        <div class="tc-label-group">
+          <span class="tc-current-val" id="val-days">30 днів</span>
+        </div>
+        <input type="range" min="1" max="365" step="1" value="30" id="slide-days" class="tc-range-input" aria-label="Термін у днях">
+        <div class="range-minmax"><span>1 день</span><span>365 днів</span></div>
+      </div>
+      <button class="btn-main btn-block" onclick="goStep(3)">Далі</button>
+    </section>
+
+    <!-- STEP 3: EMPLOYMENT STATUS -->
+    <section class="step" id="step3">
+      <h1 class="step-title">Оберіть ваш поточний статус зайнятості</h1>
+      <div class="status-options">
+        <button class="status-btn" onclick="selectStatus(this)">Офіційне працевлаштування<span class="arrow">→</span></button>
+        <button class="status-btn" onclick="selectStatus(this)">Неофіційне працевлаштування<span class="arrow">→</span></button>
+        <button class="status-btn" onclick="selectStatus(this)">Фріланс / Самозайнятий<span class="arrow">→</span></button>
+        <button class="status-btn" onclick="selectStatus(this)">Тимчасово не працюю / Студент / Пенсіонер<span class="arrow">→</span></button>
+      </div>
+    </section>
+
+    <!-- STEP 4: PROCESSING -->
+    <section class="step" id="step4">
+      <div class="processing-wrap">
+        <div class="spinner"></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <p class="processing-text" id="processingText" aria-live="polite">Аналіз введених параметрів...</p>
+      </div>
+    </section>
+
+    <!-- STEP 5: RESULT -->
+    <section class="step" id="step5">
+      <div class="result-icon">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h1 class="step-title">Аналіз завершено</h1>
+      <p class="result-sub">На основі зазначених параметрів підготовлено список доступних фінансових пропозицій.</p>
+      <div class="info-block">Рекомендуємо порівняти умови кількох пропозицій перед оформленням заявки.</div>
+      <div class="btn-center">
+        <!-- СЮДИ ВСТАВИТИ ПОСИЛАННЯ НА ВІТРИНУ -->
+        <a href="#" target="_blank" class="btn-pulse">Переглянути пропозиції</a>
+      </div>
+      <p class="fine-print">Інформація на сторінці має ознайомчий характер. Остаточні умови кредитування визначаються фінансовими компаніями.</p>
+    </section>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo-wrap">
+          <div class="footer-logo-text">TREBA <span>CASH</span></div>
+        </div>
+        <p>Інформаційний сервіс порівняння фінансових послуг «TREBA CASH».</p>
+        <div class="footer-contact">
+          <p>Адреса для листування: 01015, м. Київ, вул. Лейпцизька, буд. 15, літ. Б.</p>
+          <p>Email: <a href="mailto:trebacash@outlook.com">trebacash@outlook.com</a></p>
+        </div>
+        <p style="margin-top: 12px;">Сайт trebacash.site є безкоштовним онлайн-агрегатором та не є фінансовою установою, банком або кредитором. Ми не видаємо позики і не беремо плату за послуги.</p>
+      </div>
+      <div>
+        <p style="font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 10px;">Умови надання послуг партнерами:</p>
+        <p>Мінімальний термін погашення позики становить 62 дні*, максимальний — 365 днів. Максимальна річна відсоткова ставка (APR) може становити до 620%. Для нових клієнтів діє акція від 0,01% на день.</p>
+        <p style="margin-top: 10px;">Приклад розрахунку: При сумі 5000 грн на 90 днів під 0,01% на день, сума відсотків складе 45 грн. Загальна сума до повернення — 5045 грн.</p>
+        <p style="margin-top: 10px;">*Мінімальний термін 62 дні вказано з урахуванням можливості безкоштовної або планової пролонгації позики. Невиконання зобов'язань перед кредитором може призвести до нарахування пені та погіршення кредитної історії.</p>
+        <div class="footer-partners" style="margin-top: 14px;">
+          <p style="font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 6px;">Партнери (ліцензовані установи України):</p>
+          <p>ТОВ «МАНІВЕО ШВИДКА ДОПОМОГА» (ЄДРПОУ 38569246, ліцензія Нацкомфінпослуг №161), ТОВ «ЛІНЕУРА УКРАЇНА» (ЄДРПОУ 42783922, свідоцтво ФК №1162), ТОВ «АВЕНТУС УКРАЇНА» (ЄДРПОУ 41050505, свідоцтво ФК №871).</p>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <p>© 2026 TREBA CASH. Всі права захищено.
+<a href="privacy-policy.html" target="_blank">Політика конфіденційності</a> |
+<a href="terms.html" target="_blank">Умови використання</a>
+</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== HELPERS =====
+  function fmtAmt(n) {
+    return n.toLocaleString('uk-UA', { maximumFractionDigits: 0 }) + ' грн';
+  }
+  function fmtDays(n) {
+    const abs = Math.abs(n);
+    const mod10 = abs % 10;
+    const mod100 = abs % 100;
+    let word = 'днів';
+    if (mod100 >= 11 && mod100 <= 14) word = 'днів';
+    else if (mod10 === 1) word = 'день';
+    else if (mod10 >= 2 && mod10 <= 4) word = 'дні';
+    return n + ' ' + word;
+  }
+
+  // ===== SLIDERS =====
+  const slideAmt = document.getElementById('slide-amt');
+  const slideDays = document.getElementById('slide-days');
+  const valAmt = document.getElementById('val-amt');
+  const valDays = document.getElementById('val-days');
+
+  function updateAmt() {
+    const amt = parseFloat(slideAmt.value);
+    valAmt.textContent = fmtAmt(amt);
+    const pct = ((amt - 500) / (30000 - 500)) * 100;
+    slideAmt.style.setProperty('--pct', pct.toFixed(1) + '%');
+  }
+  function updateDays() {
+    const days = parseFloat(slideDays.value);
+    valDays.textContent = fmtDays(days);
+    const pct = ((days - 1) / (365 - 1)) * 100;
+    slideDays.style.setProperty('--pct', pct.toFixed(1) + '%');
+  }
+  slideAmt.addEventListener('input', updateAmt);
+  slideDays.addEventListener('input', updateDays);
+  updateAmt();
+  updateDays();
+
+  // ===== STEP NAVIGATION =====
+  const steps = document.querySelectorAll('.step');
+  const dots = document.querySelectorAll('.progress-dots .dot');
+
+  function goStep(n) {
+    steps.forEach(s => s.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+
+    if (n <= 3) {
+      dots.forEach((d, i) => d.classList.toggle('filled', i < n));
+    }
+  }
+
+  function selectStatus(btn) {
+    document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    setTimeout(() => {
+      goStep(4);
+      runProcessing();
+    }, 200);
+  }
+
+  // ===== STEP 4: PROCESSING SIMULATION =====
+  function runProcessing() {
+    const textEl = document.getElementById('processingText');
+    const fillEl = document.getElementById('progressFill');
+    const messages = [
+      'Аналіз введених параметрів...',
+      'Формування списку доступних пропозицій...',
+      'Підготовка результатів...'
+    ];
+
+    textEl.textContent = messages[0];
+    textEl.style.opacity = 1;
+    fillEl.style.width = '0%';
+
+    requestAnimationFrame(() => { fillEl.style.transition = 'width 3s linear'; fillEl.style.width = '100%'; });
+
+    [1, 2].forEach((idx) => {
+      setTimeout(() => {
+        textEl.style.opacity = 0;
+        setTimeout(() => {
+          textEl.textContent = messages[idx];
+          textEl.style.opacity = 1;
+        }, 250);
+      }, idx * 1000);
+    });
+
+    setTimeout(() => {
+      goStep(5);
+    }, 3000);
+  }
+</script>
+</body>
+</html>
