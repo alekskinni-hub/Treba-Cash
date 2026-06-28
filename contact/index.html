@@ -12,18 +12,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#27ae60" />
   <title>Контакти — TREBA CASH</title>
   <meta name="description" content="Зв'яжіться з TREBA CASH: загальні питання, партнерство, повідомлення про помилку в статті чи запит щодо персональних даних. Відповідаємо протягом 5 робочих днів." />
   <link rel="canonical" href="https://trebacash.site/contact/" />
+  <link rel="alternate" hreflang="uk-UA" href="https://trebacash.site/contact/" />
+  <link rel="alternate" hreflang="x-default" href="https://trebacash.site/contact/" />
   <meta property="og:locale" content="uk_UA" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="TREBA CASH" />
   <meta property="og:title" content="Контакти — TREBA CASH" />
   <meta property="og:description" content="Зв'яжіться з TREBA CASH: загальні питання, партнерство, повідомлення про помилку в статті чи запит щодо персональних даних. Відповідаємо протягом 5 робочих днів." />
   <meta property="og:url" content="https://trebacash.site/contact/" />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:image" content="https://trebacash.site/assets/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="TREBA CASH — порівняння фінансових пропозицій в Україні" />
+  <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Контакти — TREBA CASH" />
-  <meta name="twitter:description" content="Зв'яжіться з TREBA CASH: загальні питання, партнерство, повідомлення про помилку в статті чи запит щодо персональних даних. Відповідаємо протягом 5 робочих днів." />
+  <meta name="twitter:description" content="Зв'яжіться з TREBA CASH: загальні питання, партнерство, повідомлення про помилку в статті чи запит щодо персональних даних." />
+  <meta name="twitter:image" content="https://trebacash.site/assets/og-image.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
   <script type="application/ld+json">{
     "@context": "https://schema.org",
     "@graph": [
@@ -40,9 +56,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "url": "https://trebacash.site",
         "name": "TREBA CASH",
         "inLanguage": "uk-UA",
-        "publisher": {
-          "@id": "https://trebacash.site/#organization"
-        }
+        "publisher": { "@id": "https://trebacash.site/#organization" }
       },
       {
         "@type": "ContactPage",
@@ -51,210 +65,159 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         "name": "Контакти — TREBA CASH",
         "description": "Зв'яжіться з TREBA CASH: загальні питання, партнерство, повідомлення про помилку в статті чи запит щодо персональних даних. Відповідаємо протягом 5 робочих днів.",
         "inLanguage": "uk-UA",
-        "isPartOf": {
-          "@id": "https://trebacash.site/#website"
-        }
+        "isPartOf": { "@id": "https://trebacash.site/#website" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://trebacash.site/contact/#breadcrumbs",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Головна", "item": "https://trebacash.site/" },
+          { "@type": "ListItem", "position": 2, "name": "Контакти", "item": "https://trebacash.site/contact/" }
+        ]
       }
     ]
   }</script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Unbounded:wght@700;900&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green-deep:   #1a6b3c;
-      --green-mid:    #2a8f52;
-      --green-light:  #d6f0e0;
-      --green-accent: #34c472;
-      --ink:          #12201a;
-      --ink-soft:     #3d5247;
-      --smoke:        #f4f8f5;
-      --border:       #cde8d9;
+      --green:        #27ae60;
+      --green-light:  #2ecc71;
+      --green-dark:   #1e8449;
+      --bg:           #f8f9fa;
       --white:        #ffffff;
-      --shadow:       0 4px 32px rgba(26,107,60,.09);
+      --text:         #2d3436;
+      --text-muted:   #636e72;
+      --dark:         #1e272e;
+      --shadow:       0 8px 32px rgba(39,174,96,0.12);
+      --radius:       20px;
+      --radius-sm:    12px;
+
+      --green-deep:   #1e8449;
+      --green-mid:    #27ae60;
+      --green-tint:   #e7f7ee;
+      --green-accent: #2ecc71;
+      --ink:          #2d3436;
+      --ink-soft:     #636e72;
+      --smoke:        #f4f8f5;
+      --border:       #d8efe2;
+      --card-shadow:  0 4px 32px rgba(30,132,73,.09);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Mulish', sans-serif;
+      font-family: 'Manrope', sans-serif;
       font-weight: 400;
       font-size: 15.5px;
       line-height: 1.8;
       color: var(--ink);
-      background: var(--smoke);
+      background: var(--bg);
       min-height: 100vh;
-      padding: 48px 16px 80px;
+      padding: 104px 16px 80px;
     }
 
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 28px;
-      font-size: 13.5px;
-      font-weight: 600;
-      letter-spacing: .04em;
-      color: var(--green-deep);
-      text-decoration: none;
-      transition: gap .2s;
+    .header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(255,255,255,0.82); backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(39,174,96,0.12);
+      padding: 0 24px; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 8px 30px rgba(30,39,46,0.05);
     }
-    .back-link:hover { gap: 10px; color: var(--green-mid); }
-    .back-link svg { flex-shrink: 0; }
+    .header.scrolled { box-shadow: 0 4px 24px rgba(39,174,96,0.13); }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .logo-icon img { width: 100%; height: 100%; object-fit: contain; }
+    .logo-text { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 900; color: var(--text); }
+    .logo-text span { color: var(--green); }
+    .nav { display: flex; gap: 6px; align-items: center; }
+    .nav a { font-size: 13px; font-weight: 600; color: var(--text-muted); text-decoration: none; padding: 6px 12px; border-radius: 8px; transition: color 0.2s, background 0.2s; }
+    .nav a:hover { color: var(--green); background: rgba(39,174,96,0.08); }
+    .btn-header { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(90deg, var(--green), var(--green-light)); color: #fff !important; text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 20px; border-radius: 10px; box-shadow: 0 4px 16px rgba(39,174,96,0.35); transition: transform 0.2s; }
+    .btn-header:hover { transform: translateY(-2px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; }
+    .mobile-nav { display: none; position: fixed; top: 68px; left: 0; right: 0; background: #fff; padding: 16px 24px; border-bottom: 1px solid rgba(39,174,96,0.12); flex-direction: column; gap: 4px; z-index: 999; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+    @media (max-width: 768px) { .nav { display: none; } .btn-header { display: none; } .hamburger { display: flex; } }
+
+    .skip-link { position: absolute; left: -999px; top: 8px; z-index: 2000; background: var(--green); color: #fff; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; }
+    .skip-link:focus { left: 12px; }
+
+    .breadcrumbs { max-width: 820px; margin: 0 auto; padding: 0 0 16px; font-size: 13px; color: var(--text-muted); }
+    .breadcrumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+    .breadcrumbs li::after { content: '›'; margin-left: 6px; color: var(--text-muted); }
+    .breadcrumbs li:last-child::after { content: ''; margin-left: 0; }
+    .breadcrumbs a { color: var(--green); text-decoration: none; }
+    .breadcrumbs a:hover { text-decoration: underline; }
 
     .card {
-      max-width: 820px;
-      margin: 0 auto;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      max-width: 820px; margin: 0 auto; background: var(--white);
+      border: 1px solid var(--border); border-radius: 18px; box-shadow: var(--card-shadow); overflow: hidden;
     }
 
     .card-header {
       background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
-      padding: 48px 52px 40px;
-      position: relative;
-      overflow: hidden;
+      padding: 48px 52px 40px; position: relative; overflow: hidden;
     }
-    .card-header::before {
-      content: '';
-      position: absolute;
-      right: -60px; top: -60px;
-      width: 260px; height: 260px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.06);
-    }
-    .card-header::after {
-      content: '';
-      position: absolute;
-      right: 40px; bottom: -80px;
-      width: 180px; height: 180px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.04);
-    }
+    .card-header::before { content: ''; position: absolute; right: -60px; top: -60px; width: 260px; height: 260px; border-radius: 50%; background: rgba(255,255,255,.06); }
+    .card-header::after { content: ''; position: absolute; right: 40px; bottom: -80px; width: 180px; height: 180px; border-radius: 50%; background: rgba(255,255,255,.04); }
     .badge {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--green-accent);
-      background: rgba(52,196,114,.14);
-      border: 1px solid rgba(52,196,114,.3);
-      border-radius: 20px;
-      padding: 4px 14px;
-      margin-bottom: 18px;
+      display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--green-accent); background: rgba(46,204,113,.16); border: 1px solid rgba(46,204,113,.32);
+      border-radius: 20px; padding: 4px 14px; margin-bottom: 18px;
     }
-    .card-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(26px, 4vw, 36px);
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1.25;
-      margin-bottom: 14px;
-    }
-    .card-header .meta {
-      font-size: 13px;
-      color: rgba(255,255,255,.65);
-      font-weight: 300;
-    }
-    .card-header .meta strong { color: rgba(255,255,255,.9); font-weight: 600; }
+    .card-header h1 { font-family: 'Unbounded', sans-serif; font-size: clamp(24px, 4vw, 34px); font-weight: 900; color: var(--white); line-height: 1.25; margin-bottom: 14px; }
+    .card-header .meta { font-size: 13px; color: rgba(255,255,255,.65); font-weight: 400; }
+    .card-header .meta strong { color: rgba(255,255,255,.9); font-weight: 700; }
 
     .card-body { padding: 52px 52px 56px; }
 
-    .notice {
-      background: var(--green-light);
-      border-left: 4px solid var(--green-accent);
-      border-radius: 0 10px 10px 0;
-      padding: 16px 20px;
-      margin-bottom: 40px;
-      font-size: 14px;
-      color: var(--green-deep);
-      font-weight: 500;
-    }
+    .notice { background: var(--green-tint); border-left: 4px solid var(--green-accent); border-radius: 0 10px 10px 0; padding: 16px 20px; margin-bottom: 40px; font-size: 14px; color: var(--green-deep); font-weight: 600; }
 
     .section { margin-bottom: 44px; }
     .section:last-child { margin-bottom: 0; }
-
-    .section-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px; height: 32px;
-      border-radius: 8px;
-      background: var(--green-light);
-      color: var(--green-deep);
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      flex-shrink: 0;
-    }
-
-    .section h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 19px;
-      font-weight: 600;
-      color: var(--green-deep);
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .section-number { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; background: var(--green-tint); color: var(--green-deep); font-size: 12px; font-weight: 700; margin-bottom: 10px; flex-shrink: 0; }
+    .section h2 { font-family: 'Unbounded', sans-serif; font-size: 19px; font-weight: 800; color: var(--green-deep); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
 
     p { margin-bottom: 12px; color: var(--ink-soft); }
     p:last-child { margin-bottom: 0; }
+    strong { color: var(--ink); font-weight: 700; }
+    a { color: var(--green-deep); }
 
-    strong { color: var(--ink); font-weight: 600; }
-
-    /* contacts block */
-    .contacts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-    .contact-item {
-      background: var(--smoke);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 20px;
-    }
-    .contact-item .label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--green-mid);
-      margin-bottom: 6px;
-    }
-    .contact-item .value {
-      font-size: 14.5px;
-      color: var(--ink);
-      font-weight: 500;
-    }
+    .contacts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 16px; }
+    .contact-item { background: var(--smoke); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+    .contact-item .label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--green-mid); margin-bottom: 6px; }
+    .contact-item .value { font-size: 14.5px; color: var(--ink); font-weight: 500; }
     .contact-item a { color: var(--green-deep); text-decoration: none; }
     .contact-item a:hover { text-decoration: underline; }
 
-    .card-footer {
-      border-top: 1px solid var(--border);
-      padding: 22px 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+    .card-footer { border-top: 1px solid var(--border); padding: 22px 52px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
     .card-footer span { font-size: 12.5px; color: #8aa69a; }
     .card-footer a { color: var(--green-mid); text-decoration: none; font-size: 12.5px; }
     .card-footer a:hover { text-decoration: underline; }
 
+    .footer { background: var(--dark); padding: 48px 0; color: rgba(255,255,255,0.45); font-size: 11px; line-height: 1.7; margin-top: 56px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .footer-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; }
+    .footer-logo-text { font-family: 'Unbounded', sans-serif; font-size: 16px; font-weight: 900; color: rgba(255,255,255,0.8); margin-bottom: 8px; }
+    .footer-logo-text span { color: var(--green); }
+    .footer-contact { margin-top: 14px; }
+    .footer-contact a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .footer-contact a:hover { color: var(--green); }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 28px 0; }
+    .footer-bottom { text-align: center; color: rgba(255,255,255,0.3); font-size: 11px; }
+    .footer-bottom a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--green); }
+    @media (max-width: 900px) { .footer-inner { grid-template-columns: 1fr; gap: 24px; } }
+
     @media (max-width: 600px) {
+      body { padding-top: 92px; }
       .card-header, .card-body, .card-footer { padding-left: 24px; padding-right: 24px; }
       .card-footer { flex-direction: column; align-items: flex-start; }
     }
@@ -266,19 +229,38 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
+<a class="skip-link" href="#main">Перейти до основного контенту</a>
 
-  <div style="max-width:820px;margin:0 auto;">
-    <a href="/" class="back-link">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Повернутися на головну
-    </a>
+<header class="header" id="main-header">
+  <a href="/" class="logo">
+    <div class="logo-icon"><img src="/assets/logo-icon.png" alt="TREBA CASH" width="36" height="36"></div>
+    <div class="logo-text">TREBA <span>CASH</span></div>
+  </a>
+  <nav class="nav">
+    <a href="/">Головна</a>
+    <a href="/blog/">Блог</a>
+  </nav>
+  <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" rel="sponsored nofollow noopener noreferrer" class="btn-header">Переглянути пропозиції →</a>
+  <div class="hamburger" id="hamburger" onclick="document.getElementById('mobile-nav').classList.toggle('open')">
+    <span></span><span></span><span></span>
   </div>
+</header>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="/">Головна</a>
+  <a href="/blog/">Блог</a>
+  <a href="https://trebacash.com.ua/v/9lzdq" target="_blank" rel="sponsored nofollow noopener noreferrer" style="color: var(--green);">Переглянути пропозиції →</a>
+</div>
+
+<main id="main">
+  <nav class="breadcrumbs" aria-label="Хлібні крихти">
+    <ol>
+      <li><a href="/">Головна</a></li>
+      <li aria-current="page">Контакти</li>
+    </ol>
+  </nav>
 
   <div class="card">
 
-    <!-- HEADER -->
     <div class="card-header">
       <div class="badge">Зв'язок з нами</div>
       <h1>Контакти</h1>
@@ -288,14 +270,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </p>
     </div>
 
-    <!-- BODY -->
     <div class="card-body">
 
       <div class="notice">
         Оберіть привід звернення нижче — це допоможе нам швидше опрацювати запит.
       </div>
 
-      <!-- 1 -->
       <div class="section">
         <h2><span class="section-number">1</span>Як до нас звернутися</h2>
         <div class="contacts-grid">
@@ -320,14 +300,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p>Питання щодо обробки персональних даних розглядаються відповідно до нашої <a href="/privacy-policy/">Політики конфіденційності</a>.</p>
       </div>
 
-    </div><!-- /card-body -->
+    </div>
 
     <div class="card-footer">
       <span>© 2026 TREBA CASH · trebacash.site · Усі права захищені</span>
       <a href="/about/">Про нас →</a>
     </div>
 
-  </div><!-- /card -->
+  </div>
+</main>
 
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-logo-text">TREBA <span>CASH</span></div>
+        <p>Інформаційний сервіс порівняння фінансових послуг «TREBA CASH».</p>
+        <div class="footer-contact">
+          <p>Адреса для листування: 01015, м. Київ, вул. Лейпцизька, буд. 15, літ. Б.</p>
+          <p>Email: <a href="mailto:trebacash@outlook.com">trebacash@outlook.com</a></p>
+        </div>
+        <p style="margin-top: 12px;">Сайт trebacash.site є безкоштовним онлайн-агрегатором та не є фінансовою установою, банком або кредитором. Ми не видаємо позики і не беремо плату за послуги.</p>
+      </div>
+      <div>
+        <p style="font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 10px;">Умови надання послуг партнерами:</p>
+        <p>Мінімальний термін погашення позики становить 62 дні*, максимальний — 365 днів. Максимальна річна відсоткова ставка (APR) може становити до 620%. Для нових клієнтів діє акція від 0,01% на день.</p>
+        <p style="margin-top: 10px;">Приклад розрахунку: При сумі 5000 грн на 90 днів під 0,01% на день, сума відсотків складе 45 грн. Загальна сума до повернення — 5045 грн.</p>
+        <p style="margin-top: 10px;">*Мінімальний термін 62 дні вказано з урахуванням можливості безкоштовної або планової пролонгації позики. Невиконання зобов'язань перед кредитором може призвести до нарахування пені та погіршення кредитної історії.</p>
+        <div style="margin-top: 14px;">
+          <p style="font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 6px;">Партнери (ліцензовані установи України):</p>
+          <p>ТОВ «МАНІВЕО ШВИДКА ДОПОМОГА» (ЄДРПОУ 38569246, ліцензія Нацкомфінпослуг №161), ТОВ «ЛІНЕУРА УКРАЇНА» (ЄДРПОУ 42783922, свідоцтво ФК №1162), ТОВ «АВЕНТУС УКРАЇНА» (ЄДРПОУ 41050505, свідоцтво ФК №871).</p>
+        </div>
+      </div>
+    </div>
+    <hr class="footer-divider">
+    <div class="footer-bottom">
+      <p>© 2026 TREBA CASH. Всі права захищено.
+<a href="/privacy-policy/" target="_blank">Політика конфіденційності</a> |
+<a href="/terms/" target="_blank">Умови використання</a>
+</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-header').classList.toggle('scrolled', window.scrollY > 10);
+  });
+</script>
 </body>
 </html>
