@@ -1,1 +1,15 @@
+# robots.txt for TrebaCash
+# https://trebacash.site
 
+User-agent: *
+Allow: /
+
+# Technical pages
+Disallow: /404
+Disallow: /500
+
+# Sitemap
+Sitemap: https://trebacash.site/sitemap.xml
+
+# RSS Feed
+Sitemap: https://trebacash.site/rss.xml
