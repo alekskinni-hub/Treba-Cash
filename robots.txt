@@ -1,16 +1,1 @@
-# robots.txt — trebacash.site
-# Оновлено: 2026-07-12
 
-User-agent: *
-Allow: /
-
-# Технічні сторінки без індексації
-Disallow: /cdn-cgi/
-Disallow: /.git/
-
-# Ключові XML-файли
-Sitemap: https://trebacash.site/sitemap.xml
-Sitemap: https://trebacash.site/rss.xml
-
-# Пауза між запитами краулерів
-Crawl-delay: 1
