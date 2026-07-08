@@ -753,8 +753,6 @@ const heroObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.5 });
 heroStatEls.forEach(el => heroObserver.observe(el));
-</script>
-
 /* ====== REQUISITES SECTION (alphabetical, dashed cards) ====== */
 function requisiteCardHTML(m) {
   if (!m.legal) {
@@ -781,6 +779,7 @@ if (requisitesGrid) {
   const sortedByName = [...MFO_DATA].sort((a, b) => a.name.localeCompare(b.name, 'uk'));
   requisitesGrid.innerHTML = sortedByName.map(requisiteCardHTML).join('');
 }
+</script>
 
 </body>
 </html>
