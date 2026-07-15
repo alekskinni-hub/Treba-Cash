@@ -21,7 +21,7 @@ if not API_KEY:
     print("   Додай її в GitHub → Settings → Secrets and variables → Actions")
     sys.exit(1)
 
-API_URL = f"https://pdl-profit.com/partnerapi/offers/data?api_key={API_KEY}&country=UA&mode=CPL"
+API_URL = f"https://pdl-profit.com/partnerapi/offers/data?api_key={API_KEY}&country=UA"
 
 # ── Реквізити та дані, яких немає в API (юрособа, ЄДРПОУ, адреса) ──
 # Підтягуються з окремого локального файлу requisites.json (не з API)
@@ -29,26 +29,40 @@ REQUISITES_FILE = "requisites.json"
 
 
 def fetch_offers():
-    """Робить запит до PDL-Profit API і повертає список офферів."""
-    req = urllib.request.Request(API_URL, headers={"User-Agent": "TrebaCash-Bot/1.0"})
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            raw = resp.read().decode("utf-8")
-    except urllib.error.URLError as e:
-        print(f"❌ Помилка запиту до API: {e}")
-        sys.exit(1)
+    """Робить запит до PDL-Profit API і повертає список офферів (з урахуванням пагінації)."""
+    all_offers = []
+    page = 1
+    max_pages = 1
 
-    try:
-        payload = json.loads(raw)
-    except json.JSONDecodeError:
-        print("❌ Відповідь API не є коректним JSON")
-        sys.exit(1)
+    while page <= max_pages:
+        url = f"{API_URL}&page={page}"
+        req = urllib.request.Request(url, headers={"User-Agent": "TrebaCash-Bot/1.0"})
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                raw = resp.read().decode("utf-8")
+        except urllib.error.URLError as e:
+            print(f"❌ Помилка запиту до API (сторінка {page}): {e}")
+            sys.exit(1)
 
-    if payload.get("status") != "success":
-        print(f"❌ API повернув помилку: {payload.get('message')}")
-        sys.exit(1)
+        try:
+            payload = json.loads(raw)
+        except json.JSONDecodeError:
+            print(f"❌ Відповідь API не є коректним JSON (сторінка {page})")
+            sys.exit(1)
 
-    return payload.get("data", [])
+        if payload.get("status") != "success":
+            print(f"❌ API повернув помилку: {payload.get('message')}")
+            sys.exit(1)
+
+        page_offers = payload.get("data", [])
+        all_offers.extend(page_offers)
+
+        max_pages = payload.get("pages", 1)
+        total_count = payload.get("count")
+        print(f"   Сторінка {page}/{max_pages}: отримано {len(page_offers)} офферів (total count у відповіді: {total_count})")
+        page += 1
+
+    return all_offers
 
 
 def load_requisites():
