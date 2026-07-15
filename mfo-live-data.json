@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-07-15T12:44:53.919909+00:00",
+  "count": 1,
+  "offers": [
+    {
+      "id": 1374,
+      "name": "ШвидкоГроші",
+      "logo": "https://pdl-profit.com/uploads/2023-11-20/file_655b45646808c.png",
+      "ref": "http://tds.pdl-profit.com?offerid=1374&affid=62311",
+      "sum": 50000,
+      "term": 217,
+      "rateMin": 3.6,
+      "rateMax": 912.5,
+      "badge": "До 50 000 ₴ на картку",
+      "badgeColor": "blue",
+      "hasZeroBadge": true,
+      "goldBadgeText": "Перша позика під 0.01%*",
+      "legal": "ТОВ «СПОЖИВЧИЙ ЦЕНТР»",
+      "edrpou": "37356833",
+      "address": "01032, м. Київ, вул. Саксаганського, 133-А",
+      "phone": null,
+      "email": null
+    }
+  ]
+}
