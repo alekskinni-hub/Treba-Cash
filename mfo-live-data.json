@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T21:30:03.497878+00:00",
+  "generatedAt": "2026-07-16T08:02:20.382663+00:00",
   "count": 41,
   "offers": [
     {
@@ -205,9 +205,9 @@
       "badgeColor": "teal",
       "hasZeroBadge": true,
       "goldBadgeText": "Перша позика під 0.01%*",
-      "legal": null,
-      "edrpou": null,
-      "address": null,
+      "legal": "ТОВ «MILOAN»",
+      "edrpou": "40484607",
+      "address": "м. Київ, вул. Багговутівська, 17-21",
       "phone": null,
       "email": null
     },
@@ -395,11 +395,11 @@
       "badgeColor": "green",
       "hasZeroBadge": false,
       "goldBadgeText": null,
-      "legal": null,
-      "edrpou": null,
-      "address": null,
-      "phone": null,
-      "email": null
+      "legal": "ТОВ «ФК ПРОСТО КРЕДИТ»",
+      "edrpou": "43601144",
+      "address": "01054, м. Київ, вул. Франка Івана, 40б, оф. 206",
+      "phone": "0 800 33-34-34",
+      "email": "info@prostocredit.com.ua"
     },
     {
       "id": 2605,
