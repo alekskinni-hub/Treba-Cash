@@ -660,7 +660,7 @@ function cardHTML(m, idx) {
     <div class="mfo-badges-row">${badgesHTML}</div>
     <div class="mfo-card-top">
       <div class="mfo-logo-wrap">
-        <img src="/mfo-logos/${m.logo}" alt="${m.name}" loading="lazy"
+        <img src="${m.logo && m.logo.startsWith('http') ? m.logo : '/mfo-logos/' + m.logo}" alt="${m.name}" loading="lazy"
              onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\\'mfo-logo-fallback\\' style=\\'background:${fbColor}\\'>${initials(m.name)}</div>';">
       </div>
       <div>
