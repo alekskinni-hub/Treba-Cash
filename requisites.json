@@ -264,5 +264,19 @@
     "address": "01054, м. Київ, вул. І. Франка, 42Б",
     "phone": null,
     "email": null
+  },
+  "Tengo": {
+    "legal": "ТОВ «MILOAN»",
+    "edrpou": "40484607",
+    "address": "м. Київ, вул. Багговутівська, 17-21",
+    "phone": null,
+    "email": null
+  },
+  "Prostocredit": {
+    "legal": "ТОВ «ФК ПРОСТО КРЕДИТ»",
+    "edrpou": "43601144",
+    "address": "01054, м. Київ, вул. Франка Івана, 40б, оф. 206",
+    "phone": "0 800 33-34-34",
+    "email": "info@prostocredit.com.ua"
   }
 }
