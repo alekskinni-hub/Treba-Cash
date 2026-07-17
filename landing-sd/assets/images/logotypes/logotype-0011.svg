@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.2" baseProfile="tiny" id="Слой_1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="128px" height="128px"
+	 viewBox="0 0 128 128" xml:space="preserve">
+<g>
+	<path fill-rule="evenodd" fill="#FFFFFF" d="M63.5,0C28.43,0,0,28.43,0,63.501C0,98.572,28.43,127,63.5,127
+		c35.072,0,63.5-28.428,63.5-63.499C127,28.43,98.572,0,63.5,0z M65.477,14.15L95.23,62.648L65.477,49.354L35.719,62.648
+		L65.477,14.15z M65.477,51.087L95.23,64.373L65.477,81.648L35.719,64.373L65.477,51.087z M65.643,110.875L35.969,69.914
+		l29.595,17.223L95.25,69.914L65.643,110.875z"/>
+</g>
+</svg>
