@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+
+
+
+#constructor html, #constructor body { height: 100%; position: relative; }
+
+#constructor #constructorSidebar label > span, #constructor #constructorSidebar div.label > span { display: inline-block; margin-bottom: 0.3rem; }
+
+
+
+/* Scrollbars */
+* { scrollbar-width: none !important; } *::-webkit-scrollbar { width: 0px; height: 0px; } ::-webkit-scrollbar-button { color: #ffffff20; }
+/*#constructorSidebar:hover, #constructorSidebar textarea:hover, #constructorSidebar #offers-wrapper:hover, #viewShowcase:hover { scrollbar-width: thin !important; }
+#constructorSidebar:hover::-webkit-scrollbar, #constructorSidebar textarea:hover::-webkit-scrollbar, #constructorSidebar #offers-wrapper:hover::-webkit-scrollbar, #viewShowcase:hover::-webkit-scrollbar { width: 7px; height: 7px;}*/
+
+#constructor { font-family: "Roboto", sans-serif; overflow-x: hidden; min-height: 100vh; }
+#constructorSidebar input, #constructorSidebar select, #constructorSidebar textarea, #constructorSidebar button { box-shadow: none !important; }
+
+#constructor :invalid { border-color: #dc3545; }
+#constructorSidebar input.has-error { border: 1px solid #dc354544; }
+
+#offers-wrapper .form-check:hover .form-check-label span { background: none !important; }
+
+#constructor .alert.alert-warning { border: 1px solid #85640420; color: #404040; margin-top: 1rem; font-size: 0.95rem; }
+#constructor .bg-blue {background-color: rgba(217,235,255, 0.15); }
+#constructor .bg-yellow {background-color: rgba(255,193,7, 0.15); }
+#constructor .btn-link, #constructor .btn-link:visited, #constructor .btn-success, #constructor a, #constructor a:visited, #constructor .btn-success:visited { color: #7faf2a; }
+#constructor .btn-link:hover, #constructor a:hover { color: #71a117; }
+#constructor .btn-success, #constructor .btn-success:visited { background-color: #7faf2a !important; border-color: #7faf2a; color: #fff; }
+#constructor .btn-success:hover { background-color: #71a117; border-color: #71a117; color: #fff; }
+#constructorSidebar .button:focus, #constructorSidebar input:focus, #constructorSidebar select:focus { box-shadow: 0 0 0 0.2rem #7faf2a33 !important; }
+
+
+#constructorSidebar .card { background: transparent; border-color: transparent; border-left: none; border-radius: 0px; border-right: none; border-top: 1px solid #666 !important; border: none; overflow: visible; transition: 0.33s all ease; }
+#constructorSidebar .card:hover { background: #00000010; transition: 0.33s all ease; }
+#constructorSidebar .card:active { background: #00000020; transition: 0.33s all ease; }
+
+#constructorSidebar .card-header .btn { border-radius: 0px !important; box-shadow: none !important; font-weight: 500 !important; text-decoration: none;}
+#constructorSidebar .card-header { border-radius: 0px !important; padding: 0; transition: 0.1s all ease; }
+#constructorSidebar .card-header:not(.closed) { transition: 0.1s all ease; }
+#constructorSidebar .card-header.opened { background: #efefef !important; transition: 0.1s all ease; }
+
+#constructorSidebar .card-header:not(.opened) button:before { content:"\f0fe"; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+#constructorSidebar .card-header.opened button:before { content:"\f146"; font-family: "Font Awesome 5 Free"; font-weight: 900; } 
+#constructorSidebar .card-header button:before { margin-right: 3px;}
+#constructorSidebar .card-body { background: #efefef !important; }
+
+#constructor .deleteQuestion { color: #dc3545; cursor: pointer; float: right; margin-top: 1rem;}
+#constructor .deleteQuestion:hover { text-decoration: underline; }
+#constructor .error.help-block { background: #dc35450f; border-radius: 0px; border: 1px solid #dc354544; clear: both; color: #dc3545; display: block; font-size: 0.8rem; font-style: normal; line-height: 1.15rem; margin-bottom: 3px; margin-top: 0px; padding: 7px 10px; width: 100%; }
+#constructor .errorMessage { font-weight: normal; }
+#constructor .faqQuestion { font-weight: 700; }
+#constructor .form-check { flex-grow: 1; padding: 0; }
+#constructor .form-check > input[type="checkbox"] + label { border-radius: 4px; transition: 0.33s all ease; }
+#constructor .form-check-label { cursor: pointer; width: 100%; color: #404040; }
+#constructor .form-control:focus { border-color: #71a11780; }
+#constructor .h1, #constructor .h2, #constructor .h3, #constructor .h4, #constructor .h5, #constructor .h6, #constructor h1, #constructor h2, #constructor h3, #constructor h4, #constructor h5, #constructor h6 { font-weight: 700; }
+#constructor .navbar-brand { align-items: center; display: flex; }
+#constructor .question-answer .form-group { margin-bottom: 0.5rem; }
+#constructor .question-answer {  margin: 0.38rem 0.75rem; padding: 15px 0 0; border-radius: 0px; background: #e5e5e5;}
+#constructor .question-answer label { cursor: pointer; width: 100%; }
+#constructor #addQuestion { padding: 7px; width: 100%; }
+#constructor #collapse-toggler {  display: block; font-weight: normal; margin-left: 15px; position: absolute; right: 10px; top: 0px; }
+#constructor #collapse-toggler > span { cursor: pointer; font-size: 20px; }
+#constructor #collapseWidgets .form-check { flex-grow: 0; }
+#constructor #constructorResources { display: none; }
+#constructor #constructorSidebar .form-control, #constructor #constructorSidebar .form-check-label, #constructorSidebar .btn { border-radius: 0; }
+#constructor #constructorSidebar button[aria-expanded="true"] { background: #efefef;} 
+#constructor #constructorSidebar, #constructor #viewShowcase { height: 100vh; overflow-y: auto; scroll-behavior: smooth; transition: 0.33s all ease;}
+#constructor #faqContainer { display: flex; flex-direction: column; width: 100%; }
+#constructor #formConstructor > .row { margin: 0; }
+#constructor #headerLogotypeSection {  align-items: center; display: flex; margin: 0; }
+#constructor #offers-wrapper .form-check > input[type="checkbox"]:checked + label { background: rgba(127, 175, 42, 0.1); border: 1px solid rgba(127, 175, 42, 0.5); font-weight: 700; transition: 0.33s all ease; }
+#constructor #offers-wrapper .form-check > label { border: 1px solid transparent; display: flex; flex-direction: column; text-align: center; width: 100%; background-color: #f8f8f8; }
+#constructor #offers-wrapper { background: #fff; border: 1px solid rgba(0, 0, 0, 0.1); height: 420px; margin: 0px -20px -20px; overflow-y: auto; padding: 3px;}
+#constructor #offers-wrapper .form-check > label > span { display: none; }
+#constructorSidebar .offersList label { transition: 0.33s all ease; }
+#constructorSidebar .offersList label:hover { background: #71a11720; transition: 0.33s all ease; }
+#constructorSidebar #offers-wrapper .form-check { padding: 3px; }
+#constructorSidebar .form-inline .offersList {flex: 1 1 50% !important; width: 50% !important; }
+#constructorSidebar .card-header > h2 { margin-bottom: 0; }
+
+
+#constructorSidebar #titleSelectOffers, #constructorSidebar label, #constructor .label { font-size: 0.9rem;  color: #404040 !important;}
+#constructorSidebar div[aria-labelledby="sectionOffers"] h4 { margin-bottom: 0rem !important; margin-top: 1rem !important; }
+#constructorSidebar h1 { font-size: 1.1rem; margin-bottom: 10px; margin-top: 10px; color: #ffffffdf;}
+#constructorSidebar h2 > button { font-family: "roboto", sans-serif !important; font-weight: 700 !important; text-decoration: none; }
+#constructorSidebar h3 { font-size: 1.33rem; }
+#constructorSidebar h4 { font-size: 1.2rem; }
+#constructorSidebar input:checked + label > img { -webkit-filter: grayscale(0); filter: grayscale(0%); opacity: 1; transition: 0.33s all ease; }
+#constructorSidebar label > img { -webkit-filter: grayscale(100%); align-items: center; display: flex; filter: grayscale(100%); font-size: 1rem; font-weight: 700; height: 100%; justify-content: center; height: 80px; object-fit: contain; opacity: 0.5; padding: 20px 25px; text-align: center; transition: 0.33s all ease; width: 100%; }
+#constructorSidebar label > img:hover { -webkit-filter: grayscale(0); filter: grayscale(0%); opacity: 1; transition: 0.33s all ease; }
+#constructorSidebar p { font-family: "Roboto", sans-serif; }
+#constructorSidebar .btn-success { color: #fff !important}
+#constructorSidebar .form-check .form-check-label span { transition: 0.33s all ease; width: calc(100% - 3px); text-align: center; margin-top: 2px;}
+
+#constructorSidebar .form-check:hover .form-check-label span {  background: #71a11740; transition: 0.33s all ease; }
+#constructorSidebar .form-check:active .form-check-label span {  border-color:#71a11788; transition: 0.33s all ease; }
+
+#constructorSidebar { background: #5F5F5F; box-shadow: 3px 3px 3px #00000030; padding-right: 0; padding-left: 0; z-index: 10; min-width: 360px; max-width: 360px; transition: 0.33s all ease; position: fixed; }
+#constructorSidebar #clearOffersList, #constructorSidebar #clearPopupList { color: #dc3545; box-shadow: none !important;}
+#constructorSidebar #operationConstructorForm > button { margin: 3px 0px; width: calc(33% - 2px); }
+#constructorSidebar #sidebar-show { border-radius: 4px; border: 1px solid; left: 10px; padding: 5px; position: absolute; margin-left: 360px; }
+
+#constructorSidebar #titleSelectOffersHeader, #constructorSidebar #titleSelectPopupHeader { align-items: center; display: flex; flex-direction: row; justify-content: space-between; }
+#constructorSidebar #titleSelectOffersHeader { height: 0; margin: 2rem 0 -0.33rem 0; }
+
+#constructorSidebar input[name="colorTheme"] + span:before { content:"\f111"; font-family: "Font Awesome 5 Free"; font-weight: 900;}
+#constructorSidebar input[type="radio"], #constructorSidebar input[type="checkbox"] { position: absolute; opacity: 0; cursor: pointer;}
+#constructorSidebar input[type="radio"] + span, #constructorSidebar input[type="checkbox"] + span { background: #dfdfdf; padding: 6px; cursor: pointer; display: block; border: 1px solid #ced4da;} 
+#constructorSidebar input[type="radio"]:checked + span, #constructorSidebar input[type="checkbox"]:checked + span { background: #71a117 !important; color: #fff; font-weight: 700; transition: 0.33s all ease; border: 1px solid #71a117;}
+#constructorSidebar input[type="radio"]:checked:hover + span, #constructorSidebar input[type="checkbox"]:checked + span:hover, #sidebarToggle:hover { background: #619107 !important; transition: 0.33s all ease; border-color: #619107 !important; }
+#constructorSidebar input[type="radio"]:checked:active + span, #constructorSidebar input[type="checkbox"]:checked + span:active, #sidebarToggle:active { background: #518100 !important; transition: 0.33s all ease; border-color: #518100 !important; }
+#constructorSidebar input[type="radio"]:disabled + span { cursor: not-allowed; background: #dfdfdf !important; color: #00000030 !important; border-color: #dfdfdf !important;}
+
+#constructorSidebar select option { font-size: 15px; padding: 7px 10px; margin-bottom: 2px; transition: 0.33s all ease;}
+#constructorSidebar select[multiple] option { background: #f8f8f8 linear-gradient(0deg, #f8f8f8 0%, #f8f8f8 100%); transition: 0.33s all ease; }
+#constructorSidebar select[multiple] option:checked { background: #71a117 linear-gradient(0deg, #71a117 0%, #71a117 100%); transition: 0.33s all ease; }
+
+#constructorSidebar:not(.hideSidebar) + #viewShowcase > #serviceMenu { display: none !important; } 
+#constructorSidebar.hideSidebar { display: none; }
+#constructorSidebar.hideSidebar + #viewShowcase > #serviceMenu { display: block; position: fixed; left: 15px; top: 15px; z-index: 11; }
+
+#constructorSidebar #funnelsScriptText { font-family: 'Courier New', Courier, monospace; }
+
+
+#sidebarToggle, #sidebarToggle i { color: #fff; }
+
+#preloader { align-items: center; background: #fff; color: rgba(0,0,0,.33); display: flex; height: 100vh; justify-content: center; overflow: hidden; position: fixed; width: 100vw; z-index: 1000; }
+
+#constructorSidebar #collapseWidgets .form-inline { display: flex; flex-direction: row; }
+#constructorSidebar #collapseWidgets .form-inline .form-check { flex: 1 1 12.5%; }
+#constructorSidebar .collapse { margin-top: -1px; border-top: 1px solid #efefef;}
+
+/* Buttons colors */ 
+#constructorSidebar input#colorTheme1 + span::before { color: #000; }
+#constructorSidebar input#colorTheme2 + span::before { color: #fff; }
+#constructorSidebar input#colorTheme3 + span::before { color: #6d4a12; }
+#constructorSidebar input#colorTheme4 + span::before { color: #275f12; }
+#constructorSidebar input#colorTheme5 + span::before { color: #08634e; }
+#constructorSidebar input#colorTheme6 + span::before { color: #2d508f; }
+#constructorSidebar input#colorTheme7 + span::before { color: #743c89; }
+#constructorSidebar input#colorTheme8 + span::before { color: #913a4b; }
+
+
+/* Fix Push messages left-side templates */
+#constructorSidebar:not(.hideSidebar) + #viewShowcase #pushTheme2,
+#constructorSidebar:not(.hideSidebar) + #viewShowcase #pushTheme3,
+#constructorSidebar:not(.hideSidebar) + #viewShowcase #pushTheme6, 
+#constructorSidebar:not(.hideSidebar) + #viewShowcase #pushTheme7  
+{ transform: translateX(360px); }
+
+@media (max-width: 576.98px) { 
+  #constructorSidebar:not(.hideSidebar) + #viewShowcase .push-message
+  { display: none !important; } 
+}
+/* end Fix Push messages left-side templates */
+
+@media (min-width: 1279.98px) { 
+  #constructorSidebar { position: relative ;}
+}
+
+@media (max-width: 575.98px) {
+  #constructor .form-inline .form-check { width: auto !important; }
+  #constructorSidebar { width: 100%; min-width:100%; max-width: 100%; position: fixed; top: 0; left: 0; z-index: 100; height: 100vh !important;}
+}
+
+@media (max-width: 319.98px) { 
+#constructorSidebar #operationConstructorForm > button, #constructorSidebar #collapseWidgets #checkboxWidgets .form-check  { width: 100%; flex: 1 1 100%; }
+}
