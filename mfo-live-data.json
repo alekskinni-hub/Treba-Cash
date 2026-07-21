@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T08:51:10.679943+00:00",
+  "generatedAt": "2026-07-21T08:14:55.727281+00:00",
   "count": 41,
   "offers": [
     {
@@ -26,7 +26,7 @@
       "name": "MILOAN",
       "logo": "https://pdl-profit.com/uploads/2026-07-14/file_6a563d5581060.png",
       "ref": "http://tds.pdl-profit.com?offerid=1148&affid=62311",
-      "sum": 20000,
+      "sum": 30000,
       "term": 15,
       "rateMin": 3.6,
       "rateMax": 609.5,
@@ -197,7 +197,7 @@
       "name": "Tengo",
       "logo": "https://pdl-profit.com/uploads/2026-07-14/file_6a563ac18086f.png",
       "ref": "http://tds.pdl-profit.com?offerid=1668&affid=62311",
-      "sum": 20000,
+      "sum": 30000,
       "term": 15,
       "rateMin": 3.6,
       "rateMax": 438.0,
