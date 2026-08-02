@@ -309,106 +309,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .requisite-card .req-nbu-link{display:inline-block;margin-top:8px;font-size:11.5px;color:var(--green-dark);font-weight:800;text-decoration:none;}
 .requisite-card .req-nbu-link:hover{text-decoration:underline;}
 
-<style>
-/* ===== CSS: Попап Топ-3 ===== */
-.top3-overlay{
-  position:fixed;inset:0;z-index:9999;
-  background:rgba(13,21,18,0.55);
-  display:flex;align-items:center;justify-content:center;
-  padding:16px;
-  opacity:0;pointer-events:none;
-  transition:opacity .25s ease;
-}
-.top3-overlay.is-open{opacity:1;pointer-events:auto;}
-
-.top3-modal{
-  background:var(--white,#fff);
-  border-radius:var(--radius,24px);
-  max-width:480px;width:100%;
-  max-height:88vh;overflow-y:auto;
-  padding:26px 22px 22px;
-  position:relative;
-  box-shadow:0 24px 60px rgba(13,21,18,0.25);
-  transform:translateY(18px) scale(.97);
-  transition:transform .3s cubic-bezier(.2,.8,.3,1);
-  font-family:'Manrope',sans-serif;
-}
-.top3-overlay.is-open .top3-modal{transform:translateY(0) scale(1);}
-
-.top3-close{
-  position:absolute;top:14px;right:14px;
-  width:34px;height:34px;border-radius:50%;
-  border:none;background:rgba(13,21,18,0.06);
-  font-size:18px;line-height:1;cursor:pointer;color:var(--text,#1a2421);
-  display:flex;align-items:center;justify-content:center;
-}
-.top3-close:hover{background:rgba(13,21,18,0.12);}
-
-.top3-title{
-  font-size:20px;font-weight:900;color:var(--text,#1a2421);
-  margin:0 0 4px;padding-right:30px;
-}
-.top3-subtitle{
-  font-size:14px;color:var(--text-muted,#5a6b64);
-  margin:0 0 18px;
-}
-.top3-subtitle b{color:var(--green-dark,#1e8449);}
-
-.top3-card{
-  display:flex;align-items:center;gap:12px;
-  border:1px solid rgba(39,174,96,0.14);
-  border-radius:var(--radius-sm,14px);
-  padding:12px 14px;margin-bottom:10px;
-  transition:box-shadow .2s, transform .2s;
-}
-.top3-card:hover{box-shadow:0 8px 20px rgba(39,174,96,.12);transform:translateY(-2px);}
-
-.top3-rank{
-  flex:0 0 26px;height:26px;border-radius:50%;
-  background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  color:#fff;font-weight:900;font-size:13px;
-  display:flex;align-items:center;justify-content:center;
-}
-.top3-logo{
-  flex:0 0 42px;width:42px;height:42px;border-radius:12px;
-  object-fit:contain;background:#f4f9f6;
-}
-.top3-logo-fallback{
-  flex:0 0 42px;width:42px;height:42px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-weight:800;font-size:14px;
-}
-.top3-info{flex:1;min-width:0;}
-.top3-name{font-weight:800;font-size:14.5px;color:var(--text,#1a2421);}
-.top3-meta{font-size:12.5px;color:var(--text-muted,#5a6b64);margin-top:2px;}
-.top3-badge{
-  display:inline-block;margin-top:4px;font-size:11px;font-weight:800;
-  padding:3px 9px;border-radius:999px;
-  background:linear-gradient(120deg,var(--gold,#f5b942),#f7c765);color:#fff;
-}
-.top3-cta{
-  flex:0 0 auto;text-decoration:none;
-  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  color:#fff;font-weight:800;font-size:13px;
-  padding:10px 14px;border-radius:12px;white-space:nowrap;
-}
-.top3-cta:hover{filter:brightness(1.05);}
-
-.top3-footnote{
-  font-size:11.5px;color:var(--text-muted,#5a6b64);
-  text-align:center;margin-top:14px;line-height:1.4;
-}
-.top3-all-link{
-  display:block;text-align:center;margin-top:12px;
-  font-size:13.5px;font-weight:700;color:var(--green-dark,#1e8449);
-  text-decoration:underline;cursor:pointer;background:none;border:none;
-}
-
-@media (max-width:420px){
-  .top3-cta{padding:9px 11px;font-size:12px;}
-  .top3-name{font-size:13.5px;}
-}
-
 /* ===== CSS: Бічний віджет-смартлінк ===== */
 .sw-widget{
   position:fixed;
@@ -544,19 +444,132 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   .sw-close{ top:6px;right:6px; }
 }
 </style>
-
-</style>
 </head>
 <body>
 
-<!-- ===== ПОПАП ТОП-3 ПРОПОЗИЦІЇ ===== -->
-<!-- ============ 2) HTML (вставити одразу після <body>) ============ -->
+<!-- =========================================================
+     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v2, повністю самодостатній.
+
+     ЛОГІКА:
+     - Показується ТІЛЬКИ якщо в URL вітрини є ?sum=...&term=...
+       (ці параметри ставить лише квіз через buildResultLink()).
+       Якщо людина зайшла на вітрину напряму — попап НЕ з'явиться.
+     - Дані тягне напряму з /mfo-live-data.json (fetch), не залежить
+       від внутрішніх змінних сторінки (MFO_DATA/state/fmt тощо) —
+       можна вставити куди завгодно, хоч одразу після <body>.
+     - Відкривається одразу (без затримки на скрол).
+     - Повноекранне затемнення + блюр фону, картка по центру.
+     - Показ один раз за сесію (sessionStorage), і тільки якщо
+       параметри реально були — щоб не "з'їдати" спробу на прямому заході.
+   ========================================================= -->
+
+<style>
+.top3-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(10,16,14,0.68);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+}
+.top3-overlay.is-open{opacity:1;pointer-events:auto;}
+
+.top3-modal{
+  background:var(--white,#fff);
+  border-radius:var(--radius,24px);
+  max-width:520px;width:100%;
+  max-height:90vh;overflow-y:auto;
+  padding:30px 26px 26px;
+  position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,0.35);
+  transform:translateY(30px) scale(.92);
+  transition:transform .38s cubic-bezier(.34,1.56,.64,1);
+  font-family:'Manrope',sans-serif;
+}
+.top3-overlay.is-open .top3-modal{transform:translateY(0) scale(1);}
+
+.top3-close{
+  position:absolute;top:16px;right:16px;
+  width:36px;height:36px;border-radius:50%;
+  border:none;background:rgba(13,21,18,0.06);
+  font-size:18px;line-height:1;cursor:pointer;color:var(--text,#1a2421);
+  display:flex;align-items:center;justify-content:center;
+  z-index:2;
+}
+.top3-close:hover{background:rgba(13,21,18,0.12);}
+
+.top3-eyebrow{
+  display:inline-block;font-size:12px;font-weight:900;letter-spacing:.03em;
+  color:var(--green-dark,#1e8449);background:#e8f8ee;
+  padding:5px 12px;border-radius:999px;margin-bottom:10px;
+}
+.top3-title{
+  font-size:22px;font-weight:900;color:var(--text,#1a2421);
+  margin:0 0 6px;padding-right:30px;line-height:1.25;
+}
+.top3-subtitle{
+  font-size:14px;color:var(--text-muted,#5a6b64);
+  margin:0 0 20px;
+}
+.top3-subtitle b{color:var(--green-dark,#1e8449);}
+
+.top3-card{
+  display:flex;align-items:center;gap:12px;
+  border:1px solid rgba(39,174,96,0.14);
+  border-radius:var(--radius-sm,14px);
+  padding:13px 15px;margin-bottom:10px;
+  transition:box-shadow .2s, transform .2s;
+}
+.top3-card:hover{box-shadow:0 8px 20px rgba(39,174,96,.14);transform:translateY(-2px);}
+
+.top3-rank{
+  flex:0 0 28px;height:28px;border-radius:50%;
+  background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  color:#fff;font-weight:900;font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+}
+.top3-logo{flex:0 0 44px;width:44px;height:44px;border-radius:12px;object-fit:contain;background:#f4f9f6;}
+.top3-logo-fallback{
+  flex:0 0 44px;width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:800;font-size:14px;
+}
+.top3-info{flex:1;min-width:0;}
+.top3-name{font-weight:800;font-size:15px;color:var(--text,#1a2421);}
+.top3-meta{font-size:12.5px;color:var(--text-muted,#5a6b64);margin-top:2px;}
+.top3-badge{
+  display:inline-block;margin-top:4px;font-size:11px;font-weight:800;
+  padding:3px 9px;border-radius:999px;
+  background:linear-gradient(120deg,var(--gold,#f5b942),#f7c765);color:#fff;
+}
+.top3-cta{
+  flex:0 0 auto;text-decoration:none;
+  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  color:#fff;font-weight:800;font-size:13.5px;
+  padding:11px 15px;border-radius:12px;white-space:nowrap;
+}
+.top3-cta:hover{filter:brightness(1.05);}
+
+.top3-footnote{font-size:11.5px;color:var(--text-muted,#5a6b64);text-align:center;margin-top:16px;line-height:1.4;}
+.top3-all-link{
+  display:block;text-align:center;margin-top:12px;
+  font-size:13.5px;font-weight:700;color:var(--green-dark,#1e8449);
+  text-decoration:underline;cursor:pointer;background:none;border:none;
+}
+@media (max-width:420px){
+  .top3-title{font-size:19px;}
+  .top3-cta{padding:10px 12px;font-size:12.5px;}
+}
+</style>
+
 <div class="top3-overlay" id="top3-overlay" aria-hidden="true">
   <div class="top3-modal" role="dialog" aria-modal="true" aria-labelledby="top3-title">
     <button class="top3-close" id="top3-close" aria-label="Закрити">✕</button>
+    <span class="top3-eyebrow">Персональний підбір</span>
     <h2 class="top3-title" id="top3-title">Ось топ-3 вигідні пропозиції</h2>
-    <p class="top3-subtitle" id="top3-subtitle">Під запит <b>15 000 ₴ / 60 днів</b> — підібрано за найкращою ставкою.</p>
-    <div id="top3-list"><!-- картки вставляються JS --></div>
+    <p class="top3-subtitle" id="top3-subtitle">Підбираємо під ваш запит…</p>
+    <div id="top3-list"></div>
     <p class="top3-footnote">
       TREBA CASH — інформаційний агрегатор, не є кредитором. Остаточні умови завжди уточнюйте в паспорті кредиту обраної МФО.
     </p>
@@ -564,100 +577,99 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   </div>
 </div>
 
-
-<!-- ============ 3) JS (додати ПІСЛЯ виклику initPage();) ============ -->
 <script>
-function showTop3Popup() {
-  // Показуємо один раз за сесію
-  if (sessionStorage.getItem('top3PopupShown')) return;
-  if (!Array.isArray(MFO_DATA) || MFO_DATA.length === 0) return;
+(function () {
+  const overlay = document.getElementById('top3-overlay');
+  if (!overlay) return;
 
-  // 1) Читаємо параметри з URL, якщо квіз їх передає (?sum=15000&term=60)
+  // 1) Показуємо лише якщо в URL є параметри квізу
   const params = new URLSearchParams(window.location.search);
   const querySum = parseInt(params.get('sum'), 10);
   const queryTerm = parseInt(params.get('term'), 10);
-  const hasQuery = !isNaN(querySum) && !isNaN(queryTerm);
+  if (isNaN(querySum) || isNaN(queryTerm)) return; // прямий захід на вітрину — попап не показуємо
 
-  const targetSum = hasQuery ? querySum : (typeof state !== 'undefined' ? state.sum : 15000);
-  const targetTerm = hasQuery ? queryTerm : (typeof state !== 'undefined' ? state.term : 60);
+  // 2) Не показуємо повторно в межах цієї ж сесії
+  if (sessionStorage.getItem('top3PopupShown')) return;
 
-  // 2) Фільтруємо тих, хто підходить під суму/строк (якщо не підходить нікого — беремо всіх)
-  let pool = MFO_DATA.filter(m => m.sum >= targetSum && m.term >= targetTerm);
-  if (pool.length === 0) pool = MFO_DATA.slice();
+  // ---- локальні хелпери (не залежать від скриптів сторінки) ----
+  function fmt(n) { return new Intl.NumberFormat('uk-UA').format(Math.round(n)); }
+  const FALLBACK_COLORS = ['#27ae60', '#2ecc71', '#1e8449', '#f5b942', '#2980b9'];
+  function fallbackColor(name) {
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+    return FALLBACK_COLORS[Math.abs(hash) % FALLBACK_COLORS.length];
+  }
+  function initials(name) { return name.slice(0, 2).toUpperCase(); }
 
-  // 3) Сортуємо: спочатку акційні (hasZeroBadge), потім за найкращою ставкою
-  pool.sort((a, b) => {
-    if (!!b.hasZeroBadge !== !!a.hasZeroBadge) return (b.hasZeroBadge ? 1 : 0) - (a.hasZeroBadge ? 1 : 0);
-    return (a.rateMin || 0) - (b.rateMin || 0);
-  });
-  const top3 = pool.slice(0, 3);
-  if (top3.length === 0) return;
-
-  // 4) Рендеримо підзаголовок
-  const subtitleEl = document.getElementById('top3-subtitle');
-  subtitleEl.innerHTML = `Під запит <b>${fmt(targetSum)} ₴ / ${targetTerm} дн.</b> — підібрано за найкращою ставкою.`;
-
-  // 5) Рендеримо картки
-  const listEl = document.getElementById('top3-list');
-  listEl.innerHTML = top3.map((m, idx) => {
-    const fbColor = fallbackColor(m.name);
-    const logoHTML = m.logo
-      ? `<img class="top3-logo" src="${m.logo.startsWith('http') ? m.logo : '/mfo-logos/' + m.logo}" alt="${m.name}"
-             onerror="this.onerror=null;this.outerHTML='<div class=\\'top3-logo-fallback\\' style=\\'background:${fbColor}\\'>${initials(m.name)}</div>';">`
-      : `<div class="top3-logo-fallback" style="background:${fbColor}">${initials(m.name)}</div>`;
-
-    const goldBadge = m.hasZeroBadge
-      ? `<span class="top3-badge">🔥 ${m.goldBadgeText || 'Акційна ставка'}</span>`
-      : '';
-
-    return `
-      <div class="top3-card">
-        <div class="top3-rank">${idx + 1}</div>
-        ${logoHTML}
-        <div class="top3-info">
-          <div class="top3-name">${m.name}</div>
-          <div class="top3-meta">до ${fmt(m.sum)} ₴ · до ${m.term} дн.</div>
-          ${goldBadge}
-        </div>
-        <a class="top3-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Обрати →</a>
-      </div>`;
-  }).join('');
-
-  // 6) Показуємо попап (невелика затримка — щоб не бити по перших секундах взаємодії)
-  setTimeout(() => {
-    const overlay = document.getElementById('top3-overlay');
+  function openModal() {
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden', 'false');
     sessionStorage.setItem('top3PopupShown', '1');
-  }, 1200);
-}
+  }
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
 
-function closeTop3Popup() {
-  const overlay = document.getElementById('top3-overlay');
-  overlay.classList.remove('is-open');
-  overlay.setAttribute('aria-hidden', 'true');
-}
+  function render(offers) {
+    let pool = offers.filter(m => m.sum >= querySum && m.term >= queryTerm);
+    if (pool.length === 0) pool = offers.slice();
 
-document.getElementById('top3-close').addEventListener('click', closeTop3Popup);
-document.getElementById('top3-overlay').addEventListener('click', (e) => {
-  if (e.target.id === 'top3-overlay') closeTop3Popup();
-});
-document.getElementById('top3-see-all').addEventListener('click', () => {
-  closeTop3Popup();
-  document.getElementById('mfo-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-});
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeTop3Popup();
-});
+    pool.sort((a, b) => {
+      if (!!b.hasZeroBadge !== !!a.hasZeroBadge) return (b.hasZeroBadge ? 1 : 0) - (a.hasZeroBadge ? 1 : 0);
+      return (a.rateMin || 0) - (b.rateMin || 0);
+    });
+    const top3 = pool.slice(0, 3);
+    if (top3.length === 0) return;
 
-// Викликати ПІСЛЯ того, як MFO_DATA заповнено (тобто після initPage()):
-// приклад інтеграції показано нижче в коментарі.
-//
-// (async function loadLiveDataAndInit() {
-//   ... existing fetch code ...
-//   initPage();
-//   showTop3Popup();     // <-- додати цей рядок
-// })();
+    document.getElementById('top3-subtitle').innerHTML =
+      `Під запит <b>${fmt(querySum)} ₴ / ${queryTerm} дн.</b> — підібрано за найкращою ставкою.`;
+
+    document.getElementById('top3-list').innerHTML = top3.map((m, idx) => {
+      const fbColor = fallbackColor(m.name);
+      const logoHTML = m.logo
+        ? `<img class="top3-logo" src="${m.logo.startsWith('http') ? m.logo : '/mfo-logos/' + m.logo}" alt="${m.name}"
+               onerror="this.onerror=null;this.outerHTML='<div class=\\'top3-logo-fallback\\' style=\\'background:${fbColor}\\'>${initials(m.name)}</div>';">`
+        : `<div class="top3-logo-fallback" style="background:${fbColor}">${initials(m.name)}</div>`;
+      const goldBadge = m.hasZeroBadge
+        ? `<span class="top3-badge">🔥 ${m.goldBadgeText || 'Акційна ставка'}</span>` : '';
+      return `
+        <div class="top3-card">
+          <div class="top3-rank">${idx + 1}</div>
+          ${logoHTML}
+          <div class="top3-info">
+            <div class="top3-name">${m.name}</div>
+            <div class="top3-meta">до ${fmt(m.sum)} ₴ · до ${m.term} дн.</div>
+            ${goldBadge}
+          </div>
+          <a class="top3-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Обрати →</a>
+        </div>`;
+    }).join('');
+
+    openModal();
+  }
+
+  // 3) Тягнемо дані напряму з живого API-файлу
+  fetch('/mfo-live-data.json', { cache: 'no-store' })
+    .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+    .then(json => {
+      if (Array.isArray(json.offers) && json.offers.length > 0) {
+        render(json.offers);
+      }
+    })
+    .catch(err => {
+      console.warn('Top3 popup: не вдалося завантажити mfo-live-data.json', err.message);
+      // мовчки нічого не показуємо, якщо дані недоступні
+    });
+
+  document.getElementById('top3-close').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  document.getElementById('top3-see-all').addEventListener('click', () => {
+    closeModal();
+    document.getElementById('mfo-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+})();
 </script>
 
 <!-- Google Tag Manager (noscript) -->
@@ -1156,7 +1168,6 @@ if (requisitesGrid) {
     MFO_DATA = MFO_DATA_FALLBACK;
   }
   initPage();
-  showTop3Popup();
 })();
 </script>
 
