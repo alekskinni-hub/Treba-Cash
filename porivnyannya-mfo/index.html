@@ -309,9 +309,357 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .requisite-card .req-nbu-link{display:inline-block;margin-top:8px;font-size:11.5px;color:var(--green-dark);font-weight:800;text-decoration:none;}
 .requisite-card .req-nbu-link:hover{text-decoration:underline;}
 
+<style>
+/* ===== CSS: Попап Топ-3 ===== */
+.top3-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(13,21,18,0.55);
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s ease;
+}
+.top3-overlay.is-open{opacity:1;pointer-events:auto;}
+
+.top3-modal{
+  background:var(--white,#fff);
+  border-radius:var(--radius,24px);
+  max-width:480px;width:100%;
+  max-height:88vh;overflow-y:auto;
+  padding:26px 22px 22px;
+  position:relative;
+  box-shadow:0 24px 60px rgba(13,21,18,0.25);
+  transform:translateY(18px) scale(.97);
+  transition:transform .3s cubic-bezier(.2,.8,.3,1);
+  font-family:'Manrope',sans-serif;
+}
+.top3-overlay.is-open .top3-modal{transform:translateY(0) scale(1);}
+
+.top3-close{
+  position:absolute;top:14px;right:14px;
+  width:34px;height:34px;border-radius:50%;
+  border:none;background:rgba(13,21,18,0.06);
+  font-size:18px;line-height:1;cursor:pointer;color:var(--text,#1a2421);
+  display:flex;align-items:center;justify-content:center;
+}
+.top3-close:hover{background:rgba(13,21,18,0.12);}
+
+.top3-title{
+  font-size:20px;font-weight:900;color:var(--text,#1a2421);
+  margin:0 0 4px;padding-right:30px;
+}
+.top3-subtitle{
+  font-size:14px;color:var(--text-muted,#5a6b64);
+  margin:0 0 18px;
+}
+.top3-subtitle b{color:var(--green-dark,#1e8449);}
+
+.top3-card{
+  display:flex;align-items:center;gap:12px;
+  border:1px solid rgba(39,174,96,0.14);
+  border-radius:var(--radius-sm,14px);
+  padding:12px 14px;margin-bottom:10px;
+  transition:box-shadow .2s, transform .2s;
+}
+.top3-card:hover{box-shadow:0 8px 20px rgba(39,174,96,.12);transform:translateY(-2px);}
+
+.top3-rank{
+  flex:0 0 26px;height:26px;border-radius:50%;
+  background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  color:#fff;font-weight:900;font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+}
+.top3-logo{
+  flex:0 0 42px;width:42px;height:42px;border-radius:12px;
+  object-fit:contain;background:#f4f9f6;
+}
+.top3-logo-fallback{
+  flex:0 0 42px;width:42px;height:42px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-weight:800;font-size:14px;
+}
+.top3-info{flex:1;min-width:0;}
+.top3-name{font-weight:800;font-size:14.5px;color:var(--text,#1a2421);}
+.top3-meta{font-size:12.5px;color:var(--text-muted,#5a6b64);margin-top:2px;}
+.top3-badge{
+  display:inline-block;margin-top:4px;font-size:11px;font-weight:800;
+  padding:3px 9px;border-radius:999px;
+  background:linear-gradient(120deg,var(--gold,#f5b942),#f7c765);color:#fff;
+}
+.top3-cta{
+  flex:0 0 auto;text-decoration:none;
+  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  color:#fff;font-weight:800;font-size:13px;
+  padding:10px 14px;border-radius:12px;white-space:nowrap;
+}
+.top3-cta:hover{filter:brightness(1.05);}
+
+.top3-footnote{
+  font-size:11.5px;color:var(--text-muted,#5a6b64);
+  text-align:center;margin-top:14px;line-height:1.4;
+}
+.top3-all-link{
+  display:block;text-align:center;margin-top:12px;
+  font-size:13.5px;font-weight:700;color:var(--green-dark,#1e8449);
+  text-decoration:underline;cursor:pointer;background:none;border:none;
+}
+
+@media (max-width:420px){
+  .top3-cta{padding:9px 11px;font-size:12px;}
+  .top3-name{font-size:13.5px;}
+}
+
+/* ===== CSS: Бічний віджет-смартлінк ===== */
+.sw-widget{
+  position:fixed;
+  top:50%;right:22px;
+  transform:translateY(-50%) translateX(24px);
+  width:290px;
+  z-index:850;
+  font-family:'Manrope',sans-serif;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s ease, transform .5s cubic-bezier(.2,.8,.3,1);
+}
+.sw-widget.is-visible{
+  opacity:1;pointer-events:auto;
+  transform:translateY(-50%) translateX(0);
+}
+
+.sw-card{
+  position:relative;
+  border-radius:26px;
+  padding:3px;
+  background:linear-gradient(135deg,var(--green,#27ae60),var(--gold,#f5b942),var(--green-light,#2ecc71));
+  background-size:220% 220%;
+  animation:swGradientShift 6s ease-in-out infinite;
+  box-shadow:0 20px 50px rgba(13,21,18,0.25);
+}
+@keyframes swGradientShift{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.sw-inner{
+  position:relative;
+  background:var(--white,#fff);
+  border-radius:23px;
+  padding:22px 20px 20px;
+  overflow:hidden;
+}
+
+.sw-close{
+  position:absolute;top:10px;right:10px;
+  width:26px;height:26px;border-radius:50%;
+  border:none;background:rgba(13,21,18,0.06);
+  font-size:14px;cursor:pointer;color:var(--text,#1a2421);
+  display:flex;align-items:center;justify-content:center;
+  z-index:2;
+}
+.sw-close:hover{background:rgba(13,21,18,0.12);}
+
+.sw-icon-wrap{
+  width:64px;height:64px;margin:0 auto 12px;
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  display:flex;align-items:center;justify-content:center;
+  font-size:30px;
+  animation:swFloat 2.6s ease-in-out infinite;
+  box-shadow:0 10px 24px rgba(39,174,96,.35);
+}
+@keyframes swFloat{
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-7px) rotate(-4deg);}
+}
+
+.sw-title{
+  text-align:center;font-size:18px;font-weight:900;
+  color:var(--text,#1a2421);margin:0 0 6px;line-height:1.25;
+}
+.sw-title span{color:var(--green-dark,#1e8449);}
+
+.sw-subtitle{
+  text-align:center;font-size:13px;color:var(--text-muted,#5a6b64);
+  margin:0 0 16px;line-height:1.45;
+}
+
+.sw-checklist{list-style:none;margin:0 0 18px;padding:0;}
+.sw-checklist li{
+  display:flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:700;color:var(--text,#1a2421);
+  margin-bottom:8px;
+}
+.sw-checklist li::before{
+  content:'✓';flex:0 0 18px;height:18px;width:18px;
+  background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  color:#fff;border-radius:50%;font-size:11px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.sw-cta{
+  display:block;text-align:center;text-decoration:none;
+  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  color:#fff;font-weight:900;font-size:15px;
+  padding:15px 18px;border-radius:16px;
+  box-shadow:0 8px 22px rgba(39,174,96,.4);
+  animation:swPulse 2.4s ease-in-out infinite;
+  position:relative;
+}
+@keyframes swPulse{
+  0%,100%{box-shadow:0 8px 22px rgba(39,174,96,.4);}
+  50%{box-shadow:0 8px 30px rgba(39,174,96,.65),0 0 0 6px rgba(39,174,96,.12);}
+}
+.sw-cta:hover{filter:brightness(1.05);}
+.sw-cta small{display:block;font-weight:600;font-size:10.5px;opacity:.85;margin-top:2px;}
+
+.sw-footnote{
+  text-align:center;font-size:10px;color:var(--text-muted,#5a6b64);
+  margin-top:12px;line-height:1.4;
+}
+
+/* Респект налаштуванням доступності — без анімацій, якщо людина цього просить */
+@media (prefers-reduced-motion: reduce){
+  .sw-card, .sw-icon-wrap, .sw-cta{ animation:none !important; }
+}
+
+/* ===== МОБІЛЬНА ВЕРСІЯ: липка панель знизу ===== */
+@media (max-width:900px){
+  .sw-widget{
+    top:auto;bottom:0;right:0;left:0;
+    width:100%;
+    transform:translateY(100%);
+  }
+  .sw-widget.is-visible{ transform:translateY(0); }
+  .sw-card{ border-radius:20px 20px 0 0; }
+  .sw-inner{
+    border-radius:17px 17px 0 0;
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;
+  }
+  .sw-icon-wrap{ width:44px;height:44px;font-size:20px;margin:0;flex-shrink:0; }
+  .sw-title{ font-size:13.5px;text-align:left;margin:0; }
+  .sw-subtitle,.sw-checklist,.sw-footnote{ display:none; }
+  .sw-cta{ flex-shrink:0;padding:11px 16px;font-size:13px;width:auto; }
+  .sw-cta small{ display:none; }
+  .sw-close{ top:6px;right:6px; }
+}
+</style>
+
 </style>
 </head>
 <body>
+
+<!-- ===== ПОПАП ТОП-3 ПРОПОЗИЦІЇ ===== -->
+<!-- ============ 2) HTML (вставити одразу після <body>) ============ -->
+<div class="top3-overlay" id="top3-overlay" aria-hidden="true">
+  <div class="top3-modal" role="dialog" aria-modal="true" aria-labelledby="top3-title">
+    <button class="top3-close" id="top3-close" aria-label="Закрити">✕</button>
+    <h2 class="top3-title" id="top3-title">Ось топ-3 вигідні пропозиції</h2>
+    <p class="top3-subtitle" id="top3-subtitle">Під запит <b>15 000 ₴ / 60 днів</b> — підібрано за найкращою ставкою.</p>
+    <div id="top3-list"><!-- картки вставляються JS --></div>
+    <p class="top3-footnote">
+      TREBA CASH — інформаційний агрегатор, не є кредитором. Остаточні умови завжди уточнюйте в паспорті кредиту обраної МФО.
+    </p>
+    <button class="top3-all-link" id="top3-see-all">Показати всі 40 пропозицій ↓</button>
+  </div>
+</div>
+
+
+<!-- ============ 3) JS (додати ПІСЛЯ виклику initPage();) ============ -->
+<script>
+function showTop3Popup() {
+  // Показуємо один раз за сесію
+  if (sessionStorage.getItem('top3PopupShown')) return;
+  if (!Array.isArray(MFO_DATA) || MFO_DATA.length === 0) return;
+
+  // 1) Читаємо параметри з URL, якщо квіз їх передає (?sum=15000&term=60)
+  const params = new URLSearchParams(window.location.search);
+  const querySum = parseInt(params.get('sum'), 10);
+  const queryTerm = parseInt(params.get('term'), 10);
+  const hasQuery = !isNaN(querySum) && !isNaN(queryTerm);
+
+  const targetSum = hasQuery ? querySum : (typeof state !== 'undefined' ? state.sum : 15000);
+  const targetTerm = hasQuery ? queryTerm : (typeof state !== 'undefined' ? state.term : 60);
+
+  // 2) Фільтруємо тих, хто підходить під суму/строк (якщо не підходить нікого — беремо всіх)
+  let pool = MFO_DATA.filter(m => m.sum >= targetSum && m.term >= targetTerm);
+  if (pool.length === 0) pool = MFO_DATA.slice();
+
+  // 3) Сортуємо: спочатку акційні (hasZeroBadge), потім за найкращою ставкою
+  pool.sort((a, b) => {
+    if (!!b.hasZeroBadge !== !!a.hasZeroBadge) return (b.hasZeroBadge ? 1 : 0) - (a.hasZeroBadge ? 1 : 0);
+    return (a.rateMin || 0) - (b.rateMin || 0);
+  });
+  const top3 = pool.slice(0, 3);
+  if (top3.length === 0) return;
+
+  // 4) Рендеримо підзаголовок
+  const subtitleEl = document.getElementById('top3-subtitle');
+  subtitleEl.innerHTML = `Під запит <b>${fmt(targetSum)} ₴ / ${targetTerm} дн.</b> — підібрано за найкращою ставкою.`;
+
+  // 5) Рендеримо картки
+  const listEl = document.getElementById('top3-list');
+  listEl.innerHTML = top3.map((m, idx) => {
+    const fbColor = fallbackColor(m.name);
+    const logoHTML = m.logo
+      ? `<img class="top3-logo" src="${m.logo.startsWith('http') ? m.logo : '/mfo-logos/' + m.logo}" alt="${m.name}"
+             onerror="this.onerror=null;this.outerHTML='<div class=\\'top3-logo-fallback\\' style=\\'background:${fbColor}\\'>${initials(m.name)}</div>';">`
+      : `<div class="top3-logo-fallback" style="background:${fbColor}">${initials(m.name)}</div>`;
+
+    const goldBadge = m.hasZeroBadge
+      ? `<span class="top3-badge">🔥 ${m.goldBadgeText || 'Акційна ставка'}</span>`
+      : '';
+
+    return `
+      <div class="top3-card">
+        <div class="top3-rank">${idx + 1}</div>
+        ${logoHTML}
+        <div class="top3-info">
+          <div class="top3-name">${m.name}</div>
+          <div class="top3-meta">до ${fmt(m.sum)} ₴ · до ${m.term} дн.</div>
+          ${goldBadge}
+        </div>
+        <a class="top3-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Обрати →</a>
+      </div>`;
+  }).join('');
+
+  // 6) Показуємо попап (невелика затримка — щоб не бити по перших секундах взаємодії)
+  setTimeout(() => {
+    const overlay = document.getElementById('top3-overlay');
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    sessionStorage.setItem('top3PopupShown', '1');
+  }, 1200);
+}
+
+function closeTop3Popup() {
+  const overlay = document.getElementById('top3-overlay');
+  overlay.classList.remove('is-open');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
+document.getElementById('top3-close').addEventListener('click', closeTop3Popup);
+document.getElementById('top3-overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'top3-overlay') closeTop3Popup();
+});
+document.getElementById('top3-see-all').addEventListener('click', () => {
+  closeTop3Popup();
+  document.getElementById('mfo-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeTop3Popup();
+});
+
+// Викликати ПІСЛЯ того, як MFO_DATA заповнено (тобто після initPage()):
+// приклад інтеграції показано нижче в коментарі.
+//
+// (async function loadLiveDataAndInit() {
+//   ... existing fetch code ...
+//   initPage();
+//   showTop3Popup();     // <-- додати цей рядок
+// })();
+</script>
+
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KMBC47TS"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -808,6 +1156,92 @@ if (requisitesGrid) {
     MFO_DATA = MFO_DATA_FALLBACK;
   }
   initPage();
+  showTop3Popup();
+})();
+</script>
+
+
+<!-- ===== БІЧНИЙ ВІДЖЕТ ЗІ СМАРТЛІНКОМ ===== -->
+<!-- ============ 2) HTML (вставити перед </body>) ============ -->
+<div class="sw-widget" id="sw-widget">
+  <div class="sw-card">
+    <div class="sw-inner">
+      <button class="sw-close" id="sw-close" aria-label="Закрити">✕</button>
+      <div class="sw-icon-wrap">⚡</div>
+      <p class="sw-title">Не хочете гортати <span>40 пропозицій?</span></p>
+      <p class="sw-subtitle">Система сама підбере оптимальний варіант під ваш запит за кілька секунд</p>
+      <ul class="sw-checklist">
+        <li>Ліцензовано НБУ</li>
+        <li>Підбір без реєстрації</li>
+        <li>Займе менше хвилини</li>
+      </ul>
+      <a class="sw-cta" id="sw-cta" href="#" target="_blank" rel="sponsored nofollow noopener noreferrer">
+        Підібрати пропозицію →
+        <small>Автопідбір найкращого варіанту</small>
+      </a>
+      <p class="sw-footnote">TREBA CASH — агрегатор, не кредитор. Рішення про видачу ухвалює обрана МФО.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============ 3) JS (вставити в кінці, перед </body>) ============ -->
+<script>
+(function initSmartlinkWidget() {
+  // ⚠️ ЗАМІНІТЬ на ваш реальний смартлінк з кабінету pdl-profit:
+  const SMARTLINK_URL = 'https://tds.pdl-profit.com/ВАШ_СМАРТЛІНК_СЮДИ';
+
+  const widget = document.getElementById('sw-widget');
+  const cta = document.getElementById('sw-cta');
+  const closeBtn = document.getElementById('sw-close');
+  if (!widget || !cta) return;
+
+  // Не показуємо повторно, якщо вже закривали цю сесію
+  if (sessionStorage.getItem('swWidgetClosed')) return;
+
+  // Формуємо URL смартлінку + власний sub-id для обліку конверсій саме з цього віджета
+  // (назву параметра sub-id уточніть у документації pdl-profit — часто це subid/sub1/click_id)
+  function buildSmartlinkUrl() {
+    try {
+      const url = new URL(SMARTLINK_URL);
+      url.searchParams.set('subid', 'sidebar_widget');
+
+      // Прокидаємо utm/click-id з поточної сторінки, якщо вони є (для наскрізної аналітики)
+      const incoming = new URLSearchParams(window.location.search);
+      incoming.forEach((value, key) => {
+        if (key.startsWith('utm_') || key === 'gclid' || key === 'fbclid') {
+          url.searchParams.set(key, value);
+        }
+      });
+      return url.toString();
+    } catch (e) {
+      return SMARTLINK_URL; // якщо URL некоректний — повертаємо як є, щоб посилання не зламалось
+    }
+  }
+  cta.href = buildSmartlinkUrl();
+
+  function isTop3PopupOpen() {
+    const overlay = document.getElementById('top3-overlay');
+    return overlay ? overlay.classList.contains('is-open') : false;
+  }
+
+  function tryReveal() {
+    if (sessionStorage.getItem('swWidgetClosed')) return;
+    if (isTop3PopupOpen()) return; // не показуємо одночасно з попапом топ-3
+    if (window.scrollY > 260) {
+      widget.classList.add('is-visible');
+      window.removeEventListener('scroll', tryReveal);
+    }
+  }
+
+  window.addEventListener('scroll', tryReveal, { passive: true });
+  // про всяк випадок перевіряємо ще й через 4с, якщо людина взагалі не скролить
+  setTimeout(tryReveal, 4000);
+
+  closeBtn.addEventListener('click', () => {
+    widget.classList.remove('is-visible');
+    sessionStorage.setItem('swWidgetClosed', '1');
+  });
 })();
 </script>
 
