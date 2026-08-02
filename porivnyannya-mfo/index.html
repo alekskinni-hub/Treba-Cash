@@ -604,10 +604,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
 /* ---- compact rows (#2, #3) ---- */
 .top3-row{
-  display:flex;align-items:center;gap:12px;
+  display:flex;flex-direction:column;gap:10px;
   border:1px solid rgba(39,174,96,0.14);
   border-radius:var(--radius-sm,14px);
-  padding:12px 14px;margin-bottom:10px;
+  padding:14px;margin-bottom:10px;
   transition:box-shadow .2s, transform .2s;
   position:relative;z-index:2;
   animation:top3-rise .45s cubic-bezier(.2,.8,.3,1) backwards;
@@ -615,6 +615,8 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-row:nth-of-type(1){animation-delay:.22s;}
 .top3-row:nth-of-type(2){animation-delay:.32s;}
 .top3-row:hover{box-shadow:0 8px 20px rgba(39,174,96,.14);transform:translateY(-2px);}
+
+.top3-row-main{display:flex;align-items:center;gap:12px;}
 
 .top3-rank{
   flex:0 0 24px;height:24px;border-radius:50%;
@@ -631,12 +633,13 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-info{flex:1;min-width:0;}
 .top3-name{font-weight:800;font-size:14.5px;color:var(--text,#1a2421);}
 .top3-meta{font-size:12px;color:var(--text-muted,#5a6b64);margin-top:1px;}
-.top3-row .top3-badge{margin:5px 0 0;font-size:10px;padding:3px 9px;}
+.top3-row .top3-badge{align-self:flex-start;margin:0;font-size:11px;padding:4px 10px;white-space:nowrap;}
 .top3-cta{
-  flex:0 0 auto;text-decoration:none;
+  width:100%;box-sizing:border-box;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;gap:6px;
   background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  color:#fff;font-weight:800;font-size:13px;
-  padding:10px 14px;border-radius:12px;white-space:nowrap;
+  color:#fff;font-weight:800;font-size:13.5px;
+  padding:11px 14px;border-radius:12px;white-space:nowrap;
   transition:transform .2s;
 }
 .top3-cta:hover{transform:translateY(-2px);}
@@ -779,14 +782,16 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
     const rowsHTML = rest.map((m, i) => `
       <div class="top3-row">
-        <div class="top3-rank">${i + 2}</div>
-        ${logoHTML(m, '')}
-        <div class="top3-info">
-          <div class="top3-name">${m.name}</div>
-          <div class="top3-meta">${fmt(m.sum)} ₴ · ${m.term} дн.</div>
-          ${badgeHTML(m)}
+        <div class="top3-row-main">
+          <div class="top3-rank">${i + 2}</div>
+          ${logoHTML(m, '')}
+          <div class="top3-info">
+            <div class="top3-name">${m.name}</div>
+            <div class="top3-meta">${fmt(m.sum)} ₴ · ${m.term} дн.</div>
+          </div>
         </div>
-        <a class="top3-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Обрати →</a>
+        ${badgeHTML(m)}
+        <a class="top3-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Подати заявку →</a>
       </div>`).join('');
 
     document.getElementById('top3-list').innerHTML = featuredHTML + rowsHTML;
@@ -1346,7 +1351,7 @@ if (requisitesGrid) {
 <script>
 (function initSmartlinkWidget() {
   // ⚠️ ЗАМІНІТЬ на ваш реальний смартлінк з кабінету pdl-profit:
-  const SMARTLINK_URL = 'https://track-pdlp.com/ml?affid=62311';
+  const SMARTLINK_URL = 'https://tds.pdl-profit.com/ВАШ_СМАРТЛІНК_СЮДИ';
 
   const widget = document.getElementById('sw-widget');
   const cta = document.getElementById('sw-cta');
