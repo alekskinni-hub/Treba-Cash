@@ -522,10 +522,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <section class="step" id="step3">
       <h2 class="step-title">Оберіть ваш поточний статус зайнятості</h2>
       <div class="status-options">
-        <button class="status-btn" onclick="selectStatus(this)">Офіційне працевлаштування<span class="arrow">→</span></button>
-        <button class="status-btn" onclick="selectStatus(this)">Неофіційне працевлаштування<span class="arrow">→</span></button>
-        <button class="status-btn" onclick="selectStatus(this)">Фріланс / Самозайнятий<span class="arrow">→</span></button>
-        <button class="status-btn" onclick="selectStatus(this)">Тимчасово не працюю / Студент / Пенсіонер<span class="arrow">→</span></button>
+        <button class="status-btn" data-status="official" onclick="selectStatus(this)">Офіційне працевлаштування<span class="arrow">→</span></button>
+        <button class="status-btn" data-status="unofficial" onclick="selectStatus(this)">Неофіційне працевлаштування<span class="arrow">→</span></button>
+        <button class="status-btn" data-status="freelance" onclick="selectStatus(this)">Фріланс / Самозайнятий<span class="arrow">→</span></button>
+        <button class="status-btn" data-status="unemployed" onclick="selectStatus(this)">Тимчасово не працюю / Студент / Пенсіонер<span class="arrow">→</span></button>
       </div>
     </section>
 
@@ -547,8 +547,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="result-sub">На основі зазначених параметрів підготовлено список доступних фінансових пропозицій.</p>
       <div class="info-block">Рекомендуємо порівняти умови кількох пропозицій перед оформленням заявки.</div>
       <div class="btn-center">
-        <!-- СЮДИ ВСТАВИТИ ПОСИЛАННЯ НА ВІТРИНУ -->
-        <a href="https://trebacash.site/porivnyannya-mfo/#:~:text=%D0%97%D0%BD%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%2040%20%D0%BF%D1%80%D0%BE%D0%BF%D0%BE%D0%B7%D0%B8%D1%86%D1%96%D0%B9" target="_blank" class="btn-pulse">Переглянути пропозиції</a>
+        <!-- href формується динамічно в JS (buildResultLink) на основі відповідей квізу -->
+        <a href="https://trebacash.site/porivnyannya-mfo/" target="_blank" class="btn-pulse" id="resultCta">Переглянути пропозиції</a>
       </div>
       <p class="fine-print">Інформація на сторінці має ознайомчий характер. Остаточні умови кредитування визначаються фінансовими компаніями.</p>
     </section>
@@ -644,13 +644,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
   }
 
+  // ===== ЗБЕРІГАЄМО ВІДПОВІДІ КВІЗУ =====
+  const quizAnswers = { sum: null, term: null, status: null };
+
   function selectStatus(btn) {
     document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
+    quizAnswers.status = btn.dataset.status || 'unknown';
     setTimeout(() => {
       goStep(4);
       runProcessing();
     }, 200);
+  }
+
+  // ===== ФОРМУЄМО ПОСИЛАННЯ НА ВІТРИНУ З ПАРАМЕТРАМИ КВІЗУ =====
+  function buildResultLink() {
+    quizAnswers.sum = Math.round(parseFloat(slideAmt.value));
+    quizAnswers.term = Math.round(parseFloat(slideDays.value));
+
+    const cta = document.getElementById('resultCta');
+    if (!cta) return;
+
+    const url = new URL('https://trebacash.site/porivnyannya-mfo/');
+    url.searchParams.set('sum', quizAnswers.sum);
+    url.searchParams.set('term', quizAnswers.term);
+    if (quizAnswers.status) url.searchParams.set('status', quizAnswers.status);
+
+    // Передаємо також utm/click-id з поточної сторінки квізу, якщо вони є в адресному рядку
+    const incoming = new URLSearchParams(window.location.search);
+    incoming.forEach((value, key) => {
+      if (key.startsWith('utm_') || key === 'gclid' || key === 'fbclid') {
+        url.searchParams.set(key, value);
+      }
+    });
+
+    cta.href = url.toString();
   }
 
   // ===== STEP 4: PROCESSING SIMULATION =====
@@ -680,6 +708,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
 
     setTimeout(() => {
+      buildResultLink();
       goStep(5);
     }, 3000);
   }
