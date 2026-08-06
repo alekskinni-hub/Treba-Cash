@@ -1407,7 +1407,7 @@ if (requisitesGrid) {
 })();
 </script>
 
-  <!-- ===== LIVE-СТРІЧКА АКТИВНОСТІ ===== -->
+<!-- ===== LIVE-СТРІЧКА АКТИВНОСТІ ===== -->
 <!-- Показує ротацію повідомлень "хтось щойно переглянув пропозицію [РЕАЛЬНА МФО]".
      Імена та міста — узагальнені (типові українські), АЛЕ назва МФО завжди
      береться з живого MFO_DATA (тобто це не вигадана компанія) — так само,
@@ -1416,21 +1416,35 @@ if (requisitesGrid) {
      з'явиться реальний фід подій (наприклад постбек з pdl-profit) —
      просто підмініть NAMES/CITIES-рандомайзер на реальні дані з нього. -->
 <style>
-.live-toast{
-  position:fixed;left:18px;bottom:24px;z-index:900;
-  max-width:270px;
+.live-toast-wrap{
+  position:fixed;top:84px;left:18px;z-index:1050;
+  max-width:280px;
+  opacity:0;pointer-events:none;
+  transform:translateX(-30px) scale(.92);
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1), opacity .35s ease;
+}
+.live-toast-wrap.is-visible{opacity:1;pointer-events:auto;transform:translateX(0) scale(1);}
+
+.live-toast-border{
+  border-radius:18px;padding:2px;
+  background:linear-gradient(135deg,var(--green,#27ae60),var(--gold,#f5b942),var(--green-light,#2ecc71));
+  background-size:220% 220%;
+  animation:liveBorderShift 5s ease-in-out infinite;
+  box-shadow:0 16px 38px rgba(13,21,18,0.22);
+}
+@keyframes liveBorderShift{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.live-toast-inner{
   background:var(--white,#fff);
   border-radius:16px;
   padding:11px 14px;
-  box-shadow:0 14px 34px rgba(13,21,18,0.18);
-  border:1px solid rgba(39,174,96,0.14);
   display:flex;align-items:center;gap:10px;
-  transform:translateY(20px) scale(.94);
-  opacity:0;pointer-events:none;
-  transition:transform .45s cubic-bezier(.34,1.56,.64,1), opacity .35s ease;
   font-family:'Manrope',sans-serif;
 }
-.live-toast.is-visible{transform:translateY(0) scale(1);opacity:1;}
 
 .live-toast-dot{
   flex:0 0 8px;width:8px;height:8px;border-radius:50%;
@@ -1450,6 +1464,15 @@ if (requisitesGrid) {
   background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
   box-shadow:0 4px 10px rgba(39,174,96,.35);
 }
+.live-toast-wrap.is-visible .live-toast-avatar{
+  animation:liveAvatarPop .5s cubic-bezier(.34,1.56,.64,1) .05s backwards;
+}
+@keyframes liveAvatarPop{
+  0%{transform:scale(0) rotate(-20deg);}
+  70%{transform:scale(1.18) rotate(6deg);}
+  100%{transform:scale(1) rotate(0);}
+}
+
 .live-toast-text{font-size:12px;color:var(--text,#1a2421);line-height:1.35;}
 .live-toast-text b{color:var(--green-dark,#1e8449);}
 .live-toast-time{font-size:10.5px;color:var(--text-muted,#5a6b64);margin-top:1px;}
@@ -1463,25 +1486,35 @@ if (requisitesGrid) {
 .live-toast-close:hover{background:rgba(13,21,18,0.12);}
 
 @media (prefers-reduced-motion: reduce){
-  .live-toast{ transition:opacity .2s ease; }
+  .live-toast-wrap{ transition:opacity .2s ease; }
+  .live-toast-border{ animation:none; }
+  .live-toast-wrap.is-visible .live-toast-avatar{ animation:none; }
 }
 
-/* На мобільному піднімаємо трохи вище, щоб не наїжджати на липку панель знизу */
+/* На мобільному — спливає зверху (під шапкою), на всю ширину з відступами, як пуш-сповіщення */
 @media (max-width:900px){
-  .live-toast{ bottom:98px;left:12px;max-width:250px; }
+  .live-toast-wrap{
+    top:80px;left:12px;right:12px;max-width:none;
+    transform:translateY(-34px) scale(.95);
+  }
+  .live-toast-wrap.is-visible{ transform:translateY(0) scale(1); }
 }
 </style>
 
-<div class="live-toast" id="live-toast">
-  <span class="live-toast-dot"></span>
-  <div class="live-toast-avatar" id="live-toast-avatar">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/></svg>
+<div class="live-toast-wrap" id="live-toast">
+  <div class="live-toast-border">
+    <div class="live-toast-inner">
+      <span class="live-toast-dot"></span>
+      <div class="live-toast-avatar" id="live-toast-avatar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/></svg>
+      </div>
+      <div>
+        <div class="live-toast-text" id="live-toast-text">Завантаження…</div>
+        <div class="live-toast-time" id="live-toast-time"></div>
+      </div>
+      <button class="live-toast-close" id="live-toast-close" aria-label="Приховати">✕</button>
+    </div>
   </div>
-  <div>
-    <div class="live-toast-text" id="live-toast-text">Завантаження…</div>
-    <div class="live-toast-time" id="live-toast-time"></div>
-  </div>
-  <button class="live-toast-close" id="live-toast-close" aria-label="Приховати">✕</button>
 </div>
 
 <script>
