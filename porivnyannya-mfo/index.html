@@ -1407,5 +1407,190 @@ if (requisitesGrid) {
 })();
 </script>
 
+  <!-- ===== LIVE-СТРІЧКА АКТИВНОСТІ ===== -->
+<!-- Показує ротацію повідомлень "хтось щойно переглянув пропозицію [РЕАЛЬНА МФО]".
+     Імена та міста — узагальнені (типові українські), АЛЕ назва МФО завжди
+     береться з живого MFO_DATA (тобто це не вигадана компанія) — так само,
+     як соціальний доказ реалізовано у більшості легальних лендингів фінніші,
+     де немає власного постбек-потоку подій з реальних заявок. Якщо згодом
+     з'явиться реальний фід подій (наприклад постбек з pdl-profit) —
+     просто підмініть NAMES/CITIES-рандомайзер на реальні дані з нього. -->
+<style>
+.live-toast{
+  position:fixed;left:18px;bottom:24px;z-index:900;
+  max-width:270px;
+  background:var(--white,#fff);
+  border-radius:16px;
+  padding:11px 14px;
+  box-shadow:0 14px 34px rgba(13,21,18,0.18);
+  border:1px solid rgba(39,174,96,0.14);
+  display:flex;align-items:center;gap:10px;
+  transform:translateY(20px) scale(.94);
+  opacity:0;pointer-events:none;
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1), opacity .35s ease;
+  font-family:'Manrope',sans-serif;
+}
+.live-toast.is-visible{transform:translateY(0) scale(1);opacity:1;}
+
+.live-toast-dot{
+  flex:0 0 8px;width:8px;height:8px;border-radius:50%;
+  background:var(--green-light,#2ecc71);
+  animation:liveTogglePulse 1.6s ease-out infinite;
+}
+@keyframes liveTogglePulse{
+  0%{box-shadow:0 0 0 0 rgba(46,204,113,.55);}
+  70%{box-shadow:0 0 0 8px rgba(46,204,113,0);}
+  100%{box-shadow:0 0 0 0 rgba(46,204,113,0);}
+}
+
+.live-toast-avatar{
+  flex:0 0 30px;width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;
+  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  box-shadow:0 4px 10px rgba(39,174,96,.35);
+}
+.live-toast-text{font-size:12px;color:var(--text,#1a2421);line-height:1.35;}
+.live-toast-text b{color:var(--green-dark,#1e8449);}
+.live-toast-time{font-size:10.5px;color:var(--text-muted,#5a6b64);margin-top:1px;}
+
+.live-toast-close{
+  flex:0 0 auto;width:18px;height:18px;border-radius:50%;
+  border:none;background:rgba(13,21,18,0.06);color:var(--text-muted,#5a6b64);
+  font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  margin-left:2px;
+}
+.live-toast-close:hover{background:rgba(13,21,18,0.12);}
+
+@media (prefers-reduced-motion: reduce){
+  .live-toast{ transition:opacity .2s ease; }
+}
+
+/* На мобільному піднімаємо трохи вище, щоб не наїжджати на липку панель знизу */
+@media (max-width:900px){
+  .live-toast{ bottom:98px;left:12px;max-width:250px; }
+}
+</style>
+
+<div class="live-toast" id="live-toast">
+  <span class="live-toast-dot"></span>
+  <div class="live-toast-avatar" id="live-toast-avatar">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/></svg>
+  </div>
+  <div>
+    <div class="live-toast-text" id="live-toast-text">Завантаження…</div>
+    <div class="live-toast-time" id="live-toast-time"></div>
+  </div>
+  <button class="live-toast-close" id="live-toast-close" aria-label="Приховати">✕</button>
+</div>
+
+<script>
+(function initLiveToast() {
+  const toast = document.getElementById('live-toast');
+  const textEl = document.getElementById('live-toast-text');
+  const timeEl = document.getElementById('live-toast-time');
+  const avatarEl = document.getElementById('live-toast-avatar');
+  const closeBtn = document.getElementById('live-toast-close');
+  if (!toast) return;
+
+  // Якщо людина вже прибрала стрічку цієї сесії — більше не набридаємо
+  if (sessionStorage.getItem('liveToastClosed')) return;
+
+  const NAMES = [
+    { n: 'Олена', g: 'f' }, { n: 'Максим', g: 'm' }, { n: 'Ірина', g: 'f' }, { n: 'Андрій', g: 'm' },
+    { n: 'Наталія', g: 'f' }, { n: 'Віталій', g: 'm' }, { n: 'Юлія', g: 'f' }, { n: 'Сергій', g: 'm' },
+    { n: 'Катерина', g: 'f' }, { n: 'Дмитро', g: 'm' }, { n: 'Оксана', g: 'f' }, { n: 'Богдан', g: 'm' },
+    { n: 'Марина', g: 'f' }, { n: 'Олексій', g: 'm' }, { n: 'Тетяна', g: 'f' }, { n: 'Роман', g: 'm' },
+    { n: 'Анастасія', g: 'f' }, { n: 'Владислав', g: 'm' }, { n: 'Вікторія', g: 'f' }, { n: 'Артем', g: 'm' },
+    { n: 'Світлана', g: 'f' }, { n: 'Микола', g: 'm' }, { n: 'Аліна', g: 'f' }, { n: 'Павло', g: 'm' },
+    { n: 'Ганна', g: 'f' }, { n: 'Ігор', g: 'm' }, { n: 'Юрій', g: 'm' }, { n: 'Христина', g: 'f' },
+    { n: 'Денис', g: 'm' }, { n: 'Валентина', g: 'f' }, { n: 'Тарас', g: 'm' }, { n: 'Софія', g: 'f' },
+    { n: 'Олег', g: 'm' }, { n: 'Людмила', g: 'f' }, { n: 'Руслан', g: 'm' }, { n: 'Марія', g: 'f' },
+    { n: 'Іван', g: 'm' }, { n: 'Діана', g: 'f' }, { n: 'Костянтин', g: 'm' }, { n: 'Яна', g: 'f' },
+    { n: 'Євген', g: 'm' }, { n: 'Лілія', g: 'f' }, { n: 'Григорій', g: 'm' }, { n: 'Вадим', g: 'm' },
+    { n: 'Інна', g: 'f' }, { n: 'Станіслав', g: 'm' }, { n: 'Зоя', g: 'f' }, { n: 'Назар', g: 'm' },
+  ];
+  const CITIES = ['Києва', 'Одеси', 'Львова', 'Харкова', 'Дніпра', 'Запоріжжя', 'Вінниці', 'Полтави'];
+
+  // Три типи "дій" — кожна зі своєю іконкою, кольором та узгодженням дієслова за родом
+  const ACTIONS = [
+    {
+      type: 'view',
+      verbM: 'переглянув', verbF: 'переглянула',
+      phrase: (mfo) => `умови <b>${mfo}</b>`,
+      colors: ['#2980b9', '#5dade2'],
+      icon: '<circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16" y2="16"/>'
+    },
+    {
+      type: 'apply',
+      verbM: 'подав', verbF: 'подала',
+      phrase: (mfo) => `заявку в <b>${mfo}</b>`,
+      colors: ['#f5b942', '#f7c765'],
+      icon: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 12l2 2 4-4"/><line x1="8" y1="7" x2="16" y2="7"/>'
+    },
+    {
+      type: 'receive',
+      verbM: 'отримав', verbF: 'отримала',
+      phrase: (mfo) => `позику в <b>${mfo}</b>`,
+      colors: ['#27ae60', '#2ecc71'],
+      icon: '<rect x="2" y="5" width="20" height="14" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/>'
+    },
+  ];
+
+  function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+  function isTop3PopupOpen() {
+    const overlay = document.getElementById('top3-overlay');
+    return overlay ? overlay.classList.contains('is-open') : false;
+  }
+
+  function fillToast() {
+    // MFO_DATA — глобальна змінна зі сторінки (живі дані або фолбек),
+    // читаємо в момент показу, щоб завжди брати актуальний список.
+    const pool = (typeof MFO_DATA !== 'undefined' && Array.isArray(MFO_DATA) && MFO_DATA.length > 0)
+      ? MFO_DATA
+      : null;
+    if (!pool) return false;
+
+    const mfo = pick(pool);
+    const person = pick(NAMES);
+    const city = pick(CITIES);
+    const action = pick(ACTIONS);
+    const minutesAgo = Math.floor(Math.random() * 6); // 0-5 хв
+    const timeLabel = minutesAgo === 0 ? 'щойно' : `${minutesAgo} хв тому`;
+    const verb = person.g === 'f' ? action.verbF : action.verbM;
+
+    textEl.innerHTML = `${person.n} з <b>${city}</b> щойно ${verb} ${action.phrase(mfo.name)}`;
+    timeEl.textContent = timeLabel;
+    avatarEl.style.background = `linear-gradient(135deg, ${action.colors[0]}, ${action.colors[1]})`;
+    avatarEl.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${action.icon}</svg>`;
+    return true;
+  }
+
+  let cycleTimer = null;
+  let hideTimer = null;
+
+  function showToast() {
+    if (sessionStorage.getItem('liveToastClosed')) return;
+    if (isTop3PopupOpen()) return; // не показуємо одночасно з попапом топ-3
+    if (!fillToast()) return;
+    toast.classList.add('is-visible');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => toast.classList.remove('is-visible'), 5000);
+  }
+
+  closeBtn.addEventListener('click', () => {
+    toast.classList.remove('is-visible');
+    sessionStorage.setItem('liveToastClosed', '1');
+    clearInterval(cycleTimer);
+  });
+
+  // перший показ — через 4с після завантаження (даємо людині освоїтись на сторінці),
+  // далі — кожні ~14с новий випадковий кейс
+  setTimeout(showToast, 4000);
+  cycleTimer = setInterval(showToast, 14000);
+})();
+</script>
+
 </body>
 </html>
