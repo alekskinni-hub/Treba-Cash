@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-17T06:40:31.351975+00:00",
-  "count": 38,
+  "generatedAt": "2026-08-18T06:31:57.812058+00:00",
+  "count": 37,
   "offers": [
     {
       "id": 1147,
@@ -423,7 +423,7 @@
     {
       "id": 2707,
       "name": "Amigo",
-      "logo": "https://pdl-profit.com/uploads/2026-04-16/file_69e0d876e3f14.png",
+      "logo": "https://pdl-profit.com/uploads/2026-08-17/file_6a82bb96c0389.png",
       "ref": "https://tds.pdl-profit.com?offerid=2707&affid=62311",
       "sum": 7000,
       "term": 360,
@@ -533,25 +533,6 @@
       "address": "03150, м. Київ, вул. Фізкультури, 30В",
       "phone": "0800 202 262",
       "email": "info@suncredit.com.ua"
-    },
-    {
-      "id": 3001,
-      "name": "Turbogroshi",
-      "logo": "https://pdl-profit.com/uploads/2024-10-23/file_6718d4ac6c9ec.png",
-      "ref": "https://tds.pdl-profit.com?offerid=3001&affid=62311",
-      "sum": 10000,
-      "term": 30,
-      "rateMin": 365.0,
-      "rateMax": 547.5,
-      "badge": "Вигідні умови для нових клієнтів",
-      "badgeColor": "green",
-      "hasZeroBadge": false,
-      "goldBadgeText": null,
-      "legal": "ТОВ «ФК «БІКСБІТ»",
-      "edrpou": null,
-      "address": "01001, м. Київ, вул. Ірининська, 5/24, оф. 97а",
-      "phone": "0 800 400004",
-      "email": "info@turbogroshi.com.ua"
     },
     {
       "id": 3124,
