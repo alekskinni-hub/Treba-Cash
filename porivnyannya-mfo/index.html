@@ -298,6 +298,27 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 @media(max-width:640px){
   .hero{padding-top:100px;}
   .container{padding:0 16px;}
+
+  /* Картки МФО — по 2 в ряд на мобільних, компактніша версія */
+  .mfo-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+  .mfo-badges-row{padding:12px 12px 0;gap:5px;}
+  .mfo-badge{font-size:10px;padding:5px 9px;}
+  .mfo-card-top{padding:10px 12px;gap:8px;}
+  .mfo-logo-wrap{width:38px;height:38px;border-radius:10px;}
+  .mfo-logo-fallback{font-size:12px;border-radius:10px;}
+  .mfo-card-name{font-size:12px;line-height:1.25;}
+  .mfo-card-badge{font-size:8px;padding:2px 6px;margin-top:3px;}
+  .mfo-card-body{padding:10px 12px 4px;}
+  .mfo-stat-row{font-size:10.5px;padding:5px 0;flex-direction:column;gap:1px;}
+  .mfo-stat-row .v{font-size:11.5px;}
+  .rrps-toggle{font-size:11px;padding:7px 0;}
+  .rrps-panel-inner{font-size:10.5px;}
+  .mfo-card-cta{padding:10px 12px 14px;gap:6px;}
+  .btn-primary{font-size:11px;padding:10px 8px;border-radius:9px;}
+}
+
+@media(max-width:360px){
+  .mfo-grid{grid-template-columns:1fr;}
 }
 
 /* ===== REQUISITES GRID (dashed cards, alphabetical) ===== */
