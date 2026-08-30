@@ -927,9 +927,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <input type="checkbox" id="promo-filter-checkbox">
         🔥 Тільки акційні умови
       </label>
-      <button class="sort-btn active" data-sort="sum-desc">За сумою ↓</button>
+      <button class="sort-btn" data-sort="sum-desc">За сумою ↓</button>
       <button class="sort-btn" data-sort="rate-asc">За ставкою ↑</button>
-      <button class="sort-btn" data-sort="date-new">🔝🔥 Новіші спочатку</button>
+      <button class="sort-btn active" data-sort="date-new">🔝🔥 Новіші спочатку</button>
       <button class="sort-btn" data-sort="date-old">💯💳 Старіші спочатку</button>
       <button class="sort-btn" id="reset-calc-filter" style="display:none;background:#fdecea;border-color:#e74c3c;color:#e74c3c;">✕ Скинути фільтр калькулятора</button>
     </div>
@@ -1086,7 +1086,7 @@ function initPage() {
 let state = {
   sum: 15000,
   term: 60,
-  sort: 'sum-desc',
+  sort: 'date-new',
   visible: 12,
   onlyPromo: false,
 };
