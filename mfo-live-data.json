@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-08-31T12:24:16.716690+00:00",
-  "count": 38,
+  "generatedAt": "2026-08-31T19:39:21.241177+00:00",
+  "count": 41,
   "offers": [
     {
       "id": 1147,
@@ -307,6 +307,44 @@
       "email": "office@finbert.ua"
     },
     {
+      "id": 2230,
+      "name": "Mybiz",
+      "logo": "https://pdl-profit.com/uploads/2022-07-22/file_62dab4b3c7f51.png",
+      "ref": "https://tds.pdl-profit.com?offerid=2230&affid=62311",
+      "sum": 10000,
+      "term": 56,
+      "rateMin": 3.6,
+      "rateMax": 730.0,
+      "badge": "Вигідні умови для нових клієнтів",
+      "badgeColor": "green",
+      "hasZeroBadge": true,
+      "goldBadgeText": "Перша позика під 0.01%*",
+      "legal": null,
+      "edrpou": null,
+      "address": null,
+      "phone": null,
+      "email": null
+    },
+    {
+      "id": 2236,
+      "name": "Bizpozyka",
+      "logo": "https://pdl-profit.com/uploads/2022-08-15/file_62fa48fc4aadf.png",
+      "ref": "https://tds.pdl-profit.com?offerid=2236&affid=62311",
+      "sum": 150000,
+      "term": 112,
+      "rateMin": 365.0,
+      "rateMax": 365.0,
+      "badge": "До 150 000 ₴ на картку",
+      "badgeColor": "blue",
+      "hasZeroBadge": false,
+      "goldBadgeText": null,
+      "legal": null,
+      "edrpou": null,
+      "address": null,
+      "phone": null,
+      "email": null
+    },
+    {
       "id": 2239,
       "name": "ТвояПозика",
       "logo": "https://pdl-profit.com/uploads/2024-05-18/file_66490a594ffdd.png",
@@ -324,6 +362,25 @@
       "address": "м. Київ, вул. Ген. Алмазова, 13, оф. 524",
       "phone": "0800 211 503",
       "email": "office@tpozyka.com"
+    },
+    {
+      "id": 2296,
+      "name": "Credos",
+      "logo": "https://pdl-profit.com/uploads/2025-02-17/file_67b2f1998ef9f.png",
+      "ref": "https://tds.pdl-profit.com?offerid=2296&affid=62311",
+      "sum": 20000,
+      "term": 30,
+      "rateMin": 3.6,
+      "rateMax": 361.4,
+      "badge": "Вигідні умови для нових клієнтів",
+      "badgeColor": "green",
+      "hasZeroBadge": true,
+      "goldBadgeText": "Перша позика під 0.01%*",
+      "legal": null,
+      "edrpou": null,
+      "address": null,
+      "phone": null,
+      "email": null
     },
     {
       "id": 2336,
@@ -554,25 +611,6 @@
       "email": "info@turbogroshi.com.ua"
     },
     {
-      "id": 3124,
-      "name": "Lemurcredit",
-      "logo": "https://pdl-profit.com/uploads/2025-02-11/file_67ab7463deb8c.png",
-      "ref": "https://tds.pdl-profit.com?offerid=3124&affid=62311",
-      "sum": 15000,
-      "term": 30,
-      "rateMin": 36.5,
-      "rateMax": 474.5,
-      "badge": "Вигідні умови для нових клієнтів",
-      "badgeColor": "green",
-      "hasZeroBadge": true,
-      "goldBadgeText": "Перша позика під 0.1%*",
-      "legal": null,
-      "edrpou": null,
-      "address": null,
-      "phone": null,
-      "email": null
-    },
-    {
       "id": 3370,
       "name": "Freestyle Credit",
       "logo": "https://pdl-profit.com/uploads/2025-09-25/file_68d559e173223.png",
@@ -723,6 +761,25 @@
       "address": "04071, м. Київ, вул. Верхній Вал, 4-В, під'їзд 1, пов. 2, оф. 9-14",
       "phone": "0 800 205 353",
       "email": "support@finclick.com.ua"
+    },
+    {
+      "id": 3949,
+      "name": "TOP1",
+      "logo": "https://pdl-profit.com/uploads/2026-08-27/file_6a903c8aaef8b.png",
+      "ref": "https://tds.pdl-profit.com?offerid=3949&affid=62311",
+      "sum": 30000,
+      "term": 60,
+      "rateMin": 292.0,
+      "rateMax": 51.1,
+      "badge": "Вигідні умови для нових клієнтів",
+      "badgeColor": "green",
+      "hasZeroBadge": false,
+      "goldBadgeText": null,
+      "legal": null,
+      "edrpou": null,
+      "address": null,
+      "phone": null,
+      "email": null
     }
   ]
 }
