@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-01T10:55:46.712327+00:00",
-  "count": 41,
+  "generatedAt": "2026-09-01T14:36:10.577076+00:00",
+  "count": 40,
   "offers": [
     {
       "id": 1147,
@@ -514,25 +514,6 @@
       "address": "03150, м. Київ, вул. Казимира Малевича, 86Е",
       "phone": "0 800 310-422",
       "email": "info@treba.credit"
-    },
-    {
-      "id": 2787,
-      "name": "Beecredit",
-      "logo": "https://pdl-profit.com/uploads/2024-07-15/file_6695002b05990.png",
-      "ref": "https://tds.pdl-profit.com?offerid=2787&affid=62311",
-      "sum": 10000,
-      "term": 30,
-      "rateMin": 365.0,
-      "rateMax": 365.0,
-      "badge": "Вигідні умови для нових клієнтів",
-      "badgeColor": "green",
-      "hasZeroBadge": false,
-      "goldBadgeText": null,
-      "legal": "ТОВ «МУЛЬТІКРЕДИТ»",
-      "edrpou": "44653728",
-      "address": "04052, м. Київ, вул. Глибочицька, 40, корп. Н-П, оф. 30",
-      "phone": "0 800 200 001",
-      "email": "info@beecredit.com.ua"
     },
     {
       "id": 2803,
