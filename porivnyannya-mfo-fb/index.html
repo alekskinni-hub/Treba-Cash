@@ -852,6 +852,22 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     return Number.isFinite(n) ? n : -Infinity; // без статистики — в кінець
   }
 
+  // Щоб різні відвідувачі (з однаковим запитом sum/term) не бачили щоразу
+  // одні й ті самі 3 офери — беремо трохи ширший пул "хороших" кандидатів
+  // (за тим самим рейтингом) і випадково обираємо з нього потрібну кількість.
+  // Це особливо помітно, коли нагорі рейтингу є декілька офферів з однаковим
+  // "рахунком" (напр. нові бренди без запису в MFO_SENIORITY) — без рандому
+  // порядок між ними завжди був би однаковим.
+  const CANDIDATE_POOL_SIZE = 16;
+  function pickRandom(sortedArr, count) {
+    const candidates = sortedArr.slice(0, Math.max(count, Math.min(CANDIDATE_POOL_SIZE, sortedArr.length)));
+    for (let i = candidates.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+    }
+    return candidates.slice(0, count);
+  }
+
   function render(offers) {
     let pool = offers.filter(m => m.sum >= querySum && m.term >= queryTerm);
     if (pool.length === 0) pool = offers.slice();
@@ -876,16 +892,18 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
         <a class="top3-mini-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${mfoAttrSafe(m.name)}',source:'popup'});}">Подати заявку →</a>
       </div>`;
 
-    // ТОП-3 — спочатку найновіші бренди на майданчику (MFO_SENIORITY, вище = новіші)
-    const topThree = [...pool].sort((a, b) => seniorityVal(b) - seniorityVal(a)).slice(0, 3);
+    // ТОП-3 — з-поміж найновіших брендів на майданчику (MFO_SENIORITY, вище = новіші)
+    // випадково обираємо 3, щоб набір не був однаковим у кожного відвідувача
+    const seniorSorted = [...pool].sort((a, b) => seniorityVal(b) - seniorityVal(a));
+    const topThree = pickRandom(seniorSorted, 3);
     const usedNames = new Set(topThree.map(m => m.name));
 
-    // Рекомендації клієнтів — топ TREBACASH (той самий рейтинг EPC, що й кнопка
-    // "💳 ТОП від TREBACASH" на вітрині), без дублів із колонки ТОП-3
-    const recThree = [...pool]
+    // Рекомендації клієнтів — з-поміж топ TREBACASH (той самий рейтинг EPC, що й
+    // кнопка "💳 ТОП від TREBACASH" на вітрині), теж випадково, без дублів із ТОП-3
+    const epcSorted = [...pool]
       .filter(m => !usedNames.has(m.name))
-      .sort((a, b) => epcVal(b) - epcVal(a))
-      .slice(0, 3);
+      .sort((a, b) => epcVal(b) - epcVal(a));
+    const recThree = pickRandom(epcSorted, 3);
 
     document.getElementById('top3-list-top').innerHTML =
       topThree.map((m, i) => miniCardHTML(m, i + 1)).join('');
