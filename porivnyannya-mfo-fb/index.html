@@ -510,6 +510,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   .sw-title{ font-size:13.5px;text-align:left;margin:0; }
   .sw-subtitle,.sw-checklist,.sw-footnote,.sw-phone-form,.sw-consent,.sw-alt-link,.sw-success{ display:none; }
   .sw-close{ top:6px;right:6px; }
+
+  /* Бічний віджет (форма телефону + смартлінк) вимкнено на мобільній версії —
+     лишаємо розмітку й логіку в коді (працює на десктопі), просто ховаємо тут. */
+  .sw-widget{ display:none !important; }
 }
 </style>
 </head>
@@ -768,6 +772,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
   // ---- локальні хелпери (не залежать від скриптів сторінки) ----
   function fmt(n) { return new Intl.NumberFormat('uk-UA').format(Math.round(n)); }
+  // Безпечно вставляє назву МФО і в JS-рядок (в межах onclick), і в HTML-атрибут
+  function mfoAttrSafe(name) {
+    return String(name).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+  }
   const FALLBACK_COLORS = ['#27ae60', '#2ecc71', '#1e8449', '#f5b942', '#2980b9'];
   function fallbackColor(name) {
     let hash = 0;
@@ -824,17 +832,30 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     overlay.setAttribute('aria-hidden', 'true');
   }
 
+  // Ті самі довідники, що й на вітрині (MFO_SENIORITY / MFO_EPC оголошені
+  // нижче по сторінці окремим <script>, але на момент, коли резолвиться fetch
+  // нижче, вони вже гарантовано існують — тож звертаємось до них через window
+  // з безпечним fallback на порожній об'єкт, якщо раптом їх ще нема).
+  function seniorityVal(m) {
+    // MFO_SENIORITY оголошено через `const` у нижньому <script> — такі змінні
+    // НЕ стають властивостями window, тому звертаємось до самого імені напряму
+    // (це безпечно: render() викликається лише в .then() після fetch, тобто
+    // вже після того, як увесь синхронний код сторінки, включно з нижнім
+    // <script>, встиг виконатись).
+    const table = (typeof MFO_SENIORITY === 'object' && MFO_SENIORITY) || {};
+    const r = table[m.name];
+    return Number.isFinite(r) ? r : Infinity; // невідомі/нові бренди = найновіші
+  }
+  function epcVal(m) {
+    const table = (typeof MFO_EPC === 'object' && MFO_EPC) || {};
+    const n = table[m.name];
+    return Number.isFinite(n) ? n : -Infinity; // без статистики — в кінець
+  }
+
   function render(offers) {
     let pool = offers.filter(m => m.sum >= querySum && m.term >= queryTerm);
     if (pool.length === 0) pool = offers.slice();
-
-    pool.sort((a, b) => {
-      if (!!b.hasZeroBadge !== !!a.hasZeroBadge) return (b.hasZeroBadge ? 1 : 0) - (a.hasZeroBadge ? 1 : 0);
-      return (a.rateMin || 0) - (b.rateMin || 0);
-    });
-
-    const top6 = pool.slice(0, 6);
-    if (top6.length === 0) return;
+    if (pool.length === 0) return;
 
     document.getElementById('top3-subtitle').innerHTML =
       `Для вашого запиту: <b>${fmt(querySum)} ₴ / ${queryTerm} дн.</b>`;
@@ -852,11 +873,19 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
         </div>
         <div class="top3-mini-meta">${fmt(m.sum)} ₴ · ${m.term} дн.</div>
         ${badgeHTML(m)}
-        <a class="top3-mini-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Подати заявку →</a>
+        <a class="top3-mini-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${mfoAttrSafe(m.name)}',source:'popup'});}">Подати заявку →</a>
       </div>`;
 
-    const topThree = top6.slice(0, 3);
-    const recThree = top6.slice(3, 6);
+    // ТОП-3 — спочатку найновіші бренди на майданчику (MFO_SENIORITY, вище = новіші)
+    const topThree = [...pool].sort((a, b) => seniorityVal(b) - seniorityVal(a)).slice(0, 3);
+    const usedNames = new Set(topThree.map(m => m.name));
+
+    // Рекомендації клієнтів — топ TREBACASH (той самий рейтинг EPC, що й кнопка
+    // "💳 ТОП від TREBACASH" на вітрині), без дублів із колонки ТОП-3
+    const recThree = [...pool]
+      .filter(m => !usedNames.has(m.name))
+      .sort((a, b) => epcVal(b) - epcVal(a))
+      .slice(0, 3);
 
     document.getElementById('top3-list-top').innerHTML =
       topThree.map((m, i) => miniCardHTML(m, i + 1)).join('');
@@ -1087,6 +1116,15 @@ let MFO_DATA = MFO_DATA_FALLBACK;
    не юридична назва.
    Можете вільно редагувати/дописувати список у будь-який момент —
    ніяких інших змін в коді для цього не потрібно. */
+/* Примітка: MFO_SENIORITY/MFO_CR/MFO_EPC — це РУЧНІ довідники (стаж бренду на ринку
+   та мережева статистика PDL-profit), їх НЕМА в mfo-live-data.json — той фід віддає
+   лише картку офера (назва, сума, строк, ставка, юр. дані), без цих метрик, тож
+   автоматично "перенести" їх з живих даних неможливо технічно (даних просто нема).
+   Офери, яких ще нема в цих трьох об'єктах (нові бренди на кшталт Credos/TOP1),
+   код і так коректно обробляє: seniorityVal() трактує їх як "найновіші" (Infinity),
+   а crVal()/epcVal() відправляють у кінець списку (-Infinity) — тобто нічого не
+   зламається, просто для щойно доданих МФО поки не буде "стажу"/CR/EPC, доки
+   вручну не впишете їх сюди. */
 const MFO_SENIORITY = {
   "Credit7": 7,
   "MILOAN": 6,
@@ -1114,12 +1152,10 @@ const MFO_SENIORITY = {
   "Pango": 22,
   "Amigo": 23,
   "Treba": 24,
-  "Beecredit": 25,
   "LimonCredit": 26,
   "Lehko": 27,
   "Suncredit": 29,
   "Turbogroshi": 28,
-  "Lemurcredit": 30,
   "Freestyle Credit": 31,   // юр. особа ТОВ «МАНІВЕО ШВИДКА ФІНАНСОВА ДОПОМОГА»
   "Rocketmoney": 32,
   "Finmarket": 33,
@@ -1128,6 +1164,8 @@ const MFO_SENIORITY = {
   "FinClick": 36,
   "Ariba": 37,
   "Funnymoney": 38,
+  // Credos, TOP1 — нові в живих даних, стажу ще нема; свідомо не додаємо,
+  // щоб вони коректно потрапляли в "найновіші" (fallback = Infinity).
 };
 
 /* ====== МЕРЕЖЕВА СТАТИСТИКА PDL PROFIT (CR / EPC) ======
@@ -1248,6 +1286,10 @@ function fmtDate(iso) {
   const d = new Date(iso);
   const months = ['січ','лют','бер','кв','трав','черв','лип','серп','вер','жовт','лист','груд'];
   return `${d.getDate()} ${months[d.getMonth()]}`;
+}
+// Безпечно вставляє назву МФО і в JS-рядок (в межах onclick), і в HTML-атрибут
+function mfoAttrSafe(name) {
+  return String(name).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 }
 
 /* ====== LOGO FALLBACK COLORS (deterministic by name) ====== */
@@ -1426,7 +1468,7 @@ function cardHTML(m, idx) {
       </div>
     </div>
     <div class="mfo-card-cta">
-      <a class="btn-primary" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Подати заявку →</a>
+      <a class="btn-primary" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${mfoAttrSafe(m.name)}',source:'grid'});}">Подати заявку →</a>
     </div>
   </div>`;
 }
@@ -1631,6 +1673,9 @@ if (requisitesGrid) {
     }
   }
   cta.href = buildSmartlinkUrl();
+  cta.addEventListener('click', () => {
+    if (typeof fbq === 'function') fbq('trackCustom', 'go_to_offer', { source: 'sidebar_widget_smartlink' });
+  });
 
   function isTop3PopupOpen() {
     const overlay = document.getElementById('top3-overlay');
@@ -1718,6 +1763,7 @@ if (requisitesGrid) {
     })
       .catch(() => {})
       .finally(() => {
+        // Той самий віджет, що збоку на десктопі — рахуємо це як Lead, так само як на квізі.
         if (typeof fbq === 'function') fbq('track', 'Lead');
         sessionStorage.setItem(SUBMITTED_KEY, '1');
         formWrap.style.display = 'none';
@@ -2021,7 +2067,9 @@ body.has-sticky-cta{ padding-bottom:0 !important; }
     })
       .catch(() => { /* no-cors — помилку мережі теж не побачимо, це очікувано */ })
       .finally(() => {
-        if (typeof fbq === 'function') fbq('track', 'Lead');
+        // 'Lead' лишаємо лише за квізом (/quiz/) — ця форма (sticky-cta) наразі
+        // й так вимкнена на всіх екранах, але подію теж приводимо до єдиного стандарту.
+        if (typeof fbq === 'function') fbq('trackCustom', 'go_to_offer', { source: 'sticky_cta_phone' });
         sessionStorage.setItem(SUBMITTED_KEY, '1');
         formWrap.style.display = 'none';
         successEl.classList.add('is-visible');
