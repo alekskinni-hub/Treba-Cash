@@ -1912,10 +1912,38 @@ body.has-sticky-cta{ padding-bottom:118px; }
 
   if (sessionStorage.getItem(DISMISS_KEY) === '1') return;
 
-  setTimeout(() => {
+  // === Показ форми: перше з трьох подій ===
+  // 1) юзер прогорнув сторінку повз SCROLL_THRESHOLD px
+  // 2) юзер долистав до сітки МФО (#mfo-grid) — сигнал реального інтересу
+  // 3) страховка за часом, якщо жодне з двох не настало (TIMEOUT_FALLBACK_MS)
+  const SCROLL_THRESHOLD = 350;
+  const TIMEOUT_FALLBACK_MS = 8000;
+
+  let revealed = false;
+  function reveal() {
+    if (revealed) return;
+    revealed = true;
     bar.classList.add('is-visible');
     document.body.classList.add('has-sticky-cta');
-  }, 1200);
+    window.removeEventListener('scroll', onScroll);
+    if (gridObserver) gridObserver.disconnect();
+  }
+
+  function onScroll() {
+    if (window.scrollY > SCROLL_THRESHOLD) reveal();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  let gridObserver = null;
+  const gridTarget = document.getElementById('mfo-grid');
+  if (gridTarget && 'IntersectionObserver' in window) {
+    gridObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) reveal();
+    }, { threshold: 0.1 });
+    gridObserver.observe(gridTarget);
+  }
+
+  setTimeout(reveal, TIMEOUT_FALLBACK_MS);
 
   function hide() {
     bar.classList.remove('is-visible');
