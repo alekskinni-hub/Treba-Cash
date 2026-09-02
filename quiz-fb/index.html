@@ -583,7 +583,7 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
       <div class="info-block">Рекомендуємо порівняти умови кількох пропозицій перед оформленням заявки.</div>
       <div class="btn-center">
         <!-- href формується динамічно в JS (buildResultLink) на основі відповідей квізу -->
-        <a href="https://trebacash.site/porivnyannya-mfo/" target="_blank" class="btn-pulse" id="resultCta">Переглянути пропозиції</a>
+        <a href="https://trebacash.site/porivnyannya-mfo-fb/" target="_blank" class="btn-pulse" id="resultCta">Переглянути пропозиції</a>
       </div>
       <p class="fine-print">Інформація на сторінці має ознайомчий характер. Остаточні умови кредитування визначаються фінансовими компаніями.</p>
     </section>
@@ -761,7 +761,7 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
     const cta = document.getElementById('resultCta');
     if (!cta) return;
 
-    const url = new URL('https://trebacash.site/porivnyannya-mfo/');
+    const url = new URL('https://trebacash.site/porivnyannya-mfo-fb/');
     url.searchParams.set('sum', quizAnswers.sum);
     url.searchParams.set('term', quizAnswers.term);
     if (quizAnswers.status) url.searchParams.set('status', quizAnswers.status);
