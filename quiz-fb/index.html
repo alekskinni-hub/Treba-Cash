@@ -554,16 +554,6 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
       </div>
     </section>
 
-    <!-- STEP 4: PHONE -->
-    <section class="step" id="step4">
-      <h2 class="step-title">Куди надіслати підібрані пропозиції?</h2>
-      <p class="phone-hint">Залиште номер — і ми одразу сформуємо для вас список пропозицій під ці параметри, а за потреби наш менеджер зможе допомогти з вибором.</p>
-      <input type="tel" id="phoneInput" class="tc-phone-input" placeholder="+380 XX XXX XX XX" inputmode="tel" autocomplete="tel" aria-label="Номер телефону">
-      <p class="fine-print" id="phoneError" style="color:#e74c3c; display:none; margin-top:8px;">Перевірте, будь ласка, номер телефону</p>
-      <button class="btn-main btn-block" id="phoneSubmitBtn" style="margin-top:16px;" onclick="submitPhone()">Показати пропозиції</button>
-      <p class="fine-print" style="margin-top:10px;">Натискаючи "Показати пропозиції", ви погоджуєтесь на обробку персональних даних.</p>
-    </section>
-
     <!-- STEP 5: PROCESSING -->
     <section class="step" id="step5">
       <div class="processing-wrap">
@@ -680,77 +670,16 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
   }
 
   // ===== ЗБЕРІГАЄМО ВІДПОВІДІ КВІЗУ =====
-  const quizAnswers = { sum: null, term: null, status: null, phone: null };
+  const quizAnswers = { sum: null, term: null, status: null };
 
   function selectStatus(btn) {
     document.querySelectorAll('.status-btn').forEach(b => b.classList.remove('selected'));
     btn.classList.add('selected');
     quizAnswers.status = btn.dataset.status || 'unknown';
     setTimeout(() => {
-      goStep(4);
-      const phoneInput = document.getElementById('phoneInput');
-      if (phoneInput) phoneInput.focus();
+      goStep(5);
+      runProcessing();
     }, 200);
-  }
-
-  // ===== ВІДПРАВКА ЛІДІВ У GOOGLE SHEETS (той самий Apps Script, що на вітрині) =====
-  const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyS_V0Dmk5tnKnqd3SzhECUlu654Fc_koinJ4kkPkCNucNQ6Pf5fCbH2Yz35fVfuLj9/exec';
-
-  function isValidUaPhone(raw) {
-    const digits = raw.replace(/\D/g, '');
-    // приймаємо 380XXXXXXXXX (12 цифр) або 0XXXXXXXXX (10 цифр, локальний формат)
-    return /^380\d{9}$/.test(digits) || /^0\d{9}$/.test(digits);
-  }
-
-  function getUtmParam(name) {
-    try { return new URLSearchParams(window.location.search).get(name) || ''; }
-    catch (e) { return ''; }
-  }
-
-  // ===== STEP 4: ВАЛІДАЦІЯ ТА ВІДПРАВКА ТЕЛЕФОНУ =====
-  function submitPhone() {
-    const input = document.getElementById('phoneInput');
-    const errorEl = document.getElementById('phoneError');
-    const btn = document.getElementById('phoneSubmitBtn');
-
-    if (!isValidUaPhone(input.value)) {
-      input.classList.add('error');
-      errorEl.style.display = 'block';
-      return;
-    }
-
-    input.classList.remove('error');
-    errorEl.style.display = 'none';
-    quizAnswers.phone = input.value.trim();
-
-    btn.disabled = true;
-    btn.textContent = 'Надсилаємо…';
-
-    const payload = {
-      phone: quizAnswers.phone,
-      page: window.location.href,
-      sum: Math.round(parseFloat(slideAmt.value)),
-      term: Math.round(parseFloat(slideDays.value)),
-      status: quizAnswers.status || '',
-      utm_source: getUtmParam('utm_source'),
-      utm_campaign: getUtmParam('utm_campaign'),
-      utm_term: getUtmParam('utm_term'),
-    };
-
-    fetch(SHEETS_ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors', // Apps Script не віддає CORS-заголовки — читати відповідь не можемо, і не потрібно
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload),
-    })
-      .catch(() => { /* no-cors — помилку мережі теж не побачимо, це очікувано */ })
-      .finally(() => {
-        // подія Lead для Meta Pixel — фіксуємо момент залишення контакту
-        if (typeof fbq === 'function') fbq('track', 'Lead');
-
-        goStep(5);
-        runProcessing();
-      });
   }
 
   // ===== ФОРМУЄМО ПОСИЛАННЯ НА ВІТРИНУ З ПАРАМЕТРАМИ КВІЗУ =====
