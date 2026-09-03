@@ -966,9 +966,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </label>
       <button class="sort-btn" data-sort="sum-desc">За сумою ↓</button>
       <button class="sort-btn" data-sort="rate-asc">За ставкою ↑</button>
-      <button class="sort-btn" data-sort="date-new">🔝🔥 Новіші спочатку</button>
+      <button class="sort-btn active" data-sort="date-new">🔝🔥 Новіші спочатку</button>
       <button class="sort-btn" data-sort="date-old">💯💳 Старіші спочатку</button>
-      <button class="sort-btn active" data-sort="cr-desc">💬 Рекомендовано клієнтами</button>
+      <button class="sort-btn" data-sort="cr-desc">💬 Рекомендовано клієнтами</button>
       <button class="sort-btn" data-sort="epc-desc">💳 ТОП від TREBACASH</button>
       <button class="sort-btn" id="reset-calc-filter" style="display:none;background:#fdecea;border-color:#e74c3c;color:#e74c3c;">✕ Скинути фільтр калькулятора</button>
     </div>
@@ -1077,46 +1077,56 @@ let MFO_DATA = MFO_DATA_FALLBACK;
    Можете вільно редагувати/дописувати список у будь-який момент —
    ніяких інших змін в коді для цього не потрібно. */
 const MFO_SENIORITY = {
-  "Credit7": 7,
-  "MILOAN": 6,
-  "MyCredit": 5,
-  "Creditplus": 4,
-  "CreditKasa": 3,
-  "E-groshi": 2,
-  "SlonCredit": 14,
-  "ШвидкоГроші": 1,
-  "Microcash": 15,
-  "Tengo": 8,
-  "Нові кредити": 13,
-  "Cashpoint": 12,
-  "Aviracredit": 16,
-  "Cly": 11,
-  "SelfieCredit": 9,
-  "Finbert": 17,
-  "ТвояПозика": 10,
-  "Ewacash": 18,
-  "LoviLave": 19,
-  "Prostocredit": 20,
-  "Mybiz": 20.5,
-  "Bizpozyka": 20.6,
-  "Starfin": 21,
-  "Pango": 22,
-  "Amigo": 23,
-  "Treba": 24,
-  "Beecredit": 25,
-  "LimonCredit": 26,
+  // ТОП-25 за даними менеджера PDL Profit (EPC/CR) — саме цей порядок
+  // показується при першому заході відвідувача (сортування за замовчуванням)
+  "Starfin": 44,
+  "ТвояПозика": 43,
+  "ШвидкоГроші": 42,
+  "SelfieCredit": 41,
+  "Tengo": 40,
+  "MILOAN": 38,
+  "CreditKasa": 37,
+  "E-groshi": 36,
+  "Credit7": 35,
+  "Ariba": 34,
+  "SlonCredit": 33,
+  "Creditplus": 32,
+  "Pango": 30,
+  "MyCredit": 28,
   "Lehko": 27,
-  "Suncredit": 29,
-  "Turbogroshi": 28,
-  "Lemurcredit": 30,
-  "Freestyle Credit": 31,   // юр. особа ТОВ «МАНІВЕО ШВИДКА ФІНАНСОВА ДОПОМОГА»
-  "Rocketmoney": 32,
-  "Finmarket": 33,
-  "Aerocash": 34,
-  "Ranok": 35,
-  "FinClick": 36,
-  "Ariba": 37,
-  "Funnymoney": 38,
+  "Aerocash": 26,
+  "Beecredit": 24,
+  "Suncredit": 23,
+  "Rocketmoney": 22,
+  "LimonCredit": 21,
+  "Funnymoney": 20,
+  // Решта брендів (поза топ-25) — нижче за рангом, у попередньому відносному порядку
+  "FinClick": 19,
+  "Ranok": 18,
+  // Ці 4 бренди теж входять у топ-25 менеджера (за EPC/CR), але реально
+  // це давні, добре відомі бренди — тому їхня давність тут середня/трохи
+  // нижче середини, а не "найновіші", хоча в топ-25 вони й лишаються
+  "Moneyveo": 17.4,
+  "Firstcredit": 17.3,
+  "Clickcredit": 17.2,
+  "AlexCredit": 17.1,
+  "Finmarket": 17,
+  "Freestyle Credit": 16,   // юр. особа ТОВ «МАНІВЕО ШВИДКА ФІНАНСОВА ДОПОМОГА»
+  "Lemurcredit": 15,
+  "Turbogroshi": 14,
+  "Treba": 13,
+  "Amigo": 12,
+  "Bizpozyka": 11,
+  "Mybiz": 10,
+  "Prostocredit": 9,
+  "LoviLave": 8,
+  "Ewacash": 7,
+  "Finbert": 6,
+  "Aviracredit": 5,
+  "Microcash": 4,
+  "Нові кредити": 3,
+  "Cashpoint": 2,
+  "Cly": 1,
 };
 
 /* ====== МЕРЕЖЕВА СТАТИСТИКА PDL PROFIT (CR / EPC) ======
@@ -1213,7 +1223,7 @@ function initPage() {
 let state = {
   sum: 15000,
   term: 60,
-  sort: 'cr-desc',
+  sort: 'date-new',
   visible: 12,
   onlyPromo: false,
 };
@@ -1344,11 +1354,26 @@ promoCheckbox?.addEventListener('change', () => {
 });
 
 /* ====== SORTING LOGIC ====== */
+/* ====== ТОП-25 ОФЕРІВ ЗА ДАНИМИ МЕНЕДЖЕРА PDL PROFIT (EPC/CR) ======
+   Ці 25 брендів отримують пріоритет показу в сортуванні "Новіші спочатку":
+   вони йдуть першими (між собою — за MFO_SENIORITY, від найновішого
+   до найстарішого), а решта брендів — нижче, теж від найновішого
+   до найстарішого. MFO_SENIORITY лишається єдиним джерелом істини
+   щодо порядку "новіші/старіші" — цей список лише визначає,
+   ХТО потрапляє в першу групу, а не міняє сам критерій віку бренду. */
+const TOP25_NAMES = new Set([
+  "Starfin", "ТвояПозика", "ШвидкоГроші", "SelfieCredit", "Tengo",
+  "Moneyveo", "MILOAN", "CreditKasa", "E-groshi", "Credit7",
+  "Ariba", "SlonCredit", "Creditplus", "Firstcredit", "Pango",
+  "Clickcredit", "MyCredit", "Lehko", "Aerocash", "AlexCredit",
+  "Beecredit", "Suncredit", "Rocketmoney", "LimonCredit", "Funnymoney",
+]);
+
 function sortData(data) {
   const arr = [...data];
   const seniorityVal = (m) => {
     const r = MFO_SENIORITY[m.name];
-    return Number.isFinite(r) ? r : Infinity; // невідомі бренди = найновіші
+    return Number.isFinite(r) ? r : -Infinity; // немає в рейтингу — не перебиває топ-25, йде в самий кінець
   };
   const rateVal = (m) => {
     const n = Number(m.rateMin);
@@ -1365,7 +1390,15 @@ function sortData(data) {
   switch (state.sort) {
     case 'sum-desc': return arr.sort((a, b) => b.sum - a.sum);
     case 'rate-asc': return arr.sort((a, b) => rateVal(a) - rateVal(b));
-    case 'date-new': return arr.sort((a, b) => seniorityVal(b) - seniorityVal(a)); // невідомі/нові бренди — спочатку
+    case 'date-new': {
+      // Топ-25 (за EPC/CR від менеджера PDL Profit) — першою групою,
+      // впорядковані між собою за давністю (найновіші спочатку).
+      const inTop = arr.filter(m => TOP25_NAMES.has(m.name));
+      const rest = arr.filter(m => !TOP25_NAMES.has(m.name));
+      inTop.sort((a, b) => seniorityVal(b) - seniorityVal(a));
+      rest.sort((a, b) => seniorityVal(b) - seniorityVal(a));
+      return [...inTop, ...rest];
+    }
     case 'date-old': return arr.sort((a, b) => seniorityVal(a) - seniorityVal(b)); // найстаріші (ранг 1) — спочатку
     case 'cr-desc': return arr.sort((a, b) => crVal(b) - crVal(a));
     case 'epc-desc': return arr.sort((a, b) => epcVal(b) - epcVal(a));
