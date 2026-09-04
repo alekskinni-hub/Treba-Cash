@@ -68,6 +68,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   --bg:#f4f9f6;--white:#fff;--text:#1a2421;--text-muted:#5a6b64;--dark:#0d1512;
   --shadow:0 8px 32px rgba(39,174,96,0.12);--radius:24px;--radius-sm:14px;
   --gold:#f5b942;
+  --orange:#ff7a1a;--orange-light:#ff9a4d;--orange-dark:#e85d04;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -192,17 +193,18 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .mfo-card[hidden]{display:none!important;}
 
 /* Attractive badge ribbons — bigger, colored by type, pulsing for 0% */
-.mfo-badges-row{display:flex;flex-wrap:wrap;gap:8px;padding:18px 22px 0;}
+.mfo-badges-row{display:flex;flex-direction:column;gap:8px;padding:16px 20px 0;}
 .mfo-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:13px;font-weight:900;letter-spacing:.01em;
-  padding:9px 16px;border-radius:999px;
-  width:fit-content;line-height:1.2;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  font-size:13px;font-weight:900;letter-spacing:.01em;text-align:center;
+  padding:10px 14px;border-radius:12px;
+  width:100%;line-height:1.2;
 }
 .mfo-badge.color-green{background:linear-gradient(120deg,var(--green),var(--green-light));color:#fff;box-shadow:0 4px 14px rgba(39,174,96,.35);}
 .mfo-badge.color-blue{background:linear-gradient(120deg,#2980b9,#3498db);color:#fff;box-shadow:0 4px 14px rgba(52,152,219,.35);}
 .mfo-badge.color-purple{background:linear-gradient(120deg,#8e44ad,#a569bd);color:#fff;box-shadow:0 4px 14px rgba(142,68,173,.32);}
 .mfo-badge.color-teal{background:linear-gradient(120deg,#16a085,#1abc9c);color:#fff;box-shadow:0 4px 14px rgba(22,160,133,.35);}
+.mfo-badge.color-new{background:linear-gradient(120deg,#2ecc71,#7ed957);color:#0d3d1f;box-shadow:0 4px 14px rgba(46,204,113,.4);}
 .mfo-badge.color-gold{
   background:linear-gradient(120deg,var(--gold),#ffcf6e);color:#5c3d00;
   box-shadow:0 4px 18px rgba(245,185,66,.5);
@@ -213,13 +215,15 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   50%{transform:scale(1.05);box-shadow:0 6px 24px rgba(245,185,66,.75);}
 }
 
-.mfo-card-top{padding:16px 22px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #f2f6f3;margin-top:2px;}
-.mfo-logo-wrap{width:56px;height:56px;border-radius:14px;background:#fafcfa;border:1px solid #eef3ef;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
-.mfo-logo-wrap img{max-width:80%;max-height:80%;object-fit:contain;}
-.mfo-logo-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-weight:900;font-size:16px;color:#fff;border-radius:14px;}
-.mfo-card-name{font-family:'Unbounded',sans-serif;font-size:16px;font-weight:900;color:var(--text);letter-spacing:-.01em;}
-.mfo-card-badge{display:inline-block;margin-top:4px;font-size:10px;font-weight:800;color:var(--green-dark);background:rgba(39,174,96,0.1);padding:2px 9px;border-radius:999px;}
-.mfo-card-body{padding:16px 22px 8px;}
+.mfo-card-top{padding:20px 20px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;border-bottom:1px solid #f2f6f3;margin-top:2px;}
+.mfo-logo-wrap{width:100%;height:76px;border-radius:14px;background:#fff;border:none;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:visible;}
+.mfo-logo-wrap img{max-width:90%;max-height:64px;width:auto;height:auto;object-fit:contain;}
+.mfo-logo-fallback{width:66px;height:66px;display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-weight:900;font-size:20px;color:#fff;border-radius:16px;}
+.mfo-card-name{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:800;color:var(--text-muted);letter-spacing:-.01em;text-align:center;}
+.mfo-card-badge{display:inline-block;margin-top:2px;font-size:9px;font-weight:800;color:var(--green-dark);background:rgba(39,174,96,0.1);padding:2px 9px;border-radius:999px;}
+.mfo-card-body{padding:16px 20px 8px;}
+.mfo-card--new{border:2px solid rgba(46,204,113,.5);box-shadow:0 10px 30px rgba(39,174,96,.2),0 6px 20px rgba(13,21,18,.05);}
+.mfo-card--new:hover{box-shadow:0 26px 55px rgba(39,174,96,.3),0 8px 24px rgba(39,174,96,.18);}
 .mfo-stat-row{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px dashed #eef2ef;}
 .mfo-stat-row:last-child{border-bottom:none;}
 .mfo-stat-row .k{color:var(--text-muted);font-weight:600;}
@@ -236,7 +240,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .rrps-panel-inner .star{color:var(--gold);}
 
 .mfo-card-cta{display:flex;gap:10px;padding:14px 22px 22px;}
-.btn-primary{flex:1;text-align:center;background:linear-gradient(135deg,var(--green),var(--green-light));color:#fff;text-decoration:none;font-weight:800;font-size:14px;padding:13px 16px;border-radius:12px;box-shadow:0 8px 20px rgba(39,174,96,.28);transition:transform .2s;}
+.btn-primary{flex:1;text-align:center;background:linear-gradient(135deg,var(--orange),var(--orange-light));color:#fff;text-decoration:none;font-weight:800;font-size:14px;padding:13px 16px;border-radius:12px;box-shadow:0 8px 20px rgba(255,122,26,.35);transition:transform .2s;}
 .btn-primary:hover{transform:translateY(-2px);}
 
 .load-more-wrap{text-align:center;padding:20px 0 60px;}
@@ -311,13 +315,14 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
   /* Картки МФО — по 2 в ряд на мобільних, компактніша версія */
   .mfo-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
-  .mfo-badges-row{padding:12px 12px 0;gap:5px;}
-  .mfo-badge{font-size:10px;padding:5px 9px;}
-  .mfo-card-top{padding:10px 12px;gap:8px;}
-  .mfo-logo-wrap{width:38px;height:38px;border-radius:10px;}
-  .mfo-logo-fallback{font-size:12px;border-radius:10px;}
-  .mfo-card-name{font-size:12px;line-height:1.25;}
-  .mfo-card-badge{font-size:8px;padding:2px 6px;margin-top:3px;}
+  .mfo-badges-row{padding:10px 10px 0;gap:5px;}
+  .mfo-badge{font-size:10px;padding:7px 8px;}
+  .mfo-card-top{padding:12px 10px 8px;gap:5px;}
+  .mfo-logo-wrap{width:100%;height:48px;border-radius:10px;}
+  .mfo-logo-wrap img{max-height:40px;}
+  .mfo-logo-fallback{width:44px;height:44px;font-size:14px;border-radius:10px;}
+  .mfo-card-name{font-size:10.5px;line-height:1.25;}
+  .mfo-card-badge{font-size:8px;padding:2px 6px;margin-top:1px;}
   .mfo-card-body{padding:10px 12px 4px;}
   .mfo-stat-row{font-size:10.5px;padding:5px 0;flex-direction:column;gap:1px;}
   .mfo-stat-row .v{font-size:11.5px;}
@@ -1384,28 +1389,37 @@ const resultsCount = document.getElementById('results-count');
 const noResultsEl = document.getElementById('no-results');
 const loadMoreBtn = document.getElementById('load-more-btn');
 
+const NEW_OFFER_SENIORITY_THRESHOLD = 38;
+function isNewOffer(m) {
+  const sr = MFO_SENIORITY[m.name];
+  return typeof sr === 'number' && sr >= NEW_OFFER_SENIORITY_THRESHOLD;
+}
+
 function cardHTML(m, idx) {
   const fbColor = fallbackColor(m.name);
   const uid = `rrps-${idx}`;
+  const newOffer = isNewOffer(m);
 
-  let badgesHTML = `<span class="mfo-badge color-${m.badgeColor}">✨ ${m.badge}</span>`;
+  let badgesHTML = '';
+  if (newOffer) {
+    badgesHTML += `<span class="mfo-badge color-new">🆕 Новий сервіс!</span>`;
+  }
+  badgesHTML += `<span class="mfo-badge color-${m.badgeColor}">✨ ${m.badge}</span>`;
   if (m.hasZeroBadge) {
     badgesHTML += `<span class="mfo-badge color-gold">🔥 ${m.goldBadgeText}</span>`;
   }
 
   return `
-  <div class="mfo-card">
-    <div class="mfo-badges-row">${badgesHTML}</div>
+  <div class="mfo-card${newOffer ? ' mfo-card--new' : ''}">
     <div class="mfo-card-top">
       <div class="mfo-logo-wrap">
         <img src="${m.logo && m.logo.startsWith('http') ? m.logo : '/mfo-logos/' + m.logo}" alt="${m.name}" loading="lazy"
              onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\\'mfo-logo-fallback\\' style=\\'background:${fbColor}\\'>${initials(m.name)}</div>';">
       </div>
-      <div>
-        <div class="mfo-card-name">${m.name}</div>
-        <span class="mfo-card-badge">Ліцензія НБУ</span>
-      </div>
+      <div class="mfo-card-name">${m.name}</div>
+      <span class="mfo-card-badge">Ліцензія НБУ</span>
     </div>
+    <div class="mfo-badges-row">${badgesHTML}</div>
     <div class="mfo-card-body">
       <div class="mfo-stat-row"><span class="k">Максимальна сума</span><span class="v">до ${fmt(m.sum)} ₴</span></div>
       <div class="mfo-stat-row"><span class="k">Максимальний строк</span><span class="v">до ${m.term} дн.</span></div>
