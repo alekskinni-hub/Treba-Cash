@@ -511,9 +511,14 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 <body>
 
 <!-- =========================================================
-     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v3, редизайн під референс.
+     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v4, перенесено з іншого лендингу
+     (2-колонковий формат: ТОП-3 + Рекомендації клієнтів) і
+     переоформлено під стиль карток офферів цього лендингу:
+     рамка навколо картки, більший логотип, рядок кольорових
+     плашок (як у .mfo-badge на вітрині) замість однієї плашки,
+     плюс пульсуюча CTA-кнопка.
 
-     ЛОГІКА (без змін від v2):
+     ЛОГІКА (без змін):
      - Показується ТІЛЬКИ якщо в URL вітрини є ?sum=...&term=...
        (ці параметри ставить лише квіз через buildResultLink()).
        Якщо людина зайшла на вітрину напряму — попап НЕ з'явиться.
@@ -521,15 +526,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
        від внутрішніх змінних сторінки.
      - Відкривається одразу (без затримки на скрол).
      - Показ один раз за сесію (sessionStorage).
-
-     ДИЗАЙН (нове):
-     - Картка №1 — велика "featured" картка з золотою стрічкою
-       "Рекомендовано №1", іконками суми/строку, і великою CTA.
-     - Картки №2 і №3 — компактні рядки, як у попередній версії.
-     - Кольори — виключно змінні сайту (--green/--gold/--text/...).
-     - Вау-ефекти: конфеті при відкритті, пульс навколо чекмарка,
-       мерехтлива стрічка "Рекомендовано №1", staggered-поява карток,
-       shine-переливання на головній CTA.
    ========================================================= -->
 
 <style>
@@ -547,9 +543,9 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-modal{
   background:linear-gradient(180deg,#fdf9f1 0%,var(--white,#fff) 220px);
   border-radius:var(--radius,24px);
-  max-width:540px;width:100%;
+  max-width:460px;width:100%;
   max-height:92vh;overflow-y:auto;overflow-x:hidden;
-  padding:28px 24px 24px;
+  padding:24px 18px 20px;
   position:relative;
   box-shadow:0 30px 80px rgba(0,0,0,0.35);
   transform:translateY(30px) scale(.92);
@@ -602,112 +598,92 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-subtitle{font-size:14px;color:var(--text-muted,#5a6b64);margin:0;}
 .top3-subtitle b{color:var(--green-dark,#1e8449);}
 
-/* ---- featured card (#1) ---- */
-.top3-featured{
-  position:relative;z-index:2;
-  border:2px solid var(--gold,#f5b942);
-  border-radius:var(--radius,24px);
-  padding:20px 18px 18px;margin-bottom:12px;
-  background:linear-gradient(150deg,rgba(245,185,66,0.10),rgba(255,255,255,0.4));
-  box-shadow:0 10px 30px rgba(245,185,66,0.22);
-  animation:top3-rise .5s cubic-bezier(.2,.8,.3,1) backwards;
-  animation-delay:.08s;
-}
 @keyframes top3-rise{
   0%{opacity:0;transform:translateY(16px) scale(.97);}
   100%{opacity:1;transform:translateY(0) scale(1);}
 }
-.top3-ribbon{
-  position:absolute;top:-13px;left:18px;
-  background:linear-gradient(90deg,var(--gold,#f5b942),#f7c765,var(--gold,#f5b942));
-  background-size:200% 100%;
-  animation:top3-shimmer 2.4s linear infinite;
-  color:#4a3200;font-size:11.5px;font-weight:900;letter-spacing:.01em;
-  padding:6px 14px;border-radius:999px;
-  box-shadow:0 4px 12px rgba(245,185,66,0.4);
-}
-@keyframes top3-shimmer{0%{background-position:0% 0;}100%{background-position:200% 0;}}
 
-.top3-featured-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;margin-top:6px;}
-.top3-featured .top3-logo,
-.top3-featured .top3-logo-fallback{flex:0 0 52px;width:52px;height:52px;border-radius:14px;}
-.top3-featured-name{font-weight:900;font-size:18px;color:var(--text,#1a2421);font-family:'Unbounded',sans-serif;}
-
-.top3-featured-stats{display:flex;gap:10px;margin-bottom:12px;}
-.top3-stat{
-  flex:1;display:flex;align-items:center;gap:8px;
-  background:var(--white,#fff);border:1px solid rgba(39,174,96,0.14);
-  border-radius:var(--radius-sm,14px);padding:9px 12px;
-}
-.top3-stat svg{flex:0 0 auto;color:var(--green,#27ae60);}
-.top3-stat-label{font-size:10.5px;color:var(--text-muted,#5a6b64);line-height:1.3;}
-.top3-stat-value{font-size:14px;font-weight:900;color:var(--text,#1a2421);line-height:1.3;}
-
-.top3-badge{
-  display:inline-block;margin-bottom:14px;font-size:11.5px;font-weight:800;
-  padding:5px 12px;border-radius:999px;
-  background:linear-gradient(120deg,var(--gold,#f5b942),#f7c765);color:#4a3200;
+/* ---- 2-колонковий грід карток (стиль карток офферів вітрини) ---- */
+.top3-columns{display:flex;gap:10px;margin-bottom:4px;position:relative;z-index:2;}
+.top3-col{flex:1;min-width:0;}
+.top3-col-title{
+  font-size:11.5px;font-weight:800;color:var(--green-dark,#1e8449);
+  margin:0 0 8px;text-align:center;text-transform:uppercase;letter-spacing:.02em;
 }
 
-.top3-featured-cta{
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  text-decoration:none;width:100%;box-sizing:border-box;
-  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  color:#fff;font-weight:900;font-size:15px;
-  padding:15px 18px;border-radius:14px;
-  box-shadow:0 10px 26px rgba(39,174,96,.35);
-  transition:transform .2s,box-shadow .2s;
+.top3-mini{
+  border:2px solid rgba(39,174,96,0.35);
+  border-radius:16px;
+  padding:12px 10px;margin-bottom:10px;
+  background:var(--white,#fff);
+  box-shadow:0 8px 22px rgba(39,174,96,0.16);
+  animation:top3-rise .4s cubic-bezier(.2,.8,.3,1) backwards;
+  transition:box-shadow .2s, transform .2s, border-color .2s;
 }
-.top3-featured-cta:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(39,174,96,.42);}
-.top3-featured-cta::after{
-  content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;
-  background:linear-gradient(120deg,transparent,rgba(255,255,255,0.45),transparent);
-  transform:skewX(-20deg);animation:top3-shine 2.6s ease-in-out infinite;
-}
-@keyframes top3-shine{0%{left:-60%;}45%{left:130%;}100%{left:130%;}}
+.top3-mini:hover{box-shadow:0 14px 30px rgba(39,174,96,.24);transform:translateY(-2px);}
+.top3-mini--new{border-color:rgba(46,204,113,.6);box-shadow:0 10px 26px rgba(39,174,96,.24);}
 
-/* ---- compact rows (#2, #3) ---- */
-.top3-row{
-  display:flex;flex-direction:column;gap:10px;
-  border:1px solid rgba(39,174,96,0.14);
-  border-radius:var(--radius-sm,14px);
-  padding:14px;margin-bottom:10px;
-  transition:box-shadow .2s, transform .2s;
-  position:relative;z-index:2;
-  animation:top3-rise .45s cubic-bezier(.2,.8,.3,1) backwards;
-}
-.top3-row:nth-of-type(1){animation-delay:.22s;}
-.top3-row:nth-of-type(2){animation-delay:.32s;}
-.top3-row:hover{box-shadow:0 8px 20px rgba(39,174,96,.14);transform:translateY(-2px);}
-
-.top3-row-main{display:flex;align-items:center;gap:12px;}
-
-.top3-rank{
-  flex:0 0 24px;height:24px;border-radius:50%;
-  background:var(--bg,#f4f9f6);border:1.5px solid rgba(39,174,96,0.3);
-  color:var(--green-dark,#1e8449);font-weight:900;font-size:12px;
+.top3-mini-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.top3-mini-rank{
+  flex:0 0 20px;height:20px;border-radius:50%;
+  background:var(--bg,#f4f9f6);border:1.5px solid rgba(39,174,96,.35);
+  color:var(--green-dark,#1e8449);font-size:10.5px;font-weight:900;
   display:flex;align-items:center;justify-content:center;
 }
-.top3-logo{flex:0 0 40px;width:40px;height:40px;border-radius:11px;object-fit:contain;background:#f4f9f6;}
-.top3-logo-fallback{
-  flex:0 0 40px;width:40px;height:40px;border-radius:11px;
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-weight:800;font-size:13px;
+.top3-logo.top3-mini-logo,.top3-logo-fallback.top3-mini-logo{
+  flex:0 0 40px;width:40px;height:40px;border-radius:12px;font-size:13px;object-fit:contain;background:var(--bg,#f4f9f6);
 }
-.top3-info{flex:1;min-width:0;}
-.top3-name{font-weight:800;font-size:14.5px;color:var(--text,#1a2421);}
-.top3-meta{font-size:12px;color:var(--text-muted,#5a6b64);margin-top:1px;}
-.top3-row .top3-badge{align-self:flex-start;margin:0;font-size:11px;padding:4px 10px;white-space:nowrap;}
-.top3-cta{
-  width:100%;box-sizing:border-box;text-decoration:none;
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  color:#fff;font-weight:800;font-size:13.5px;
-  padding:11px 14px;border-radius:12px;white-space:nowrap;
-  transition:transform .2s;
+.top3-mini-name{
+  font-weight:800;font-size:12.5px;color:var(--text,#1a2421);line-height:1.2;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;
 }
-.top3-cta:hover{transform:translateY(-2px);}
+.top3-mini-meta{font-size:10.5px;color:var(--text-muted,#5a6b64);margin-bottom:8px;}
+
+/* ---- рядок кольорових плашок, як у карток офферів на вітрині ---- */
+.top3-mini-badges{display:flex;flex-direction:column;gap:5px;margin-bottom:9px;}
+.top3-mini-badge{
+  display:flex;align-items:center;justify-content:center;gap:4px;
+  font-size:9.5px;font-weight:900;letter-spacing:.01em;text-align:center;
+  padding:5px 6px;border-radius:8px;width:100%;box-sizing:border-box;line-height:1.25;
+}
+.top3-mini-badge.nbu{background:rgba(39,174,96,0.1);color:var(--green-dark,#1e8449);}
+.top3-mini-badge.color-green{background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));color:#fff;box-shadow:0 3px 10px rgba(39,174,96,.3);}
+.top3-mini-badge.color-blue{background:linear-gradient(120deg,#2980b9,#3498db);color:#fff;box-shadow:0 3px 10px rgba(52,152,219,.3);}
+.top3-mini-badge.color-purple{background:linear-gradient(120deg,#8e44ad,#a569bd);color:#fff;box-shadow:0 3px 10px rgba(142,68,173,.28);}
+.top3-mini-badge.color-teal{background:linear-gradient(120deg,#16a085,#1abc9c);color:#fff;box-shadow:0 3px 10px rgba(22,160,133,.3);}
+.top3-mini-badge.color-new{background:linear-gradient(120deg,#2ecc71,#7ed957);color:#0d3d1f;box-shadow:0 3px 10px rgba(46,204,113,.35);}
+.top3-mini-badge.color-gold{
+  background:linear-gradient(120deg,var(--gold,#f5b942),#ffcf6e);color:#5c3d00;
+  box-shadow:0 3px 12px rgba(245,185,66,.5);
+  animation:top3-badge-pulse 2s ease-in-out infinite;
+}
+@keyframes top3-badge-pulse{
+  0%,100%{transform:scale(1);box-shadow:0 3px 12px rgba(245,185,66,.5);}
+  50%{transform:scale(1.045);box-shadow:0 5px 16px rgba(245,185,66,.75);}
+}
+
+/* ---- пульсуюча CTA-кнопка ---- */
+.top3-mini-cta{
+  display:block;width:100%;box-sizing:border-box;text-align:center;text-decoration:none;
+  background:linear-gradient(135deg,var(--orange,#ff7a1a),var(--orange-light,#ff9a4d));
+  color:#fff;font-weight:800;font-size:11px;padding:9px 4px;border-radius:10px;
+  transition:transform .15s;
+  animation:top3-cta-pulse 1.8s ease-in-out infinite;
+}
+.top3-mini-cta:hover{animation-play-state:paused;transform:translateY(-1px) scale(1.03);}
+@keyframes top3-cta-pulse{
+  0%,100%{transform:scale(1);box-shadow:0 4px 14px rgba(255,122,26,.35);}
+  50%{transform:scale(1.035);box-shadow:0 8px 20px rgba(255,122,26,.55);}
+}
+
+/* ---- порада експерта ---- */
+.top3-expert-tip{
+  font-size:12.5px;line-height:1.42;color:var(--text,#1a2421);
+  background:linear-gradient(120deg,rgba(245,185,66,.14),rgba(245,185,66,.04));
+  border:1px dashed rgba(245,185,66,.55);
+  border-radius:12px;padding:10px 14px;margin:6px 0 14px;
+  text-align:center;position:relative;z-index:2;
+}
 
 .top3-footnote{font-size:11.5px;color:var(--text-muted,#5a6b64);text-align:center;margin-top:16px;line-height:1.4;position:relative;z-index:2;}
 .top3-all-link{
@@ -720,10 +696,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-all-link:hover{background:#e8f3ec;}
 
 @media (max-width:420px){
+  .top3-modal{padding:20px 12px 16px;}
   .top3-title{font-size:18px;}
-  .top3-featured-name{font-size:16px;}
-  .top3-featured-cta{font-size:13.5px;padding:13px 14px;}
-  .top3-stat-value{font-size:13px;}
+  .top3-columns{gap:7px;}
+  .top3-mini{padding:9px 8px;}
 }
 </style>
 
@@ -735,10 +711,20 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       <h2 class="top3-title" id="top3-title">Вітаємо! Ваш персональний<br>ТОП-3 пропозицій готовий.<span class="top3-check">✓</span></h2>
       <p class="top3-subtitle" id="top3-subtitle">Підбираємо під ваш запит…</p>
     </div>
-    <div id="top3-list"></div>
+    <div class="top3-columns" id="top3-columns">
+      <div class="top3-col" id="top3-col-top">
+        <div class="top3-col-title">🏆 ТОП-3</div>
+        <div id="top3-list-top"></div>
+      </div>
+      <div class="top3-col" id="top3-col-rec">
+        <div class="top3-col-title">👍 Рекомендації клієнтів</div>
+        <div id="top3-list-rec"></div>
+      </div>
+    </div>
+    <p class="top3-expert-tip"><b><i>Порада експерта: подавайте заявки одразу в декілька компаній, щоб підвищити свої шанси!</i></b></p>
     <button class="top3-all-link" id="top3-see-all">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      Показати всі пропозиції
+      Переглянути всі 40 пропозицій
     </button>
     <p class="top3-footnote">
       TREBA CASH — інформаційний агрегатор, не є кредитором. Остаточні умови завжди уточнюйте в паспорті кредиту обраної МФО.
@@ -778,6 +764,15 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       : `<div class="top3-logo-fallback ${sizeClass}" style="background:${fbColor}">${initials(m.name)}</div>`;
   }
 
+  // Новий бренд на майданчику визначаємо так само, як і в картках на вітрині
+  // (за таблицею MFO_SENIORITY, оголошеною в основному скрипті сторінки).
+  const NEW_OFFER_SENIORITY_THRESHOLD = 38;
+  function isNewOffer(m) {
+    const table = (typeof MFO_SENIORITY === 'object' && MFO_SENIORITY) || {};
+    const sr = table[m.name];
+    return typeof sr === 'number' && sr >= NEW_OFFER_SENIORITY_THRESHOLD;
+  }
+
   function spawnConfetti() {
     const wrap = document.getElementById('top3-confetti');
     if (!wrap) return;
@@ -798,68 +793,115 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     overlay.setAttribute('aria-hidden', 'false');
     sessionStorage.setItem('top3PopupShown', '1');
     spawnConfetti();
+
+    // Попап відкрився саме завдяки параметрам квізу (sum/term) в URL —
+    // це і є момент, коли варто передати в піксель дані з квізу + атрибуцію реклами.
+    if (typeof fbq === 'function') {
+      const attr = (typeof window.tcGetParam === 'function') ? window.tcGetParam : function () { return ''; };
+      fbq('trackCustom', 'QuizResultViewed', {
+        sum: querySum,
+        term: queryTerm,
+        status: attr('status'),
+        utm_source: attr('utm_source'),
+        utm_campaign: attr('utm_campaign'),
+        utm_term: attr('utm_term'),
+      });
+    }
   }
   function closeModal() {
     overlay.classList.remove('is-open');
     overlay.setAttribute('aria-hidden', 'true');
   }
 
+  // Ті самі довідники, що й на вітрині (MFO_SENIORITY / MFO_EPC оголошені
+  // нижче по сторінці окремим <script>, але на момент, коли резолвиться fetch
+  // нижче, вони вже гарантовано існують — тож звертаємось до них через window
+  // з безпечним fallback на порожній об'єкт, якщо раптом їх ще нема).
+  function seniorityVal(m) {
+    const table = (typeof MFO_SENIORITY === 'object' && MFO_SENIORITY) || {};
+    const r = table[m.name];
+    return Number.isFinite(r) ? r : Infinity; // невідомі/нові бренди = найновіші
+  }
+  function epcVal(m) {
+    const table = (typeof MFO_EPC === 'object' && MFO_EPC) || {};
+    const n = table[m.name];
+    return Number.isFinite(n) ? n : -Infinity; // без статистики — в кінець
+  }
+
+  // Щоб різні відвідувачі (з однаковим запитом sum/term) не бачили щоразу
+  // одні й ті самі 3 офери — беремо трохи ширший пул "хороших" кандидатів
+  // (за тим самим рейтингом) і випадково обираємо з нього потрібну кількість.
+  const CANDIDATE_POOL_SIZE = 16;
+  function pickRandom(sortedArr, count) {
+    const candidates = sortedArr.slice(0, Math.max(count, Math.min(CANDIDATE_POOL_SIZE, sortedArr.length)));
+    for (let i = candidates.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+    }
+    return candidates.slice(0, count);
+  }
+
   function render(offers) {
     let pool = offers.filter(m => m.sum >= querySum && m.term >= queryTerm);
     if (pool.length === 0) pool = offers.slice();
-
-    pool.sort((a, b) => {
-      if (!!b.hasZeroBadge !== !!a.hasZeroBadge) return (b.hasZeroBadge ? 1 : 0) - (a.hasZeroBadge ? 1 : 0);
-      return (a.rateMin || 0) - (b.rateMin || 0);
-    });
-    const top3 = pool.slice(0, 3);
-    if (top3.length === 0) return;
+    if (pool.length === 0) return;
 
     document.getElementById('top3-subtitle').innerHTML =
       `Для вашого запиту: <b>${fmt(querySum)} ₴ / ${queryTerm} дн.</b>`;
 
-    const [first, ...rest] = top3;
+    // Рядок кольорових плашок — як у картках офферів на вітрині:
+    // ліцензія НБУ + власна кольорова плашка + "новий сервіс" + золота 0%-плашка.
+    const badgesHTML = (m) => {
+      let html = '<span class="top3-mini-badge nbu">Ліцензія НБУ</span>';
+      if (isNewOffer(m)) {
+        html += '<span class="top3-mini-badge color-new">🆕 Новий сервіс!</span>';
+      }
+      if (m.badge) {
+        html += `<span class="top3-mini-badge color-${m.badgeColor || 'green'}">✨ ${m.badge}</span>`;
+      }
+      if (m.hasZeroBadge) {
+        html += `<span class="top3-mini-badge color-gold">🔥 ${m.goldBadgeText || 'Перша позика під 0.01%*'}</span>`;
+      }
+      return html;
+    };
 
-    const badgeHTML = (m) => m.hasZeroBadge
-      ? `<span class="top3-badge">% ${m.goldBadgeText || 'Перша позика під 0.01%*'}</span>`
-      : '';
-
-    const featuredHTML = `
-      <div class="top3-featured">
-        <span class="top3-ribbon">Рекомендовано №1</span>
-        <div class="top3-featured-top">
-          ${logoHTML(first, 'top3-logo-lg')}
-          <div class="top3-featured-name">${first.name}</div>
+    const miniCardHTML = (m, rank) => `
+      <div class="top3-mini${isNewOffer(m) ? ' top3-mini--new' : ''}">
+        <div class="top3-mini-top">
+          <span class="top3-mini-rank">${rank}</span>
+          ${logoHTML(m, 'top3-mini-logo')}
+          <div class="top3-mini-name">${m.name}</div>
         </div>
-        <div class="top3-featured-stats">
-          <div class="top3-stat">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
-            <div><div class="top3-stat-label">Сума до:</div><div class="top3-stat-value">${fmt(first.sum)} ₴</div></div>
-          </div>
-          <div class="top3-stat">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
-            <div><div class="top3-stat-label">Термін до:</div><div class="top3-stat-value">${first.term} дн.</div></div>
-          </div>
-        </div>
-        ${badgeHTML(first)}
-        <a class="top3-featured-cta" href="${first.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">💰 Перейти до оформлення →</a>
+        <div class="top3-mini-meta">${fmt(m.sum)} ₴ · ${m.term} дн.</div>
+        <div class="top3-mini-badges">${badgesHTML(m)}</div>
+        <a class="top3-mini-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Подати заявку →</a>
       </div>`;
 
-    const rowsHTML = rest.map((m, i) => `
-      <div class="top3-row">
-        <div class="top3-row-main">
-          <div class="top3-rank">${i + 2}</div>
-          ${logoHTML(m, '')}
-          <div class="top3-info">
-            <div class="top3-name">${m.name}</div>
-            <div class="top3-meta">${fmt(m.sum)} ₴ · ${m.term} дн.</div>
-          </div>
-        </div>
-        ${badgeHTML(m)}
-        <a class="top3-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Подати заявку →</a>
-      </div>`).join('');
+    // ТОП-3 — з-поміж найновіших брендів на майданчику (MFO_SENIORITY, вище = новіші)
+    // випадково обираємо 3, щоб набір не був однаковим у кожного відвідувача
+    const seniorSorted = [...pool].sort((a, b) => seniorityVal(b) - seniorityVal(a));
+    const topThree = pickRandom(seniorSorted, 3);
+    const usedNames = new Set(topThree.map(m => m.name));
 
-    document.getElementById('top3-list').innerHTML = featuredHTML + rowsHTML;
+    // Рекомендації клієнтів — з-поміж топ TREBACASH (той самий рейтинг EPC, що й
+    // кнопка "💳 ТОП від TREBACASH" на вітрині), теж випадково, без дублів із ТОП-3
+    const epcSorted = [...pool]
+      .filter(m => !usedNames.has(m.name))
+      .sort((a, b) => epcVal(b) - epcVal(a));
+    const recThree = pickRandom(epcSorted, 3);
+
+    document.getElementById('top3-list-top').innerHTML =
+      topThree.map((m, i) => miniCardHTML(m, i + 1)).join('');
+
+    const recCol = document.getElementById('top3-col-rec');
+    if (recThree.length > 0) {
+      document.getElementById('top3-list-rec').innerHTML =
+        recThree.map((m, i) => miniCardHTML(m, i + 1)).join('');
+      recCol.style.display = '';
+    } else {
+      // якщо пропозицій менше 6 — ховаємо другу колонку, а не залишаємо порожньою
+      recCol.style.display = 'none';
+    }
 
     openModal();
   }
