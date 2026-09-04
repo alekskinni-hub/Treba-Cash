@@ -78,6 +78,7 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
   --bg:#f4f9f6;--white:#fff;--text:#1a2421;--text-muted:#5a6b64;--dark:#0d1512;
   --shadow:0 8px 32px rgba(39,174,96,0.12);--radius:24px;--radius-sm:14px;
   --gold:#f5b942;
+  --orange:#ff7a1a;--orange-light:#ff9a4d;--orange-dark:#e85d04;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
@@ -202,17 +203,18 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .mfo-card[hidden]{display:none!important;}
 
 /* Attractive badge ribbons — bigger, colored by type, pulsing for 0% */
-.mfo-badges-row{display:flex;flex-wrap:wrap;gap:8px;padding:18px 22px 0;}
+.mfo-badges-row{display:flex;flex-direction:column;gap:8px;padding:16px 20px 0;}
 .mfo-badge{
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:13px;font-weight:900;letter-spacing:.01em;
-  padding:9px 16px;border-radius:999px;
-  width:fit-content;line-height:1.2;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  font-size:13px;font-weight:900;letter-spacing:.01em;text-align:center;
+  padding:10px 14px;border-radius:12px;
+  width:100%;line-height:1.2;
 }
 .mfo-badge.color-green{background:linear-gradient(120deg,var(--green),var(--green-light));color:#fff;box-shadow:0 4px 14px rgba(39,174,96,.35);}
 .mfo-badge.color-blue{background:linear-gradient(120deg,#2980b9,#3498db);color:#fff;box-shadow:0 4px 14px rgba(52,152,219,.35);}
 .mfo-badge.color-purple{background:linear-gradient(120deg,#8e44ad,#a569bd);color:#fff;box-shadow:0 4px 14px rgba(142,68,173,.32);}
 .mfo-badge.color-teal{background:linear-gradient(120deg,#16a085,#1abc9c);color:#fff;box-shadow:0 4px 14px rgba(22,160,133,.35);}
+.mfo-badge.color-new{background:linear-gradient(120deg,#2ecc71,#7ed957);color:#0d3d1f;box-shadow:0 4px 14px rgba(46,204,113,.4);}
 .mfo-badge.color-gold{
   background:linear-gradient(120deg,var(--gold),#ffcf6e);color:#5c3d00;
   box-shadow:0 4px 18px rgba(245,185,66,.5);
@@ -223,13 +225,15 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   50%{transform:scale(1.05);box-shadow:0 6px 24px rgba(245,185,66,.75);}
 }
 
-.mfo-card-top{padding:16px 22px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #f2f6f3;margin-top:2px;}
-.mfo-logo-wrap{width:56px;height:56px;border-radius:14px;background:#fafcfa;border:1px solid #eef3ef;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;}
-.mfo-logo-wrap img{max-width:80%;max-height:80%;object-fit:contain;}
-.mfo-logo-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-weight:900;font-size:16px;color:#fff;border-radius:14px;}
-.mfo-card-name{font-family:'Unbounded',sans-serif;font-size:16px;font-weight:900;color:var(--text);letter-spacing:-.01em;}
-.mfo-card-badge{display:inline-block;margin-top:4px;font-size:10px;font-weight:800;color:var(--green-dark);background:rgba(39,174,96,0.1);padding:2px 9px;border-radius:999px;}
-.mfo-card-body{padding:16px 22px 8px;}
+.mfo-card-top{padding:20px 20px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;border-bottom:1px solid #f2f6f3;margin-top:2px;}
+.mfo-logo-wrap{width:100%;height:76px;border-radius:14px;background:#fff;border:none;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:visible;}
+.mfo-logo-wrap img{max-width:90%;max-height:64px;width:auto;height:auto;object-fit:contain;}
+.mfo-logo-fallback{width:66px;height:66px;display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-weight:900;font-size:20px;color:#fff;border-radius:16px;}
+.mfo-card-name{font-family:'Unbounded',sans-serif;font-size:13px;font-weight:800;color:var(--text-muted);letter-spacing:-.01em;text-align:center;}
+.mfo-card-badge{display:inline-block;margin-top:2px;font-size:9px;font-weight:800;color:var(--green-dark);background:rgba(39,174,96,0.1);padding:2px 9px;border-radius:999px;}
+.mfo-card-body{padding:16px 20px 8px;}
+.mfo-card--new{border:2px solid rgba(46,204,113,.5);box-shadow:0 10px 30px rgba(39,174,96,.2),0 6px 20px rgba(13,21,18,.05);}
+.mfo-card--new:hover{box-shadow:0 26px 55px rgba(39,174,96,.3),0 8px 24px rgba(39,174,96,.18);}
 .mfo-stat-row{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-bottom:1px dashed #eef2ef;}
 .mfo-stat-row:last-child{border-bottom:none;}
 .mfo-stat-row .k{color:var(--text-muted);font-weight:600;}
@@ -246,7 +250,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .rrps-panel-inner .star{color:var(--gold);}
 
 .mfo-card-cta{display:flex;gap:10px;padding:14px 22px 22px;}
-.btn-primary{flex:1;text-align:center;background:linear-gradient(135deg,var(--green),var(--green-light));color:#fff;text-decoration:none;font-weight:800;font-size:14px;padding:13px 16px;border-radius:12px;box-shadow:0 8px 20px rgba(39,174,96,.28);transition:transform .2s;}
+.btn-primary{flex:1;text-align:center;background:linear-gradient(135deg,var(--orange),var(--orange-light));color:#fff;text-decoration:none;font-weight:800;font-size:14px;padding:13px 16px;border-radius:12px;box-shadow:0 8px 20px rgba(255,122,26,.35);transition:transform .2s;}
 .btn-primary:hover{transform:translateY(-2px);}
 
 .load-more-wrap{text-align:center;padding:20px 0 60px;}
@@ -321,13 +325,14 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
   /* Картки МФО — по 2 в ряд на мобільних, компактніша версія */
   .mfo-grid{grid-template-columns:repeat(2,1fr);gap:12px;}
-  .mfo-badges-row{padding:12px 12px 0;gap:5px;}
-  .mfo-badge{font-size:10px;padding:5px 9px;}
-  .mfo-card-top{padding:10px 12px;gap:8px;}
-  .mfo-logo-wrap{width:38px;height:38px;border-radius:10px;}
-  .mfo-logo-fallback{font-size:12px;border-radius:10px;}
-  .mfo-card-name{font-size:12px;line-height:1.25;}
-  .mfo-card-badge{font-size:8px;padding:2px 6px;margin-top:3px;}
+  .mfo-badges-row{padding:10px 10px 0;gap:5px;}
+  .mfo-badge{font-size:10px;padding:7px 8px;}
+  .mfo-card-top{padding:12px 10px 8px;gap:5px;}
+  .mfo-logo-wrap{width:100%;height:48px;border-radius:10px;}
+  .mfo-logo-wrap img{max-height:40px;}
+  .mfo-logo-fallback{width:44px;height:44px;font-size:14px;border-radius:10px;}
+  .mfo-card-name{font-size:10.5px;line-height:1.25;}
+  .mfo-card-badge{font-size:8px;padding:2px 6px;margin-top:1px;}
   .mfo-card-body{padding:10px 12px 4px;}
   .mfo-stat-row{font-size:10.5px;padding:5px 0;flex-direction:column;gap:1px;}
   .mfo-stat-row .v{font-size:11.5px;}
@@ -510,57 +515,20 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   .sw-title{ font-size:13.5px;text-align:left;margin:0; }
   .sw-subtitle,.sw-checklist,.sw-footnote,.sw-phone-form,.sw-consent,.sw-alt-link,.sw-success{ display:none; }
   .sw-close{ top:6px;right:6px; }
-
-  /* Бічний віджет (форма телефону + смартлінк) вимкнено на мобільній версії —
-     лишаємо розмітку й логіку в коді (працює на десктопі), просто ховаємо тут. */
-  .sw-widget{ display:none !important; }
 }
 </style>
 </head>
 <body>
 
 <!-- =========================================================
-     ЗАХОПЛЕННЯ ПАРАМЕТРІВ АТРИБУЦІЇ (з квізу та з реклами)
-     - Ловить sum/term/status (їх ставить квіз через buildResultLink())
-       та utm_*, gclid, fbclid (їх Meta/Google додають до посилань).
-     - Зберігає в sessionStorage, щоб дані не губились, навіть якщо
-       людина перейде на іншу сторінку сайту (де цих параметрів
-       в URL вже не буде) і лише потім залишить заявку.
-     - window.tcGetParam(name) — єдина точка доступу для всіх форм
-       і попапу нижче на сторінці.
-   ========================================================= -->
-<script>
-(function () {
-  var STORAGE_KEY = 'tcAttribution';
-  var TRACKED_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid', 'sum', 'term', 'status'];
+     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v4, перенесено з іншого лендингу
+     (2-колонковий формат: ТОП-3 + Рекомендації клієнтів) і
+     переоформлено під стиль карток офферів цього лендингу:
+     рамка навколо картки, більший логотип, рядок кольорових
+     плашок (як у .mfo-badge на вітрині) замість однієї плашки,
+     плюс пульсуюча CTA-кнопка.
 
-  var url = new URLSearchParams(window.location.search);
-  var stored = {};
-  try { stored = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { stored = {}; }
-
-  var changed = false;
-  TRACKED_KEYS.forEach(function (key) {
-    var val = url.get(key);
-    if (val) { stored[key] = val; changed = true; }
-  });
-  if (changed) {
-    try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(stored)); } catch (e) {}
-  }
-
-  // Єдина функція, якою користуються форми й попап нижче:
-  // спершу дивиться в поточний URL, якщо там немає — бере збережене раніше в сесії.
-  window.tcGetParam = function (name) {
-    return url.get(name) || stored[name] || '';
-  };
-
-  window.tcAttribution = stored;
-})();
-</script>
-
-<!-- =========================================================
-     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v3, редизайн під референс.
-
-     ЛОГІКА (без змін від v2):
+     ЛОГІКА (без змін):
      - Показується ТІЛЬКИ якщо в URL вітрини є ?sum=...&term=...
        (ці параметри ставить лише квіз через buildResultLink()).
        Якщо людина зайшла на вітрину напряму — попап НЕ з'явиться.
@@ -568,15 +536,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
        від внутрішніх змінних сторінки.
      - Відкривається одразу (без затримки на скрол).
      - Показ один раз за сесію (sessionStorage).
-
-     ДИЗАЙН (нове):
-     - Картка №1 — велика "featured" картка з золотою стрічкою
-       "Рекомендовано №1", іконками суми/строку, і великою CTA.
-     - Картки №2 і №3 — компактні рядки, як у попередній версії.
-     - Кольори — виключно змінні сайту (--green/--gold/--text/...).
-     - Вау-ефекти: конфеті при відкритті, пульс навколо чекмарка,
-       мерехтлива стрічка "Рекомендовано №1", staggered-поява карток,
-       shine-переливання на головній CTA.
    ========================================================= -->
 
 <style>
@@ -653,13 +612,8 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   0%{opacity:0;transform:translateY(16px) scale(.97);}
   100%{opacity:1;transform:translateY(0) scale(1);}
 }
-.top3-badge{
-  display:inline-block;font-size:11.5px;font-weight:800;
-  padding:5px 12px;border-radius:999px;
-  background:linear-gradient(120deg,var(--gold,#f5b942),#f7c765);color:#4a3200;
-}
 
-/* ---- 2-колонковий грід компактних карток ---- */
+/* ---- 2-колонковий грід карток (стиль карток офферів вітрини) ---- */
 .top3-columns{display:flex;gap:10px;margin-bottom:4px;position:relative;z-index:2;}
 .top3-col{flex:1;min-width:0;}
 .top3-col-title{
@@ -668,37 +622,69 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 }
 
 .top3-mini{
-  border:1px solid rgba(39,174,96,0.16);
-  border-radius:14px;
-  padding:10px;margin-bottom:8px;
+  border:2px solid rgba(39,174,96,0.35);
+  border-radius:16px;
+  padding:12px 10px;margin-bottom:10px;
   background:var(--white,#fff);
+  box-shadow:0 8px 22px rgba(39,174,96,0.16);
   animation:top3-rise .4s cubic-bezier(.2,.8,.3,1) backwards;
-  transition:box-shadow .2s, transform .2s;
+  transition:box-shadow .2s, transform .2s, border-color .2s;
 }
-.top3-mini:hover{box-shadow:0 6px 16px rgba(39,174,96,.14);transform:translateY(-1px);}
-.top3-mini-top{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.top3-mini:hover{box-shadow:0 14px 30px rgba(39,174,96,.24);transform:translateY(-2px);}
+.top3-mini--new{border-color:rgba(46,204,113,.6);box-shadow:0 10px 26px rgba(39,174,96,.24);}
+
+.top3-mini-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
 .top3-mini-rank{
-  flex:0 0 18px;height:18px;border-radius:50%;
-  background:var(--bg,#f4f9f6);border:1px solid rgba(39,174,96,.3);
-  color:var(--green-dark,#1e8449);font-size:10px;font-weight:900;
+  flex:0 0 20px;height:20px;border-radius:50%;
+  background:var(--bg,#f4f9f6);border:1.5px solid rgba(39,174,96,.35);
+  color:var(--green-dark,#1e8449);font-size:10.5px;font-weight:900;
   display:flex;align-items:center;justify-content:center;
 }
 .top3-logo.top3-mini-logo,.top3-logo-fallback.top3-mini-logo{
-  flex:0 0 26px;width:26px;height:26px;border-radius:8px;font-size:10px;object-fit:contain;
+  flex:0 0 40px;width:40px;height:40px;border-radius:12px;font-size:13px;object-fit:contain;background:var(--bg,#f4f9f6);
 }
 .top3-mini-name{
-  font-weight:800;font-size:12px;color:var(--text,#1a2421);line-height:1.2;
+  font-weight:800;font-size:12.5px;color:var(--text,#1a2421);line-height:1.2;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;
 }
-.top3-mini-meta{font-size:10.5px;color:var(--text-muted,#5a6b64);margin-bottom:6px;}
-.top3-mini .top3-badge{font-size:9px;padding:3px 7px;margin:0 0 6px;display:inline-block;}
+.top3-mini-meta{font-size:10.5px;color:var(--text-muted,#5a6b64);margin-bottom:8px;}
+
+/* ---- рядок кольорових плашок, як у карток офферів на вітрині ---- */
+.top3-mini-badges{display:flex;flex-direction:column;gap:5px;margin-bottom:9px;}
+.top3-mini-badge{
+  display:flex;align-items:center;justify-content:center;gap:4px;
+  font-size:9.5px;font-weight:900;letter-spacing:.01em;text-align:center;
+  padding:5px 6px;border-radius:8px;width:100%;box-sizing:border-box;line-height:1.25;
+}
+.top3-mini-badge.nbu{background:rgba(39,174,96,0.1);color:var(--green-dark,#1e8449);}
+.top3-mini-badge.color-green{background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));color:#fff;box-shadow:0 3px 10px rgba(39,174,96,.3);}
+.top3-mini-badge.color-blue{background:linear-gradient(120deg,#2980b9,#3498db);color:#fff;box-shadow:0 3px 10px rgba(52,152,219,.3);}
+.top3-mini-badge.color-purple{background:linear-gradient(120deg,#8e44ad,#a569bd);color:#fff;box-shadow:0 3px 10px rgba(142,68,173,.28);}
+.top3-mini-badge.color-teal{background:linear-gradient(120deg,#16a085,#1abc9c);color:#fff;box-shadow:0 3px 10px rgba(22,160,133,.3);}
+.top3-mini-badge.color-new{background:linear-gradient(120deg,#2ecc71,#7ed957);color:#0d3d1f;box-shadow:0 3px 10px rgba(46,204,113,.35);}
+.top3-mini-badge.color-gold{
+  background:linear-gradient(120deg,var(--gold,#f5b942),#ffcf6e);color:#5c3d00;
+  box-shadow:0 3px 12px rgba(245,185,66,.5);
+  animation:top3-badge-pulse 2s ease-in-out infinite;
+}
+@keyframes top3-badge-pulse{
+  0%,100%{transform:scale(1);box-shadow:0 3px 12px rgba(245,185,66,.5);}
+  50%{transform:scale(1.045);box-shadow:0 5px 16px rgba(245,185,66,.75);}
+}
+
+/* ---- пульсуюча CTA-кнопка ---- */
 .top3-mini-cta{
   display:block;width:100%;box-sizing:border-box;text-align:center;text-decoration:none;
-  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  color:#fff;font-weight:800;font-size:10.5px;padding:8px 4px;border-radius:9px;
-  transition:transform .2s;
+  background:linear-gradient(135deg,var(--orange,#ff7a1a),var(--orange-light,#ff9a4d));
+  color:#fff;font-weight:800;font-size:11px;padding:9px 4px;border-radius:10px;
+  transition:transform .15s;
+  animation:top3-cta-pulse 1.8s ease-in-out infinite;
 }
-.top3-mini-cta:hover{transform:translateY(-1px);}
+.top3-mini-cta:hover{animation-play-state:paused;transform:translateY(-1px) scale(1.03);}
+@keyframes top3-cta-pulse{
+  0%,100%{transform:scale(1);box-shadow:0 4px 14px rgba(255,122,26,.35);}
+  50%{transform:scale(1.035);box-shadow:0 8px 20px rgba(255,122,26,.55);}
+}
 
 /* ---- порада експерта ---- */
 .top3-expert-tip{
@@ -723,7 +709,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   .top3-modal{padding:20px 12px 16px;}
   .top3-title{font-size:18px;}
   .top3-columns{gap:7px;}
-  .top3-mini{padding:8px;}
+  .top3-mini{padding:9px 8px;}
 }
 </style>
 
@@ -772,10 +758,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
   // ---- локальні хелпери (не залежать від скриптів сторінки) ----
   function fmt(n) { return new Intl.NumberFormat('uk-UA').format(Math.round(n)); }
-  // Безпечно вставляє назву МФО і в JS-рядок (в межах onclick), і в HTML-атрибут
-  function mfoAttrSafe(name) {
-    return String(name).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
-  }
   const FALLBACK_COLORS = ['#27ae60', '#2ecc71', '#1e8449', '#f5b942', '#2980b9'];
   function fallbackColor(name) {
     let hash = 0;
@@ -790,6 +772,15 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       ? `<img class="top3-logo ${sizeClass}" src="${m.logo.startsWith('http') ? m.logo : '/mfo-logos/' + m.logo}" alt="${m.name}"
              onerror="this.onerror=null;this.outerHTML='<div class=\\'top3-logo-fallback ${sizeClass}\\' style=\\'background:${fbColor}\\'>${initials(m.name)}</div>';">`
       : `<div class="top3-logo-fallback ${sizeClass}" style="background:${fbColor}">${initials(m.name)}</div>`;
+  }
+
+  // Новий бренд на майданчику визначаємо так само, як і в картках на вітрині
+  // (за таблицею MFO_SENIORITY, оголошеною в основному скрипті сторінки).
+  const NEW_OFFER_SENIORITY_THRESHOLD = 38;
+  function isNewOffer(m) {
+    const table = (typeof MFO_SENIORITY === 'object' && MFO_SENIORITY) || {};
+    const sr = table[m.name];
+    return typeof sr === 'number' && sr >= NEW_OFFER_SENIORITY_THRESHOLD;
   }
 
   function spawnConfetti() {
@@ -837,11 +828,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   // нижче, вони вже гарантовано існують — тож звертаємось до них через window
   // з безпечним fallback на порожній об'єкт, якщо раптом їх ще нема).
   function seniorityVal(m) {
-    // MFO_SENIORITY оголошено через `const` у нижньому <script> — такі змінні
-    // НЕ стають властивостями window, тому звертаємось до самого імені напряму
-    // (це безпечно: render() викликається лише в .then() після fetch, тобто
-    // вже після того, як увесь синхронний код сторінки, включно з нижнім
-    // <script>, встиг виконатись).
     const table = (typeof MFO_SENIORITY === 'object' && MFO_SENIORITY) || {};
     const r = table[m.name];
     return Number.isFinite(r) ? r : Infinity; // невідомі/нові бренди = найновіші
@@ -855,9 +841,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   // Щоб різні відвідувачі (з однаковим запитом sum/term) не бачили щоразу
   // одні й ті самі 3 офери — беремо трохи ширший пул "хороших" кандидатів
   // (за тим самим рейтингом) і випадково обираємо з нього потрібну кількість.
-  // Це особливо помітно, коли нагорі рейтингу є декілька офферів з однаковим
-  // "рахунком" (напр. нові бренди без запису в MFO_SENIORITY) — без рандому
-  // порядок між ними завжди був би однаковим.
   const CANDIDATE_POOL_SIZE = 16;
   function pickRandom(sortedArr, count) {
     const candidates = sortedArr.slice(0, Math.max(count, Math.min(CANDIDATE_POOL_SIZE, sortedArr.length)));
@@ -876,20 +859,32 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     document.getElementById('top3-subtitle').innerHTML =
       `Для вашого запиту: <b>${fmt(querySum)} ₴ / ${queryTerm} дн.</b>`;
 
-    const badgeHTML = (m) => m.hasZeroBadge
-      ? `<span class="top3-badge">% ${m.goldBadgeText || 'Перша позика під 0.01%*'}</span>`
-      : '';
+    // Рядок кольорових плашок — як у картках офферів на вітрині:
+    // ліцензія НБУ + власна кольорова плашка + "новий сервіс" + золота 0%-плашка.
+    const badgesHTML = (m) => {
+      let html = '<span class="top3-mini-badge nbu">Ліцензія НБУ</span>';
+      if (isNewOffer(m)) {
+        html += '<span class="top3-mini-badge color-new">🆕 Новий сервіс!</span>';
+      }
+      if (m.badge) {
+        html += `<span class="top3-mini-badge color-${m.badgeColor || 'green'}">✨ ${m.badge}</span>`;
+      }
+      if (m.hasZeroBadge) {
+        html += `<span class="top3-mini-badge color-gold">🔥 ${m.goldBadgeText || 'Перша позика під 0.01%*'}</span>`;
+      }
+      return html;
+    };
 
     const miniCardHTML = (m, rank) => `
-      <div class="top3-mini">
+      <div class="top3-mini${isNewOffer(m) ? ' top3-mini--new' : ''}">
         <div class="top3-mini-top">
           <span class="top3-mini-rank">${rank}</span>
           ${logoHTML(m, 'top3-mini-logo')}
           <div class="top3-mini-name">${m.name}</div>
         </div>
         <div class="top3-mini-meta">${fmt(m.sum)} ₴ · ${m.term} дн.</div>
-        ${badgeHTML(m)}
-        <a class="top3-mini-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${mfoAttrSafe(m.name)}',source:'popup'});}">Подати заявку →</a>
+        <div class="top3-mini-badges">${badgesHTML(m)}</div>
+        <a class="top3-mini-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Подати заявку →</a>
       </div>`;
 
     // ТОП-3 — з-поміж найновіших брендів на майданчику (MFO_SENIORITY, вище = новіші)
@@ -943,8 +938,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 })();
 </script>
-
-
 <a class="skip-link" href="#main">Перейти до основного контенту</a>
 
 <header class="header" id="main-header">
@@ -1024,9 +1017,9 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       </label>
       <button class="sort-btn" data-sort="sum-desc">За сумою ↓</button>
       <button class="sort-btn" data-sort="rate-asc">За ставкою ↑</button>
-      <button class="sort-btn" data-sort="date-new">🔝🔥 Новіші спочатку</button>
+      <button class="sort-btn active" data-sort="date-new">🔝🔥 Новіші спочатку</button>
       <button class="sort-btn" data-sort="date-old">💯💳 Старіші спочатку</button>
-      <button class="sort-btn active" data-sort="cr-desc">💬 Рекомендовано клієнтами</button>
+      <button class="sort-btn" data-sort="cr-desc">💬 Рекомендовано клієнтами</button>
       <button class="sort-btn" data-sort="epc-desc">💳 ТОП від TREBACASH</button>
       <button class="sort-btn" id="reset-calc-filter" style="display:none;background:#fdecea;border-color:#e74c3c;color:#e74c3c;">✕ Скинути фільтр калькулятора</button>
     </div>
@@ -1120,13 +1113,15 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
 <script>
 /* ====== FALLBACK DATA (статичний бекап, якщо API недоступне) ====== */
-const MFO_DATA_FALLBACK = [{"name": "Beecredit", "logo": "beecredit.png", "ref": "https://tds.pdl-profit.com/h/1via6a134a8463dd2", "sum": 10000, "term": 365, "rateMin": 1400.0, "rateMax": 3000.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Сучасна фінансова компанія зі швидким онлайн кредитом на банківську карту.", "dateAdded": "2026-06-05", "legal": "ТОВ «МУЛЬТІКРЕДИТ»", "edrpou": "44653728", "address": "04052, м. Київ, вул. Глибочицька, 40, корп. Н-П, оф. 30", "phone": "0 800 200 001", "email": "info@beecredit.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Firstcredit", "logo": "firstcredit.png", "ref": "https://tds.pdl-profit.com/h/1vg46a134ca9c92a2", "sum": 20000, "term": 65, "rateMin": 131.91, "rateMax": 2296.36, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "цілодобовий сервіс онлайн кредитування на картку в Україні.", "dateAdded": "2026-06-06", "legal": "ТОВ «ФК «АБЕКОР»", "edrpou": null, "address": "м. Київ, вул. Костянтинівська, 75, прим. 601А", "phone": null, "email": null, "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "MyCredit", "logo": "mycredit.png", "ref": "https://tds.pdl-profit.com/h/1u416a134cbc0755d", "sum": 30000, "term": 365, "rateMin": 1265.8, "rateMax": 2989.62, "geo": "Україна (-Донецька та Луганська області, -АР Крим)", "desc": "надає клієнтам безпечні та зручні умови користування кредитним продуктом. Усі заявки приймаються та обробляються автоматизованою системою.", "dateAdded": "2026-06-07", "legal": "ТОВ «1 Безпечне агентство необхідних кредитів»", "edrpou": "39861924", "address": "01010, м. Київ, пл. Арсенальна, 1-Б", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "MILOAN", "logo": "miloan.png", "ref": "https://tds.pdl-profit.com/h/1tv36a134c74c6002", "sum": 20000, "term": 360, "rateMin": 1411.91, "rateMax": 2920.43, "geo": "Україна (крім Луганської, Херсонської, Запорізької, Харківської, Донецької областей та Криму)", "desc": "простий сервіс моментального кредитування на банківські картки.", "dateAdded": "2026-06-08", "legal": "ТОВ «MILOAN»", "edrpou": "40484607", "address": "м. Київ, вул. Багговутівська, 17-21", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "CreditKasa", "logo": "creditkasa.png", "ref": "https://tds.pdl-profit.com/h/1u0q6a134cb8b0cd3", "sum": 15000, "term": 365, "rateMin": 179.65, "rateMax": 6721.3, "geo": "Україна (-АР Крим, -зона активних військових дій: зараз це Донецька, Луганська, Херсонська та Запорі", "desc": "це українська мікрокредитна компанія, яка пропонує позичальникам позики до 15 000 гривень. Кредит оформлюється протягом 8 хвилин та переводиться на банківську картку будь-якого бан", "dateAdded": "2026-06-09", "legal": "ТОВ «УКР КРЕДИТ ФІНАНС»", "edrpou": "38548598", "address": "01133, м. Київ, бул. Лесі Українки, 26, оф. 407", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Creditplus", "logo": "creditplus.png", "ref": "https://tds.pdl-profit.com/h/1tvd6a134c4ddc3ee", "sum": 30000, "term": 365, "rateMin": 1244.55, "rateMax": 3546.38, "geo": "Україна (АР Крим, Луганська, Донецька, Херсонська, Запорізька області).\\", "desc": "Ставка 1.5% в день (період від 3 до 30 днів)", "dateAdded": "2026-06-10", "legal": "ТОВ «Авентус Україна»", "edrpou": "41078230", "address": "03062, м. Київ, пр-т Перемоги, 90-А", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Microcash", "logo": "microcash.png", "ref": "https://tds.pdl-profit.com/h/1udd6a134adbdfe4c", "sum": 6000, "term": 90, "rateMin": 14950.57, "rateMax": 25750.4, "geo": "Вся територія України", "desc": "сервіс, що видає кредити онлайн. Працює швидко, стабільно та без зайвих процедур.", "dateAdded": "2026-06-11", "legal": "ТОВ «ФІНТАРГЕТ»", "edrpou": "41955906", "address": "01054, м. Київ, вул. І. Франка, 42Б", "phone": null, "email": null, "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Pango", "logo": "pango.png", "ref": "https://tds.pdl-profit.com/h/1vfj69b184969f17e", "sum": 15000, "term": 360, "rateMin": 1411.91, "rateMax": 2920.43, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "технологічна компанія, яка використовує розгалуджені скорингові моделі, штучний інтелект та інші додаткові перевірки, які оцінюють ризик неповернення та кредитного навантаження для", "dateAdded": "2026-06-12", "legal": "ТОВ «ФК «Незалежні фінанси»", "edrpou": "44620708", "address": "01135, м. Київ, вул. Жилянська, 101, оф. 3", "phone": "+38 044 337 03 37", "email": "info@pango.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "SlonCredit", "logo": "sloncredit.png", "ref": "https://tds.pdl-profit.com/h/1u636a134c25adce6", "sum": 25000, "term": 365, "rateMin": 1244.55, "rateMax": 3422.24, "geo": "Україна за винятком: АРКрим, Запорізька (Запоріжжя можна), Харківська (Харків можна), Херсонська, До", "desc": "SlonCredit — сервіс онлайн-кредитування в Україні.", "dateAdded": "2026-06-13", "legal": "ТОВ «СЛОН КРЕДИТ»", "edrpou": "42350798", "address": "04107, м. Київ, пр. Перемоги, 90-А", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Credit7", "logo": "credit7.png", "ref": "https://tds.pdl-profit.com/h/1tv26a134c474bf13", "sum": 15000, "term": 30, "rateMin": 1132.58, "rateMax": 3845.25, "geo": "Україна**\\ **Обмеження щодо ГЕО:\\ **- АР Крим\\ - Донецька обл.\\ - Луганська обл.\\ - Харківська обл. ", "desc": "зручне онлайн-кредитування зі ставкою 0,01 % на перший кредит. Отримати кредит можна не виходячи з дому чи роботи за 15 хвилин на картку будь-якого українського банку.", "dateAdded": "2026-06-14", "legal": "ТОВ «ЛІНЕУРА УКРАЇНА»", "edrpou": "42753492", "address": "м. Київ, вул. Дніпровська наб., 25, п. 318", "phone": null, "email": null, "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Lehko", "logo": "lehko.png", "ref": "https://tds.pdl-profit.com/h/1vjt6a134a1ba0f9b", "sum": 10000, "term": 360, "rateMin": 1744.94, "rateMax": 4545.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Lehko — сервіс онлайн-кредитування в Україні.", "dateAdded": "2026-06-15", "legal": "ТОВ «МАКС КРЕДИТ»", "edrpou": null, "address": "03150, м. Київ, вул. Казимира Малевича, 86Е", "phone": "0800310433", "email": "info@lehko.credit", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика зі знижкою 90%"}, {"name": "LoviLave", "logo": "lovilave.png", "ref": "https://tds.pdl-profit.com/h/1v6k6a134ac706960", "sum": 5000, "term": 30, "rateMin": 3.711, "rateMax": 1418017.6, "geo": "Україна, крім Запорізької (Запоріжжя можна), Харківської (Харків можна), Херсонської, Донецької, Мик", "desc": "перший сервіс онлайн кредитів, в якому за допомогою чат-бота автоматично видають до 10 000 гривень на карту українського банку.", "dateAdded": "2026-06-16", "legal": "ТОВ «ФК «КІФ»", "edrpou": null, "address": "61072, м. Харків, вул. Отакара Яроша, 24Б", "phone": "+380 67 561-38-04", "email": "hello@lovilave.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Treba", "logo": "treba.png", "ref": "https://tds.pdl-profit.com/h/1vhb6a134b8c08ae6", "sum": 10000, "term": 360, "rateMin": 1744.94, "rateMax": 4545.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "український сервіс онлайн-кредитування. Наша головна мета --- фінансова допомога кожному клієнту швидко та доступно.", "dateAdded": "2026-06-17", "legal": "ТОВ «МАКС КРЕДИТ»", "edrpou": null, "address": "03150, м. Київ, вул. Казимира Малевича, 86Е", "phone": "0 800 310-422", "email": "info@treba.credit", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Знижка до 90% на першу позику"}, {"name": "Aviracredit", "logo": "aviracredit.png", "ref": "https://tds.pdl-profit.com/h/1umm6a134b4dc8b64", "sum": 7000, "term": 90, "rateMin": 1825.0, "rateMax": 160516344.0, "geo": "Україна (обмеження: Донецької, Луганської, Криму, Херсонської, Миколаївської, Харківської, Криворізь", "desc": "це простий та зручний сервіс онлайн кредитування, створений для швидкого отримання грошей на вашу карту. Завдяки нашому сервісу отримати кредит, клієнт зможе не виходячи з дому в б", "dateAdded": "2026-06-18", "legal": "ТОВ «ФК «АВІРА ГРУП»", "edrpou": "43174156", "address": "04071, м. Київ, вул. Ярославська, 5/2В", "phone": "(044) 498 68 98", "email": "info@aviracredit.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Cly", "logo": "cly.png", "ref": "https://tds.pdl-profit.com/h/1ump6a134b42d03b9", "sum": 7000, "term": 90, "rateMin": 1825.0, "rateMax": 160516344.0, "geo": "Вся територія України", "desc": "Cly — сервіс онлайн-кредитування в Україні.", "dateAdded": "2026-06-19", "legal": "ТОВ «ЗАЙМЕР»", "edrpou": "42146903", "address": "04071, м. Київ, вул. Ярославська, 5/2В", "phone": "(044) 390 03 32", "email": "info@cly.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "E-groshi", "logo": "e-groshi.png", "ref": "https://tds.pdl-profit.com/h/1u416a134cbc0755d", "sum": 30000, "term": 360, "rateMin": 47.43, "rateMax": 107.36, "geo": "Україна (за винятком: Харківська, Донецька, Луганська, Запорізька, Миколаївська, Херсонська області ", "desc": "E-groshi — надає клієнтам безпечні та зручні умови користування кредитним продуктом. Усі заявки приймаються та обробляються автоматизованою системою. 96% ймовірність схвалення, ріш", "dateAdded": "2026-06-20", "legal": "ТОВ «ФК «Є ГРОШІ КОМ»", "edrpou": "43067861", "address": "49057, м. Дніпро, пр. Б. Хмельницького, 180, оф. 211", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "ШвидкоГроші", "logo": "shvydkohroshi.png", "ref": "https://tds.pdl-profit.com/h/1u656a134cc134ae6", "sum": 50000, "term": 217, "rateMin": 1973.0, "rateMax": 11016.79, "geo": "Вся територія України", "desc": "лідер українського ринку мікрокредитування. Компанія надає моментальні кредити до 30 000 грн. до 140 днів без застави, довідок та поручителів.", "dateAdded": "2026-06-21", "legal": "ТОВ «СПОЖИВЧИЙ ЦЕНТР»", "edrpou": "37356833", "address": "01032, м. Київ, вул. Саксаганського, 133-А", "phone": null, "email": null, "badge": "До 50 000 ₴ на картку", "badgeColor": "blue", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Ariba", "logo": "ariba.png", "ref": "https://tds.pdl-profit.com/h/20ec6a134a37e2880", "sum": 20000, "term": 120, "rateMin": 2428.9, "rateMax": 3035.72, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Український сервіс онлайн-кредитування мікрокредитів без застави та поручителів.", "dateAdded": "2026-06-22", "legal": "ТОВ «ГАМА АПГРЕЙД»", "edrpou": "41919810", "address": "01133, м. Київ, вул. Ген. Алмазова, 13, оф. 301", "phone": "0 800 20 35 35", "email": "info@ranok.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Ranok", "logo": "ranok.png", "ref": "https://tds.pdl-profit.com/h/20c86a134b7c9f904", "sum": 20000, "term": 120, "rateMin": 2428.9, "rateMax": 3035.72, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Український сервіс онлайн-кредитування мікрокредитів без застави та поручителів.", "dateAdded": "2026-06-23", "legal": "ТОВ «ГАМА АПГРЕЙД»", "edrpou": "41919810", "address": "01133, м. Київ, вул. Ген. Алмазова, 13, оф. 301", "phone": "0 800 20 35 35", "email": "info@ranok.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "SelfieCredit", "logo": "selfiecredit.png", "ref": "https://tds.pdl-profit.com/h/1umt6a134c292a9bc", "sum": 30000, "term": 365, "rateMin": 1244.55, "rateMax": 3422.24, "geo": "Вся територія України", "desc": "сервіс швидкого онлайн-кредитування нового покоління. Наші можливості та знання в області технологій дозволяють обробляти заявки 24/7 й автоматично отримувати анкетні дані споживач", "dateAdded": "2026-06-24", "legal": "ТОВ «СЕЛФІ КРЕДИТ»", "edrpou": "43979069", "address": "04070, м. Київ, вул. Сковороди Григорія, 1", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Starfin", "logo": "starfin.png", "ref": "https://tds.pdl-profit.com/h/1vck6a134c2144ba7", "sum": 15000, "term": 120, "rateMin": 2428.9, "rateMax": 3035.72, "geo": "Україна, крім АР Крим, Донецької, Луганської, Херсонської областей.\\ У Дніпропетровській обл. (КРІМ ", "desc": "це зручний сервіс кредитування, що надає кредити онлайн кожному громадянину України, віком від 18 років, як короткостроково, так і довгостроково.", "dateAdded": "2026-06-26", "legal": "ТОВ «СТАР ФАЙНЕНС ГРУП»", "edrpou": "44022416", "address": "03150, м. Київ, вул. Велика Васильківська, 72", "phone": "0 800 202 233", "email": "info@starfin.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Suncredit", "logo": "suncredit.png", "ref": "https://tds.pdl-profit.com/h/1vl56a134aa61576a", "sum": 20000, "term": 120, "rateMin": 2428.9, "rateMax": 3035.72, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "це зручний сервіс кредитування, що надає кредити онлайн кожному громадянину України, віком від 18 років, як короткостроково, так і довгостроково.", "dateAdded": "2026-06-27", "legal": "ТОВ «СТАР ФАЙНЕНС ГРУП»", "edrpou": "44022416", "address": "03150, м. Київ, вул. Фізкультури, 30В", "phone": "0800 202 262", "email": "info@suncredit.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Нові кредити", "logo": "novi-kredyty.png", "ref": "https://tds.pdl-profit.com/h/1ufu6a134aa29a982", "sum": 5000, "term": 15, "rateMin": 5450.81, "rateMax": 10570.66, "geo": "Україна (-АР Крим, Донецька, Луганська обл.).", "desc": "це сервіс, який допоможе вирішити більшість фінансових проблем швидко та з мінімальною втратою часу", "dateAdded": "2026-06-28", "legal": "ТОВ «ФК «Нові Кредити»", "edrpou": "42152351", "address": "02002, м. Київ, вул. Митрополита Андрея Шептицького, 4А", "phone": null, "email": null, "badge": "Швидке рішення за хвилини", "badgeColor": "teal", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Cashpoint", "logo": "cashpoint.png", "ref": "https://tds.pdl-profit.com/h/1uio6a134a49c7d32", "sum": 10000, "term": 20, "rateMin": 1400.0, "rateMax": 3000.0, "geo": "\\ Не відповідає віку\\ Клієнт знаходиться у чорному списку (раніше реєструвався у базі)\\ Клієнт не пі", "desc": "Провідна компанія небанківського кредитування з видачею коротких позик готівкою та онлайн.", "dateAdded": "2026-06-29", "legal": "ТОВ «БІ ЕЛ ДЖІ МІКРОФІНАНС»", "edrpou": null, "address": "м. Київ, вул. Жилянська, 101, оф. 601", "phone": "0 800 30 30 32", "email": "office@cashpoint.ua", "badge": "Швидке рішення за хвилини", "badgeColor": "teal", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Ewacash", "logo": "ewacash.png", "ref": "https://tds.pdl-profit.com/h/1v476a134a796eb7f", "sum": 15000, "term": 360, "rateMin": 2253.44, "rateMax": 3142.15, "geo": "України, окрім АР Крим, Луганської, Донецької, Херсонської, Запорізької областей.", "desc": "надійний, швидкий і сучасний сервіс онлайн-позик в Україні. Ми спеціалізуємося на видачі мікрокредитів під невеликий відсоток в максимально короткі терміни на вигідних умовах. Проз", "dateAdded": "2026-06-30", "legal": "ТОВ «ФК «ТАЙГЕР ФІНАНС»", "edrpou": "43561909", "address": "79018, м. Львів, вул. Смаль-Стоцького, 1, корп. 28", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "FCredit", "logo": "fcredit.png", "ref": "https://tds.pdl-profit.com/h/1vuj6a134b8210aea", "sum": 5000, "term": 150, "rateMin": 3.71, "rateMax": 8906.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "надійний партнер у фінансових ситуаціях, коли гроші потрібні «на вчора».", "dateAdded": "2026-07-01", "legal": "ТОВ «ФІНТАРГЕТ»", "edrpou": "41955906", "address": "01054, м. Київ, вул. І. Франка, 40Б", "phone": "0 800 353 187", "email": "info@fcredit.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "FinClick", "logo": "finclick.png", "ref": "https://tds.pdl-profit.com/h/20ea6a134b085a782", "sum": 8000, "term": 364, "rateMin": 5515.12, "rateMax": 5515.12, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "це українська мікрофінансова організація, що пропонує послуги з короткострокового кредитування приватним особам в Україні.", "dateAdded": "2026-07-02", "legal": "ТОВ «ІНВЕСТМЕНТ ФІНАНС ГРУП»", "edrpou": "36413053", "address": "04071, м. Київ, вул. Верхній Вал, 4-В, під'їзд 1, пов. 2, оф. 9-14", "phone": "0 800 205 353", "email": "support@finclick.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Finbert", "logo": "finbert.png", "ref": "https://tds.pdl-profit.com/h/1upj6a134a7fe8bd7", "sum": 8000, "term": 30, "rateMin": 365.0, "rateMax": 365.0, "geo": "вся Україна, окрім тимчасово окупованих територій.", "desc": "мікрофінансова організація, що спеціалізується на видачі онлайн кредитів на суму до 8 000 гривень.", "dateAdded": "2026-07-03", "legal": "ТОВ «ФК «ГВАДІАНА»", "edrpou": "42016442", "address": "04052, м. Київ, вул. Глибочицька, 40, прим. 7", "phone": "+380443570767", "email": "office@finbert.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Funnymoney", "logo": "funnymoney.png", "ref": "https://tds.pdl-profit.com/h/20g06a134b17752d6", "sum": 8000, "term": 30, "rateMin": 3.65, "rateMax": 5515.12, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Сучасний цифровий інструмент для отримання фінансової підтримки без паперової тяганини.", "dateAdded": "2026-07-04", "legal": "ТОВ «ІНВЕСТМЕНТ ФІНАНС ГРУП»", "edrpou": "36413053", "address": "04071, м. Київ, вул. Верхній Вал, 4-В, під'їзд 1, пов. 2, оф. 9-14", "phone": "0 800 205 353", "email": "support@finclick.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "LimonCredit", "logo": "limoncredit.png", "ref": "https://tds.pdl-profit.com/h/1viq6a134bce5740e", "sum": 27000, "term": 65, "rateMin": 1597.37, "rateMax": 2221.34, "geo": "Україна, крім тимчасово окупованих областей: Донецька, Херсонська (крім м.Херсон), Луганська, Запорі", "desc": "це сервіс онлайн-кредитування, що дозволяє українцям швидко вирішувати свої фінансові потреби. Ми зосереджені на наданні оперативної фінансової підтримки без необхідності відвідува", "dateAdded": "2026-07-05", "legal": "ТОВ «ОПТИМАЛЬНІ КРЕДИТИ»", "edrpou": null, "address": "01015, м. Київ, вул. Лейпцизька, 15-Б, пов. 4", "phone": "0800 351 341", "email": "support@limon-credit.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика від 0,09% без комісії**"}, {"name": "Turbogroshi", "logo": "turbogroshi.png", "ref": "https://tds.pdl-profit.com/h/1vp06a134b1b5f476", "sum": 10000, "term": 30, "rateMin": 365.0, "rateMax": 365.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Сервіс швидкого та легкого отримання позики з прозорими умовами.", "dateAdded": "2026-07-06", "legal": "ТОВ «ФК «БІКСБІТ»", "edrpou": null, "address": "01001, м. Київ, вул. Ірининська, 5/24, оф. 97а", "phone": "0 800 400004", "email": "info@turbogroshi.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "ТвояПозика", "logo": "tvoiapozyka.png", "ref": "https://tds.pdl-profit.com/h/1v166a134ca1e2070", "sum": 150000, "term": 169, "rateMin": 1733.83, "rateMax": 10108.83, "geo": "Україна (- Донецька, - Запорізька, - Луганська, - Миколаївська, - Харківська, - Херсонська, - АР Кри", "desc": "це фінансова компанія, яка надає послуги із споживчого кредитування фізичних осіб.", "dateAdded": "2026-07-07", "legal": "ТОВ «БІЗНЕС ПОЗИКА»", "edrpou": "41084239", "address": "м. Київ, вул. Ген. Алмазова, 13, оф. 524", "phone": "0800 211 503", "email": "office@tpozyka.com", "badge": "До 150 000 ₴ на картку", "badgeColor": "blue", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Aerocash", "logo": "aerocash.png", "ref": "https://tds.pdl-profit.com/h/20bq6a134b85c5a57", "sum": 8000, "term": 360, "rateMin": 1400.0, "rateMax": 3000.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Українська мікрофінансова організація для короткострокового кредитування приватних осіб.", "dateAdded": "2026-07-08", "legal": "ТОВ «Український платіжний центр»", "edrpou": "39898755", "address": "04071, м. Київ, вул. Верхній Вал, 4-В, під'їзд 1, пов. 2", "phone": "0 800 206 020", "email": "support@rocketmoney.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Amigo", "logo": "amigo.png", "ref": "https://tds.pdl-profit.com/h/1vfq6a134b3c5c49b", "sum": 15000, "term": 360, "rateMin": 1411.91, "rateMax": 2920.43, "geo": "Україна, окрім тимчасового окупованих територій.", "desc": "перший мікрофінансовий сервіс України з можливістю оформити кредит на строк до 1 року.", "dateAdded": "2026-07-09", "legal": "ТОВ «MILOAN»", "edrpou": "40484607", "address": "04107, м. Київ, вул. Багговутівська, 17-21", "phone": "+380443370033", "email": "info@amigo.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "FINX", "logo": "finx.png", "ref": "https://tds.pdl-profit.com/h/1u5s6a134aad954d3", "sum": 30000, "term": 168, "rateMin": 2882.0, "rateMax": 13368.0, "geo": "Україна, окрім: Крим, Донецька, Луганська, Херсонська області.", "desc": "фінансова компанія, що надає споживчі кредити на будь-що, техніку, навчання, відпустку, ремонт.", "dateAdded": "2026-07-10", "legal": "ТОВ «КРЕДІПЛЮС»", "edrpou": "40474269", "address": "04052, м. Київ, вул. Глибочицька, 17", "phone": null, "email": null, "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Freestyle Credit", "logo": "freestyle-credit.png", "ref": "https://tds.pdl-profit.com/h/204h6a134b913faa4", "sum": 27000, "term": 65, "rateMin": 2357.0, "rateMax": 2357.0, "geo": "Україна, крім тимчасово окупованих територій: Донецька, Херсонська (крім м. Херсон), Луганська, Запо", "desc": "це сучасний український сервіс споживчого кредитування онлайн. Freestyle Credit відкриває двері до фінансових можливостей, усуваючи бар'єри -- довгі черги, складні умови, непрозорі", "dateAdded": "2026-07-11", "legal": "ТОВ «МАНІВЕО ШВИДКА ФІНАНСОВА ДОПОМОГА»", "edrpou": null, "address": "01015, м. Київ, вул. Лейпцизька, 15Б, 1-й пов.", "phone": "0 800 21 5300", "email": "support@freecredit.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,5%"}, {"name": "Lemurcredit", "logo": "lemurcredit.png", "ref": "https://tds.pdl-profit.com/h/1vsr6a134b717cc22", "sum": 5000, "term": 30, "rateMin": 1400.0, "rateMax": 3000.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Онлайн-сервіс, що підбирає індивідуальні кредитні пропозиції з десятків організацій.", "dateAdded": "2026-07-12", "legal": null, "edrpou": null, "address": null, "phone": null, "email": null, "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Prostocredit", "logo": "prostocredit.png", "ref": "https://tds.pdl-profit.com/h/1v7n6a134b48abe72", "sum": 6000, "term": 30, "rateMin": 3.65, "rateMax": 21919.0, "geo": "Україна (за виключенням: Донецька область, Запорізька область, Луганська область, Херсонська область", "desc": "це національний сервіс онлайн-кредитування, що спеціалізується на видачі мікрокредитів сумою до 8000 гривень строком до 90 днів, з можливістю дострокового погашення.", "dateAdded": "2026-07-13", "legal": null, "edrpou": null, "address": null, "phone": null, "email": null, "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Finmarket", "logo": "finmarket.png", "ref": "https://tds.pdl-profit.com/h/20b06a134acebdcd5", "sum": 30000, "term": 30, "rateMin": 5646.96, "rateMax": 9717.05, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Прозорий сервіс кредитування з чіткою інформацією про всі відсотки та платежі.", "dateAdded": "2026-07-14", "legal": "ТОВ «ФК «ФІНМАРКЕТ»", "edrpou": null, "address": "49041, м. Дніпро, вул. Стартова, 7, оф. 403", "phone": "0 800 302 042", "email": "fk.finmarket@gmail.com", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Rocketmoney", "logo": "rocketmoney.png", "ref": "https://tds.pdl-profit.com/h/204v6a134b773872e", "sum": 8000, "term": 360, "rateMin": 1400.0, "rateMax": 3000.0, "geo": "Україна, крім тимчасово окупованих територій.", "desc": "Сучасний онлайн-сервіс швидкого кредитування без документів та черг.", "dateAdded": "2026-07-15", "legal": "ТОВ «ФК «Український платіжний центр»", "edrpou": "39898755", "address": "04071, м. Київ, вул. Верхній Вал, 4-В, під'їзд 1, пов. 2", "phone": "0 800 205 020", "email": "support@rocketmoney.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}];
+const MFO_DATA_FALLBACK = [{"name": "MyCredit", "logo": "mycredit.png", "ref": "https://tds.pdl-profit.com/h/1u416a134cbc0755d", "sum": 30000, "term": 365, "rateMin": 1265.8, "rateMax": 2989.62, "geo": "Україна (-Донецька та Луганська області, -АР Крим)", "desc": "надає клієнтам безпечні та зручні умови користування кредитним продуктом. Усі заявки приймаються та обробляються автоматизованою системою.", "dateAdded": "2026-06-07", "legal": "ТОВ «1 Безпечне агентство необхідних кредитів»", "edrpou": "39861924", "address": "01010, м. Київ, пл. Арсенальна, 1-Б", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "MILOAN", "logo": "miloan.png", "ref": "https://tds.pdl-profit.com/h/1tv36a134c74c6002", "sum": 20000, "term": 360, "rateMin": 1411.91, "rateMax": 2920.43, "geo": "Україна (крім Луганської, Херсонської, Запорізької, Харківської, Донецької областей та Криму)", "desc": "простий сервіс моментального кредитування на банківські картки.", "dateAdded": "2026-06-08", "legal": "ТОВ «MILOAN»", "edrpou": "40484607", "address": "м. Київ, вул. Багговутівська, 17-21", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "CreditKasa", "logo": "creditkasa.png", "ref": "https://tds.pdl-profit.com/h/1u0q6a134cb8b0cd3", "sum": 15000, "term": 365, "rateMin": 179.65, "rateMax": 6721.3, "geo": "Україна (-АР Крим, -зона активних військових дій: зараз це Донецька, Луганська, Херсонська та Запорі", "desc": "це українська мікрокредитна компанія, яка пропонує позичальникам позики до 15 000 гривень. Кредит оформлюється протягом 8 хвилин та переводиться на банківську картку будь-якого бан", "dateAdded": "2026-06-09", "legal": "ТОВ «УКР КРЕДИТ ФІНАНС»", "edrpou": "38548598", "address": "01133, м. Київ, бул. Лесі Українки, 26, оф. 407", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Creditplus", "logo": "creditplus.png", "ref": "https://tds.pdl-profit.com/h/1tvd6a134c4ddc3ee", "sum": 30000, "term": 365, "rateMin": 1244.55, "rateMax": 3546.38, "geo": "Україна (АР Крим, Луганська, Донецька, Херсонська, Запорізька області).\\", "desc": "Ставка 1.5% в день (період від 3 до 30 днів)", "dateAdded": "2026-06-10", "legal": "ТОВ «Авентус Україна»", "edrpou": "41078230", "address": "03062, м. Київ, пр-т Перемоги, 90-А", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Microcash", "logo": "microcash.png", "ref": "https://tds.pdl-profit.com/h/1udd6a134adbdfe4c", "sum": 6000, "term": 90, "rateMin": 14950.57, "rateMax": 25750.4, "geo": "Вся територія України", "desc": "сервіс, що видає кредити онлайн. Працює швидко, стабільно та без зайвих процедур.", "dateAdded": "2026-06-11", "legal": "ТОВ «ФІНТАРГЕТ»", "edrpou": "41955906", "address": "01054, м. Київ, вул. І. Франка, 42Б", "phone": null, "email": null, "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Pango", "logo": "pango.png", "ref": "https://tds.pdl-profit.com/h/1vfj69b184969f17e", "sum": 15000, "term": 360, "rateMin": 1411.91, "rateMax": 2920.43, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "технологічна компанія, яка використовує розгалуджені скорингові моделі, штучний інтелект та інші додаткові перевірки, які оцінюють ризик неповернення та кредитного навантаження для", "dateAdded": "2026-06-12", "legal": "ТОВ «ФК «Незалежні фінанси»", "edrpou": "44620708", "address": "01135, м. Київ, вул. Жилянська, 101, оф. 3", "phone": "+38 044 337 03 37", "email": "info@pango.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "SlonCredit", "logo": "sloncredit.png", "ref": "https://tds.pdl-profit.com/h/1u636a134c25adce6", "sum": 25000, "term": 365, "rateMin": 1244.55, "rateMax": 3422.24, "geo": "Україна за винятком: АРКрим, Запорізька (Запоріжжя можна), Харківська (Харків можна), Херсонська, До", "desc": "SlonCredit — сервіс онлайн-кредитування в Україні.", "dateAdded": "2026-06-13", "legal": "ТОВ «СЛОН КРЕДИТ»", "edrpou": "42350798", "address": "04107, м. Київ, пр. Перемоги, 90-А", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Credit7", "logo": "credit7.png", "ref": "https://tds.pdl-profit.com/h/1tv26a134c474bf13", "sum": 15000, "term": 30, "rateMin": 1132.58, "rateMax": 3845.25, "geo": "Україна**\\ **Обмеження щодо ГЕО:\\ **- АР Крим\\ - Донецька обл.\\ - Луганська обл.\\ - Харківська обл. ", "desc": "зручне онлайн-кредитування зі ставкою 0,01 % на перший кредит. Отримати кредит можна не виходячи з дому чи роботи за 15 хвилин на картку будь-якого українського банку.", "dateAdded": "2026-06-14", "legal": "ТОВ «ЛІНЕУРА УКРАЇНА»", "edrpou": "42753492", "address": "м. Київ, вул. Дніпровська наб., 25, п. 318", "phone": null, "email": null, "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Lehko", "logo": "lehko.png", "ref": "https://tds.pdl-profit.com/h/1vjt6a134a1ba0f9b", "sum": 10000, "term": 360, "rateMin": 1744.94, "rateMax": 4545.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Lehko — сервіс онлайн-кредитування в Україні.", "dateAdded": "2026-06-15", "legal": "ТОВ «МАКС КРЕДИТ»", "edrpou": null, "address": "03150, м. Київ, вул. Казимира Малевича, 86Е", "phone": "0800310433", "email": "info@lehko.credit", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика зі знижкою 90%"}, {"name": "LoviLave", "logo": "lovilave.png", "ref": "https://tds.pdl-profit.com/h/1v6k6a134ac706960", "sum": 5000, "term": 30, "rateMin": 3.711, "rateMax": 1418017.6, "geo": "Україна, крім Запорізької (Запоріжжя можна), Харківської (Харків можна), Херсонської, Донецької, Мик", "desc": "перший сервіс онлайн кредитів, в якому за допомогою чат-бота автоматично видають до 10 000 гривень на карту українського банку.", "dateAdded": "2026-06-16", "legal": "ТОВ «ФК «КІФ»", "edrpou": null, "address": "61072, м. Харків, вул. Отакара Яроша, 24Б", "phone": "+380 67 561-38-04", "email": "hello@lovilave.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Treba", "logo": "treba.png", "ref": "https://tds.pdl-profit.com/h/1vhb6a134b8c08ae6", "sum": 10000, "term": 360, "rateMin": 1744.94, "rateMax": 4545.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "український сервіс онлайн-кредитування. Наша головна мета --- фінансова допомога кожному клієнту швидко та доступно.", "dateAdded": "2026-06-17", "legal": "ТОВ «МАКС КРЕДИТ»", "edrpou": null, "address": "03150, м. Київ, вул. Казимира Малевича, 86Е", "phone": "0 800 310-422", "email": "info@treba.credit", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Знижка до 90% на першу позику"}, {"name": "Aviracredit", "logo": "aviracredit.png", "ref": "https://tds.pdl-profit.com/h/1umm6a134b4dc8b64", "sum": 7000, "term": 90, "rateMin": 1825.0, "rateMax": 160516344.0, "geo": "Україна (обмеження: Донецької, Луганської, Криму, Херсонської, Миколаївської, Харківської, Криворізь", "desc": "це простий та зручний сервіс онлайн кредитування, створений для швидкого отримання грошей на вашу карту. Завдяки нашому сервісу отримати кредит, клієнт зможе не виходячи з дому в б", "dateAdded": "2026-06-18", "legal": "ТОВ «ФК «АВІРА ГРУП»", "edrpou": "43174156", "address": "04071, м. Київ, вул. Ярославська, 5/2В", "phone": "(044) 498 68 98", "email": "info@aviracredit.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Cly", "logo": "cly.png", "ref": "https://tds.pdl-profit.com/h/1ump6a134b42d03b9", "sum": 7000, "term": 90, "rateMin": 1825.0, "rateMax": 160516344.0, "geo": "Вся територія України", "desc": "Cly — сервіс онлайн-кредитування в Україні.", "dateAdded": "2026-06-19", "legal": "ТОВ «ЗАЙМЕР»", "edrpou": "42146903", "address": "04071, м. Київ, вул. Ярославська, 5/2В", "phone": "(044) 390 03 32", "email": "info@cly.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "E-groshi", "logo": "e-groshi.png", "ref": "https://tds.pdl-profit.com/h/1u416a134cbc0755d", "sum": 30000, "term": 360, "rateMin": 47.43, "rateMax": 107.36, "geo": "Україна (за винятком: Харківська, Донецька, Луганська, Запорізька, Миколаївська, Херсонська області ", "desc": "E-groshi — надає клієнтам безпечні та зручні умови користування кредитним продуктом. Усі заявки приймаються та обробляються автоматизованою системою. 96% ймовірність схвалення, ріш", "dateAdded": "2026-06-20", "legal": "ТОВ «ФК «Є ГРОШІ КОМ»", "edrpou": "43067861", "address": "49057, м. Дніпро, пр. Б. Хмельницького, 180, оф. 211", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "ШвидкоГроші", "logo": "shvydkohroshi.png", "ref": "https://tds.pdl-profit.com/h/1u656a134cc134ae6", "sum": 50000, "term": 217, "rateMin": 1973.0, "rateMax": 11016.79, "geo": "Вся територія України", "desc": "лідер українського ринку мікрокредитування. Компанія надає моментальні кредити до 30 000 грн. до 140 днів без застави, довідок та поручителів.", "dateAdded": "2026-06-21", "legal": "ТОВ «СПОЖИВЧИЙ ЦЕНТР»", "edrpou": "37356833", "address": "01032, м. Київ, вул. Саксаганського, 133-А", "phone": null, "email": null, "badge": "До 50 000 ₴ на картку", "badgeColor": "blue", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Ariba", "logo": "ariba.png", "ref": "https://tds.pdl-profit.com/h/20ec6a134a37e2880", "sum": 20000, "term": 120, "rateMin": 2428.9, "rateMax": 3035.72, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Український сервіс онлайн-кредитування мікрокредитів без застави та поручителів.", "dateAdded": "2026-06-22", "legal": "ТОВ «ГАМА АПГРЕЙД»", "edrpou": "41919810", "address": "01133, м. Київ, вул. Ген. Алмазова, 13, оф. 301", "phone": "0 800 20 35 35", "email": "info@ranok.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Ranok", "logo": "ranok.png", "ref": "https://tds.pdl-profit.com/h/20c86a134b7c9f904", "sum": 20000, "term": 120, "rateMin": 2428.9, "rateMax": 3035.72, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Український сервіс онлайн-кредитування мікрокредитів без застави та поручителів.", "dateAdded": "2026-06-23", "legal": "ТОВ «ГАМА АПГРЕЙД»", "edrpou": "41919810", "address": "01133, м. Київ, вул. Ген. Алмазова, 13, оф. 301", "phone": "0 800 20 35 35", "email": "info@ranok.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "SelfieCredit", "logo": "selfiecredit.png", "ref": "https://tds.pdl-profit.com/h/1umt6a134c292a9bc", "sum": 30000, "term": 365, "rateMin": 1244.55, "rateMax": 3422.24, "geo": "Вся територія України", "desc": "сервіс швидкого онлайн-кредитування нового покоління. Наші можливості та знання в області технологій дозволяють обробляти заявки 24/7 й автоматично отримувати анкетні дані споживач", "dateAdded": "2026-06-24", "legal": "ТОВ «СЕЛФІ КРЕДИТ»", "edrpou": "43979069", "address": "04070, м. Київ, вул. Сковороди Григорія, 1", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Starfin", "logo": "starfin.png", "ref": "https://tds.pdl-profit.com/h/1vck6a134c2144ba7", "sum": 15000, "term": 120, "rateMin": 2428.9, "rateMax": 3035.72, "geo": "Україна, крім АР Крим, Донецької, Луганської, Херсонської областей.\\ У Дніпропетровській обл. (КРІМ ", "desc": "це зручний сервіс кредитування, що надає кредити онлайн кожному громадянину України, віком від 18 років, як короткостроково, так і довгостроково.", "dateAdded": "2026-06-26", "legal": "ТОВ «СТАР ФАЙНЕНС ГРУП»", "edrpou": "44022416", "address": "03150, м. Київ, вул. Велика Васильківська, 72", "phone": "0 800 202 233", "email": "info@starfin.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Suncredit", "logo": "suncredit.png", "ref": "https://tds.pdl-profit.com/h/1vl56a134aa61576a", "sum": 20000, "term": 120, "rateMin": 2428.9, "rateMax": 3035.72, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "це зручний сервіс кредитування, що надає кредити онлайн кожному громадянину України, віком від 18 років, як короткостроково, так і довгостроково.", "dateAdded": "2026-06-27", "legal": "ТОВ «СТАР ФАЙНЕНС ГРУП»", "edrpou": "44022416", "address": "03150, м. Київ, вул. Фізкультури, 30В", "phone": "0800 202 262", "email": "info@suncredit.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Нові кредити", "logo": "novi-kredyty.png", "ref": "https://tds.pdl-profit.com/h/1ufu6a134aa29a982", "sum": 5000, "term": 15, "rateMin": 5450.81, "rateMax": 10570.66, "geo": "Україна (-АР Крим, Донецька, Луганська обл.).", "desc": "це сервіс, який допоможе вирішити більшість фінансових проблем швидко та з мінімальною втратою часу", "dateAdded": "2026-06-28", "legal": "ТОВ «ФК «Нові Кредити»", "edrpou": "42152351", "address": "02002, м. Київ, вул. Митрополита Андрея Шептицького, 4А", "phone": null, "email": null, "badge": "Швидке рішення за хвилини", "badgeColor": "teal", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Cashpoint", "logo": "cashpoint.png", "ref": "https://tds.pdl-profit.com/h/1uio6a134a49c7d32", "sum": 10000, "term": 20, "rateMin": 1400.0, "rateMax": 3000.0, "geo": "\\ Не відповідає віку\\ Клієнт знаходиться у чорному списку (раніше реєструвався у базі)\\ Клієнт не пі", "desc": "Провідна компанія небанківського кредитування з видачею коротких позик готівкою та онлайн.", "dateAdded": "2026-06-29", "legal": "ТОВ «БІ ЕЛ ДЖІ МІКРОФІНАНС»", "edrpou": null, "address": "м. Київ, вул. Жилянська, 101, оф. 601", "phone": "0 800 30 30 32", "email": "office@cashpoint.ua", "badge": "Швидке рішення за хвилини", "badgeColor": "teal", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Ewacash", "logo": "ewacash.png", "ref": "https://tds.pdl-profit.com/h/1v476a134a796eb7f", "sum": 15000, "term": 360, "rateMin": 2253.44, "rateMax": 3142.15, "geo": "України, окрім АР Крим, Луганської, Донецької, Херсонської, Запорізької областей.", "desc": "надійний, швидкий і сучасний сервіс онлайн-позик в Україні. Ми спеціалізуємося на видачі мікрокредитів під невеликий відсоток в максимально короткі терміни на вигідних умовах. Проз", "dateAdded": "2026-06-30", "legal": "ТОВ «ФК «ТАЙГЕР ФІНАНС»", "edrpou": "43561909", "address": "79018, м. Львів, вул. Смаль-Стоцького, 1, корп. 28", "phone": null, "email": null, "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "FinClick", "logo": "finclick.png", "ref": "https://tds.pdl-profit.com/h/20ea6a134b085a782", "sum": 8000, "term": 364, "rateMin": 5515.12, "rateMax": 5515.12, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "це українська мікрофінансова організація, що пропонує послуги з короткострокового кредитування приватним особам в Україні.", "dateAdded": "2026-07-02", "legal": "ТОВ «ІНВЕСТМЕНТ ФІНАНС ГРУП»", "edrpou": "36413053", "address": "04071, м. Київ, вул. Верхній Вал, 4-В, під'їзд 1, пов. 2, оф. 9-14", "phone": "0 800 205 353", "email": "support@finclick.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Finbert", "logo": "finbert.png", "ref": "https://tds.pdl-profit.com/h/1upj6a134a7fe8bd7", "sum": 8000, "term": 30, "rateMin": 365.0, "rateMax": 365.0, "geo": "вся Україна, окрім тимчасово окупованих територій.", "desc": "мікрофінансова організація, що спеціалізується на видачі онлайн кредитів на суму до 8 000 гривень.", "dateAdded": "2026-07-03", "legal": "ТОВ «ФК «ГВАДІАНА»", "edrpou": "42016442", "address": "04052, м. Київ, вул. Глибочицька, 40, прим. 7", "phone": "+380443570767", "email": "office@finbert.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Funnymoney", "logo": "funnymoney.png", "ref": "https://tds.pdl-profit.com/h/20g06a134b17752d6", "sum": 8000, "term": 30, "rateMin": 3.65, "rateMax": 5515.12, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Сучасний цифровий інструмент для отримання фінансової підтримки без паперової тяганини.", "dateAdded": "2026-07-04", "legal": "ТОВ «ІНВЕСТМЕНТ ФІНАНС ГРУП»", "edrpou": "36413053", "address": "04071, м. Київ, вул. Верхній Вал, 4-В, під'їзд 1, пов. 2, оф. 9-14", "phone": "0 800 205 353", "email": "support@finclick.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "LimonCredit", "logo": "limoncredit.png", "ref": "https://tds.pdl-profit.com/h/1viq6a134bce5740e", "sum": 27000, "term": 65, "rateMin": 1597.37, "rateMax": 2221.34, "geo": "Україна, крім тимчасово окупованих областей: Донецька, Херсонська (крім м.Херсон), Луганська, Запорі", "desc": "це сервіс онлайн-кредитування, що дозволяє українцям швидко вирішувати свої фінансові потреби. Ми зосереджені на наданні оперативної фінансової підтримки без необхідності відвідува", "dateAdded": "2026-07-05", "legal": "ТОВ «ОПТИМАЛЬНІ КРЕДИТИ»", "edrpou": null, "address": "01015, м. Київ, вул. Лейпцизька, 15-Б, пов. 4", "phone": "0800 351 341", "email": "support@limon-credit.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика від 0,09% без комісії**"}, {"name": "Turbogroshi", "logo": "turbogroshi.png", "ref": "https://tds.pdl-profit.com/h/1vp06a134b1b5f476", "sum": 10000, "term": 30, "rateMin": 365.0, "rateMax": 365.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Сервіс швидкого та легкого отримання позики з прозорими умовами.", "dateAdded": "2026-07-06", "legal": "ТОВ «ФК «БІКСБІТ»", "edrpou": null, "address": "01001, м. Київ, вул. Ірининська, 5/24, оф. 97а", "phone": "0 800 400004", "email": "info@turbogroshi.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "ТвояПозика", "logo": "tvoiapozyka.png", "ref": "https://tds.pdl-profit.com/h/1v166a134ca1e2070", "sum": 150000, "term": 169, "rateMin": 1733.83, "rateMax": 10108.83, "geo": "Україна (- Донецька, - Запорізька, - Луганська, - Миколаївська, - Харківська, - Херсонська, - АР Кри", "desc": "це фінансова компанія, яка надає послуги із споживчого кредитування фізичних осіб.", "dateAdded": "2026-07-07", "legal": "ТОВ «БІЗНЕС ПОЗИКА»", "edrpou": "41084239", "address": "м. Київ, вул. Ген. Алмазова, 13, оф. 524", "phone": "0800 211 503", "email": "office@tpozyka.com", "badge": "До 150 000 ₴ на картку", "badgeColor": "blue", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Aerocash", "logo": "aerocash.png", "ref": "https://tds.pdl-profit.com/h/20bq6a134b85c5a57", "sum": 8000, "term": 360, "rateMin": 1400.0, "rateMax": 3000.0, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Українська мікрофінансова організація для короткострокового кредитування приватних осіб.", "dateAdded": "2026-07-08", "legal": "ТОВ «Український платіжний центр»", "edrpou": "39898755", "address": "04071, м. Київ, вул. Верхній Вал, 4-В, під'їзд 1, пов. 2", "phone": "0 800 206 020", "email": "support@rocketmoney.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Amigo", "logo": "amigo.png", "ref": "https://tds.pdl-profit.com/h/1vfq6a134b3c5c49b", "sum": 15000, "term": 360, "rateMin": 1411.91, "rateMax": 2920.43, "geo": "Україна, окрім тимчасового окупованих територій.", "desc": "перший мікрофінансовий сервіс України з можливістю оформити кредит на строк до 1 року.", "dateAdded": "2026-07-09", "legal": "ТОВ «MILOAN»", "edrpou": "40484607", "address": "04107, м. Київ, вул. Багговутівська, 17-21", "phone": "+380443370033", "email": "info@amigo.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Freestyle Credit", "logo": "freestyle-credit.png", "ref": "https://tds.pdl-profit.com/h/204h6a134b913faa4", "sum": 27000, "term": 65, "rateMin": 2357.0, "rateMax": 2357.0, "geo": "Україна, крім тимчасово окупованих територій: Донецька, Херсонська (крім м. Херсон), Луганська, Запо", "desc": "це сучасний український сервіс споживчого кредитування онлайн. Freestyle Credit відкриває двері до фінансових можливостей, усуваючи бар'єри -- довгі черги, складні умови, непрозорі", "dateAdded": "2026-07-11", "legal": "ТОВ «МАНІВЕО ШВИДКА ФІНАНСОВА ДОПОМОГА»", "edrpou": null, "address": "01015, м. Київ, вул. Лейпцизька, 15Б, 1-й пов.", "phone": "0 800 21 5300", "email": "support@freecredit.com.ua", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,5%"}, {"name": "Prostocredit", "logo": "prostocredit.png", "ref": "https://tds.pdl-profit.com/h/1v7n6a134b48abe72", "sum": 6000, "term": 30, "rateMin": 3.65, "rateMax": 21919.0, "geo": "Україна (за виключенням: Донецька область, Запорізька область, Луганська область, Херсонська область", "desc": "це національний сервіс онлайн-кредитування, що спеціалізується на видачі мікрокредитів сумою до 8000 гривень строком до 90 днів, з можливістю дострокового погашення.", "dateAdded": "2026-07-13", "legal": null, "edrpou": null, "address": null, "phone": null, "email": null, "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": false, "goldBadgeText": null}, {"name": "Finmarket", "logo": "finmarket.png", "ref": "https://tds.pdl-profit.com/h/20b06a134acebdcd5", "sum": 30000, "term": 30, "rateMin": 5646.96, "rateMax": 9717.05, "geo": "Україна, окрім тимчасово окупованих територій.", "desc": "Прозорий сервіс кредитування з чіткою інформацією про всі відсотки та платежі.", "dateAdded": "2026-07-14", "legal": "ТОВ «ФК «ФІНМАРКЕТ»", "edrpou": null, "address": "49041, м. Дніпро, вул. Стартова, 7, оф. 403", "phone": "0 800 302 042", "email": "fk.finmarket@gmail.com", "badge": "Вигідні умови для нових клієнтів", "badgeColor": "green", "hasZeroBadge": true, "goldBadgeText": "Перша позика під 0,01%*"}, {"name": "Rocketmoney", "logo": "rocketmoney.png", "ref": "https://tds.pdl-profit.com/h/204v6a134b773872e", "sum": 8000, "term": 360, "rateMin": 1400.0, "rateMax": 3000.0, "geo": "Україна, крім тимчасово окупованих територій.", "desc": "Сучасний онлайн-сервіс швидкого кредитування без документів та черг.", "dateAdded": "2026-07-15", "legal": "ТОВ «ФК «Український платіжний центр»", "edrpou": "39898755", "address": "04071, м. Київ, вул. Верхній Вал, 4-В, під'їзд 1, пов. 2", "phone": "0 800 205 020", "email": "support@rocketmoney.com.ua", "badge": "До 12 місяців на повернення", "badgeColor": "purple", "hasZeroBadge": false, "goldBadgeText": null}];
 let MFO_DATA = MFO_DATA_FALLBACK;
 
 /* ====== РЕЙТИНГ "ДАВНОСТІ" БРЕНДУ НА РИНКУ ======
    Це не дата з API (такого поля там нема і не буде — CPA-мережа
-   не знає, коли бренд вийшов на ринок), а ВАША ручна оцінка.
-   1 = найстаріший / найвідоміший бренд. Чим більше число — тим новіший.
+   не знає, коли бренд вийшов на ринок), а результат ручного ринкового
+   дослідження реальних дат появи бренду (реєстрація МФО, ліцензії
+   НБУ/Нацкомфінпослуг, дані веб-архіву) — станом на липень 2026.
+   1 = найстаріший бренд на ринку. Чим більше число — тим новіший.
    Бренди, яких немає в цьому списку, вважаються НАЙНОВІШИМИ
    (підуть в самий кінець при "Новіші спочатку" і в кінець
    при "Старіші спочатку").
@@ -1134,56 +1129,50 @@ let MFO_DATA = MFO_DATA_FALLBACK;
    не юридична назва.
    Можете вільно редагувати/дописувати список у будь-який момент —
    ніяких інших змін в коді для цього не потрібно. */
-/* Примітка: MFO_SENIORITY/MFO_CR/MFO_EPC — це РУЧНІ довідники (стаж бренду на ринку
-   та мережева статистика PDL-profit), їх НЕМА в mfo-live-data.json — той фід віддає
-   лише картку офера (назва, сума, строк, ставка, юр. дані), без цих метрик, тож
-   автоматично "перенести" їх з живих даних неможливо технічно (даних просто нема).
-   Офери, яких ще нема в цих трьох об'єктах (нові бренди на кшталт Credos/TOP1),
-   код і так коректно обробляє: seniorityVal() трактує їх як "найновіші" (Infinity),
-   а crVal()/epcVal() відправляють у кінець списку (-Infinity) — тобто нічого не
-   зламається, просто для щойно доданих МФО поки не буде "стажу"/CR/EPC, доки
-   вручну не впишете їх сюди. */
 const MFO_SENIORITY = {
-  "Credit7": 7,
-  "MILOAN": 6,
-  "MyCredit": 5,
-  "Creditplus": 4,
-  "CreditKasa": 3,
-  "E-groshi": 2,
-  "SlonCredit": 14,
-  "ШвидкоГроші": 1,
-  "Microcash": 15,
-  "Tengo": 8,
-  "Нові кредити": 13,
-  "Cashpoint": 12,
-  "Aviracredit": 16,
-  "Cly": 11,
-  "SelfieCredit": 9,
-  "Finbert": 17,
-  "ТвояПозика": 10,
-  "Ewacash": 18,
-  "LoviLave": 19,
-  "Prostocredit": 20,
-  "Mybiz": 20.5,
-  "Bizpozyka": 20.6,
-  "Starfin": 21,
-  "Pango": 22,
-  "Amigo": 23,
-  "Treba": 24,
-  "LimonCredit": 26,
-  "Lehko": 27,
-  "Suncredit": 29,
-  "Turbogroshi": 28,
-  "Freestyle Credit": 31,   // юр. особа ТОВ «МАНІВЕО ШВИДКА ФІНАНСОВА ДОПОМОГА»
-  "Rocketmoney": 32,
-  "Finmarket": 33,
-  "Aerocash": 34,
-  "Ranok": 35,
-  "FinClick": 36,
-  "Ariba": 37,
-  "Funnymoney": 38,
-  // Credos, TOP1 — нові в живих даних, стажу ще нема; свідомо не додаємо,
-  // щоб вони коректно потрапляли в "найновіші" (fallback = Infinity).
+  "Aerocash": 43,           // 2026, січень
+  "Ranok": 42,              // 2026
+  "FinClick": 41,           // 2026
+  "Ariba": 40,              // 2026, березень
+  "Funnymoney": 39,         // 2026
+  "Freestyle Credit": 38,   // 2025 (юр. особа ТОВ «МАНІВЕО ШВИДКА ФІНАНСОВА ДОПОМОГА»)
+  "Rocketmoney": 37,        // 2025
+  "Lehko": 36,              // 2024, березень
+  "Turbogroshi": 35,        // 2024, друга половина
+  "Treba": 34,              // 2023, лютий
+  "SelfieCredit": 33,       // 2021, вересень
+  "Mybiz": 32,              // 2021, листопад
+  "Ewacash": 31,            // 2021, лютий
+  "Starfin": 30,            // 2021
+  "Pango": 29,              // 2021, вересень
+  "Amigo": 28,              // 2021
+  "Suncredit": 27,          // 2021
+  "Finmarket": 26,          // 2021, вересень
+  "TOP1": 25,               // 2021, січень
+  "Prostocredit": 24,       // 2020, квітень
+  "LimonCredit": 23,        // 2020, квітень
+  "Credit7": 22,            // 2019, січень
+  "Aviracredit": 21,        // 2019
+  "Finbert": 20,            // 2019
+  "LoviLave": 19,           // 2019, жовтень
+  "E-groshi": 18,           // 2018
+  "SlonCredit": 17,         // 2018, серпень
+  "Microcash": 16,          // 2018, жовтень
+  "Нові кредити": 15,       // 2018, травень
+  "Cly": 14,                // 2018, серпень
+  "Creditplus": 13,         // 2017
+  "AlexCredit": 12,         // 2017, серпень
+  "CreditKasa": 11,         // 2017
+  "Bizpozyka": 10,          // 2017, січень
+  "ТвояПозика": 9,          // 2017, січень
+  "MILOAN": 8,              // 2016, травень
+  "Tengo": 7,               // 2016
+  "MyCredit": 6,            // 2015
+  "Clickcredit": 5,         // 2015
+  "Moneyveo": 4,            // 2013, листопад
+  "Credos": 3,              // 2013, серпень
+  "Cashpoint": 2,           // 2011, вересень
+  "ШвидкоГроші": 1,         // 2010
 };
 
 /* ====== МЕРЕЖЕВА СТАТИСТИКА PDL PROFIT (CR / EPC) ======
@@ -1280,7 +1269,7 @@ function initPage() {
 let state = {
   sum: 15000,
   term: 60,
-  sort: 'cr-desc',
+  sort: 'date-new',
   visible: 12,
   onlyPromo: false,
 };
@@ -1304,10 +1293,6 @@ function fmtDate(iso) {
   const d = new Date(iso);
   const months = ['січ','лют','бер','кв','трав','черв','лип','серп','вер','жовт','лист','груд'];
   return `${d.getDate()} ${months[d.getMonth()]}`;
-}
-// Безпечно вставляє назву МФО і в JS-рядок (в межах onclick), і в HTML-атрибут
-function mfoAttrSafe(name) {
-  return String(name).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 }
 
 /* ====== LOGO FALLBACK COLORS (deterministic by name) ====== */
@@ -1419,7 +1404,7 @@ function sortData(data) {
   const arr = [...data];
   const seniorityVal = (m) => {
     const r = MFO_SENIORITY[m.name];
-    return Number.isFinite(r) ? r : Infinity; // невідомі бренди = найновіші
+    return Number.isFinite(r) ? r : -Infinity; // немає в рейтингу — йде в самий кінець
   };
   const rateVal = (m) => {
     const n = Number(m.rateMin);
@@ -1436,7 +1421,7 @@ function sortData(data) {
   switch (state.sort) {
     case 'sum-desc': return arr.sort((a, b) => b.sum - a.sum);
     case 'rate-asc': return arr.sort((a, b) => rateVal(a) - rateVal(b));
-    case 'date-new': return arr.sort((a, b) => seniorityVal(b) - seniorityVal(a)); // невідомі/нові бренди — спочатку
+    case 'date-new': return arr.sort((a, b) => seniorityVal(b) - seniorityVal(a)); // найновіші (найбільший ранг) — спочатку
     case 'date-old': return arr.sort((a, b) => seniorityVal(a) - seniorityVal(b)); // найстаріші (ранг 1) — спочатку
     case 'cr-desc': return arr.sort((a, b) => crVal(b) - crVal(a));
     case 'epc-desc': return arr.sort((a, b) => epcVal(b) - epcVal(a));
@@ -1450,28 +1435,37 @@ const resultsCount = document.getElementById('results-count');
 const noResultsEl = document.getElementById('no-results');
 const loadMoreBtn = document.getElementById('load-more-btn');
 
+const NEW_OFFER_SENIORITY_THRESHOLD = 38;
+function isNewOffer(m) {
+  const sr = MFO_SENIORITY[m.name];
+  return typeof sr === 'number' && sr >= NEW_OFFER_SENIORITY_THRESHOLD;
+}
+
 function cardHTML(m, idx) {
   const fbColor = fallbackColor(m.name);
   const uid = `rrps-${idx}`;
+  const newOffer = isNewOffer(m);
 
-  let badgesHTML = `<span class="mfo-badge color-${m.badgeColor}">✨ ${m.badge}</span>`;
+  let badgesHTML = '';
+  if (newOffer) {
+    badgesHTML += `<span class="mfo-badge color-new">🆕 Новий сервіс!</span>`;
+  }
+  badgesHTML += `<span class="mfo-badge color-${m.badgeColor}">✨ ${m.badge}</span>`;
   if (m.hasZeroBadge) {
     badgesHTML += `<span class="mfo-badge color-gold">🔥 ${m.goldBadgeText}</span>`;
   }
 
   return `
-  <div class="mfo-card">
-    <div class="mfo-badges-row">${badgesHTML}</div>
+  <div class="mfo-card${newOffer ? ' mfo-card--new' : ''}">
     <div class="mfo-card-top">
       <div class="mfo-logo-wrap">
         <img src="${m.logo && m.logo.startsWith('http') ? m.logo : '/mfo-logos/' + m.logo}" alt="${m.name}" loading="lazy"
              onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\\'mfo-logo-fallback\\' style=\\'background:${fbColor}\\'>${initials(m.name)}</div>';">
       </div>
-      <div>
-        <div class="mfo-card-name">${m.name}</div>
-        <span class="mfo-card-badge">Ліцензія НБУ</span>
-      </div>
+      <div class="mfo-card-name">${m.name}</div>
+      <span class="mfo-card-badge">Ліцензія НБУ</span>
     </div>
+    <div class="mfo-badges-row">${badgesHTML}</div>
     <div class="mfo-card-body">
       <div class="mfo-stat-row"><span class="k">Максимальна сума</span><span class="v">до ${fmt(m.sum)} ₴</span></div>
       <div class="mfo-stat-row"><span class="k">Максимальний строк</span><span class="v">до ${m.term} дн.</span></div>
@@ -1486,7 +1480,7 @@ function cardHTML(m, idx) {
       </div>
     </div>
     <div class="mfo-card-cta">
-      <a class="btn-primary" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${mfoAttrSafe(m.name)}',source:'grid'});}">Подати заявку →</a>
+      <a class="btn-primary" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Подати заявку →</a>
     </div>
   </div>`;
 }
@@ -1691,9 +1685,6 @@ if (requisitesGrid) {
     }
   }
   cta.href = buildSmartlinkUrl();
-  cta.addEventListener('click', () => {
-    if (typeof fbq === 'function') fbq('trackCustom', 'go_to_offer', { source: 'sidebar_widget_smartlink' });
-  });
 
   function isTop3PopupOpen() {
     const overlay = document.getElementById('top3-overlay');
@@ -1741,7 +1732,8 @@ if (requisitesGrid) {
   }
 
   function getUtmParam(name) {
-    return (typeof window.tcGetParam === 'function') ? window.tcGetParam(name) : '';
+    try { return new URLSearchParams(window.location.search).get(name) || ''; }
+    catch (e) { return ''; }
   }
 
   form?.addEventListener('submit', (e) => {
@@ -1772,17 +1764,10 @@ if (requisitesGrid) {
         utm_source: getUtmParam('utm_source'),
         utm_campaign: getUtmParam('utm_campaign'),
         utm_term: getUtmParam('utm_term'),
-        gclid: getUtmParam('gclid'),
-        fbclid: getUtmParam('fbclid'),
-        quiz_sum: getUtmParam('sum'),
-        quiz_term: getUtmParam('term'),
-        quiz_status: getUtmParam('status'),
       }),
     })
       .catch(() => {})
       .finally(() => {
-        // Той самий віджет, що збоку на десктопі — рахуємо це як Lead, так само як на квізі.
-        if (typeof fbq === 'function') fbq('track', 'Lead');
         sessionStorage.setItem(SUBMITTED_KEY, '1');
         formWrap.style.display = 'none';
         successEl.classList.add('is-visible');
@@ -1940,10 +1925,12 @@ if (requisitesGrid) {
   font-size:13px;line-height:1;cursor:pointer;
 }
 body.has-sticky-cta{ padding-bottom:118px; }
-/* Мобільний віджет телефону (нижня панель) вимкнено за рішенням клієнта —
-   лишаємо розмітку й логіку в коді, але приховуємо на всіх екранах. */
-.sticky-cta{ display:none !important; }
-body.has-sticky-cta{ padding-bottom:0 !important; }
+/* На десктопі форма телефону вже показана в об'єднаному бічному віджеті (.sw-widget) —
+   окрема нижня панель тут більше не потрібна, це і прибирає "білу смугу" знизу. */
+@media (min-width: 901px){
+  .sticky-cta{ display:none !important; }
+  body.has-sticky-cta{ padding-bottom:0; }
+}
 </style>
 
 <div class="sticky-cta" id="sticky-cta">
@@ -2043,7 +2030,9 @@ body.has-sticky-cta{ padding-bottom:0 !important; }
   }
 
   function getUtmParam(name) {
-    return (typeof window.tcGetParam === 'function') ? window.tcGetParam(name) : '';
+    try {
+      return new URLSearchParams(window.location.search).get(name) || '';
+    } catch (e) { return ''; }
   }
 
   form.addEventListener('submit', (e) => {
@@ -2070,11 +2059,6 @@ body.has-sticky-cta{ padding-bottom:0 !important; }
       utm_source: getUtmParam('utm_source'),
       utm_campaign: getUtmParam('utm_campaign'),
       utm_term: getUtmParam('utm_term'),
-      gclid: getUtmParam('gclid'),
-      fbclid: getUtmParam('fbclid'),
-      quiz_sum: getUtmParam('sum'),
-      quiz_term: getUtmParam('term'),
-      quiz_status: getUtmParam('status'),
     };
 
     fetch(SHEETS_ENDPOINT, {
@@ -2085,9 +2069,6 @@ body.has-sticky-cta{ padding-bottom:0 !important; }
     })
       .catch(() => { /* no-cors — помилку мережі теж не побачимо, це очікувано */ })
       .finally(() => {
-        // 'Lead' лишаємо лише за квізом (/quiz/) — ця форма (sticky-cta) наразі
-        // й так вимкнена на всіх екранах, але подію теж приводимо до єдиного стандарту.
-        if (typeof fbq === 'function') fbq('trackCustom', 'go_to_offer', { source: 'sticky_cta_phone' });
         sessionStorage.setItem(SUBMITTED_KEY, '1');
         formWrap.style.display = 'none';
         successEl.classList.add('is-visible');
