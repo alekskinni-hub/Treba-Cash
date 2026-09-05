@@ -511,13 +511,13 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 <body>
 
 <!-- =========================================================
-     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v8, картка за схемою:
-     [ВЕЛИКЕ лого-плитка (~чверть картки, на всю висоту) |
-      Назва + Сума/Строки зверху, Переваги+Кнопка знизу].
-     Номер місця (1/2/3) — окремим гуртком ЗА карткою (зліва).
-     Лого тепер займає окрему квадратну плитку на всю висоту
-     картки зліва (а не маленьку іконку в шапці) — це і є
-     "чверть картки", як просили.
+     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v6, картка за схемою:
+     [Лого | Назва + Сума/Строки] зверху,
+     [Переваги (булетами, вирівняні вліво) | Кнопка] знизу.
+     Прибрано округлі плашки-пігулки (вони наїжджали одна на
+     одну й на кнопку на вузьких екранах) — замінено на простий
+     булет-список переваг, це прибирає накладення на мобільних
+     і на десктопі.
 
      ЛОГІКА (без змін):
      - Показується ТІЛЬКИ якщо в URL вітрини є ?sum=...&term=...
@@ -614,31 +614,12 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-list{display:flex;flex-direction:column;gap:9px;}
 
 /* ====================================================================
-   РЯДОК = [ ранг ЗА карткою ] + КАРТКА за схемою:
-     [ Лого (велике) | Назва + Сума/Строки ]   <- top3-row-head
-     [ Переваги (булети)  | Кнопка ]           <- top3-row-bottom
+   КАРТКА-РЯДОК за схемою:
+     [ Лого | Назва + Сума/Строки ]   <- top3-row-head
+     [ Переваги (булети)  | Кнопка ]  <- top3-row-bottom
    ==================================================================== */
-.top3-row-wrap{display:flex;align-items:center;gap:9px;}
-
-/* --- номер місця, окремим гуртком ЗА межами картки --- */
-.top3-row-rank{
-  flex:0 0 auto;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-weight:900;color:#fff;
-  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  box-shadow:0 3px 8px rgba(39,174,96,.35);
-}
-.top3-row-wrap.rank-1 .top3-row-rank{
-  width:32px;height:32px;font-size:15px;
-  background:linear-gradient(135deg,var(--gold,#f5b942),#ffcf6e);color:#5c3d00;
-  box-shadow:0 4px 10px rgba(245,185,66,.5);
-}
-.top3-row-wrap.rank-2 .top3-row-rank{width:27px;height:27px;font-size:12.5px;}
-.top3-row-wrap.rank-3 .top3-row-rank{width:23px;height:23px;font-size:11px;}
-
 .top3-row{
-  flex:1;min-width:0;
-  display:flex;align-items:stretch;gap:11px;
+  display:flex;flex-direction:column;
   border:2px solid rgba(39,174,96,0.28);
   border-radius:16px;
   background:var(--white,#fff);
@@ -650,46 +631,50 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-row:hover{box-shadow:0 10px 24px rgba(39,174,96,.2);transform:translateY(-1px);}
 
 /* розмір картки залежить від місця: 1-ше найбільше, далі менше */
-.top3-row-wrap.rank-1 .top3-row{
-  padding:12px;border-width:2.5px;border-color:rgba(46,204,113,.55);
+.top3-row.rank-1{
+  padding:13px;border-width:2.5px;border-color:rgba(46,204,113,.55);
   box-shadow:0 10px 26px rgba(39,174,96,.22);
   background:linear-gradient(120deg,rgba(46,204,113,.08),var(--white,#fff) 60%);
 }
-.top3-row-wrap.rank-2 .top3-row{padding:10px;}
-.top3-row-wrap.rank-3 .top3-row{padding:8px;border-color:rgba(39,174,96,.22);}
+.top3-row.rank-2{padding:10px;}
+.top3-row.rank-3{padding:8px;border-color:rgba(39,174,96,.22);}
 
-/* --- ВЕЛИКА лого-плитка: окрема квадратна зона на всю висоту картки,
-       займає приблизно чверть ширини картки --- */
-.top3-row-logo-cell{
-  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
-  border-radius:14px;background:var(--bg,#f4f9f6);
-  align-self:stretch;
+/* --- верхній рядок: лого + назва/сума --- */
+.top3-row-head{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+
+.top3-row-rank{
+  flex:0 0 auto;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;color:#fff;
+  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  box-shadow:0 3px 8px rgba(39,174,96,.35);
 }
-.top3-row-wrap.rank-1 .top3-row-logo-cell{width:96px;}
-.top3-row-wrap.rank-2 .top3-row-logo-cell{width:82px;}
-.top3-row-wrap.rank-3 .top3-row-logo-cell{width:70px;}
+.top3-row.rank-1 .top3-row-rank{
+  width:28px;height:28px;font-size:13.5px;
+  background:linear-gradient(135deg,var(--gold,#f5b942),#ffcf6e);color:#5c3d00;
+  box-shadow:0 4px 10px rgba(245,185,66,.5);
+}
+.top3-row.rank-2 .top3-row-rank{width:24px;height:24px;font-size:11.5px;}
+.top3-row.rank-3 .top3-row-rank{width:20px;height:20px;font-size:10px;}
 
-.top3-row-logo{border-radius:12px;object-fit:contain;max-width:100%;max-height:100%;}
-.top3-row-wrap.rank-1 .top3-row-logo{width:82px;height:82px;font-size:22px;border-radius:12px;}
-.top3-row-wrap.rank-2 .top3-row-logo{width:70px;height:70px;font-size:18px;border-radius:11px;}
-.top3-row-wrap.rank-3 .top3-row-logo{width:58px;height:58px;font-size:15px;border-radius:10px;}
+.top3-row-logo{border-radius:12px;object-fit:contain;background:var(--bg,#f4f9f6);flex:0 0 auto;}
+.top3-row.rank-1 .top3-row-logo{width:50px;height:50px;font-size:15px;border-radius:14px;}
+.top3-row.rank-2 .top3-row-logo{width:42px;height:42px;font-size:13px;}
+.top3-row.rank-3 .top3-row-logo{width:36px;height:36px;font-size:11px;}
 
-/* --- права колонка: назва/сума зверху, переваги+кнопка знизу --- */
-.top3-row-content{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:8px;}
-
-.top3-row-headtext{min-width:0;}
+.top3-row-headtext{flex:1;min-width:0;}
 .top3-row-name{
   font-weight:800;color:var(--text,#1a2421);line-height:1.25;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
-.top3-row-wrap.rank-1 .top3-row-name{font-size:15px;}
-.top3-row-wrap.rank-2 .top3-row-name{font-size:13.5px;}
-.top3-row-wrap.rank-3 .top3-row-name{font-size:12px;}
+.top3-row.rank-1 .top3-row-name{font-size:14.5px;}
+.top3-row.rank-2 .top3-row-name{font-size:13px;}
+.top3-row.rank-3 .top3-row-name{font-size:11.5px;}
 
-.top3-row-meta{color:var(--text-muted,#5a6b64);font-weight:600;margin-top:2px;}
-.top3-row-wrap.rank-1 .top3-row-meta{font-size:12px;}
-.top3-row-wrap.rank-2 .top3-row-meta{font-size:11px;}
-.top3-row-wrap.rank-3 .top3-row-meta{font-size:10px;}
+.top3-row-meta{color:var(--text-muted,#5a6b64);font-weight:600;margin-top:1px;}
+.top3-row.rank-1 .top3-row-meta{font-size:11.5px;}
+.top3-row.rank-2 .top3-row-meta{font-size:10.5px;}
+.top3-row.rank-3 .top3-row-meta{font-size:9.5px;}
 
 /* --- нижній рядок: переваги булетами (вліво) + кнопка --- */
 .top3-row-bottom{display:flex;align-items:center;gap:10px;}
@@ -703,9 +688,9 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   content:'';position:absolute;left:-15px;top:50%;transform:translateY(-50%);
   width:6px;height:6px;border-radius:50%;background:currentColor;
 }
-.top3-row-wrap.rank-1 .top3-row-perks li{font-size:11px;}
-.top3-row-wrap.rank-2 .top3-row-perks li{font-size:10px;}
-.top3-row-wrap.rank-3 .top3-row-perks li{font-size:9px;}
+.top3-row.rank-1 .top3-row-perks li{font-size:11px;}
+.top3-row.rank-2 .top3-row-perks li{font-size:10px;}
+.top3-row.rank-3 .top3-row-perks li{font-size:9px;}
 
 .top3-row-perks li.nbu{color:var(--green-dark,#1e8449);}
 .top3-row-perks li.color-green{color:var(--green-dark,#1e8449);}
@@ -724,9 +709,9 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   transition:transform .15s;
 }
 .top3-row-cta:hover{animation-play-state:paused;transform:scale(1.05);}
-.top3-row-wrap.rank-1 .top3-row-cta{padding:12px 14px;font-size:13px;min-width:86px;}
-.top3-row-wrap.rank-2 .top3-row-cta{padding:10px 11px;font-size:11.5px;min-width:76px;}
-.top3-row-wrap.rank-3 .top3-row-cta{padding:8px 9px;font-size:10.5px;min-width:68px;}
+.top3-row.rank-1 .top3-row-cta{padding:12px 14px;font-size:13px;min-width:86px;}
+.top3-row.rank-2 .top3-row-cta{padding:10px 11px;font-size:11.5px;min-width:76px;}
+.top3-row.rank-3 .top3-row-cta{padding:8px 9px;font-size:10.5px;min-width:68px;}
 @keyframes top3-cta-pulse{
   0%,100%{transform:scale(1);box-shadow:0 3px 10px rgba(255,122,26,.32);}
   50%{transform:scale(1.04);box-shadow:0 6px 16px rgba(255,122,26,.5);}
@@ -754,18 +739,11 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 @media (max-width:420px){
   .top3-modal{padding:20px 12px 16px;}
   .top3-title{font-size:18px;}
-  .top3-row-wrap{gap:6px;}
-  .top3-row{gap:8px;}
+  .top3-row-head{gap:8px;}
   .top3-row-bottom{gap:6px;}
-  .top3-row-wrap.rank-1 .top3-row-logo-cell{width:78px;}
-  .top3-row-wrap.rank-2 .top3-row-logo-cell{width:68px;}
-  .top3-row-wrap.rank-3 .top3-row-logo-cell{width:58px;}
-  .top3-row-wrap.rank-1 .top3-row-logo{width:66px;height:66px;}
-  .top3-row-wrap.rank-2 .top3-row-logo{width:56px;height:56px;}
-  .top3-row-wrap.rank-3 .top3-row-logo{width:46px;height:46px;}
-  .top3-row-wrap.rank-1 .top3-row-cta{padding:11px 10px;min-width:74px;}
-  .top3-row-wrap.rank-2 .top3-row-cta{padding:9px 8px;min-width:66px;}
-  .top3-row-wrap.rank-3 .top3-row-cta{padding:7px 7px;min-width:58px;}
+  .top3-row.rank-1 .top3-row-cta{padding:11px 10px;min-width:74px;}
+  .top3-row.rank-2 .top3-row-cta{padding:9px 8px;min-width:66px;}
+  .top3-row.rank-3 .top3-row-cta{padding:7px 7px;min-width:58px;}
 }
 </style>
 
@@ -932,27 +910,23 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       return html;
     };
 
-    // Номер місця — окремим гуртком ЗА карткою (зліва). Лого — велика
-    // квадратна плитка на всю висоту картки (~чверть ширини), праворуч
-    // від неї: назва+сума зверху, переваги+кнопка знизу.
+    // Картка за схемою: [Лого | Назва+Сума/Строки] зверху, [Переваги | Кнопка] знизу.
     // Місце в рейтингу (rank) визначає розмір (rank-1 — найбільша картка).
     const rowCardHTML = (m, rank) => {
       const sizeClass = 'rank-' + Math.min(rank, 3);
       return `
-      <div class="top3-row-wrap ${sizeClass}">
-        <span class="top3-row-rank">${rank}</span>
-        <div class="top3-row">
-          <div class="top3-row-logo-cell">${logoHTML(m, 'top3-row-logo')}</div>
-          <div class="top3-row-content">
-            <div class="top3-row-headtext">
-              <div class="top3-row-name">${m.name}</div>
-              <div class="top3-row-meta">${fmt(m.sum)} ₴ / ${m.term} дн.</div>
-            </div>
-            <div class="top3-row-bottom">
-              <ul class="top3-row-perks">${perksHTML(m)}</ul>
-              <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Перейти</a>
-            </div>
+      <div class="top3-row ${sizeClass}">
+        <div class="top3-row-head">
+          <span class="top3-row-rank">${rank}</span>
+          ${logoHTML(m, 'top3-row-logo')}
+          <div class="top3-row-headtext">
+            <div class="top3-row-name">${m.name}</div>
+            <div class="top3-row-meta">${fmt(m.sum)} ₴ / ${m.term} дн.</div>
           </div>
+        </div>
+        <div class="top3-row-bottom">
+          <ul class="top3-row-perks">${perksHTML(m)}</ul>
+          <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Перейти</a>
         </div>
       </div>`;
     };
