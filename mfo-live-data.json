@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-05T09:48:26.291703+00:00",
-  "count": 43,
+  "generatedAt": "2026-09-05T15:00:39.443312+00:00",
+  "count": 42,
   "offers": [
     {
       "id": 1147,
@@ -189,25 +189,6 @@
       "legal": "ТОВ «СПОЖИВЧИЙ ЦЕНТР»",
       "edrpou": "37356833",
       "address": "01032, м. Київ, вул. Саксаганського, 133-А",
-      "phone": null,
-      "email": null
-    },
-    {
-      "id": 1606,
-      "name": "Microcash",
-      "logo": "https://pdl-profit.com/uploads/2024-06-20/file_6673f29388a03.png",
-      "ref": "https://tds.pdl-profit.com?offerid=1606&affid=62311",
-      "sum": 6000,
-      "term": 30,
-      "rateMin": 547.5,
-      "rateMax": 985.5,
-      "badge": "Вигідні умови для нових клієнтів",
-      "badgeColor": "green",
-      "hasZeroBadge": false,
-      "goldBadgeText": null,
-      "legal": "ТОВ «ФІНТАРГЕТ»",
-      "edrpou": "41955906",
-      "address": "01054, м. Київ, вул. І. Франка, 42Б",
       "phone": null,
       "email": null
     },
