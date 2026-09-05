@@ -511,12 +511,13 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 <body>
 
 <!-- =========================================================
-     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v5, компактний рядковий дизайн.
-     Спочатку список ТОП-3 (рядками), потім Рекомендації клієнтів
-     (теж рядками). Місце в рейтингу впливає на розмір картки:
-     1-ше місце — найбільше, 2-ге і 3-тє — менші. Плашки переваг —
-     округлі (пігулки) курсивом, кнопка — прямокутна (не пігулка)
-     жирним шрифтом, з пульсацією.
+     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v6, картка за схемою:
+     [Лого | Назва + Сума/Строки] зверху,
+     [Переваги (булетами, вирівняні вліво) | Кнопка] знизу.
+     Прибрано округлі плашки-пігулки (вони наїжджали одна на
+     одну й на кнопку на вузьких екранах) — замінено на простий
+     булет-список переваг, це прибирає накладення на мобільних
+     і на десктопі.
 
      ЛОГІКА (без змін):
      - Показується ТІЛЬКИ якщо в URL вітрини є ?sum=...&term=...
@@ -612,26 +613,34 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 }
 .top3-list{display:flex;flex-direction:column;gap:9px;}
 
-/* ---- компактний рядок-картка ---- */
+/* ====================================================================
+   КАРТКА-РЯДОК за схемою:
+     [ Лого | Назва + Сума/Строки ]   <- top3-row-head
+     [ Переваги (булети)  | Кнопка ]  <- top3-row-bottom
+   ==================================================================== */
 .top3-row{
-  display:flex;align-items:center;gap:11px;
+  display:flex;flex-direction:column;
   border:2px solid rgba(39,174,96,0.28);
   border-radius:16px;
   background:var(--white,#fff);
   box-shadow:0 6px 16px rgba(39,174,96,0.12);
   animation:top3-rise .4s cubic-bezier(.2,.8,.3,1) backwards;
   transition:box-shadow .2s, transform .2s;
+  overflow:hidden;
 }
 .top3-row:hover{box-shadow:0 10px 24px rgba(39,174,96,.2);transform:translateY(-1px);}
 
 /* розмір картки залежить від місця: 1-ше найбільше, далі менше */
 .top3-row.rank-1{
-  padding:14px;border-width:2.5px;border-color:rgba(46,204,113,.55);
+  padding:13px;border-width:2.5px;border-color:rgba(46,204,113,.55);
   box-shadow:0 10px 26px rgba(39,174,96,.22);
   background:linear-gradient(120deg,rgba(46,204,113,.08),var(--white,#fff) 60%);
 }
-.top3-row.rank-2{padding:11px;}
-.top3-row.rank-3{padding:8px 9px;border-color:rgba(39,174,96,.22);}
+.top3-row.rank-2{padding:10px;}
+.top3-row.rank-3{padding:8px;border-color:rgba(39,174,96,.22);}
+
+/* --- верхній рядок: лого + назва/сума --- */
+.top3-row-head{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
 
 .top3-row-rank{
   flex:0 0 auto;border-radius:50%;
@@ -641,59 +650,57 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   box-shadow:0 3px 8px rgba(39,174,96,.35);
 }
 .top3-row.rank-1 .top3-row-rank{
-  width:30px;height:30px;font-size:14.5px;
+  width:28px;height:28px;font-size:13.5px;
   background:linear-gradient(135deg,var(--gold,#f5b942),#ffcf6e);color:#5c3d00;
   box-shadow:0 4px 10px rgba(245,185,66,.5);
 }
-.top3-row.rank-2 .top3-row-rank{width:25px;height:25px;font-size:12px;}
-.top3-row.rank-3 .top3-row-rank{width:21px;height:21px;font-size:10.5px;}
+.top3-row.rank-2 .top3-row-rank{width:24px;height:24px;font-size:11.5px;}
+.top3-row.rank-3 .top3-row-rank{width:20px;height:20px;font-size:10px;}
 
 .top3-row-logo{border-radius:12px;object-fit:contain;background:var(--bg,#f4f9f6);flex:0 0 auto;}
-.top3-row.rank-1 .top3-row-logo{width:52px;height:52px;font-size:16px;border-radius:14px;}
+.top3-row.rank-1 .top3-row-logo{width:50px;height:50px;font-size:15px;border-radius:14px;}
 .top3-row.rank-2 .top3-row-logo{width:42px;height:42px;font-size:13px;}
-.top3-row.rank-3 .top3-row-logo{width:34px;height:34px;font-size:11px;}
+.top3-row.rank-3 .top3-row-logo{width:36px;height:36px;font-size:11px;}
 
-.top3-row-body{flex:1;min-width:0;}
+.top3-row-headtext{flex:1;min-width:0;}
 .top3-row-name{
   font-weight:800;color:var(--text,#1a2421);line-height:1.25;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
-.top3-row.rank-1 .top3-row-name{font-size:15px;}
+.top3-row.rank-1 .top3-row-name{font-size:14.5px;}
 .top3-row.rank-2 .top3-row-name{font-size:13px;}
 .top3-row.rank-3 .top3-row-name{font-size:11.5px;}
 
-.top3-row-meta{color:var(--text-muted,#5a6b64);font-weight:600;}
+.top3-row-meta{color:var(--text-muted,#5a6b64);font-weight:600;margin-top:1px;}
 .top3-row.rank-1 .top3-row-meta{font-size:11.5px;}
 .top3-row.rank-2 .top3-row-meta{font-size:10.5px;}
 .top3-row.rank-3 .top3-row-meta{font-size:9.5px;}
 
-/* ---- округлі плашки переваг курсивом ---- */
-.top3-row-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;}
-.top3-row-badge{
-  display:inline-flex;align-items:center;gap:3px;
-  font-style:italic;font-weight:700;
-  border-radius:999px;padding:3px 10px;line-height:1.3;white-space:nowrap;
-}
-.top3-row.rank-1 .top3-row-badge{font-size:10px;}
-.top3-row.rank-2 .top3-row-badge{font-size:9px;}
-.top3-row.rank-3 .top3-row-badge{font-size:8.5px;padding:2.5px 8px;}
+/* --- нижній рядок: переваги булетами (вліво) + кнопка --- */
+.top3-row-bottom{display:flex;align-items:center;gap:10px;}
 
-.top3-row-badge.nbu{background:rgba(39,174,96,0.1);color:var(--green-dark,#1e8449);}
-.top3-row-badge.color-green{background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));color:#fff;}
-.top3-row-badge.color-blue{background:linear-gradient(120deg,#2980b9,#3498db);color:#fff;}
-.top3-row-badge.color-purple{background:linear-gradient(120deg,#8e44ad,#a569bd);color:#fff;}
-.top3-row-badge.color-teal{background:linear-gradient(120deg,#16a085,#1abc9c);color:#fff;}
-.top3-row-badge.color-new{background:linear-gradient(120deg,#2ecc71,#7ed957);color:#0d3d1f;}
-.top3-row-badge.color-gold{
-  background:linear-gradient(120deg,var(--gold,#f5b942),#ffcf6e);color:#5c3d00;
-  animation:top3-badge-pulse 2s ease-in-out infinite;
+.top3-row-perks{flex:1;min-width:0;margin:0;padding:0 0 0 15px;list-style:none;display:flex;flex-direction:column;gap:3px;}
+.top3-row-perks li{
+  position:relative;font-style:italic;font-weight:700;line-height:1.3;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
-@keyframes top3-badge-pulse{
-  0%,100%{transform:scale(1);box-shadow:0 2px 8px rgba(245,185,66,.4);}
-  50%{transform:scale(1.05);box-shadow:0 4px 14px rgba(245,185,66,.65);}
+.top3-row-perks li::before{
+  content:'';position:absolute;left:-15px;top:50%;transform:translateY(-50%);
+  width:6px;height:6px;border-radius:50%;background:currentColor;
 }
+.top3-row.rank-1 .top3-row-perks li{font-size:11px;}
+.top3-row.rank-2 .top3-row-perks li{font-size:10px;}
+.top3-row.rank-3 .top3-row-perks li{font-size:9px;}
 
-/* ---- прямокутна (не пігулка) жирна кнопка, з пульсацією ---- */
+.top3-row-perks li.nbu{color:var(--green-dark,#1e8449);}
+.top3-row-perks li.color-green{color:var(--green-dark,#1e8449);}
+.top3-row-perks li.color-blue{color:#2471a3;}
+.top3-row-perks li.color-purple{color:#7d3c98;}
+.top3-row-perks li.color-teal{color:#117a65;}
+.top3-row-perks li.color-new{color:#219150;}
+.top3-row-perks li.color-gold{color:#a9760a;font-weight:900;}
+
+/* --- прямокутна (не пігулка) жирна кнопка, з обережною пульсацією --- */
 .top3-row-cta{
   flex:0 0 auto;text-align:center;text-decoration:none;
   background:linear-gradient(135deg,var(--orange,#ff7a1a),var(--orange-light,#ff9a4d));
@@ -702,12 +709,12 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   transition:transform .15s;
 }
 .top3-row-cta:hover{animation-play-state:paused;transform:scale(1.05);}
-.top3-row.rank-1 .top3-row-cta{padding:13px 14px;font-size:13.5px;min-width:92px;}
-.top3-row.rank-2 .top3-row-cta{padding:10px 11px;font-size:12px;min-width:80px;}
-.top3-row.rank-3 .top3-row-cta{padding:8px 9px;font-size:10.5px;min-width:70px;}
+.top3-row.rank-1 .top3-row-cta{padding:12px 14px;font-size:13px;min-width:86px;}
+.top3-row.rank-2 .top3-row-cta{padding:10px 11px;font-size:11.5px;min-width:76px;}
+.top3-row.rank-3 .top3-row-cta{padding:8px 9px;font-size:10.5px;min-width:68px;}
 @keyframes top3-cta-pulse{
-  0%,100%{transform:scale(1);box-shadow:0 4px 14px rgba(255,122,26,.35);}
-  50%{transform:scale(1.045);box-shadow:0 8px 20px rgba(255,122,26,.55);}
+  0%,100%{transform:scale(1);box-shadow:0 3px 10px rgba(255,122,26,.32);}
+  50%{transform:scale(1.04);box-shadow:0 6px 16px rgba(255,122,26,.5);}
 }
 
 /* ---- порада експерта ---- */
@@ -732,9 +739,11 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 @media (max-width:420px){
   .top3-modal{padding:20px 12px 16px;}
   .top3-title{font-size:18px;}
-  .top3-row{gap:8px;}
-  .top3-row.rank-1 .top3-row-logo{width:46px;height:46px;}
-  .top3-row-cta{padding-left:8px !important;padding-right:8px !important;}
+  .top3-row-head{gap:8px;}
+  .top3-row-bottom{gap:6px;}
+  .top3-row.rank-1 .top3-row-cta{padding:11px 10px;min-width:74px;}
+  .top3-row.rank-2 .top3-row-cta{padding:9px 8px;min-width:66px;}
+  .top3-row.rank-3 .top3-row-cta{padding:7px 7px;min-width:58px;}
 }
 </style>
 
@@ -885,35 +894,40 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     document.getElementById('top3-subtitle').innerHTML =
       `Для вашого запиту: <b>${fmt(querySum)} ₴ / ${queryTerm} дн.</b>`;
 
-    // Округлі плашки-переваги курсивом: ліцензія НБУ + власна кольорова плашка
-    // + "новий сервіс" + золота 0%-плашка — так само, як у картках на вітрині.
-    const badgesHTML = (m) => {
-      let html = '<span class="top3-row-badge nbu">Ліцензія НБУ</span>';
+    // Переваги — простий булет-список (вирівняний вліво), без плашок-пігулок,
+    // щоб нічого не наїжджало одне на одне на вузьких екранах.
+    const perksHTML = (m) => {
+      let html = '<li class="nbu">Ліцензія НБУ</li>';
       if (isNewOffer(m)) {
-        html += '<span class="top3-row-badge color-new">🆕 Новий сервіс!</span>';
+        html += '<li class="color-new">🆕 Новий сервіс!</li>';
       }
       if (m.badge) {
-        html += `<span class="top3-row-badge color-${m.badgeColor || 'green'}">✨ ${m.badge}</span>`;
+        html += `<li class="color-${m.badgeColor || 'green'}">✨ ${m.badge}</li>`;
       }
       if (m.hasZeroBadge) {
-        html += `<span class="top3-row-badge color-gold">🔥 ${m.goldBadgeText || 'Перша позика під 0.01%*'}</span>`;
+        html += `<li class="color-gold">🔥 ${m.goldBadgeText || 'Перша позика під 0.01%*'}</li>`;
       }
       return html;
     };
 
-    // Компактний рядок-картка: місце в рейтингу (rank) визначає розмір
-    // (rank-1 — найбільша картка, rank-2 і rank-3 — менші).
+    // Картка за схемою: [Лого | Назва+Сума/Строки] зверху, [Переваги | Кнопка] знизу.
+    // Місце в рейтингу (rank) визначає розмір (rank-1 — найбільша картка).
     const rowCardHTML = (m, rank) => {
       const sizeClass = 'rank-' + Math.min(rank, 3);
       return `
       <div class="top3-row ${sizeClass}">
-        <span class="top3-row-rank">${rank}</span>
-        ${logoHTML(m, 'top3-row-logo')}
-        <div class="top3-row-body">
-          <div class="top3-row-name">${m.name} <span class="top3-row-meta">· ${fmt(m.sum)} ₴ / ${m.term} дн.</span></div>
-          <div class="top3-row-badges">${badgesHTML(m)}</div>
+        <div class="top3-row-head">
+          <span class="top3-row-rank">${rank}</span>
+          ${logoHTML(m, 'top3-row-logo')}
+          <div class="top3-row-headtext">
+            <div class="top3-row-name">${m.name}</div>
+            <div class="top3-row-meta">${fmt(m.sum)} ₴ / ${m.term} дн.</div>
+          </div>
         </div>
-        <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Перейти</a>
+        <div class="top3-row-bottom">
+          <ul class="top3-row-perks">${perksHTML(m)}</ul>
+          <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Перейти</a>
+        </div>
       </div>`;
     };
 
