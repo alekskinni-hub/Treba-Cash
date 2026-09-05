@@ -511,13 +511,11 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 <body>
 
 <!-- =========================================================
-     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v6, картка за схемою:
-     [Лого | Назва + Сума/Строки] зверху,
-     [Переваги (булетами, вирівняні вліво) | Кнопка] знизу.
-     Прибрано округлі плашки-пігулки (вони наїжджали одна на
-     одну й на кнопку на вузьких екранах) — замінено на простий
-     булет-список переваг, це прибирає накладення на мобільних
-     і на десктопі.
+     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v9, повернення до варіанту v6
+     (рядок: [ранг+лого | назва/сума] зверху, [переваги|кнопка]
+     знизу), але лого зроблено суттєво ширшим і більшим — це
+     тепер прямокутна плашка під реальний брендовий логотип
+     (а не маленька квадратна іконка), як просили.
 
      ЛОГІКА (без змін):
      - Показується ТІЛЬКИ якщо в URL вітрини є ?sum=...&term=...
@@ -657,10 +655,21 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-row.rank-2 .top3-row-rank{width:24px;height:24px;font-size:11.5px;}
 .top3-row.rank-3 .top3-row-rank{width:20px;height:20px;font-size:10px;}
 
-.top3-row-logo{border-radius:12px;object-fit:contain;background:var(--bg,#f4f9f6);flex:0 0 auto;}
-.top3-row.rank-1 .top3-row-logo{width:50px;height:50px;font-size:15px;border-radius:14px;}
-.top3-row.rank-2 .top3-row-logo{width:42px;height:42px;font-size:13px;}
-.top3-row.rank-3 .top3-row-logo{width:36px;height:36px;font-size:11px;}
+/* --- лого: широка прямокутна плашка під реальний брендовий
+       логотип (а не маленька квадратна іконка) --- */
+.top3-row-logo{
+  border-radius:10px;object-fit:contain;flex:0 0 auto;
+}
+.top3-row.rank-1 .top3-row-logo{width:132px;height:56px;font-size:16px;}
+.top3-row.rank-2 .top3-row-logo{width:112px;height:48px;font-size:14px;}
+.top3-row.rank-3 .top3-row-logo{width:94px;height:40px;font-size:12px;}
+/* фолбек (кольоровий блок з ініціалами, якщо картинки лого нема) —
+   лишаємо квадратним і з кольоровим фоном, щоб ініціали читались */
+div.top3-row-logo{background:var(--bg,#f4f9f6);}
+.top3-logo-fallback{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;letter-spacing:.02em;}
+.top3-row.rank-1 .top3-logo-fallback.top3-row-logo{width:56px;height:56px;font-size:20px;border-radius:14px;}
+.top3-row.rank-2 .top3-logo-fallback.top3-row-logo{width:48px;height:48px;font-size:17px;border-radius:13px;}
+.top3-row.rank-3 .top3-logo-fallback.top3-row-logo{width:40px;height:40px;font-size:14px;border-radius:11px;}
 
 .top3-row-headtext{flex:1;min-width:0;}
 .top3-row-name{
@@ -741,6 +750,12 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   .top3-title{font-size:18px;}
   .top3-row-head{gap:8px;}
   .top3-row-bottom{gap:6px;}
+  .top3-row.rank-1 .top3-row-logo{width:104px;height:46px;}
+  .top3-row.rank-2 .top3-row-logo{width:90px;height:40px;}
+  .top3-row.rank-3 .top3-row-logo{width:76px;height:34px;}
+  .top3-row.rank-1 .top3-logo-fallback.top3-row-logo{width:48px;height:48px;}
+  .top3-row.rank-2 .top3-logo-fallback.top3-row-logo{width:42px;height:42px;}
+  .top3-row.rank-3 .top3-logo-fallback.top3-row-logo{width:36px;height:36px;}
   .top3-row.rank-1 .top3-row-cta{padding:11px 10px;min-width:74px;}
   .top3-row.rank-2 .top3-row-cta{padding:9px 8px;min-width:66px;}
   .top3-row.rank-3 .top3-row-cta{padding:7px 7px;min-width:58px;}
