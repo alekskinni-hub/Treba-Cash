@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-05T15:00:39.443312+00:00",
-  "count": 42,
+  "generatedAt": "2026-09-06T10:04:35.540888+00:00",
+  "count": 43,
   "offers": [
     {
       "id": 1147,
@@ -723,6 +723,25 @@
       "address": "01133, м. Київ, вул. Ген. Алмазова, 13, оф. 301",
       "phone": "0 800 20 35 35",
       "email": "info@ranok.ua"
+    },
+    {
+      "id": 3645,
+      "name": "Zvilnymo",
+      "logo": "https://pdl-profit.com/uploads/2026-03-13/file_69b437b21eec1.png",
+      "ref": "https://tds.pdl-profit.com?offerid=3645&affid=62311",
+      "sum": 0,
+      "term": 30,
+      "rateMin": 0,
+      "rateMax": 0,
+      "badge": "Вигідні умови для нових клієнтів",
+      "badgeColor": "green",
+      "hasZeroBadge": false,
+      "goldBadgeText": null,
+      "legal": null,
+      "edrpou": null,
+      "address": null,
+      "phone": null,
+      "email": null
     },
     {
       "id": 3683,
