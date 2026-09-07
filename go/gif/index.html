@@ -38,21 +38,21 @@
       right: -40px;
     }
 
-    /* Логотип із папки assets */
+    /* Абсолютний шлях до логотипа */
     .logo {
       position: absolute;
-      top: 18px;
+      top: 24px;
       left: 30px;
       width: 85px;
       height: auto;
       filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
     }
 
-    /* Кредитна картка з елементами */
+    /* Кредитна картка (зміщена нижче для центрування) */
     .card-block {
       position: absolute;
       left: 30px;
-      top: 102px;
+      top: 118px;
       width: 230px;
       height: 145px;
       background: linear-gradient(135deg, #1e3c2b, #0d1f15);
@@ -114,10 +114,10 @@
       letter-spacing: 1px;
     }
 
-    /* Анімований бейдж із процентами */
+    /* Анімований бейдж відсотків (зміщений разом із карткою) */
     .badge {
       position: absolute;
-      top: 86px;
+      top: 102px;
       left: 120px;
       z-index: 10;
       background: #27ae60;
@@ -138,10 +138,10 @@
       text-align: center;
     }
 
-    /* Текстовий блок праворуч */
+    /* Текстовий блок (зміщений вниз для центрування) */
     .content {
       margin-left: 280px;
-      margin-top: 5px;
+      margin-top: 26px;
     }
 
     h1 {
@@ -204,10 +204,10 @@
       }
     }
 
-    /* Нижня плашка гарантій для заповнення пустого місця */
+    /* Нижня плашка гарантій */
     .bottom-bar {
       position: absolute;
-      bottom: 16px;
+      bottom: 14px;
       left: 30px;
       right: 30px;
       display: flex;
@@ -235,17 +235,14 @@
 <body>
 
   <div class="banner">
-    <!-- Логотип із папки assets -->
-    <img src="assets/logo-icon.png" class="logo" alt="Treba Cash Logo">
+    <img src="https://trebacash.site/assets/logo-icon.png" class="logo" alt="Treba Cash Logo">
 
-    <!-- Бейдж відсотків схвалення -->
     <div class="badge">
       <span>✓</span>
       <span id="percent" class="badge-num">98%</span>
       <span style="font-size: 10px; opacity: 0.9;">СХВАЛЕНО</span>
     </div>
 
-    <!-- Картка з деталями (смуга + чіп) -->
     <div class="card-block">
       <div class="card-stripe"></div>
       <div class="card-chip"></div>
@@ -253,7 +250,6 @@
       <div class="card-logos">VISA / MC</div>
     </div>
 
-    <!-- Основний контент -->
     <div class="content">
       <h1>TREBA <span>CASH ⚡</span></h1>
       <div class="subtitle">Персональний підбір позик</div>
@@ -271,11 +267,9 @@
         <div>Цілодобово <b>24/7</b> без довідок про доходи</div>
       </div>
 
-      <!-- Кнопка -->
-      <div class="btn-pulsing">НАТИСНІТЬ «СТАРТ» ➔</div>
+      <div class="btn-pulsing">НАТИСНІТЬ «СТАРТ» 👇</div>
     </div>
 
-    <!-- Нижня плашка для заповнення простору -->
     <div class="bottom-bar">
       <div class="trust-item">🔒 <span>256-bit</span> SSL Захист</div>
       <div class="trust-item">⚡ Понад <span>40+</span> ліцензованих МФО</div>
