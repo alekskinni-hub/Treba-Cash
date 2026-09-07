@@ -14,91 +14,133 @@
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
-    /* Точний розмір баннера 640x360 (16:9) */
+    /* Розмір баннера 640x360 (16:9) */
     .banner {
       width: 640px;
       height: 360px;
       background: radial-gradient(circle at 85% 20%, #1a3c28 0%, #0a1118 65%);
       position: relative;
-      padding: 25px 35px;
+      padding: 22px 30px;
       color: #fff;
       overflow: hidden;
-      border-radius: 4px;
     }
 
-    /* Фоновий неоновий ефект */
+    /* Фонове сяйво */
     .banner::before {
       content: '';
       position: absolute;
-      width: 250px;
-      height: 250px;
+      width: 260px;
+      height: 260px;
       background: #2ecc71;
       filter: blur(100px);
       opacity: 0.15;
-      top: -50px;
-      right: -50px;
+      top: -40px;
+      right: -40px;
     }
 
-    /* Оригінальний логотип у лівому кутку */
+    /* Логотип із папки assets */
     .logo {
       position: absolute;
-      top: 20px;
-      left: 35px;
-      width: 80px;
+      top: 18px;
+      left: 30px;
+      width: 85px;
       height: auto;
-      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
     }
 
-    /* Лівий графічний блок */
+    /* Кредитна картка з елементами */
     .card-block {
       position: absolute;
-      left: 35px;
-      top: 115px;
-      width: 220px;
-      height: 135px;
+      left: 30px;
+      top: 102px;
+      width: 230px;
+      height: 145px;
       background: linear-gradient(135deg, #1e3c2b, #0d1f15);
       border: 2px solid #2ecc71;
       border-radius: 16px;
       box-shadow: 0 0 25px rgba(46, 204, 113, 0.25);
+      overflow: hidden;
+    }
+
+    /* Чорна магнітна смуга */
+    .card-stripe {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      height: 26px;
+      background: #080e0a;
+    }
+
+    /* Золотий 3D-чіп */
+    .card-chip {
+      position: absolute;
+      top: 58px;
+      left: 20px;
+      width: 36px;
+      height: 26px;
+      background: linear-gradient(135deg, #f39c12, #f1c40f);
+      border-radius: 6px;
+      border: 1px solid #d35400;
+      box-shadow: inset 0 0 4px rgba(0,0,0,0.4);
+    }
+    .card-chip::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: rgba(0,0,0,0.4);
     }
 
     .card-title {
       position: absolute;
-      bottom: 15px;
-      left: 18px;
+      bottom: 12px;
+      left: 20px;
       font-size: 11px;
       font-weight: 800;
       color: #2ecc71;
       letter-spacing: 1px;
     }
 
+    .card-logos {
+      position: absolute;
+      bottom: 10px;
+      right: 15px;
+      font-size: 10px;
+      font-weight: 900;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 1px;
+    }
+
     /* Анімований бейдж із процентами */
     .badge {
       position: absolute;
-      top: -18px;
-      right: -12px;
+      top: 86px;
+      left: 120px;
+      z-index: 10;
       background: #27ae60;
       padding: 6px 14px;
       border-radius: 20px;
       font-weight: 900;
-      font-size: 14px;
+      font-size: 13px;
       box-shadow: 0 0 15px rgba(39, 174, 96, 0.8);
       display: flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s ease;
     }
 
     .badge-num {
       color: #fff;
       font-size: 16px;
       min-width: 42px;
-      text-anchor: middle;
+      text-align: center;
     }
 
     /* Текстовий блок праворуч */
     .content {
-      margin-left: 255px;
+      margin-left: 280px;
       margin-top: 5px;
     }
 
@@ -110,14 +152,14 @@
     h1 span { color: #2ecc71; }
 
     .subtitle {
-      font-size: 16px;
+      font-size: 15px;
       color: #d0dcd5;
-      margin: 4px 0 18px 0;
+      margin: 3px 0 14px 0;
       font-weight: 600;
     }
 
     .bullet {
-      font-size: 14px;
+      font-size: 13.5px;
       margin-bottom: 8px;
       color: #c5d4cb;
       display: flex;
@@ -125,33 +167,30 @@
       gap: 8px;
     }
     .bullet-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
       background: #2ecc71;
       border-radius: 50%;
       box-shadow: 0 0 8px #2ecc71;
     }
     .bullet span { color: #f1c40f; font-weight: 800; }
 
-    /* Кнопка, що мигає та пульсує */
+    /* Мигаюча кнопка */
     .btn-pulsing {
       display: block;
-      width: 290px;
-      height: 52px;
+      width: 310px;
+      height: 50px;
       background: linear-gradient(90deg, #27ae60, #2ecc71);
       border-radius: 14px;
       text-align: center;
-      line-height: 52px;
+      line-height: 50px;
       font-weight: 900;
       font-size: 16px;
       color: #fff;
-      margin-top: 22px;
-      text-decoration: none;
-      letter-spacing: 0.5px;
+      margin-top: 16px;
       animation: pulseGlow 1.2s infinite alternate ease-in-out;
     }
 
-    /* Ключові кадри для анімації кнопки */
     @keyframes pulseGlow {
       0% {
         transform: scale(1);
@@ -159,27 +198,62 @@
         filter: brightness(1);
       }
       100% {
-        transform: scale(1.04);
-        box-shadow: 0 0 30px rgba(46, 204, 113, 0.9), 0 0 10px rgba(255, 255, 255, 0.6);
+        transform: scale(1.03);
+        box-shadow: 0 0 28px rgba(46, 204, 113, 0.9), 0 0 10px rgba(255, 255, 255, 0.6);
         filter: brightness(1.15);
       }
+    }
+
+    /* Нижня плашка гарантій для заповнення пустого місця */
+    .bottom-bar {
+      position: absolute;
+      bottom: 16px;
+      left: 30px;
+      right: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: #92a89c;
+      font-weight: 600;
+    }
+
+    .trust-item span {
+      color: #2ecc71;
+      font-weight: 700;
     }
   </style>
 </head>
 <body>
 
   <div class="banner">
-    <img src="logo-icon.png" class="logo" alt="Treba Cash Logo">
+    <!-- Логотип із папки assets -->
+    <img src="assets/logo-icon.png" class="logo" alt="Treba Cash Logo">
 
-    <div class="card-block">
-      <div class="badge">
-        <span>✓</span>
-        <span id="percent" class="badge-num">98%</span>
-        <span style="font-size: 10px; opacity: 0.9;">СХВАЛЕНО</span>
-      </div>
-      <div class="card-title">TREBA CASH CARD</div>
+    <!-- Бейдж відсотків схвалення -->
+    <div class="badge">
+      <span>✓</span>
+      <span id="percent" class="badge-num">98%</span>
+      <span style="font-size: 10px; opacity: 0.9;">СХВАЛЕНО</span>
     </div>
 
+    <!-- Картка з деталями (смуга + чіп) -->
+    <div class="card-block">
+      <div class="card-stripe"></div>
+      <div class="card-chip"></div>
+      <div class="card-title">TREBA CASH CARD</div>
+      <div class="card-logos">VISA / MC</div>
+    </div>
+
+    <!-- Основний контент -->
     <div class="content">
       <h1>TREBA <span>CASH ⚡</span></h1>
       <div class="subtitle">Персональний підбір позик</div>
@@ -192,13 +266,25 @@
         <div class="bullet-dot"></div>
         <div>Рішення за <b>2 хвилини</b> без дзвінків</div>
       </div>
+      <div class="bullet">
+        <div class="bullet-dot"></div>
+        <div>Цілодобово <b>24/7</b> без довідок про доходи</div>
+      </div>
 
+      <!-- Кнопка -->
       <div class="btn-pulsing">НАТИСНІТЬ «СТАРТ» ➔</div>
+    </div>
+
+    <!-- Нижня плашка для заповнення простору -->
+    <div class="bottom-bar">
+      <div class="trust-item">🔒 <span>256-bit</span> SSL Захист</div>
+      <div class="trust-item">⚡ Понад <span>40+</span> ліцензованих МФО</div>
+      <div class="trust-item">💳 Зарахування на <span>будь-яку</span> картку</div>
     </div>
   </div>
 
   <script>
-    // Скрипт динамічної зміни відсотків від 82% до 99%
+    // Динамічна зміна відсотків (від 84% до 99%)
     const percentEl = document.getElementById('percent');
     const values = [84, 89, 93, 97, 82, 91, 95, 98, 99, 94, 98];
     let index = 0;
@@ -206,7 +292,7 @@
     setInterval(() => {
       percentEl.textContent = values[index] + '%';
       index = (index + 1) % values.length;
-    }, 400); // Зміна відсотків кожні 0.4 секунди
+    }, 400);
   </script>
 
 </body>
