@@ -911,14 +911,39 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
       cta.href = url.toString();
     }
 
-    // Головна кнопка — Telegram-бот з коротким deep-link параметром
-    // (Telegram start= приймає лише латиницю/цифри/підкреслення, до 64 символів)
+    // Головна кнопка — Telegram-бот (SendPulse).
+    // ВАЖЛИВО: замініть BOT_NAME та FLOW_ID на свої значення з SendPulse
+    // (Flow builder → потрібний потік → "..." → "Скопіювати посилання").
+    // Змінні quiz_sum / quiz_term / quiz_status / quiz_chance мають бути
+    // заздалегідь створені в SendPulse: Audience → Змінні.
     const tg = document.getElementById('telegramCta');
     if (tg) {
-      const codes = { official: 'off', unofficial: 'unoff', freelance: 'frl', unemployed: 'une' };
-      const statusCode = codes[quizAnswers.status] || 'na';
-      const payload = 'a' + quizAnswers.sum + '_d' + quizAnswers.term + '_s' + statusCode;
-      tg.href = 'https://t.me/trebacash_bot?start=' + payload;
+      const BOT_NAME = 'trebacash_bot';   // ім'я бота в SendPulse (без @)
+      const FLOW_ID = 'FLOW_ID';          // число з посилання ?start=...
+
+      const statusLabels = {
+        official: 'Офіційне працевлаштування',
+        unofficial: 'Неофіційне працевлаштування',
+        freelance: 'Фріланс / Самозайнятий',
+        unemployed: 'Тимчасово не працює / Студент / Пенсіонер'
+      };
+      const statusLabel = statusLabels[quizAnswers.status] || 'Не вказано';
+      const chance = calcChance();
+
+      const tgUrl = new URL('https://tg.pulse.is/' + BOT_NAME);
+      tgUrl.searchParams.set('start', FLOW_ID);
+      tgUrl.searchParams.set('quiz_sum', quizAnswers.sum);
+      tgUrl.searchParams.set('quiz_term', quizAnswers.term);
+      tgUrl.searchParams.set('quiz_status', statusLabel);
+      tgUrl.searchParams.set('quiz_chance', chance);
+
+      // Передаємо utm-мітки далі, якщо вони є в адресному рядку квізу
+      const incomingTg = new URLSearchParams(window.location.search);
+      incomingTg.forEach((value, key) => {
+        if (key.startsWith('utm_')) tgUrl.searchParams.set(key, value);
+      });
+
+      tg.href = tgUrl.toString();
     }
 
     // Чіпи з обраними параметрами
