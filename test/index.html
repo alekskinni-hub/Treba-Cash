@@ -743,7 +743,7 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
 
       <div class="btn-center">
         <!-- Головна кнопка (80%+ уваги). href формується динамічно в JS (buildResultLink) -->
-        <a href="https://t.me/trebacash_bot?start=6a9e4fe4d0a8a5e53109b1fe6a9e4fe4d0a8a5e53109b1fe" target="_blank" rel="noopener" class="btn-telegram" id="telegramCta">
+        <a href="https://t.me/trebacash_bot" target="_blank" rel="noopener" class="btn-telegram" id="telegramCta">
           <svg class="tg-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.05 2.94a1.55 1.55 0 0 0-1.58-.22L2.4 9.53a1.42 1.42 0 0 0 .12 2.66l4.62 1.46 1.78 5.72a1.33 1.33 0 0 0 2.2.5l2.48-2.38 4.56 3.36a1.55 1.55 0 0 0 2.44-.93L23.7 4.1a1.55 1.55 0 0 0-.65-1.16zM9.1 14.35l-.32 3.42-1.55-4.98 9.5-7.13c.3-.22.63.16.38.42l-8.01 8.27z"/></svg>
           <span class="btn-tg-text">
             <strong>Отримати пропозиції в Telegram</strong>
@@ -918,7 +918,7 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
       const codes = { official: 'off', unofficial: 'unoff', freelance: 'frl', unemployed: 'une' };
       const statusCode = codes[quizAnswers.status] || 'na';
       const payload = 'a' + quizAnswers.sum + '_d' + quizAnswers.term + '_s' + statusCode;
-      tg.href = 'https://t.me/trebacash_bot?start=6a9e4fe4d0a8a5e53109b1fe6a9e4fe4d0a8a5e53109b1fe?start=' + payload;
+      tg.href = 'https://t.me/trebacash_bot?start=' + payload;
     }
 
     // Чіпи з обраними параметрами
