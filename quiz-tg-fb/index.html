@@ -817,7 +817,7 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
       </div>
     </section>
 
-    <!-- STEP 5: PROCESSING / SCAN (ВАУ-ефект ~1.8с) -->
+    <!-- STEP 5: PROCESSING / SCAN (ВАУ-ефект) -->
     <section class="step" id="step5">
       <div class="processing-wrap">
         <div class="scan-radar" aria-hidden="true">
@@ -829,7 +829,7 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
           </div>
         </div>
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <p class="processing-text" id="processingText" aria-live="polite">Сканування пропозицій...</p>
+        <p class="processing-text" id="processingText" aria-live="polite"></p>
       </div>
     </section>
 
@@ -1111,64 +1111,58 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
     animateCount(matchCountEl, 47, 1000);
   }
 
-  // ===== STEP 5: ІМІТАЦІЯ СКАНУВАННЯ ПРОПОЗИЦІЙ (ВАУ-ефект, ~1.8с) =====
-  runProcessing()
-  js
-function runProcessing() {
-  const textEl = document.getElementById('processingText');
-  const fillEl = document.getElementById('progressFill');
+  // ===== STEP 5: ІМІТАЦІЯ СКАНУВАННЯ ПРОПОЗИЦІЙ (ВАУ-ефект, ~2.5с) =====
+  function runProcessing() {
+    const textEl = document.getElementById('processingText');
+    const fillEl = document.getElementById('progressFill');
 
-  // Очищаємо попередній список
-  textEl.innerHTML = '';
+    const messages = [
+      'Сканування пропозицій...',
+      'Порівняння умов МФО...',
+      'Формування персонального списку...'
+    ];
 
-  // Створюємо список повідомлень
-  const messages = [
-    'Сканування пропозицій...',
-    'Порівняння умов МФО...',
-    'Формування персонального списку...'
-  ];
+    // Очищаємо контейнер, щоб додавати нові рядки
+    textEl.innerHTML = '';
+    textEl.style.opacity = 1;
 
-  // Стилі для списку
-  textEl.style.display = 'flex';
-  textEl.style.flexDirection = 'column';
-  textEl.style.alignItems = 'center';
-  textEl.style.gap = '8px';
-  textEl.style.minHeight = '90px';
+    // Додаємо перший рядок одразу
+    const firstLine = document.createElement('span');
+    firstLine.style.display = 'block';
+    firstLine.style.marginBottom = '6px';
+    firstLine.textContent = messages[0];
+    textEl.appendChild(firstLine);
 
-  // Показуємо повідомлення одне за одним
-  messages.forEach((message, index) => {
+    fillEl.style.width = '0%';
+
+    // Змінив час анімації прогрес-бару на 2.5с, щоб він доходив до кінця синхронно з новим часом
+    requestAnimationFrame(() => { fillEl.style.transition = 'width 2.5s linear'; fillEl.style.width = '100%'; });
+
+    // Наступні рядки з'являються по черзі до низу
+    [1, 2].forEach((idx) => {
+      // Збільшив інтервал появи тексту (800мс), щоб він рівномірно розподілився на 2.5 секунди
+      setTimeout(() => {
+        const newLine = document.createElement('span');
+        newLine.style.display = 'block';
+        newLine.style.marginBottom = '6px';
+        newLine.style.opacity = '0';
+        newLine.style.transition = 'opacity 0.25s ease';
+        newLine.textContent = messages[idx];
+        
+        textEl.appendChild(newLine);
+        
+        // Тригер для запуску анімації плавної появи
+        void newLine.offsetWidth; 
+        newLine.style.opacity = '1';
+      }, idx * 800);
+    });
+
+    // Важливо: подія Meta Pixel Lead НЕ викликається на цьому кроці (фіксується далі у воронці)
     setTimeout(() => {
-      const item = document.createElement('div');
-
-      item.textContent = message;
-      item.style.opacity = '0';
-      item.style.transform = 'translateY(8px)';
-      item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-
-      textEl.appendChild(item);
-
-      requestAnimationFrame(() => {
-        item.style.opacity = '1';
-        item.style.transform = 'translateY(0)';
-      });
-    }, index * 700);
-  });
-
-  // Прогрес-бар — 2,1 секунди
-  fillEl.style.width = '0%';
-
-  requestAnimationFrame(() => {
-    fillEl.style.transition = 'width 2.1s linear';
-    fillEl.style.width = '100%';
-  });
-
-  // Переходимо до результату після 2,1 секунди
-  setTimeout(() => {
-    buildResultLink();
-    goStep(6);
-  }, 2100);
-}
-
+      buildResultLink();
+      goStep(6);
+    }, 2500);
+  }
 </script>
 </body>
 </html>
