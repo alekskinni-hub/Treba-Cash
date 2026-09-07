@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>Treba Cash Banner GIF</title>
+  <title>Treba Cash Banner GIF (960x540)</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -14,13 +14,13 @@
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     }
 
-    /* Розмір баннера 640x360 (16:9) */
+    /* Точний розмір баннера 960x540 (16:9) */
     .banner {
-      width: 640px;
-      height: 360px;
+      width: 960px;
+      height: 540px;
       background: radial-gradient(circle at 85% 20%, #1a3c28 0%, #0a1118 65%);
       position: relative;
-      padding: 22px 30px;
+      padding: 33px 45px;
       color: #fff;
       overflow: hidden;
     }
@@ -29,60 +29,60 @@
     .banner::before {
       content: '';
       position: absolute;
-      width: 260px;
-      height: 260px;
+      width: 390px;
+      height: 390px;
       background: #2ecc71;
-      filter: blur(100px);
+      filter: blur(150px);
       opacity: 0.15;
-      top: -40px;
-      right: -40px;
+      top: -60px;
+      right: -60px;
     }
 
-    /* Абсолютний шлях до логотипа */
+    /* Логотип */
     .logo {
       position: absolute;
-      top: 24px;
-      left: 30px;
-      width: 85px;
+      top: 36px;
+      left: 45px;
+      width: 128px;
       height: auto;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+      filter: drop-shadow(0 6px 15px rgba(0,0,0,0.6));
     }
 
-    /* Кредитна картка (зміщена нижче для центрування) */
+    /* Кредитна картка */
     .card-block {
       position: absolute;
-      left: 30px;
-      top: 118px;
-      width: 230px;
-      height: 145px;
+      left: 45px;
+      top: 177px;
+      width: 345px;
+      height: 218px;
       background: linear-gradient(135deg, #1e3c2b, #0d1f15);
-      border: 2px solid #2ecc71;
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(46, 204, 113, 0.25);
+      border: 3px solid #2ecc71;
+      border-radius: 24px;
+      box-shadow: 0 0 38px rgba(46, 204, 113, 0.25);
       overflow: hidden;
     }
 
     /* Чорна магнітна смуга */
     .card-stripe {
       position: absolute;
-      top: 20px;
+      top: 30px;
       left: 0;
       width: 100%;
-      height: 26px;
+      height: 39px;
       background: #080e0a;
     }
 
     /* Золотий 3D-чіп */
     .card-chip {
       position: absolute;
-      top: 58px;
-      left: 20px;
-      width: 36px;
-      height: 26px;
+      top: 87px;
+      left: 30px;
+      width: 54px;
+      height: 39px;
       background: linear-gradient(135deg, #f39c12, #f1c40f);
-      border-radius: 6px;
-      border: 1px solid #d35400;
-      box-shadow: inset 0 0 4px rgba(0,0,0,0.4);
+      border-radius: 9px;
+      border: 2px solid #d35400;
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
     }
     .card-chip::after {
       content: '';
@@ -90,116 +90,116 @@
       top: 50%;
       left: 0;
       width: 100%;
-      height: 1px;
+      height: 2px;
       background: rgba(0,0,0,0.4);
     }
 
     .card-title {
       position: absolute;
-      bottom: 12px;
-      left: 20px;
-      font-size: 11px;
+      bottom: 18px;
+      left: 30px;
+      font-size: 16px;
       font-weight: 800;
       color: #2ecc71;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
 
     .card-logos {
       position: absolute;
-      bottom: 10px;
-      right: 15px;
-      font-size: 10px;
+      bottom: 15px;
+      right: 22px;
+      font-size: 15px;
       font-weight: 900;
       color: rgba(255,255,255,0.5);
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
 
-    /* Анімований бейдж відсотків (зміщений разом із карткою) */
+    /* Анімований бейдж відсотків */
     .badge {
       position: absolute;
-      top: 102px;
-      left: 120px;
+      top: 153px;
+      left: 180px;
       z-index: 10;
       background: #27ae60;
-      padding: 6px 14px;
-      border-radius: 20px;
+      padding: 9px 21px;
+      border-radius: 30px;
       font-weight: 900;
-      font-size: 13px;
-      box-shadow: 0 0 15px rgba(39, 174, 96, 0.8);
+      font-size: 20px;
+      box-shadow: 0 0 22px rgba(39, 174, 96, 0.8);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 9px;
     }
 
     .badge-num {
       color: #fff;
-      font-size: 16px;
-      min-width: 42px;
+      font-size: 24px;
+      min-width: 63px;
       text-align: center;
     }
 
-    /* Текстовий блок (зміщений вниз для центрування) */
+    /* Текстовий блок */
     .content {
-      margin-left: 280px;
-      margin-top: 26px;
+      margin-left: 420px;
+      margin-top: 39px;
     }
 
     h1 {
-      font-size: 32px;
+      font-size: 48px;
       font-weight: 900;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
     }
     h1 span { color: #2ecc71; }
 
     .subtitle {
-      font-size: 15px;
+      font-size: 22px;
       color: #d0dcd5;
-      margin: 3px 0 14px 0;
+      margin: 5px 0 21px 0;
       font-weight: 600;
     }
 
     .bullet {
-      font-size: 13.5px;
-      margin-bottom: 8px;
+      font-size: 20px;
+      margin-bottom: 12px;
       color: #c5d4cb;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
     }
     .bullet-dot {
-      width: 7px;
-      height: 7px;
+      width: 11px;
+      height: 11px;
       background: #2ecc71;
       border-radius: 50%;
-      box-shadow: 0 0 8px #2ecc71;
+      box-shadow: 0 0 12px #2ecc71;
     }
     .bullet span { color: #f1c40f; font-weight: 800; }
 
     /* Мигаюча кнопка */
     .btn-pulsing {
       display: block;
-      width: 310px;
-      height: 50px;
+      width: 465px;
+      height: 75px;
       background: linear-gradient(90deg, #27ae60, #2ecc71);
-      border-radius: 14px;
+      border-radius: 21px;
       text-align: center;
-      line-height: 50px;
+      line-height: 75px;
       font-weight: 900;
-      font-size: 16px;
+      font-size: 24px;
       color: #fff;
-      margin-top: 16px;
+      margin-top: 24px;
       animation: pulseGlow 1.2s infinite alternate ease-in-out;
     }
 
     @keyframes pulseGlow {
       0% {
         transform: scale(1);
-        box-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
+        box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
         filter: brightness(1);
       }
       100% {
         transform: scale(1.03);
-        box-shadow: 0 0 28px rgba(46, 204, 113, 0.9), 0 0 10px rgba(255, 255, 255, 0.6);
+        box-shadow: 0 0 42px rgba(46, 204, 113, 0.9), 0 0 15px rgba(255, 255, 255, 0.6);
         filter: brightness(1.15);
       }
     }
@@ -207,21 +207,21 @@
     /* Нижня плашка гарантій */
     .bottom-bar {
       position: absolute;
-      bottom: 14px;
-      left: 30px;
-      right: 30px;
+      bottom: 21px;
+      left: 45px;
+      right: 45px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 18px;
+      border-top: 1.5px solid rgba(255, 255, 255, 0.12);
     }
 
     .trust-item {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 11.5px;
+      gap: 9px;
+      font-size: 17px;
       color: #92a89c;
       font-weight: 600;
     }
@@ -235,14 +235,17 @@
 <body>
 
   <div class="banner">
+    <!-- Посилання на логотип -->
     <img src="https://trebacash.site/assets/logo-icon.png" class="logo" alt="Treba Cash Logo">
 
+    <!-- Бейдж відсотків схвалення -->
     <div class="badge">
       <span>✓</span>
       <span id="percent" class="badge-num">98%</span>
-      <span style="font-size: 10px; opacity: 0.9;">СХВАЛЕНО</span>
+      <span style="font-size: 15px; opacity: 0.9;">СХВАЛЕНО</span>
     </div>
 
+    <!-- Картка з деталями -->
     <div class="card-block">
       <div class="card-stripe"></div>
       <div class="card-chip"></div>
@@ -250,6 +253,7 @@
       <div class="card-logos">VISA / MC</div>
     </div>
 
+    <!-- Основний контент -->
     <div class="content">
       <h1>TREBA <span>CASH ⚡</span></h1>
       <div class="subtitle">Персональний підбір позик</div>
@@ -267,9 +271,11 @@
         <div>Цілодобово <b>24/7</b> без довідок про доходи</div>
       </div>
 
+      <!-- Кнопка зі стрілкою вниз -->
       <div class="btn-pulsing">НАТИСНІТЬ «СТАРТ» 👇</div>
     </div>
 
+    <!-- Нижня плашка -->
     <div class="bottom-bar">
       <div class="trust-item">🔒 <span>256-bit</span> SSL Захист</div>
       <div class="trust-item">⚡ Понад <span>40+</span> ліцензованих МФО</div>
