@@ -551,9 +551,26 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
   .top-offer-btn:focus-visible { outline: 2px solid var(--green-dark); outline-offset: 2px; }
   .top-offer-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-  @media (max-width: 380px) {
-    .top-offer-card { flex-wrap: wrap; }
-    .top-offer-btn { width: 100%; justify-content: center; margin-top: 2px; }
+  /* На мобільних картка стає вертикальною: спочатку ранг + бейдж (в один рядок,
+     нічого не перекривається), і лише потім — кнопка на всю ширину знизу. */
+  @media (max-width: 480px) {
+    .top-offer-card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+      padding: 13px 14px 12px;
+    }
+    .top-offer-rank {
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      width: auto;
+      gap: 7px;
+    }
+    .top-offer-rank-num { margin-top: 0; }
+    .top-offer-body { flex-direction: row; align-items: center; }
+    .top-offer-body .top3-perk { align-self: auto; }
+    .top-offer-btn { width: 100%; justify-content: center; }
   }
 
   /* ---- Перки під ТОП-картками: стилізовані чіпи з "вау"-мерехтінням ---- */
@@ -728,8 +745,7 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
     .badge-wrap { width: 76px; height: 76px; }
     .badge-circle { width: 62px; height: 62px; }
     .top3-stack { gap: 8px; }
-    .top-offer-card { padding: 9px 10px; border-radius: 14px; }
-    .top-offer-rank { width: 38px; }
+    .top-offer-card { padding: 11px 12px 10px; border-radius: 14px; }
     .top-offer-medal { font-size: 19px; }
     .top3-perk { font-size: 8.5px; padding: 4px 8px; }
     .btn-telegram { padding: 16px 14px; gap: 10px; }
