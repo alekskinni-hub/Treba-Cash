@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Treba Cash Banner GIF</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    /* Точний розмір баннера 640x360 (16:9) */
+    .banner {
+      width: 640px;
+      height: 360px;
+      background: radial-gradient(circle at 85% 20%, #1a3c28 0%, #0a1118 65%);
+      position: relative;
+      padding: 25px 35px;
+      color: #fff;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    /* Фоновий неоновий ефект */
+    .banner::before {
+      content: '';
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: #2ecc71;
+      filter: blur(100px);
+      opacity: 0.15;
+      top: -50px;
+      right: -50px;
+    }
+
+    /* Оригінальний логотип у лівому кутку */
+    .logo {
+      position: absolute;
+      top: 20px;
+      left: 35px;
+      width: 80px;
+      height: auto;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5));
+    }
+
+    /* Лівий графічний блок */
+    .card-block {
+      position: absolute;
+      left: 35px;
+      top: 115px;
+      width: 220px;
+      height: 135px;
+      background: linear-gradient(135deg, #1e3c2b, #0d1f15);
+      border: 2px solid #2ecc71;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(46, 204, 113, 0.25);
+    }
+
+    .card-title {
+      position: absolute;
+      bottom: 15px;
+      left: 18px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #2ecc71;
+      letter-spacing: 1px;
+    }
+
+    /* Анімований бейдж із процентами */
+    .badge {
+      position: absolute;
+      top: -18px;
+      right: -12px;
+      background: #27ae60;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 900;
+      font-size: 14px;
+      box-shadow: 0 0 15px rgba(39, 174, 96, 0.8);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .badge-num {
+      color: #fff;
+      font-size: 16px;
+      min-width: 42px;
+      text-anchor: middle;
+    }
+
+    /* Текстовий блок праворуч */
+    .content {
+      margin-left: 255px;
+      margin-top: 5px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+    }
+    h1 span { color: #2ecc71; }
+
+    .subtitle {
+      font-size: 16px;
+      color: #d0dcd5;
+      margin: 4px 0 18px 0;
+      font-weight: 600;
+    }
+
+    .bullet {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #c5d4cb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .bullet-dot {
+      width: 8px;
+      height: 8px;
+      background: #2ecc71;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #2ecc71;
+    }
+    .bullet span { color: #f1c40f; font-weight: 800; }
+
+    /* Кнопка, що мигає та пульсує */
+    .btn-pulsing {
+      display: block;
+      width: 290px;
+      height: 52px;
+      background: linear-gradient(90deg, #27ae60, #2ecc71);
+      border-radius: 14px;
+      text-align: center;
+      line-height: 52px;
+      font-weight: 900;
+      font-size: 16px;
+      color: #fff;
+      margin-top: 22px;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      animation: pulseGlow 1.2s infinite alternate ease-in-out;
+    }
+
+    /* Ключові кадри для анімації кнопки */
+    @keyframes pulseGlow {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px rgba(46, 204, 113, 0.4);
+        filter: brightness(1);
+      }
+      100% {
+        transform: scale(1.04);
+        box-shadow: 0 0 30px rgba(46, 204, 113, 0.9), 0 0 10px rgba(255, 255, 255, 0.6);
+        filter: brightness(1.15);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner">
+    <img src="logo-icon.png" class="logo" alt="Treba Cash Logo">
+
+    <div class="card-block">
+      <div class="badge">
+        <span>✓</span>
+        <span id="percent" class="badge-num">98%</span>
+        <span style="font-size: 10px; opacity: 0.9;">СХВАЛЕНО</span>
+      </div>
+      <div class="card-title">TREBA CASH CARD</div>
+    </div>
+
+    <div class="content">
+      <h1>TREBA <span>CASH ⚡</span></h1>
+      <div class="subtitle">Персональний підбір позик</div>
+      
+      <div class="bullet">
+        <div class="bullet-dot"></div>
+        <div>Перша позика під <span>0.01%</span></div>
+      </div>
+      <div class="bullet">
+        <div class="bullet-dot"></div>
+        <div>Рішення за <b>2 хвилини</b> без дзвінків</div>
+      </div>
+
+      <div class="btn-pulsing">НАТИСНІТЬ «СТАРТ» ➔</div>
+    </div>
+  </div>
+
+  <script>
+    // Скрипт динамічної зміни відсотків від 82% до 99%
+    const percentEl = document.getElementById('percent');
+    const values = [84, 89, 93, 97, 82, 91, 95, 98, 99, 94, 98];
+    let index = 0;
+
+    setInterval(() => {
+      percentEl.textContent = values[index] + '%';
+      index = (index + 1) % values.length;
+    }, 400); // Зміна відсотків кожні 0.4 секунди
+  </script>
+
+</body>
+</html>
