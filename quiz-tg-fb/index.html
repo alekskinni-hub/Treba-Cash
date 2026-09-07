@@ -1112,38 +1112,63 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
   }
 
   // ===== STEP 5: ІМІТАЦІЯ СКАНУВАННЯ ПРОПОЗИЦІЙ (ВАУ-ефект, ~1.8с) =====
-  function runProcessing() {
-    const textEl = document.getElementById('processingText');
-    const fillEl = document.getElementById('progressFill');
+  runProcessing()
+  js
+function runProcessing() {
+  const textEl = document.getElementById('processingText');
+  const fillEl = document.getElementById('progressFill');
 
-    const messages = [
-      'Сканування пропозицій...',
-      'Порівняння умов МФО...',
-      'Формування персонального списку...'
-    ];
+  // Очищаємо попередній список
+  textEl.innerHTML = '';
 
-    textEl.textContent = messages[0];
-    textEl.style.opacity = 1;
-    fillEl.style.width = '0%';
+  // Створюємо список повідомлень
+  const messages = [
+    'Сканування пропозицій...',
+    'Порівняння умов МФО...',
+    'Формування персонального списку...'
+  ];
 
-    requestAnimationFrame(() => { fillEl.style.transition = 'width 1.8s linear'; fillEl.style.width = '100%'; });
+  // Стилі для списку
+  textEl.style.display = 'flex';
+  textEl.style.flexDirection = 'column';
+  textEl.style.alignItems = 'center';
+  textEl.style.gap = '8px';
+  textEl.style.minHeight = '90px';
 
-    [1, 2].forEach((idx) => {
-      setTimeout(() => {
-        textEl.style.opacity = 0;
-        setTimeout(() => {
-          textEl.textContent = messages[idx];
-          textEl.style.opacity = 1;
-        }, 150);
-      }, idx * 550);
-    });
-
-    // Важливо: подія Meta Pixel Lead НЕ викликається на цьому кроці (фіксується далі у воронці)
+  // Показуємо повідомлення одне за одним
+  messages.forEach((message, index) => {
     setTimeout(() => {
-      buildResultLink();
-      goStep(6);
-    }, 1800);
-  }
+      const item = document.createElement('div');
+
+      item.textContent = message;
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(8px)';
+      item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+      textEl.appendChild(item);
+
+      requestAnimationFrame(() => {
+        item.style.opacity = '1';
+        item.style.transform = 'translateY(0)';
+      });
+    }, index * 700);
+  });
+
+  // Прогрес-бар — 2,1 секунди
+  fillEl.style.width = '0%';
+
+  requestAnimationFrame(() => {
+    fillEl.style.transition = 'width 2.1s linear';
+    fillEl.style.width = '100%';
+  });
+
+  // Переходимо до результату після 2,1 секунди
+  setTimeout(() => {
+    buildResultLink();
+    goStep(6);
+  }, 2100);
+}
+
 </script>
 </body>
 </html>
