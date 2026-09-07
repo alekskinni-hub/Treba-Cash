@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Завантаження...</title>
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    fbq('init', '1667232161545034');
+    fbq('track', 'Lead');
+
+    async function processRedirect() {
+      let targetUrl = "https://tds.pdl-profit.com?offerid=1147&affid=62311"; // Фолбек, якщо JSON не завантажиться
+      
+      try {
+        const response = await fetch('/mfo-live-data.json');
+        const data = await response.json();
+        
+        if (data && data.offers && data.offers.length > 0) {
+          // Беремо оффери з першої 1/3 списку (ТОП оффери)
+          const topOffers = data.offers.slice(0, Math.ceil(data.offers.length / 3));
+          const randomOffer = topOffers[Math.floor(Math.random() * topOffers.length)];
+          targetUrl = randomOffer.ref;
+        }
+      } catch (e) {
+        console.error(e);
+      }
+
+      // Додаємо UTM-мітку кнопки
+      const separator = targetUrl.includes('?') ? '&' : '?';
+      targetUrl += separator + 'utm_source=tg&utm_creative=tgbut1';
+
+      setTimeout(function() {
+        window.location.replace(targetUrl);
+      }, 50);
+    }
+
+    processRedirect();
+  </script>
+</head>
+<body>
+</body>
+</html>
