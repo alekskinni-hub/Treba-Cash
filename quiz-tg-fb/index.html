@@ -1017,62 +1017,23 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
     quizAnswers.status = btn.dataset.status || 'unknown';
     setTimeout(() => {
       goStep(5);
-      ```js
-function runProcessing() {
-  const textEl = document.getElementById('processingText');
-  const fillEl = document.getElementById('progressFill');
+      runProcessing();
+    }, 200);
+  }
 
-  // Очищаємо попередній список
-  textEl.innerHTML = '';
-
-  // Створюємо список повідомлень
-  const messages = [
-    'Сканування пропозицій...',
-    'Порівняння умов МФО...',
-    'Формування персонального списку...'
-  ];
-
-  // Стилі для списку
-  textEl.style.display = 'flex';
-  textEl.style.flexDirection = 'column';
-  textEl.style.alignItems = 'center';
-  textEl.style.gap = '8px';
-  textEl.style.minHeight = '90px';
-
-  // Показуємо повідомлення одне за одним
-  messages.forEach((message, index) => {
-    setTimeout(() => {
-      const item = document.createElement('div');
-
-      item.textContent = message;
-      item.style.opacity = '0';
-      item.style.transform = 'translateY(8px)';
-      item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-
-      textEl.appendChild(item);
-
-      requestAnimationFrame(() => {
-        item.style.opacity = '1';
-        item.style.transform = 'translateY(0)';
-      });
-    }, index * 700);
-  });
-
-  // Прогрес-бар — 2,1 секунди
-  fillEl.style.width = '0%';
-
-  requestAnimationFrame(() => {
-    fillEl.style.transition = 'width 2.1s linear';
-    fillEl.style.width = '100%';
-  });
-
-  // Переходимо до результату після 2,1 секунди
-  setTimeout(() => {
-    buildResultLink();
-    goStep(6);
-  }, 2100);
-}
-```
+  // ===== Лічильник для нейтрального WOW-блоку (однаковий для всіх, без прив'язки до
+  // особистих/фінансових даних користувача — рахує від 0 до фіксованого числа) =====
+  function animateCount(el, to, duration, suffix) {
+    if (!el) return;
+    suffix = suffix || '';
+    const startTime = performance.now();
+    function step(now) {
+      const p = Math.min((now - startTime) / duration, 1);
+      el.textContent = Math.round(p * to) + suffix;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
 
   // ===== ФОРМУЄМО ПОСИЛАННЯ (Telegram-бот + вітрина) НА ОСНОВІ ВІДПОВІДЕЙ КВІЗУ =====
   function buildResultLink() {
@@ -1181,7 +1142,7 @@ function runProcessing() {
     setTimeout(() => {
       buildResultLink();
       goStep(6);
-    }, 3000);
+    }, 1800);
   }
 </script>
 </body>
