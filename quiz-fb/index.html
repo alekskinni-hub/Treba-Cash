@@ -362,19 +362,41 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
   .status-btn.selected { border-color: var(--green); background: #f0fdf4; }
 
   /* ===== STEP 4: PHONE ===== */
-  .tc-phone-input {
+  .tc-phone-wrap {
+    display: flex;
+    align-items: center;
     width: 100%;
     box-sizing: border-box;
-    padding: 14px 16px;
-    font-size: 17px;
     border: 2px solid #e0e6e2;
     border-radius: var(--radius-sm);
-    outline: none;
     transition: border-color 0.18s;
+    background: var(--white);
+  }
+  .tc-phone-wrap:focus-within { border-color: var(--green); }
+  .tc-phone-wrap.error { border-color: #e74c3c; }
+  .tc-phone-prefix {
+    flex-shrink: 0;
+    padding: 14px 10px 14px 16px;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text);
+    border-right: 2px solid #e0e6e2;
+    font-family: inherit;
+    user-select: none;
+  }
+  .tc-phone-input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 14px 16px 14px 12px;
+    font-size: 17px;
+    letter-spacing: 0.5px;
+    border: none;
+    outline: none;
+    background: transparent;
     font-family: inherit;
   }
-  .tc-phone-input:focus { border-color: var(--green); }
-  .tc-phone-input.error { border-color: #e74c3c; }
   .phone-hint {
     font-size: 14px;
     color: #6b7a72;
@@ -384,15 +406,43 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
 
   /* ===== STEP 5: PROCESSING ===== */
   .processing-wrap { text-align: center; padding: 18px 4px 6px; }
-  .spinner {
+  .spinner-wrap {
+    position: relative;
     width: 64px; height: 64px;
     margin: 0 auto 28px;
+  }
+  .spinner {
+    position: absolute;
+    inset: 0;
+    margin: 0;
     border-radius: 50%;
     border: 5px solid #e0f5e9;
     border-top-color: var(--green);
     animation: spin 0.9s linear infinite;
+    transition: opacity 0.35s ease, transform 0.35s ease;
   }
+  .spinner.done { opacity: 0; transform: scale(0.85); animation: none; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  .result-check {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--green-light));
+    box-shadow: 0 8px 24px rgba(39,174,96,0.35);
+    opacity: 0;
+    transform: scale(0.4);
+    transition: opacity 0.4s ease, transform 0.45s cubic-bezier(.34,1.56,.64,1);
+  }
+  .result-check.visible { opacity: 1; transform: scale(1); }
+  .result-check svg {
+    width: 30px; height: 30px;
+    stroke: #fff; stroke-width: 3;
+    fill: none; stroke-linecap: round; stroke-linejoin: round;
+  }
 
   .progress-track {
     width: 100%;
@@ -415,37 +465,112 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
     color: var(--text-muted);
     min-height: 22px;
     transition: opacity 0.25s ease;
+    margin-bottom: 22px;
   }
 
-  /* ===== STEP 5: RESULT ===== */
-  .result-icon {
-    width: 64px; height: 64px;
-    margin: 0 auto 18px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--green), var(--green-light));
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 8px 24px rgba(39,174,96,0.35);
+  /* ===== STEP 5: CHECKLIST "ПІДБІР" ===== */
+  .processing-checklist {
+    list-style: none;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
-  .result-icon svg { width: 30px; height: 30px; stroke: #fff; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-  #step6 .step-title { text-align: center; margin-bottom: 10px; }
-  .result-sub {
-    text-align: center;
-    font-size: 14.5px;
+  .processing-checklist li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 700;
     color: var(--text-muted);
-    margin-bottom: 20px;
-    line-height: 1.7;
+    opacity: 0.4;
+    transform: translateX(-6px);
+    transition: opacity 0.4s ease, transform 0.4s ease, color 0.4s ease;
   }
-  .info-block {
-    background: linear-gradient(135deg, #f0fdf4, #e8f8ef);
-    border: 1px solid rgba(39,174,96,0.18);
-    border-radius: var(--radius-sm);
-    padding: 16px 18px;
-    font-size: 13.5px;
-    font-weight: 600;
+  .processing-checklist li.active {
+    opacity: 0.75;
+    transform: translateX(0);
+  }
+  .processing-checklist li.done {
+    opacity: 1;
+    color: var(--text);
+    transform: translateX(0);
+  }
+  .check-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #d7ded9;
+    flex-shrink: 0;
+    position: relative;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .processing-checklist li.active .check-icon {
+    border-color: var(--green);
+  }
+  .processing-checklist li.active .check-icon::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    background: var(--green-light);
+    animation: dotPulse 0.9s ease-in-out infinite;
+  }
+  .processing-checklist li.done .check-icon {
+    border-color: var(--green);
+    background: var(--green);
+  }
+  .processing-checklist li.done .check-icon::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 11px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    animation: none;
+    background: none;
+    border-radius: 0;
+  }
+  @keyframes dotPulse {
+    0%, 100% { opacity: 0.4; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  /* ===== STEP 5: РЕЗУЛЬТАТ ПІДБОРУ + CTA ===== */
+  .processing-result {
+    margin-top: 6px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease, max-height 0.5s ease;
+  }
+  .processing-result.visible {
+    opacity: 1;
+    max-height: 340px;
+    transform: translateY(0);
+    margin-top: 22px;
+  }
+  .result-ready-text {
+    font-size: 14.5px;
+    font-weight: 700;
     color: var(--green-dark);
-    line-height: 1.6;
     text-align: center;
+    margin-bottom: 16px;
   }
+  .cta-arrow {
+    display: inline-block;
+    margin-left: 6px;
+    transition: transform 0.22s ease;
+  }
+  #resultCta:hover .cta-arrow,
+  #resultCta:focus-visible .cta-arrow {
+    transform: translateX(5px);
+  }
+
   .fine-print {
     font-size: 11px;
     color: var(--text-muted);
@@ -558,34 +683,38 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
     <section class="step" id="step4">
       <h2 class="step-title">Куди надіслати підібрані пропозиції?</h2>
       <p class="phone-hint">Залиште номер — і ми одразу сформуємо для вас список пропозицій під ці параметри, а за потреби наш менеджер зможе допомогти з вибором.</p>
-      <input type="tel" id="phoneInput" class="tc-phone-input" placeholder="+380 XX XXX XX XX" inputmode="tel" autocomplete="tel" aria-label="Номер телефону">
+      <div class="tc-phone-wrap" id="phoneWrap">
+        <span class="tc-phone-prefix">+380</span>
+        <input type="tel" id="phoneInput" class="tc-phone-input" placeholder="XX XXX XX XX" inputmode="numeric" autocomplete="tel" maxlength="12" aria-label="Номер телефону">
+      </div>
       <p class="fine-print" id="phoneError" style="color:#e74c3c; display:none; margin-top:8px;">Перевірте, будь ласка, номер телефону</p>
       <button class="btn-main btn-block" id="phoneSubmitBtn" style="margin-top:16px;" onclick="submitPhone()">Показати пропозиції</button>
       <p class="fine-print" style="margin-top:10px;">Натискаючи "Показати пропозиції", ви погоджуєтесь на обробку персональних даних.</p>
     </section>
 
-    <!-- STEP 5: PROCESSING -->
+    <!-- STEP 5: PROCESSING / ПІДБІР ПРОПОЗИЦІЙ -->
     <section class="step" id="step5">
       <div class="processing-wrap">
-        <div class="spinner"></div>
+        <div class="spinner-wrap">
+          <div class="spinner" id="procSpinner"></div>
+          <div class="result-check" id="resultCheck">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
         <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <p class="processing-text" id="processingText" aria-live="polite">Аналіз введених параметрів...</p>
+        <p class="processing-text" id="processingText" aria-live="polite">Перевірка введених даних...</p>
+        <ul class="processing-checklist" id="processingChecklist">
+          <li><span class="check-icon"></span>Перевірка введених даних</li>
+          <li><span class="check-icon"></span>Пошук пропозицій серед партнерів</li>
+          <li><span class="check-icon"></span>Порівняння умов кредитування</li>
+          <li><span class="check-icon"></span>Формування персонального списку</li>
+        </ul>
+        <div class="processing-result" id="processingResult">
+          <p class="result-ready-text">Готово! Підібрано список пропозицій під ваші параметри</p>
+          <a href="#" id="resultCta" class="btn-pulse btn-block" aria-live="polite">Переглянути та обрати пропозицію <span class="cta-arrow">➜</span></a>
+          <p class="fine-print" style="margin-top:14px;">Інформація на сторінці має ознайомчий характер. Остаточні умови кредитування визначаються фінансовими компаніями.</p>
+        </div>
       </div>
-    </section>
-
-    <!-- STEP 6: RESULT -->
-    <section class="step" id="step6">
-      <div class="result-icon">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <h2 class="step-title">Аналіз завершено</h2>
-      <p class="result-sub">На основі зазначених параметрів підготовлено список доступних фінансових пропозицій.</p>
-      <div class="info-block">Рекомендуємо порівняти умови кількох пропозицій перед оформленням заявки.</div>
-      <div class="btn-center">
-        <!-- href формується динамічно в JS (buildResultLink) на основі відповідей квізу -->
-        <a href="https://trebacash.site/porivnyannya-mfo-fb/" target="_blank" class="btn-pulse" id="resultCta">Переглянути пропозиції</a>
-      </div>
-      <p class="fine-print">Інформація на сторінці має ознайомчий характер. Остаточні умови кредитування визначаються фінансовими компаніями.</p>
     </section>
 
   </div>
@@ -696,11 +825,33 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
   // ===== ВІДПРАВКА ЛІДІВ У GOOGLE SHEETS (той самий Apps Script, що на вітрині) =====
   const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyS_V0Dmk5tnKnqd3SzhECUlu654Fc_koinJ4kkPkCNucNQ6Pf5fCbH2Yz35fVfuLj9/exec';
 
-  function isValidUaPhone(raw) {
-    const digits = raw.replace(/\D/g, '');
-    // приймаємо 380XXXXXXXXX (12 цифр) або 0XXXXXXXXX (10 цифр, локальний формат)
-    return /^380\d{9}$/.test(digits) || /^0\d{9}$/.test(digits);
+  function isValidUaPhone(digitsAfterPrefix) {
+    // очікуємо рівно 9 цифр після незмінного префіксу +380
+    return /^\d{9}$/.test(digitsAfterPrefix);
   }
+
+  // ===== МАСКА ТЕЛЕФОНУ: +380 завжди на місці, юзер заповнює лише XXXXXXXXX =====
+  function formatPhoneDigits(digits) {
+    digits = digits.slice(0, 9);
+    let out = '';
+    if (digits.length > 0) out += digits.slice(0, 2);
+    if (digits.length > 2) out += ' ' + digits.slice(2, 5);
+    if (digits.length > 5) out += ' ' + digits.slice(5, 7);
+    if (digits.length > 7) out += ' ' + digits.slice(7, 9);
+    return out;
+  }
+
+  const phoneInput = document.getElementById('phoneInput');
+  const phoneWrap = document.getElementById('phoneWrap');
+
+  phoneInput.addEventListener('input', (e) => {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 9);
+    e.target.value = formatPhoneDigits(digits);
+  });
+
+  phoneInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); submitPhone(); }
+  });
 
   function getUtmParam(name) {
     try { return new URLSearchParams(window.location.search).get(name) || ''; }
@@ -712,16 +863,17 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
     const input = document.getElementById('phoneInput');
     const errorEl = document.getElementById('phoneError');
     const btn = document.getElementById('phoneSubmitBtn');
+    const digits = input.value.replace(/\D/g, '');
 
-    if (!isValidUaPhone(input.value)) {
-      input.classList.add('error');
+    if (!isValidUaPhone(digits)) {
+      phoneWrap.classList.add('error');
       errorEl.style.display = 'block';
       return;
     }
 
-    input.classList.remove('error');
+    phoneWrap.classList.remove('error');
     errorEl.style.display = 'none';
-    quizAnswers.phone = input.value.trim();
+    quizAnswers.phone = '+380' + digits;
 
     btn.disabled = true;
     btn.textContent = 'Надсилаємо…';
@@ -758,9 +910,6 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
     quizAnswers.sum = Math.round(parseFloat(slideAmt.value));
     quizAnswers.term = Math.round(parseFloat(slideDays.value));
 
-    const cta = document.getElementById('resultCta');
-    if (!cta) return;
-
     const url = new URL('https://trebacash.site/porivnyannya-mfo-fb/');
     url.searchParams.set('sum', quizAnswers.sum);
     url.searchParams.set('term', quizAnswers.term);
@@ -774,39 +923,67 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
       }
     });
 
-    cta.href = url.toString();
+    return url.toString();
   }
 
-  // ===== STEP 4: PROCESSING SIMULATION =====
+  // ===== STEP 5: АНІМАЦІЯ "ПІДБОРУ" ПРОПОЗИЦІЙ + АВТОРЕДІРЕКТ НА ВІТРИНУ =====
   function runProcessing() {
     const textEl = document.getElementById('processingText');
     const fillEl = document.getElementById('progressFill');
+    const items = document.querySelectorAll('#processingChecklist li');
     const messages = [
-      'Аналіз введених параметрів...',
-      'Формування списку доступних пропозицій...',
-      'Підготовка результатів...'
+      'Перевірка введених даних...',
+      'Пошук пропозицій серед партнерів...',
+      'Порівняння умов кредитування...',
+      'Формування персонального списку...'
     ];
+    const stageMs = 800; // тривалість одного етапу
+    const total = stageMs * messages.length; // ~3.2s на всю анімацію
 
-    textEl.textContent = messages[0];
-    textEl.style.opacity = 1;
+    // ресет стану (про всяк випадок, якщо функція викликається повторно)
+    items.forEach((li) => li.classList.remove('active', 'done'));
+    document.getElementById('procSpinner').classList.remove('done');
+    document.getElementById('resultCheck').classList.remove('visible');
+    document.getElementById('processingResult').classList.remove('visible');
+    fillEl.style.transition = 'none';
     fillEl.style.width = '0%';
 
-    requestAnimationFrame(() => { fillEl.style.transition = 'width 3s linear'; fillEl.style.width = '100%'; });
-
-    [1, 2].forEach((idx) => {
-      setTimeout(() => {
-        textEl.style.opacity = 0;
-        setTimeout(() => {
-          textEl.textContent = messages[idx];
-          textEl.style.opacity = 1;
-        }, 250);
-      }, idx * 1000);
+    requestAnimationFrame(() => {
+      fillEl.style.transition = `width ${total / 1000}s linear`;
+      fillEl.style.width = '100%';
     });
 
+    messages.forEach((msg, idx) => {
+      setTimeout(() => {
+        // попередній етап позначаємо виконаним, поточний — активним
+        if (idx > 0) items[idx - 1].classList.remove('active');
+        if (idx > 0) items[idx - 1].classList.add('done');
+        items[idx].classList.add('active');
+
+        textEl.style.opacity = 0;
+        setTimeout(() => {
+          textEl.textContent = msg;
+          textEl.style.opacity = 1;
+        }, 200);
+      }, idx * stageMs);
+    });
+
+    // фінальний етап чекліста позначаємо виконаним (спінер поки що крутиться далі)
     setTimeout(() => {
-      buildResultLink();
-      goStep(6);
-    }, 3000);
+      items[items.length - 1].classList.remove('active');
+      items[items.length - 1].classList.add('done');
+    }, total - 150);
+
+    // після завершення анімації підбору — спінер перетворюється на загальну галочку
+    // одночасно з появою кнопки переходу (навігація лише по реальному кліку користувача)
+    setTimeout(() => {
+      const url = buildResultLink();
+      const cta = document.getElementById('resultCta');
+      cta.href = url;
+      document.getElementById('procSpinner').classList.add('done');
+      document.getElementById('resultCheck').classList.add('visible');
+      document.getElementById('processingResult').classList.add('visible');
+    }, total + 300);
   }
 </script>
 </body>
