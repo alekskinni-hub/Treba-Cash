@@ -825,6 +825,9 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
   // ===== ВІДПРАВКА ЛІДІВ У GOOGLE SHEETS (той самий Apps Script, що на вітрині) =====
   const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyS_V0Dmk5tnKnqd3SzhECUlu654Fc_koinJ4kkPkCNucNQ6Pf5fCbH2Yz35fVfuLj9/exec';
 
+  // ===== ВІДПРАВКА ЛІДІВ НА WEBHOOK MAKE (далі Make -> SendPulse) =====
+  const MAKE_WEBHOOK_ENDPOINT = 'https://hook.eu1.make.com/sv41cgah85kvnq5h8s27t1eviderp51a';
+
   function isValidUaPhone(digitsAfterPrefix) {
     // очікуємо рівно 9 цифр після незмінного префіксу +380
     return /^\d{9}$/.test(digitsAfterPrefix);
@@ -889,20 +892,27 @@ src="https://www.facebook.com/tr?id=1667232161545034&ev=PageView&noscript=1"
       utm_term: getUtmParam('utm_term'),
     };
 
-    fetch(SHEETS_ENDPOINT, {
+    const sheetsRequest = fetch(SHEETS_ENDPOINT, {
       method: 'POST',
       mode: 'no-cors', // Apps Script не віддає CORS-заголовки — читати відповідь не можемо, і не потрібно
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(payload),
-    })
-      .catch(() => { /* no-cors — помилку мережі теж не побачимо, це очікувано */ })
-      .finally(() => {
-        // подія Lead для Meta Pixel — фіксуємо момент залишення контакту
-        if (typeof fbq === 'function') fbq('track', 'Lead');
+    }).catch(() => { /* no-cors — помилку мережі теж не побачимо, це очікувано */ });
 
-        goStep(5);
-        runProcessing();
-      });
+    const makeRequest = fetch(MAKE_WEBHOOK_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors', // так само не читаємо відповідь, лише надсилаємо дані в Make
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload),
+    }).catch(() => { /* мережева помилка на вебхуку Make — не блокуємо флоу квізу */ });
+
+    Promise.allSettled([sheetsRequest, makeRequest]).finally(() => {
+      // подія Lead для Meta Pixel — фіксуємо момент залишення контакту
+      if (typeof fbq === 'function') fbq('track', 'Lead');
+
+      goStep(5);
+      runProcessing();
+    });
   }
 
   // ===== ФОРМУЄМО ПОСИЛАННЯ НА ВІТРИНУ З ПАРАМЕТРАМИ КВІЗУ =====
