@@ -623,9 +623,9 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-list{display:flex;flex-direction:column;gap:9px;}
 
 /* ====================================================================
-   КАРТКА-РЯДОК — компактний грід 2×2, нічого не перекривається:
-     [ Медаль+Лого ]      [ Назва ]
-     [ Сума / Строк ]     [ Кнопка ]
+   КАРТКА-РЯДОК за схемою:
+     [ Медаль+Лого | Назва + Сума/Строки ]   <- top3-row-head
+     [ Переваги (булети)  | Кнопка ]         <- top3-row-bottom
    ==================================================================== */
 .top3-row{
   display:flex;flex-direction:column;
@@ -648,75 +648,84 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-row.rank-2{padding:10px;}
 .top3-row.rank-3{padding:8px;border-color:rgba(39,174,96,.22);}
 
-/* --- грід: колонка 1 (лого/сума, ширина під контент), колонка 2 (назва/кнопка, займає решту) --- */
-.top3-row-grid{
-  display:grid;
-  grid-template-columns:auto 1fr;
-  grid-template-rows:auto auto;
-  align-items:center;
-  column-gap:10px;row-gap:6px;
-}
+/* --- верхній рядок: медаль + лого + назва/сума --- */
+.top3-row-head{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
 
-/* --- клітинка 1×1: медаль + лого --- */
-.top3-row-logo-wrap{grid-column:1;grid-row:1;display:flex;align-items:center;gap:4px;min-width:0;}
+/* --- ранг у вигляді збільшеної медальної емодзі замість цифри --- */
 .top3-row-rank{
   flex:0 0 auto;display:flex;align-items:center;justify-content:center;
   line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.22));
 }
-.top3-row.rank-1 .top3-row-rank{font-size:26px;}
-.top3-row.rank-2 .top3-row-rank{font-size:21px;}
-.top3-row.rank-3 .top3-row-rank{font-size:18px;}
+.top3-row.rank-1 .top3-row-rank{font-size:34px;}
+.top3-row.rank-2 .top3-row-rank{font-size:28px;}
+.top3-row.rank-3 .top3-row-rank{font-size:24px;}
 
 /* --- лого: широка прямокутна плашка під реальний брендовий
        логотип (а не маленька квадратна іконка) --- */
 .top3-row-logo{
   border-radius:10px;object-fit:contain;flex:0 0 auto;
 }
-.top3-row.rank-1 .top3-row-logo{width:92px;height:40px;font-size:13px;}
-.top3-row.rank-2 .top3-row-logo{width:78px;height:34px;font-size:11.5px;}
-.top3-row.rank-3 .top3-row-logo{width:66px;height:29px;font-size:10px;}
+.top3-row.rank-1 .top3-row-logo{width:132px;height:56px;font-size:16px;}
+.top3-row.rank-2 .top3-row-logo{width:112px;height:48px;font-size:14px;}
+.top3-row.rank-3 .top3-row-logo{width:94px;height:40px;font-size:12px;}
 /* фолбек (кольоровий блок з ініціалами, якщо картинки лого нема) —
    лишаємо квадратним і з кольоровим фоном, щоб ініціали читались */
 div.top3-row-logo{background:var(--bg,#f4f9f6);}
 .top3-logo-fallback{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;letter-spacing:.02em;}
-.top3-row.rank-1 .top3-logo-fallback.top3-row-logo{width:40px;height:40px;font-size:15px;border-radius:12px;}
-.top3-row.rank-2 .top3-logo-fallback.top3-row-logo{width:34px;height:34px;font-size:13px;border-radius:11px;}
-.top3-row.rank-3 .top3-logo-fallback.top3-row-logo{width:29px;height:29px;font-size:11px;border-radius:9px;}
+.top3-row.rank-1 .top3-logo-fallback.top3-row-logo{width:56px;height:56px;font-size:20px;border-radius:14px;}
+.top3-row.rank-2 .top3-logo-fallback.top3-row-logo{width:48px;height:48px;font-size:17px;border-radius:13px;}
+.top3-row.rank-3 .top3-logo-fallback.top3-row-logo{width:40px;height:40px;font-size:14px;border-radius:11px;}
 
-/* --- клітинка 1×2: назва, притиснута до правого краю --- */
+.top3-row-headtext{flex:1;min-width:0;}
 .top3-row-name{
-  grid-column:2;grid-row:1;
   font-weight:800;color:var(--text,#1a2421);line-height:1.25;
-  text-align:right;
-  overflow:hidden;text-overflow:ellipsis;
-  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
 }
-.top3-row.rank-1 .top3-row-name{font-size:14px;}
-.top3-row.rank-2 .top3-row-name{font-size:12.5px;}
-.top3-row.rank-3 .top3-row-name{font-size:11px;}
+.top3-row.rank-1 .top3-row-name{font-size:14.5px;}
+.top3-row.rank-2 .top3-row-name{font-size:13px;}
+.top3-row.rank-3 .top3-row-name{font-size:11.5px;}
 
-/* --- клітинка 2×1: сума/строк --- */
-.top3-row-meta{
-  grid-column:1;grid-row:2;
-  color:var(--text-muted,#5a6b64);font-weight:700;white-space:nowrap;
-}
+.top3-row-meta{color:var(--text-muted,#5a6b64);font-weight:600;margin-top:1px;}
 .top3-row.rank-1 .top3-row-meta{font-size:11.5px;}
 .top3-row.rank-2 .top3-row-meta{font-size:10.5px;}
 .top3-row.rank-3 .top3-row-meta{font-size:9.5px;}
 
-/* --- клітинка 2×2: кнопка, притиснута до правого краю, з пульсацією --- */
+/* --- нижній рядок: переваги булетами (вліво) + кнопка --- */
+.top3-row-bottom{display:flex;align-items:center;gap:10px;}
+
+.top3-row-perks{flex:1;min-width:0;margin:0;padding:0 0 0 15px;list-style:none;display:flex;flex-direction:column;gap:3px;}
+.top3-row-perks li{
+  position:relative;font-style:italic;font-weight:700;line-height:1.3;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.top3-row-perks li::before{
+  content:'';position:absolute;left:-15px;top:50%;transform:translateY(-50%);
+  width:6px;height:6px;border-radius:50%;background:currentColor;
+}
+.top3-row.rank-1 .top3-row-perks li{font-size:11px;}
+.top3-row.rank-2 .top3-row-perks li{font-size:10px;}
+.top3-row.rank-3 .top3-row-perks li{font-size:9px;}
+
+.top3-row-perks li.nbu{color:var(--green-dark,#1e8449);}
+.top3-row-perks li.color-green{color:var(--green-dark,#1e8449);}
+.top3-row-perks li.color-blue{color:#2471a3;}
+.top3-row-perks li.color-purple{color:#7d3c98;}
+.top3-row-perks li.color-teal{color:#117a65;}
+.top3-row-perks li.color-new{color:#219150;}
+.top3-row-perks li.color-gold{color:#a9760a;font-weight:900;}
+
+/* --- прямокутна (не пігулка) жирна кнопка, з пульсацією --- */
 .top3-row-cta{
-  grid-column:2;grid-row:2;justify-self:end;
-  text-align:center;text-decoration:none;white-space:nowrap;
+  flex:0 0 auto;text-align:center;text-decoration:none;
   background:linear-gradient(135deg,var(--orange,#ff7a1a),var(--orange-light,#ff9a4d));
   color:#fff;font-weight:900;border-radius:8px;
   animation:top3-cta-pulse 1.8s ease-in-out infinite;
   transition:transform .15s;
 }
 .top3-row-cta:hover{animation-play-state:paused;transform:scale(1.05);}
-.top3-row.rank-1 .top3-row-cta{padding:9px 12px;font-size:12px;}
-.top3-row.rank-2 .top3-row-cta{padding:7px 10px;font-size:11px;}
-.top3-row.rank-3 .top3-row-cta{padding:6px 8px;font-size:10px;}
+.top3-row.rank-1 .top3-row-cta{padding:12px 14px;font-size:13px;min-width:86px;}
+.top3-row.rank-2 .top3-row-cta{padding:10px 11px;font-size:11.5px;min-width:76px;}
+.top3-row.rank-3 .top3-row-cta{padding:8px 9px;font-size:10.5px;min-width:68px;}
 @keyframes top3-cta-pulse{
   0%,100%{transform:scale(1);box-shadow:0 3px 10px rgba(255,122,26,.32);}
   50%{transform:scale(1.04);box-shadow:0 6px 16px rgba(255,122,26,.5);}
@@ -758,16 +767,17 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
 @media (max-width:420px){
   .top3-modal{padding:20px 12px 0;}
   .top3-title{font-size:18px;}
-  .top3-row-grid{column-gap:7px;row-gap:5px;}
-  .top3-row.rank-1 .top3-row-logo{width:78px;height:34px;}
-  .top3-row.rank-2 .top3-row-logo{width:68px;height:30px;}
-  .top3-row.rank-3 .top3-row-logo{width:58px;height:26px;}
-  .top3-row.rank-1 .top3-logo-fallback.top3-row-logo{width:36px;height:36px;}
-  .top3-row.rank-2 .top3-logo-fallback.top3-row-logo{width:32px;height:32px;}
-  .top3-row.rank-3 .top3-logo-fallback.top3-row-logo{width:27px;height:27px;}
-  .top3-row.rank-1 .top3-row-cta{padding:8px 10px;font-size:11px;}
-  .top3-row.rank-2 .top3-row-cta{padding:6px 9px;font-size:10px;}
-  .top3-row.rank-3 .top3-row-cta{padding:5px 7px;font-size:9px;}
+  .top3-row-head{gap:8px;}
+  .top3-row-bottom{gap:6px;}
+  .top3-row.rank-1 .top3-row-logo{width:104px;height:46px;}
+  .top3-row.rank-2 .top3-row-logo{width:90px;height:40px;}
+  .top3-row.rank-3 .top3-row-logo{width:76px;height:34px;}
+  .top3-row.rank-1 .top3-logo-fallback.top3-row-logo{width:48px;height:48px;}
+  .top3-row.rank-2 .top3-logo-fallback.top3-row-logo{width:42px;height:42px;}
+  .top3-row.rank-3 .top3-logo-fallback.top3-row-logo{width:36px;height:36px;}
+  .top3-row.rank-1 .top3-row-cta{padding:11px 10px;min-width:74px;}
+  .top3-row.rank-2 .top3-row-cta{padding:9px 8px;min-width:66px;}
+  .top3-row.rank-3 .top3-row-cta{padding:7px 7px;min-width:58px;}
   .top3-sticky-footer{margin:8px -12px 0;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));}
 }
 </style>
@@ -925,22 +935,39 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
     document.getElementById('top3-subtitle').innerHTML =
       `Для вашого запиту: <b>${fmt(querySum)} ₴ / ${queryTerm} дн.</b>`;
 
-    // Картка за схемою (2x2 грід, компактно, без нашарувань):
-    //   [Медаль+Лого]      [Назва]
-    //   [Сума / Строк]     [Кнопка]
+    // Переваги — простий булет-список (вирівняний вліво), без плашок-пігулок,
+    // щоб нічого не наїжджало одне на одне на вузьких екранах.
+    const perksHTML = (m) => {
+      let html = '<li class="nbu">Ліцензія НБУ</li>';
+      if (isNewOffer(m)) {
+        html += '<li class="color-new">🆕 Новий сервіс!</li>';
+      }
+      if (m.badge) {
+        html += `<li class="color-${m.badgeColor || 'green'}">✨ ${m.badge}</li>`;
+      }
+      if (m.hasZeroBadge) {
+        html += `<li class="color-gold">🔥 ${m.goldBadgeText || 'Перша позика під 0.01%*'}</li>`;
+      }
+      return html;
+    };
+
+    // Картка за схемою: [Медаль+Лого | Назва+Сума/Строки] зверху, [Переваги | Кнопка] знизу.
     // Місце в рейтингу (rank) визначає розмір (rank-1 — найбільша картка).
     const rowCardHTML = (m, rank) => {
       const sizeClass = 'rank-' + Math.min(rank, 3);
       return `
       <div class="top3-row ${sizeClass}">
-        <div class="top3-row-grid">
-          <div class="top3-row-logo-wrap">
-            <span class="top3-row-rank">${MEDALS[rank] || rank}</span>
-            ${logoHTML(m, 'top3-row-logo')}
+        <div class="top3-row-head">
+          <span class="top3-row-rank">${MEDALS[rank] || rank}</span>
+          ${logoHTML(m, 'top3-row-logo')}
+          <div class="top3-row-headtext">
+            <div class="top3-row-name">${m.name}</div>
+            <div class="top3-row-meta">${fmt(m.sum)} ₴ / ${m.term} дн.</div>
           </div>
-          <div class="top3-row-name">${m.name}</div>
-          <div class="top3-row-meta">${fmt(m.sum)} ₴ / ${m.term} дн.</div>
-          <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Подати заявку</a>
+        </div>
+        <div class="top3-row-bottom">
+          <ul class="top3-row-perks">${perksHTML(m)}</ul>
+          <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Перейти</a>
         </div>
       </div>`;
     };
@@ -1333,27 +1360,6 @@ let state = {
 };
 const BATCH = 12;
 
-/* ====== ЯКОРНІ ПОСИЛАННЯ ДЛЯ ГРУП СОРТУВАННЯ/ФІЛЬТРІВ ======
-   Дозволяє відкрити сторінку одразу з потрібним сортуванням і/або
-   увімкненим фільтром "Тільки акційні", напр. для різних оголошень:
-     ?sort=sum-desc          — За сумою ↓
-     ?sort=rate-asc          — За ставкою ↑
-     ?sort=date-new          — Новіші спочатку
-     ?sort=date-old          — Старіші спочатку
-     ?sort=cr-desc           — Рекомендовано клієнтами
-     ?sort=epc-desc          — ТОП від TREBACASH
-     ?promo=1                — Тільки акційні пропозиції (можна поєднувати з ?sort=...)
-   + #mfo-grid-anchor в кінці, щоб одразу проскролити до списку. */
-const urlParams = new URLSearchParams(window.location.search);
-const VALID_SORTS = ['sum-desc', 'rate-asc', 'date-new', 'date-old', 'cr-desc', 'epc-desc'];
-const urlSort = urlParams.get('sort');
-if (urlSort && VALID_SORTS.includes(urlSort)) {
-  state.sort = urlSort;
-}
-if (urlParams.get('promo') === '1') {
-  state.onlyPromo = true;
-}
-
 /* ====== HEADER SCROLL ====== */
 window.addEventListener('scroll', () => {
   document.getElementById('main-header').classList.toggle('scrolled', window.scrollY > 10);
@@ -1606,13 +1612,6 @@ loadMoreBtn.addEventListener('click', () => {
   state.visible += BATCH;
   renderGrid();
 });
-
-/* Синхронізуємо UI (активна кнопка сортування + чекбокс акцій) з
-   параметрами URL, перш ніж малювати сітку вперше */
-document.querySelectorAll('.sort-btn[data-sort]').forEach(b => {
-  b.classList.toggle('active', b.dataset.sort === state.sort);
-});
-if (promoCheckbox) promoCheckbox.checked = state.onlyPromo;
 
 /* Initial render */
 renderGrid();
