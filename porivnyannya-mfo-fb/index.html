@@ -521,12 +521,12 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 <body>
 
 <!-- =========================================================
-     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v4, перенесено з іншого лендингу
-     (2-колонковий формат: ТОП-3 + Рекомендації клієнтів) і
-     переоформлено під стиль карток офферів цього лендингу:
-     рамка навколо картки, більший логотип, рядок кольорових
-     плашок (як у .mfo-badge на вітрині) замість однієї плашки,
-     плюс пульсуюча CTA-кнопка.
+     ПОПАП "ТОП-3 ПРОПОЗИЦІЇ" — v5, UI перенесено з іншого лендингу
+     (рядок-картка: [ранг-медаль+лого | назва/сума] зверху,
+     [переваги|кнопка] знизу, розмір картки залежить від рангу),
+     + медальні емодзі замість цифр рангу, + всі CTA пульсують,
+     + кнопка "Переглянути усі пропозиції МФО" винесена в закріплений
+     плаваючий віджет внизу картки попапу (sticky), завжди зверху.
 
      ЛОГІКА (без змін):
      - Показується ТІЛЬКИ якщо в URL вітрини є ?sum=...&term=...
@@ -555,7 +555,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   border-radius:var(--radius,24px);
   max-width:460px;width:100%;
   max-height:92vh;overflow-y:auto;overflow-x:hidden;
-  padding:24px 18px 20px;
+  padding:24px 18px 0;
   position:relative;
   box-shadow:0 30px 80px rgba(0,0,0,0.35);
   transform:translateY(30px) scale(.92);
@@ -570,7 +570,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   border:none;background:rgba(13,21,18,0.06);
   font-size:17px;line-height:1;cursor:pointer;color:var(--text,#1a2421);
   display:flex;align-items:center;justify-content:center;
-  z-index:5;transition:background .2s,transform .2s;
+  z-index:7;transition:background .2s,transform .2s;
 }
 .top3-close:hover{background:rgba(13,21,18,0.12);transform:rotate(90deg);}
 
@@ -587,7 +587,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 }
 
 /* ---- header ---- */
-.top3-header{position:relative;z-index:2;text-align:center;margin-bottom:18px;}
+.top3-header{position:relative;z-index:2;text-align:center;margin-bottom:16px;}
 .top3-title{
   font-size:21px;font-weight:900;color:var(--text,#1a2421);
   margin:0 0 8px;line-height:1.3;
@@ -598,7 +598,6 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));
   color:#fff;font-size:12px;vertical-align:middle;
   animation:top3-pop .5s cubic-bezier(.34,1.56,.64,1) .5s backwards;
-  box-shadow:0 0 0 0 var(--green-glow,rgba(46,204,113,.35));
 }
 @keyframes top3-pop{
   0%{transform:scale(0);opacity:0;}
@@ -609,81 +608,127 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .top3-subtitle b{color:var(--green-dark,#1e8449);}
 
 @keyframes top3-rise{
-  0%{opacity:0;transform:translateY(16px) scale(.97);}
+  0%{opacity:0;transform:translateY(12px) scale(.97);}
   100%{opacity:1;transform:translateY(0) scale(1);}
 }
 
-/* ---- 2-колонковий грід карток (стиль карток офферів вітрини) ---- */
-.top3-columns{display:flex;gap:10px;margin-bottom:4px;position:relative;z-index:2;}
-.top3-col{flex:1;min-width:0;}
-.top3-col-title{
-  font-size:11.5px;font-weight:800;color:var(--green-dark,#1e8449);
-  margin:0 0 8px;text-align:center;text-transform:uppercase;letter-spacing:.02em;
+/* ---- секції: спочатку ТОП-3, потім Рекомендації ---- */
+.top3-section{position:relative;z-index:2;margin-bottom:14px;}
+.top3-section:last-of-type{margin-bottom:6px;}
+.top3-section-title{
+  display:flex;align-items:center;gap:6px;
+  font-size:12.5px;font-weight:800;color:var(--green-dark,#1e8449);
+  margin:0 0 9px;text-transform:uppercase;letter-spacing:.02em;
 }
+.top3-list{display:flex;flex-direction:column;gap:9px;}
 
-.top3-mini{
-  border:2px solid rgba(39,174,96,0.35);
+/* ====================================================================
+   КАРТКА-РЯДОК за схемою:
+     [ Медаль+Лого | Назва + Сума/Строки ]   <- top3-row-head
+     [ Переваги (булети)  | Кнопка ]         <- top3-row-bottom
+   ==================================================================== */
+.top3-row{
+  display:flex;flex-direction:column;
+  border:2px solid rgba(39,174,96,0.28);
   border-radius:16px;
-  padding:12px 10px;margin-bottom:10px;
   background:var(--white,#fff);
-  box-shadow:0 8px 22px rgba(39,174,96,0.16);
+  box-shadow:0 6px 16px rgba(39,174,96,0.12);
   animation:top3-rise .4s cubic-bezier(.2,.8,.3,1) backwards;
-  transition:box-shadow .2s, transform .2s, border-color .2s;
+  transition:box-shadow .2s, transform .2s;
+  overflow:hidden;
 }
-.top3-mini:hover{box-shadow:0 14px 30px rgba(39,174,96,.24);transform:translateY(-2px);}
-.top3-mini--new{border-color:rgba(46,204,113,.6);box-shadow:0 10px 26px rgba(39,174,96,.24);}
+.top3-row:hover{box-shadow:0 10px 24px rgba(39,174,96,.2);transform:translateY(-1px);}
 
-.top3-mini-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
-.top3-mini-rank{
-  flex:0 0 20px;height:20px;border-radius:50%;
-  background:var(--bg,#f4f9f6);border:1.5px solid rgba(39,174,96,.35);
-  color:var(--green-dark,#1e8449);font-size:10.5px;font-weight:900;
-  display:flex;align-items:center;justify-content:center;
+/* розмір картки залежить від місця: 1-ше найбільше, далі менше */
+.top3-row.rank-1{
+  padding:13px;border-width:2.5px;border-color:rgba(46,204,113,.55);
+  box-shadow:0 10px 26px rgba(39,174,96,.22);
+  background:linear-gradient(120deg,rgba(46,204,113,.08),var(--white,#fff) 60%);
 }
-.top3-logo.top3-mini-logo,.top3-logo-fallback.top3-mini-logo{
-  flex:0 0 40px;width:40px;height:40px;border-radius:12px;font-size:13px;object-fit:contain;background:var(--bg,#f4f9f6);
-}
-.top3-mini-name{
-  font-weight:800;font-size:12.5px;color:var(--text,#1a2421);line-height:1.2;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0;
-}
-.top3-mini-meta{font-size:10.5px;color:var(--text-muted,#5a6b64);margin-bottom:8px;}
+.top3-row.rank-2{padding:10px;}
+.top3-row.rank-3{padding:8px;border-color:rgba(39,174,96,.22);}
 
-/* ---- рядок кольорових плашок, як у карток офферів на вітрині ---- */
-.top3-mini-badges{display:flex;flex-direction:column;gap:5px;margin-bottom:9px;}
-.top3-mini-badge{
-  display:flex;align-items:center;justify-content:center;gap:4px;
-  font-size:9.5px;font-weight:900;letter-spacing:.01em;text-align:center;
-  padding:5px 6px;border-radius:8px;width:100%;box-sizing:border-box;line-height:1.25;
-}
-.top3-mini-badge.nbu{background:rgba(39,174,96,0.1);color:var(--green-dark,#1e8449);}
-.top3-mini-badge.color-green{background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));color:#fff;box-shadow:0 3px 10px rgba(39,174,96,.3);}
-.top3-mini-badge.color-blue{background:linear-gradient(120deg,#2980b9,#3498db);color:#fff;box-shadow:0 3px 10px rgba(52,152,219,.3);}
-.top3-mini-badge.color-purple{background:linear-gradient(120deg,#8e44ad,#a569bd);color:#fff;box-shadow:0 3px 10px rgba(142,68,173,.28);}
-.top3-mini-badge.color-teal{background:linear-gradient(120deg,#16a085,#1abc9c);color:#fff;box-shadow:0 3px 10px rgba(22,160,133,.3);}
-.top3-mini-badge.color-new{background:linear-gradient(120deg,#2ecc71,#7ed957);color:#0d3d1f;box-shadow:0 3px 10px rgba(46,204,113,.35);}
-.top3-mini-badge.color-gold{
-  background:linear-gradient(120deg,var(--gold,#f5b942),#ffcf6e);color:#5c3d00;
-  box-shadow:0 3px 12px rgba(245,185,66,.5);
-  animation:top3-badge-pulse 2s ease-in-out infinite;
-}
-@keyframes top3-badge-pulse{
-  0%,100%{transform:scale(1);box-shadow:0 3px 12px rgba(245,185,66,.5);}
-  50%{transform:scale(1.045);box-shadow:0 5px 16px rgba(245,185,66,.75);}
-}
+/* --- верхній рядок: медаль + лого + назва/сума --- */
+.top3-row-head{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
 
-/* ---- пульсуюча CTA-кнопка ---- */
-.top3-mini-cta{
-  display:block;width:100%;box-sizing:border-box;text-align:center;text-decoration:none;
+/* --- ранг у вигляді збільшеної медальної емодзі замість цифри --- */
+.top3-row-rank{
+  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.22));
+}
+.top3-row.rank-1 .top3-row-rank{font-size:34px;}
+.top3-row.rank-2 .top3-row-rank{font-size:28px;}
+.top3-row.rank-3 .top3-row-rank{font-size:24px;}
+
+/* --- лого: широка прямокутна плашка під реальний брендовий
+       логотип (а не маленька квадратна іконка) --- */
+.top3-row-logo{
+  border-radius:10px;object-fit:contain;flex:0 0 auto;
+}
+.top3-row.rank-1 .top3-row-logo{width:132px;height:56px;font-size:16px;}
+.top3-row.rank-2 .top3-row-logo{width:112px;height:48px;font-size:14px;}
+.top3-row.rank-3 .top3-row-logo{width:94px;height:40px;font-size:12px;}
+/* фолбек (кольоровий блок з ініціалами, якщо картинки лого нема) —
+   лишаємо квадратним і з кольоровим фоном, щоб ініціали читались */
+div.top3-row-logo{background:var(--bg,#f4f9f6);}
+.top3-logo-fallback{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;letter-spacing:.02em;}
+.top3-row.rank-1 .top3-logo-fallback.top3-row-logo{width:56px;height:56px;font-size:20px;border-radius:14px;}
+.top3-row.rank-2 .top3-logo-fallback.top3-row-logo{width:48px;height:48px;font-size:17px;border-radius:13px;}
+.top3-row.rank-3 .top3-logo-fallback.top3-row-logo{width:40px;height:40px;font-size:14px;border-radius:11px;}
+
+.top3-row-headtext{flex:1;min-width:0;}
+.top3-row-name{
+  font-weight:800;color:var(--text,#1a2421);line-height:1.25;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.top3-row.rank-1 .top3-row-name{font-size:14.5px;}
+.top3-row.rank-2 .top3-row-name{font-size:13px;}
+.top3-row.rank-3 .top3-row-name{font-size:11.5px;}
+
+.top3-row-meta{color:var(--text-muted,#5a6b64);font-weight:600;margin-top:1px;}
+.top3-row.rank-1 .top3-row-meta{font-size:11.5px;}
+.top3-row.rank-2 .top3-row-meta{font-size:10.5px;}
+.top3-row.rank-3 .top3-row-meta{font-size:9.5px;}
+
+/* --- нижній рядок: переваги булетами (вліво) + кнопка --- */
+.top3-row-bottom{display:flex;align-items:center;gap:10px;}
+
+.top3-row-perks{flex:1;min-width:0;margin:0;padding:0 0 0 15px;list-style:none;display:flex;flex-direction:column;gap:3px;}
+.top3-row-perks li{
+  position:relative;font-style:italic;font-weight:700;line-height:1.3;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.top3-row-perks li::before{
+  content:'';position:absolute;left:-15px;top:50%;transform:translateY(-50%);
+  width:6px;height:6px;border-radius:50%;background:currentColor;
+}
+.top3-row.rank-1 .top3-row-perks li{font-size:11px;}
+.top3-row.rank-2 .top3-row-perks li{font-size:10px;}
+.top3-row.rank-3 .top3-row-perks li{font-size:9px;}
+
+.top3-row-perks li.nbu{color:var(--green-dark,#1e8449);}
+.top3-row-perks li.color-green{color:var(--green-dark,#1e8449);}
+.top3-row-perks li.color-blue{color:#2471a3;}
+.top3-row-perks li.color-purple{color:#7d3c98;}
+.top3-row-perks li.color-teal{color:#117a65;}
+.top3-row-perks li.color-new{color:#219150;}
+.top3-row-perks li.color-gold{color:#a9760a;font-weight:900;}
+
+/* --- прямокутна (не пігулка) жирна кнопка, з пульсацією --- */
+.top3-row-cta{
+  flex:0 0 auto;text-align:center;text-decoration:none;
   background:linear-gradient(135deg,var(--orange,#ff7a1a),var(--orange-light,#ff9a4d));
-  color:#fff;font-weight:800;font-size:11px;padding:9px 4px;border-radius:10px;
-  transition:transform .15s;
+  color:#fff;font-weight:900;border-radius:8px;
   animation:top3-cta-pulse 1.8s ease-in-out infinite;
+  transition:transform .15s;
 }
-.top3-mini-cta:hover{animation-play-state:paused;transform:translateY(-1px) scale(1.03);}
+.top3-row-cta:hover{animation-play-state:paused;transform:scale(1.05);}
+.top3-row.rank-1 .top3-row-cta{padding:12px 14px;font-size:13px;min-width:86px;}
+.top3-row.rank-2 .top3-row-cta{padding:10px 11px;font-size:11.5px;min-width:76px;}
+.top3-row.rank-3 .top3-row-cta{padding:8px 9px;font-size:10.5px;min-width:68px;}
 @keyframes top3-cta-pulse{
-  0%,100%{transform:scale(1);box-shadow:0 4px 14px rgba(255,122,26,.35);}
-  50%{transform:scale(1.035);box-shadow:0 8px 20px rgba(255,122,26,.55);}
+  0%,100%{transform:scale(1);box-shadow:0 3px 10px rgba(255,122,26,.32);}
+  50%{transform:scale(1.04);box-shadow:0 6px 16px rgba(255,122,26,.5);}
 }
 
 /* ---- порада експерта ---- */
@@ -695,21 +740,45 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   text-align:center;position:relative;z-index:2;
 }
 
-.top3-footnote{font-size:11.5px;color:var(--text-muted,#5a6b64);text-align:center;margin-top:16px;line-height:1.4;position:relative;z-index:2;}
+.top3-footnote{font-size:11.5px;color:var(--text-muted,#5a6b64);text-align:center;margin:14px 0 4px;line-height:1.4;position:relative;z-index:2;}
+
+/* ---- Плаваючий закріплений (sticky) віджет "Переглянути усі" внизу картки попапу ---- */
+.top3-sticky-footer{
+  position:sticky;bottom:0;left:0;right:0;z-index:6;
+  margin:10px -18px 0;padding:14px 18px calc(14px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(180deg,rgba(253,249,241,0) 0%,var(--white,#fff) 32%);
+}
 .top3-all-link{
   display:flex;align-items:center;justify-content:center;gap:7px;
-  width:100%;text-align:center;margin-top:6px;
-  font-size:13.5px;font-weight:800;color:var(--green-dark,#1e8449);
-  background:var(--bg,#f4f9f6);border:none;border-radius:12px;padding:12px;
-  cursor:pointer;position:relative;z-index:2;transition:background .2s;
+  width:100%;text-align:center;
+  font-size:13.5px;font-weight:900;color:#fff;
+  background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  border:none;border-radius:14px;padding:14px;
+  cursor:pointer;position:relative;box-shadow:0 10px 26px rgba(39,174,96,.35);
+  transition:transform .15s;
+  animation:top3-all-pulse 2.2s ease-in-out infinite;
 }
-.top3-all-link:hover{background:#e8f3ec;}
+.top3-all-link:hover{animation-play-state:paused;transform:translateY(-1px) scale(1.02);}
+@keyframes top3-all-pulse{
+  0%,100%{transform:scale(1);box-shadow:0 8px 20px rgba(39,174,96,.3);}
+  50%{transform:scale(1.02);box-shadow:0 14px 30px rgba(39,174,96,.48);}
+}
 
 @media (max-width:420px){
-  .top3-modal{padding:20px 12px 16px;}
+  .top3-modal{padding:20px 12px 0;}
   .top3-title{font-size:18px;}
-  .top3-columns{gap:7px;}
-  .top3-mini{padding:9px 8px;}
+  .top3-row-head{gap:8px;}
+  .top3-row-bottom{gap:6px;}
+  .top3-row.rank-1 .top3-row-logo{width:104px;height:46px;}
+  .top3-row.rank-2 .top3-row-logo{width:90px;height:40px;}
+  .top3-row.rank-3 .top3-row-logo{width:76px;height:34px;}
+  .top3-row.rank-1 .top3-logo-fallback.top3-row-logo{width:48px;height:48px;}
+  .top3-row.rank-2 .top3-logo-fallback.top3-row-logo{width:42px;height:42px;}
+  .top3-row.rank-3 .top3-logo-fallback.top3-row-logo{width:36px;height:36px;}
+  .top3-row.rank-1 .top3-row-cta{padding:11px 10px;min-width:74px;}
+  .top3-row.rank-2 .top3-row-cta{padding:9px 8px;min-width:66px;}
+  .top3-row.rank-3 .top3-row-cta{padding:7px 7px;min-width:58px;}
+  .top3-sticky-footer{margin:8px -12px 0;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));}
 }
 </style>
 
@@ -721,24 +790,28 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
       <h2 class="top3-title" id="top3-title">Вітаємо! Ваш персональний<br>ТОП-3 пропозицій готовий.<span class="top3-check">✓</span></h2>
       <p class="top3-subtitle" id="top3-subtitle">Підбираємо під ваш запит…</p>
     </div>
-    <div class="top3-columns" id="top3-columns">
-      <div class="top3-col" id="top3-col-top">
-        <div class="top3-col-title">🏆 ТОП-3</div>
-        <div id="top3-list-top"></div>
-      </div>
-      <div class="top3-col" id="top3-col-rec">
-        <div class="top3-col-title">👍 Рекомендації клієнтів</div>
-        <div id="top3-list-rec"></div>
-      </div>
+
+    <div class="top3-section" id="top3-section-top">
+      <div class="top3-section-title">🏆 ТОП-3</div>
+      <div class="top3-list" id="top3-list-top"></div>
     </div>
+
+    <div class="top3-section" id="top3-section-rec">
+      <div class="top3-section-title">👍 Рекомендації клієнтів</div>
+      <div class="top3-list" id="top3-list-rec"></div>
+    </div>
+
     <p class="top3-expert-tip"><b><i>Порада експерта: подавайте заявки одразу в декілька компаній, щоб підвищити свої шанси!</i></b></p>
-    <button class="top3-all-link" id="top3-see-all">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      Переглянути всі 40 пропозицій
-    </button>
     <p class="top3-footnote">
       TREBA CASH — інформаційний агрегатор, не є кредитором. Остаточні умови завжди уточнюйте в паспорті кредиту обраної МФО.
     </p>
+
+    <div class="top3-sticky-footer">
+      <button class="top3-all-link" id="top3-see-all">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        Переглянути усі пропозиції МФО
+      </button>
+    </div>
   </div>
 </div>
 
@@ -765,6 +838,9 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     return FALLBACK_COLORS[Math.abs(hash) % FALLBACK_COLORS.length];
   }
   function initials(name) { return name.slice(0, 2).toUpperCase(); }
+
+  // Медалі замість цифр рангу
+  const MEDALS = { 1: '🥇', 2: '🥈', 3: '🥉' };
 
   function logoHTML(m, sizeClass) {
     const fbColor = fallbackColor(m.name);
@@ -859,33 +935,42 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     document.getElementById('top3-subtitle').innerHTML =
       `Для вашого запиту: <b>${fmt(querySum)} ₴ / ${queryTerm} дн.</b>`;
 
-    // Рядок кольорових плашок — як у картках офферів на вітрині:
-    // ліцензія НБУ + власна кольорова плашка + "новий сервіс" + золота 0%-плашка.
-    const badgesHTML = (m) => {
-      let html = '<span class="top3-mini-badge nbu">Ліцензія НБУ</span>';
+    // Переваги — простий булет-список (вирівняний вліво), без плашок-пігулок,
+    // щоб нічого не наїжджало одне на одне на вузьких екранах.
+    const perksHTML = (m) => {
+      let html = '<li class="nbu">Ліцензія НБУ</li>';
       if (isNewOffer(m)) {
-        html += '<span class="top3-mini-badge color-new">🆕 Новий сервіс!</span>';
+        html += '<li class="color-new">🆕 Новий сервіс!</li>';
       }
       if (m.badge) {
-        html += `<span class="top3-mini-badge color-${m.badgeColor || 'green'}">✨ ${m.badge}</span>`;
+        html += `<li class="color-${m.badgeColor || 'green'}">✨ ${m.badge}</li>`;
       }
       if (m.hasZeroBadge) {
-        html += `<span class="top3-mini-badge color-gold">🔥 ${m.goldBadgeText || 'Перша позика під 0.01%*'}</span>`;
+        html += `<li class="color-gold">🔥 ${m.goldBadgeText || 'Перша позика під 0.01%*'}</li>`;
       }
       return html;
     };
 
-    const miniCardHTML = (m, rank) => `
-      <div class="top3-mini${isNewOffer(m) ? ' top3-mini--new' : ''}">
-        <div class="top3-mini-top">
-          <span class="top3-mini-rank">${rank}</span>
-          ${logoHTML(m, 'top3-mini-logo')}
-          <div class="top3-mini-name">${m.name}</div>
+    // Картка за схемою: [Медаль+Лого | Назва+Сума/Строки] зверху, [Переваги | Кнопка] знизу.
+    // Місце в рейтингу (rank) визначає розмір (rank-1 — найбільша картка).
+    const rowCardHTML = (m, rank) => {
+      const sizeClass = 'rank-' + Math.min(rank, 3);
+      return `
+      <div class="top3-row ${sizeClass}">
+        <div class="top3-row-head">
+          <span class="top3-row-rank">${MEDALS[rank] || rank}</span>
+          ${logoHTML(m, 'top3-row-logo')}
+          <div class="top3-row-headtext">
+            <div class="top3-row-name">${m.name}</div>
+            <div class="top3-row-meta">${fmt(m.sum)} ₴ / ${m.term} дн.</div>
+          </div>
         </div>
-        <div class="top3-mini-meta">${fmt(m.sum)} ₴ · ${m.term} дн.</div>
-        <div class="top3-mini-badges">${badgesHTML(m)}</div>
-        <a class="top3-mini-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Подати заявку →</a>
+        <div class="top3-row-bottom">
+          <ul class="top3-row-perks">${perksHTML(m)}</ul>
+          <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Перейти</a>
+        </div>
       </div>`;
+    };
 
     // ТОП-3 — з-поміж найновіших брендів на майданчику (MFO_SENIORITY, вище = новіші)
     // випадково обираємо 3, щоб набір не був однаковим у кожного відвідувача
@@ -901,16 +986,16 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
     const recThree = pickRandom(epcSorted, 3);
 
     document.getElementById('top3-list-top').innerHTML =
-      topThree.map((m, i) => miniCardHTML(m, i + 1)).join('');
+      topThree.map((m, i) => rowCardHTML(m, i + 1)).join('');
 
-    const recCol = document.getElementById('top3-col-rec');
+    const recSection = document.getElementById('top3-section-rec');
     if (recThree.length > 0) {
       document.getElementById('top3-list-rec').innerHTML =
-        recThree.map((m, i) => miniCardHTML(m, i + 1)).join('');
-      recCol.style.display = '';
+        recThree.map((m, i) => rowCardHTML(m, i + 1)).join('');
+      recSection.style.display = '';
     } else {
-      // якщо пропозицій менше 6 — ховаємо другу колонку, а не залишаємо порожньою
-      recCol.style.display = 'none';
+      // якщо пропозицій менше 6 — ховаємо секцію рекомендацій, а не залишаємо порожньою
+      recSection.style.display = 'none';
     }
 
     openModal();
