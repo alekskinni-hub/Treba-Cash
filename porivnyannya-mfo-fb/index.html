@@ -483,7 +483,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 /* усі картки (1, 2 і 3 місце) тепер ОДНАКОВОГО розміру —
    розмір більше не залежить від рангу, різниться лише медаль */
 .top3-row{
-  padding:13px 13px 13px 9px;border-width:2.5px;border-color:rgba(46,204,113,.55);
+  padding:13px 13px 13px 5px;border-width:2.5px;border-color:rgba(46,204,113,.55);
   box-shadow:0 10px 26px rgba(39,174,96,.22);
   background:linear-gradient(120deg,rgba(46,204,113,.08),var(--white,#fff) 60%);
 }
@@ -493,10 +493,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 
 /* --- ранг у вигляді медальної емодзі, закріплений у верхньому лівому куті картки --- */
 .top3-row-rank{
-  position:absolute;top:-10px;left:-8px;z-index:3;
+  position:absolute;top:-12px;left:-10px;z-index:3;
   display:flex;align-items:center;justify-content:center;
   line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.28));
-  font-size:32px;
+  font-size:40px;
 }
 
 /* --- лого: широка прямокутна плашка під реальний брендовий
@@ -504,7 +504,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
        однаковий розмір для всіх трьох місць --- */
 .top3-row-logo{
   border-radius:10px;object-fit:contain;flex:0 0 auto;
-  width:132px;height:56px;font-size:16px;
+  width:150px;height:64px;font-size:16px;
 }
 /* фолбек (кольоровий блок з ініціалами, якщо картинки лого нема) —
    лишаємо квадратним і з кольоровим фоном, щоб ініціали читались */
@@ -514,8 +514,8 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
   width:56px;height:56px;font-size:20px;border-radius:14px;
 }
 
-/* назва + сума/строки — вирівняні до ЛІВОЇ сторони картки, поруч з лого */
-.top3-row-headtext{flex:1;min-width:0;text-align:left;}
+/* назва + сума/строки — вирівняні до ПРАВОЇ сторони картки (як і кнопка нижче) */
+.top3-row-headtext{flex:1;min-width:0;text-align:right;}
 .top3-row-name{
   font-weight:800;color:var(--text,#1a2421);line-height:1.25;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
@@ -596,11 +596,11 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
 @media (max-width:420px){
   .top3-modal{padding:20px 12px 0;}
   .top3-title{font-size:18px;}
-  .top3-row{padding-left:7px;}
-  .top3-row-rank{top:-8px;left:-6px;font-size:26px;}
+  .top3-row{padding-left:3px;}
+  .top3-row-rank{top:-9px;left:-7px;font-size:32px;}
   .top3-row-head{gap:8px;}
   .top3-row-bottom{gap:6px;}
-  .top3-row-logo{width:104px;height:46px;}
+  .top3-row-logo{width:116px;height:52px;}
   .top3-logo-fallback.top3-row-logo{width:48px;height:48px;}
   .top3-row-cta{padding:10px 9px;font-size:11.5px;min-width:74px;}
   .top3-sticky-footer{margin:8px -12px 0;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));}
