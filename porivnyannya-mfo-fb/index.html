@@ -788,7 +788,7 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
         </div>
         <div class="top3-row-bottom">
           <ul class="top3-row-perks">${perksHTML(m)}</ul>
-          <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="localStorage.setItem('mfoOfferClicked','1');if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Подати заявку 👉</a>
+          <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="sessionStorage.setItem('mfoOfferClickedSession','1');if(typeof fbq==='function'){fbq('trackCustom','go_to_offer',{mfo:'${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}',source:'popup'});}">Подати заявку 👉</a>
         </div>
       </div>`;
     };
@@ -1888,10 +1888,10 @@ if (requisitesGrid) {
   const overlay = document.getElementById('mgr-overlay');
   if (!overlay) return;
 
-  const SHOWN_KEY = 'exit_popup_shown';       // localStorage, як у ТЗ
-  const SESSION_SHOWN_KEY = 'mgrPopupShownSession';
+  const SHOWN_KEY = 'exit_popup_shown';       // localStorage-прапорець (як зазначено в ТЗ) — пишемо для сумісності/аналітики
+  const SESSION_SHOWN_KEY = 'mgrPopupShownSession'; // sessionStorage — реальний "не більше 1 разу за сесію"
   const SUBMITTED_KEY = 'mgrPopupSubmitted';
-  const OFFER_CLICK_KEY = 'mfoOfferClicked';  // спільний прапорець "клікнув по будь-якому офферу"
+  const OFFER_CLICK_KEY = 'mfoOfferClickedSession';  // sessionStorage: "клікнув по будь-якому офферу" — теж у межах сесії
 
   // === Використовуємо ту саму логіку відправки в Google Sheets, що й бічний віджет ===
   const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyS_V0Dmk5tnKnqd3SzhECUlu654Fc_koinJ4kkPkCNucNQ6Pf5fCbH2Yz35fVfuLj9/exec';
@@ -1908,19 +1908,19 @@ if (requisitesGrid) {
     return (top3 && top3.classList.contains('is-open')) || overlay.classList.contains('is-open');
   }
 
-  // Якщо вже показували попап цього сеансу/раніше, або людина вже клікнула
-  // офер чи відправила будь-яку форму на сайті — більше НЕ показуємо.
+  // Показ обмежений поточною сесією (sessionStorage) — новий візит/нова вкладка
+  // означає новий шанс побачити попап. Якщо людина вже клікнула офер чи
+  // відправила будь-яку форму в межах цієї сесії — більше НЕ показуємо.
   function alreadySuppressed() {
-    return localStorage.getItem(SHOWN_KEY) === 'true'
-      || sessionStorage.getItem(SESSION_SHOWN_KEY) === '1'
+    return sessionStorage.getItem(SESSION_SHOWN_KEY) === '1'
       || sessionStorage.getItem(SUBMITTED_KEY) === '1'
-      || localStorage.getItem(OFFER_CLICK_KEY) === '1';
+      || sessionStorage.getItem(OFFER_CLICK_KEY) === '1';
   }
 
   // Позначаємо клік по будь-якому офферу на сторінці (сітка МФО, ТОП-3 попап)
   document.addEventListener('click', (e) => {
     if (e.target.closest('a.btn-primary, a.top3-row-cta')) {
-      localStorage.setItem(OFFER_CLICK_KEY, '1');
+      sessionStorage.setItem(OFFER_CLICK_KEY, '1');
     }
   });
 
@@ -1943,7 +1943,7 @@ if (requisitesGrid) {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('is-open')) closePopup(); });
 
   document.getElementById('mgr-tg-btn').addEventListener('click', () => {
-    localStorage.setItem(OFFER_CLICK_KEY, '1');
+    sessionStorage.setItem(OFFER_CLICK_KEY, '1');
     if (typeof fbq === 'function') fbq('trackCustom', 'exit_popup_tg_click');
   });
 
@@ -1955,10 +1955,8 @@ if (requisitesGrid) {
         if (e.clientY <= 0) openPopup();
       });
     } else {
-      // Mobile: таймер 15–20с на екрані результатів, якщо не клікнули жодної картки
-      setTimeout(() => {
-        if (localStorage.getItem(OFFER_CLICK_KEY) !== '1') openPopup();
-      }, 17000);
+      // Mobile: простий таймер — випливає через 15с після завантаження сторінки
+      setTimeout(openPopup, 15000);
 
       // Mobile: спроба повернення назад
       try {
