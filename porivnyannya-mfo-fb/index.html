@@ -1953,15 +1953,16 @@ if (requisitesGrid) {
 
   // === Тригери показу ===
   if (!alreadySuppressed()) {
+    // Універсальний таймер: з'являється через 17с після завантаження сторінки
+    // (працює однаково на десктопі й мобільних, незалежно від інших тригерів нижче)
+    setTimeout(openPopup, 17000);
+
     if (!isMobile()) {
       // Desktop: курсор виходить за верхню межу вікна
       document.addEventListener('mouseleave', (e) => {
         if (e.clientY <= 0) openPopup();
       });
     } else {
-      // Mobile: простий таймер — випливає через 15с після завантаження сторінки
-      setTimeout(openPopup, 15000);
-
       // Mobile: спроба повернення назад
       try {
         history.pushState(null, '', window.location.href);
