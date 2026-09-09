@@ -468,6 +468,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
      [ Переваги (булети)  | Кнопка ]         <- top3-row-bottom
    ==================================================================== */
 .top3-row{
+  position:relative;
   display:flex;flex-direction:column;
   border:2px solid rgba(39,174,96,0.28);
   border-radius:16px;
@@ -475,26 +476,27 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   box-shadow:0 6px 16px rgba(39,174,96,0.12);
   animation:top3-rise .4s cubic-bezier(.2,.8,.3,1) backwards;
   transition:box-shadow .2s, transform .2s;
-  overflow:hidden;
+  overflow:visible;
 }
 .top3-row:hover{box-shadow:0 10px 24px rgba(39,174,96,.2);transform:translateY(-1px);}
 
 /* усі картки (1, 2 і 3 місце) тепер ОДНАКОВОГО розміру —
    розмір більше не залежить від рангу, різниться лише медаль */
 .top3-row{
-  padding:13px;border-width:2.5px;border-color:rgba(46,204,113,.55);
+  padding:13px 13px 13px 9px;border-width:2.5px;border-color:rgba(46,204,113,.55);
   box-shadow:0 10px 26px rgba(39,174,96,.22);
   background:linear-gradient(120deg,rgba(46,204,113,.08),var(--white,#fff) 60%);
 }
 
-/* --- верхній рядок: медаль + лого (ліворуч) + назва/сума (праворуч) --- */
+/* --- верхній рядок: лого + назва/сума, обидва вирівняні ліворуч --- */
 .top3-row-head{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
 
-/* --- ранг у вигляді збільшеної медальної емодзі замість цифри, завжди ліворуч --- */
+/* --- ранг у вигляді медальної емодзі, закріплений у верхньому лівому куті картки --- */
 .top3-row-rank{
-  flex:0 0 auto;display:flex;align-items:center;justify-content:center;
-  line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.22));
-  font-size:34px;
+  position:absolute;top:-10px;left:-8px;z-index:3;
+  display:flex;align-items:center;justify-content:center;
+  line-height:1;filter:drop-shadow(0 2px 4px rgba(0,0,0,.28));
+  font-size:32px;
 }
 
 /* --- лого: широка прямокутна плашка під реальний брендовий
@@ -512,8 +514,8 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
   width:56px;height:56px;font-size:20px;border-radius:14px;
 }
 
-/* назва + сума/строки — вирівняні до ПРАВОЇ сторони картки */
-.top3-row-headtext{flex:1;min-width:0;text-align:right;}
+/* назва + сума/строки — вирівняні до ЛІВОЇ сторони картки, поруч з лого */
+.top3-row-headtext{flex:1;min-width:0;text-align:left;}
 .top3-row-name{
   font-weight:800;color:var(--text,#1a2421);line-height:1.25;
   overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
@@ -594,6 +596,8 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
 @media (max-width:420px){
   .top3-modal{padding:20px 12px 0;}
   .top3-title{font-size:18px;}
+  .top3-row{padding-left:7px;}
+  .top3-row-rank{top:-8px;left:-6px;font-size:26px;}
   .top3-row-head{gap:8px;}
   .top3-row-bottom{gap:6px;}
   .top3-row-logo{width:104px;height:46px;}
@@ -778,8 +782,8 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
     const rowCardHTML = (m, rank) => {
       return `
       <div class="top3-row">
+        <span class="top3-row-rank">${MEDALS[rank] || rank}</span>
         <div class="top3-row-head">
-          <span class="top3-row-rank">${MEDALS[rank] || rank}</span>
           ${logoHTML(m, 'top3-row-logo')}
           <div class="top3-row-headtext">
             <div class="top3-row-name">${m.name}</div>
