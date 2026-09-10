@@ -395,7 +395,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
   border-radius:var(--radius,24px);
   max-width:460px;width:100%;
   max-height:92vh;overflow-y:auto;overflow-x:hidden;
-  padding:24px 18px 0;
+  padding:38px 18px 0;
   position:relative;
   box-shadow:0 30px 80px rgba(0,0,0,0.35);
   transform:translateY(30px) scale(.92);
@@ -427,7 +427,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 }
 
 /* ---- header ---- */
-.top3-header{position:relative;z-index:2;text-align:center;margin-bottom:16px;}
+.top3-header{position:relative;z-index:2;text-align:center;margin-bottom:16px;padding:0 20px;}
 .top3-title{
   font-size:21px;font-weight:900;color:var(--text,#1a2421);
   margin:0 0 8px;line-height:1.3;
@@ -533,36 +533,41 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
   display:flex;flex-wrap:wrap;gap:5px;text-align:left;
 }
 .top3-row-perks li{
-  display:inline-flex;align-items:center;
-  font-style:normal;font-weight:800;line-height:1.3;
-  font-size:10.5px;padding:4px 9px;border-radius:999px;
-  white-space:nowrap;max-width:100%;
-  background:rgba(39,174,96,0.1);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-style:normal;font-weight:850;line-height:1.25;
+  font-size:10.5px;padding:5px 9px;border-radius:999px;
+  white-space:normal;overflow-wrap:anywhere;
+  max-width:100%;min-width:0;box-sizing:border-box;
+  border:1px solid rgba(39,174,96,.22);
+  background:#e9f8ef;color:#176b3a;
+  box-shadow:0 2px 7px rgba(39,174,96,.10);
 }
 
-.top3-row-perks li.nbu{color:var(--green-dark,#1e8449);background:rgba(39,174,96,0.1);}
-.top3-row-perks li.color-green{color:var(--green-dark,#1e8449);background:rgba(39,174,96,0.1);}
-.top3-row-perks li.color-blue{color:#2471a3;background:rgba(41,128,185,0.1);}
-.top3-row-perks li.color-purple{color:#7d3c98;background:rgba(125,60,152,0.1);}
-.top3-row-perks li.color-teal{color:#117a65;background:rgba(17,122,101,0.1);}
-.top3-row-perks li.color-new{color:#219150;background:rgba(33,145,80,0.12);}
-.top3-row-perks li.color-gold{color:#a9760a;font-weight:900;background:rgba(245,185,66,0.2);}
+.top3-row-perks li.nbu{color:#176b3a;background:#e9f8ef;border-color:#b8e8ca;}
+.top3-row-perks li.color-green{color:#176b3a;background:#e9f8ef;border-color:#b8e8ca;}
+.top3-row-perks li.color-blue{color:#1f5f8f;background:#e8f3fb;border-color:#b9d9ee;}
+.top3-row-perks li.color-purple{color:#6b3283;background:#f3eafb;border-color:#d8bfea;}
+.top3-row-perks li.color-teal{color:#0d6958;background:#e6f7f3;border-color:#b5e2d7;}
+.top3-row-perks li.color-new{color:#176b3a;background:#e5f8eb;border-color:#b2e8c5;}
+.top3-row-perks li.color-gold{color:#855c00;font-weight:900;background:#fff4d6;border-color:#f2d58a;box-shadow:0 2px 8px rgba(245,185,66,.16);}
 
-/* --- прямокутна (не пігулка) жирна кнопка, з пульсацією, завжди праворуч --- */
+/* --- на всю ширину картки, зелена, жирний білий текст, з пульсацією --- */
 .top3-row-cta{
-  flex:0 0 auto;text-align:center;text-decoration:none;white-space:nowrap;
-  background:linear-gradient(135deg,var(--orange,#ff7a1a),var(--orange-light,#ff9a4d));
-  color:#fff;font-weight:900;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;gap:6px;width:100%;
+  text-align:center;text-decoration:none;white-space:nowrap;
+  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
+  color:#fff;font-weight:900;border-radius:10px;
   animation:top3-cta-pulse 1.8s ease-in-out infinite;
   transition:transform .15s;
-  padding:12px 13px;font-size:12.5px;min-width:86px;
+  padding:13px 13px;font-size:13.5px;box-sizing:border-box;
 }
-.top3-row-cta:hover{animation-play-state:paused;transform:scale(1.05);}
-.top3-row-cta-wrap{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.top3-row-cta:hover{animation-play-state:paused;transform:scale(1.03);}
+.top3-row-cta .top3-cta-emoji{font-size:18px;line-height:1;}
+.top3-row-cta-wrap{width:100%;display:flex;flex-direction:column;align-items:center;gap:4px;}
 .top3-row-cta-note{font-size:9.5px;font-weight:700;color:var(--text-muted,#5a6b64);white-space:nowrap;}
 @keyframes top3-cta-pulse{
-  0%,100%{transform:scale(1);box-shadow:0 3px 10px rgba(255,122,26,.32);}
-  50%{transform:scale(1.04);box-shadow:0 6px 16px rgba(255,122,26,.5);}
+  0%,100%{transform:scale(1);box-shadow:0 3px 10px rgba(39,174,96,.32);}
+  50%{transform:scale(1.04);box-shadow:0 6px 16px rgba(39,174,96,.5);}
 }
 
 /* ---- порада експерта ---- */
@@ -604,15 +609,17 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
 }
 
 @media (max-width:420px){
-  .top3-modal{padding:20px 12px 0;}
-  .top3-title{font-size:18px;}
+  .top3-modal{padding:34px 12px 0;}
+  .top3-header{padding:0 26px;}
+  .top3-title{font-size:17.5px;}
   .top3-row{padding-left:7px;}
   .top3-row-rank{top:-9px;left:-7px;font-size:32px;}
   .top3-row-head{gap:8px;}
   .top3-row-bottom{gap:6px;}
   .top3-row-logo{width:104px;height:46px;}
   .top3-logo-fallback.top3-row-logo{width:48px;height:48px;}
-  .top3-row-cta{padding:10px 9px;font-size:11.5px;min-width:74px;}
+  .top3-row-cta{padding:11px 9px;font-size:12.5px;}
+  .top3-row-cta .top3-cta-emoji{font-size:16px;}
   .top3-sticky-footer{margin:8px -12px 0;padding:12px 12px calc(12px + env(safe-area-inset-bottom,0px));}
 }
 </style>
@@ -622,8 +629,8 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
     <div class="top3-confetti" id="top3-confetti"></div>
     <button class="top3-close" id="top3-close" aria-label="Закрити">✕</button>
     <div class="top3-header">
-      <h2 class="top3-title" id="top3-title">🚀 3 варіанти під ваш запит</h2>
-      <p class="top3-subtitle" id="top3-subtitle">Підбираємо під ваш запит…</p>
+      <h2 class="top3-title" id="top3-title">🚀 Підбираємо 3 варіанти під ваш запит…</h2>
+      <p class="top3-subtitle" id="top3-subtitle">Перевіряємо актуальні умови…</p>
     </div>
 
     <p class="top3-expert-tip"><b><i>Порада експерта: заповніть заявку хоча б в одній компанії зараз — рішення часто приходить за кілька хвилин, і це нічого не коштує.</i></b></p>
@@ -793,8 +800,11 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
     if (pool.length === 0) pool = offers.slice();
     if (pool.length === 0) return;
 
+    document.getElementById('top3-title').textContent =
+      `🚀 Ось 3 варіанти під ваш запит: ${fmt(querySum)} ₴ на ${queryTerm} дн.`;
+
     document.getElementById('top3-subtitle').innerHTML =
-      `Надішліть заявку в 2–3 компанії одночасно для запиту <b>${fmt(querySum)} ₴ / ${queryTerm} дн.</b>, щоб зафіксувати першу позику під 0,1% та отримати рішення за 3 хвилини.`;
+      `Оберіть найбільш підходящу пропозицію та подайте заявку онлайн за кілька хвилин.`;
 
     // Соціальний доказ: реалістичне, стабільне в межах сесії число
     // (щоб не миготіло новим значенням при кожному відкритті попапу)
@@ -839,7 +849,7 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
         <div class="top3-row-bottom">
           <ul class="top3-row-perks">${perksHTML(m)}</ul>
           <div class="top3-row-cta-wrap">
-            <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="sessionStorage.setItem('mfoOfferClickedSession','1');if(typeof fbq==='function'){var mfoName='${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}';fbq('trackCustom','go_to_offer',{mfo:mfoName,source:'popup'});fbq('track','Lead',{content_name:mfoName,source:'popup'});}">Подати заявку 👉</a>
+            <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="sessionStorage.setItem('mfoOfferClickedSession','1');if(typeof fbq==='function'){var mfoName='${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}';fbq('trackCustom','go_to_offer',{mfo:mfoName,source:'popup'});fbq('track','Lead',{content_name:mfoName,source:'popup'});}">Подати заявку <span class="top3-cta-emoji">👉</span></a>
             <span class="top3-row-cta-note">~3 хв, без довідок</span>
           </div>
         </div>
