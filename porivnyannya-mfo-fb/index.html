@@ -533,30 +533,23 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
   display:flex;flex-wrap:wrap;gap:5px;text-align:left;
 }
 .top3-row-perks li{
-  display:inline-flex;align-items:center;
-  font-style:normal;font-weight:800;line-height:1.3;
-  font-size:10.5px;padding:4px 9px;border-radius:999px;
-  white-space:nowrap;max-width:100%;
-  background:#e8f8ee;
-  border:1px solid #35b968;
-  color:#176b3a;
-  box-shadow:0 2px 7px rgba(39,174,96,.16);
-  box-sizing:border-box;
-  overflow:hidden;text-overflow:ellipsis;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-style:normal;font-weight:850;line-height:1.25;
+  font-size:10.5px;padding:5px 9px;border-radius:999px;
+  white-space:normal;overflow-wrap:anywhere;word-break:break-word;
+  max-width:100%;min-width:0;box-sizing:border-box;
+  border:1px solid transparent;
+  background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));color:#fff;
+  box-shadow:0 3px 9px rgba(39,174,96,.28);
 }
 
-.top3-row-perks li.nbu{color:#176b3a;background:#e8f8ee;border-color:#35b968;}
-.top3-row-perks li.color-green{color:#176b3a;background:#e8f8ee;border-color:#35b968;}
-.top3-row-perks li.color-blue{color:#155b85;background:#e6f3fb;border-color:#3498db;}
-.top3-row-perks li.color-purple{color:#65317d;background:#f3eafa;border-color:#9b59b6;}
-.top3-row-perks li.color-teal{color:#0d6655;background:#e4f7f3;border-color:#1abc9c;}
-.top3-row-perks li.color-new{color:#176b3a;background:#dcf7e6;border-color:#2ecc71;}
-.top3-row-perks li.color-gold{color:#704c00;font-weight:900;background:#fff3cf;border-color:#f5b942;box-shadow:0 2px 8px rgba(245,185,66,.24);}
-
-@media (max-width:600px){
-  .top3-row-perks{gap:5px;min-width:0;max-width:100%;}
-  .top3-row-perks li{font-size:9.5px;padding:4px 7px;max-width:100%;}
-}
+.top3-row-perks li.nbu{color:#fff;background:linear-gradient(120deg,#16a085,#1abc9c);box-shadow:0 3px 9px rgba(22,160,133,.28);}
+.top3-row-perks li.color-green{color:#fff;background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));box-shadow:0 3px 9px rgba(39,174,96,.28);}
+.top3-row-perks li.color-blue{color:#fff;background:linear-gradient(120deg,#2980b9,#3498db);box-shadow:0 3px 9px rgba(52,152,219,.28);}
+.top3-row-perks li.color-purple{color:#fff;background:linear-gradient(120deg,#8e44ad,#a569bd);box-shadow:0 3px 9px rgba(142,68,173,.26);}
+.top3-row-perks li.color-teal{color:#fff;background:linear-gradient(120deg,#16a085,#1abc9c);box-shadow:0 3px 9px rgba(22,160,133,.28);}
+.top3-row-perks li.color-new{color:#0d3d1f;background:linear-gradient(120deg,#2ecc71,#7ed957);box-shadow:0 3px 9px rgba(46,204,113,.32);}
+.top3-row-perks li.color-gold{color:#5c3d00;font-weight:900;background:linear-gradient(120deg,var(--gold,#f5b942),#ffcf6e);border-color:transparent;box-shadow:0 3px 10px rgba(245,185,66,.4);}
 
 /* --- на всю ширину картки, зелена, жирний білий текст, з пульсацією --- */
 .top3-row-cta{
@@ -811,7 +804,7 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
       `🚀 Ось 3 варіанти під ваш запит: ${fmt(querySum)} ₴ на ${queryTerm} дн.`;
 
     document.getElementById('top3-subtitle').innerHTML =
-      `Дані по кожній МФО перевірені та оновлюються щодня — <b>ліцензія НБУ</b> обов'язкова для кожної пропозиції нижче.`;
+      `Оберіть найбільш підходящу пропозицію та подайте заявку онлайн за кілька хвилин.`;
 
     // Соціальний доказ: реалістичне, стабільне в межах сесії число
     // (щоб не миготіло новим значенням при кожному відкритті попапу)
@@ -827,16 +820,19 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
     // Переваги — простий булет-список (вирівняний вліво), без плашок-пігулок,
     // щоб нічого не наїжджало одне на одне на вузьких екранах.
     const perksHTML = (m) => {
-      let html = '<li class="nbu">Ліцензія НБУ</li>';
+      // Пріоритетні переваги — завжди першими: "Новий сервіс" і "Перша позика під 0.01%"
+      let html = '';
       if (isNewOffer(m)) {
         html += '<li class="color-new">🆕 Новий сервіс!</li>';
-      }
-      if (m.badge) {
-        html += `<li class="color-${m.badgeColor || 'green'}">✨ ${m.badge}</li>`;
       }
       if (m.hasZeroBadge) {
         html += `<li class="color-gold">🔥 ${m.goldBadgeText || 'Перша позика під 0.01%*'}</li>`;
       }
+      // Решта переваг — після пріоритетних
+      if (m.badge) {
+        html += `<li class="color-${m.badgeColor || 'green'}">✨ ${m.badge}</li>`;
+      }
+      html += '<li class="nbu">Ліцензія НБУ</li>';
       return html;
     };
 
