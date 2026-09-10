@@ -1445,6 +1445,35 @@ resetFilterBtn?.addEventListener('click', () => {
   resetFilterBtn.style.display = 'none';
 });
 
+/* ====== ANCHOR-ПОСИЛАННЯ ДЛЯ СОРТУВАНЬ/ФІЛЬТРІВ ====== */
+const SORT_TO_HASH = {
+  'sum-desc': 'sum',
+  'rate-asc': 'rate',
+  'date-new': 'trust-new',
+  'date-old': 'trust-old',
+  'cr-desc': 'recommendations',
+  'epc-desc': 'top',
+};
+const HASH_TO_SORT = {
+  'sum': 'sum-desc',
+  'rate': 'rate-asc',
+  'trust-new': 'date-new',
+  'trust-old': 'date-old',
+  'recommendations': 'cr-desc',
+  'top': 'epc-desc',
+};
+function updateUrlHash() {
+  let hash = '';
+  if (state.onlyPromo) {
+    hash = 'promo';
+  } else if (SORT_TO_HASH[state.sort]) {
+    hash = SORT_TO_HASH[state.sort];
+  }
+  const base = window.location.pathname + window.location.search;
+  const newUrl = hash ? (base + '#' + hash) : base;
+  history.replaceState(null, '', newUrl);
+}
+
 /* ====== SORT BUTTONS ====== */
 document.querySelectorAll('.sort-btn[data-sort]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1452,6 +1481,7 @@ document.querySelectorAll('.sort-btn[data-sort]').forEach(btn => {
     btn.classList.add('active');
     state.sort = btn.dataset.sort;
     state.visible = BATCH;
+    updateUrlHash();
     renderGrid();
   });
 });
@@ -1461,8 +1491,23 @@ const promoCheckbox = document.getElementById('promo-filter-checkbox');
 promoCheckbox?.addEventListener('change', () => {
   state.onlyPromo = promoCheckbox.checked;
   state.visible = BATCH;
+  updateUrlHash();
   renderGrid();
 });
+
+/* ====== ЗАСТОСУВАННЯ СТАНУ З ANCHOR-ПОСИЛАННЯ ПРИ ЗАВАНТАЖЕННІ ====== */
+(function applyHashOnLoad() {
+  const hash = window.location.hash.replace('#', '');
+  if (hash === 'promo') {
+    state.onlyPromo = true;
+    if (promoCheckbox) promoCheckbox.checked = true;
+  } else if (HASH_TO_SORT[hash]) {
+    state.sort = HASH_TO_SORT[hash];
+    document.querySelectorAll('.sort-btn[data-sort]').forEach(b => {
+      b.classList.toggle('active', b.dataset.sort === state.sort);
+    });
+  }
+})();
 
 /* ====== SORTING LOGIC ====== */
 function sortData(data) {
