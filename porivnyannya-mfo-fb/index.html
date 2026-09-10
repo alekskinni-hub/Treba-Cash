@@ -533,23 +533,30 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
   display:flex;flex-wrap:wrap;gap:5px;text-align:left;
 }
 .top3-row-perks li{
-  display:inline-flex;align-items:center;justify-content:center;
-  font-style:normal;font-weight:850;line-height:1.25;
-  font-size:10.5px;padding:5px 9px;border-radius:999px;
-  white-space:normal;overflow-wrap:anywhere;
-  max-width:100%;min-width:0;box-sizing:border-box;
-  border:1px solid rgba(39,174,96,.22);
-  background:#e9f8ef;color:#176b3a;
-  box-shadow:0 2px 7px rgba(39,174,96,.10);
+  display:inline-flex;align-items:center;
+  font-style:normal;font-weight:800;line-height:1.3;
+  font-size:10.5px;padding:4px 9px;border-radius:999px;
+  white-space:nowrap;max-width:100%;
+  background:#e8f8ee;
+  border:1px solid #35b968;
+  color:#176b3a;
+  box-shadow:0 2px 7px rgba(39,174,96,.16);
+  box-sizing:border-box;
+  overflow:hidden;text-overflow:ellipsis;
 }
 
-.top3-row-perks li.nbu{color:#176b3a;background:#e9f8ef;border-color:#b8e8ca;}
-.top3-row-perks li.color-green{color:#176b3a;background:#e9f8ef;border-color:#b8e8ca;}
-.top3-row-perks li.color-blue{color:#1f5f8f;background:#e8f3fb;border-color:#b9d9ee;}
-.top3-row-perks li.color-purple{color:#6b3283;background:#f3eafb;border-color:#d8bfea;}
-.top3-row-perks li.color-teal{color:#0d6958;background:#e6f7f3;border-color:#b5e2d7;}
-.top3-row-perks li.color-new{color:#176b3a;background:#e5f8eb;border-color:#b2e8c5;}
-.top3-row-perks li.color-gold{color:#855c00;font-weight:900;background:#fff4d6;border-color:#f2d58a;box-shadow:0 2px 8px rgba(245,185,66,.16);}
+.top3-row-perks li.nbu{color:#176b3a;background:#e8f8ee;border-color:#35b968;}
+.top3-row-perks li.color-green{color:#176b3a;background:#e8f8ee;border-color:#35b968;}
+.top3-row-perks li.color-blue{color:#155b85;background:#e6f3fb;border-color:#3498db;}
+.top3-row-perks li.color-purple{color:#65317d;background:#f3eafa;border-color:#9b59b6;}
+.top3-row-perks li.color-teal{color:#0d6655;background:#e4f7f3;border-color:#1abc9c;}
+.top3-row-perks li.color-new{color:#176b3a;background:#dcf7e6;border-color:#2ecc71;}
+.top3-row-perks li.color-gold{color:#704c00;font-weight:900;background:#fff3cf;border-color:#f5b942;box-shadow:0 2px 8px rgba(245,185,66,.24);}
+
+@media (max-width:600px){
+  .top3-row-perks{gap:5px;min-width:0;max-width:100%;}
+  .top3-row-perks li{font-size:9.5px;padding:4px 7px;max-width:100%;}
+}
 
 /* --- на всю ширину картки, зелена, жирний білий текст, з пульсацією --- */
 .top3-row-cta{
@@ -804,7 +811,7 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
       `🚀 Ось 3 варіанти під ваш запит: ${fmt(querySum)} ₴ на ${queryTerm} дн.`;
 
     document.getElementById('top3-subtitle').innerHTML =
-      `Оберіть найбільш підходящу пропозицію та подайте заявку онлайн за кілька хвилин.`;
+      `Дані по кожній МФО перевірені та оновлюються щодня — <b>ліцензія НБУ</b> обов'язкова для кожної пропозиції нижче.`;
 
     // Соціальний доказ: реалістичне, стабільне в межах сесії число
     // (щоб не миготіло новим значенням при кожному відкритті попапу)
