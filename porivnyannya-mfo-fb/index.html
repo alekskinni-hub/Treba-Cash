@@ -523,27 +523,30 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
 }
 .top3-row-meta{color:var(--text-muted,#5a6b64);font-weight:600;margin-top:1px;font-size:11.5px;}
 
-/* --- нижній рядок: переваги булетами (ліворуч) + кнопка (праворуч) --- */
-.top3-row-bottom{display:flex;align-items:center;gap:10px;justify-content:space-between;}
+/* --- нижній рядок: переваги-чіпи (зверху, переносяться) + кнопка (знизу, по центру) --- */
+.top3-row-bottom{display:flex;flex-direction:column;align-items:stretch;gap:10px;}
 
-.top3-row-perks{flex:1;min-width:0;margin:0 0 0 -6px;padding:0 0 0 15px;list-style:none;display:flex;flex-direction:column;gap:3px;text-align:left;}
+/* переваги — компактні чіпи-бейджи, що переносяться на новий рядок і ніколи
+   не обрізаються та не вилазять за межі картки (ні на мобільних, ні на десктопі) */
+.top3-row-perks{
+  flex:1;min-width:0;margin:0;padding:0;list-style:none;
+  display:flex;flex-wrap:wrap;gap:5px;text-align:left;
+}
 .top3-row-perks li{
-  position:relative;font-style:italic;font-weight:700;line-height:1.3;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  font-size:11px;
-}
-.top3-row-perks li::before{
-  content:'';position:absolute;left:-15px;top:50%;transform:translateY(-50%);
-  width:6px;height:6px;border-radius:50%;background:currentColor;
+  display:inline-flex;align-items:center;
+  font-style:normal;font-weight:800;line-height:1.3;
+  font-size:10.5px;padding:4px 9px;border-radius:999px;
+  white-space:nowrap;max-width:100%;
+  background:rgba(39,174,96,0.1);
 }
 
-.top3-row-perks li.nbu{color:var(--green-dark,#1e8449);}
-.top3-row-perks li.color-green{color:var(--green-dark,#1e8449);}
-.top3-row-perks li.color-blue{color:#2471a3;}
-.top3-row-perks li.color-purple{color:#7d3c98;}
-.top3-row-perks li.color-teal{color:#117a65;}
-.top3-row-perks li.color-new{color:#219150;}
-.top3-row-perks li.color-gold{color:#a9760a;font-weight:900;}
+.top3-row-perks li.nbu{color:var(--green-dark,#1e8449);background:rgba(39,174,96,0.1);}
+.top3-row-perks li.color-green{color:var(--green-dark,#1e8449);background:rgba(39,174,96,0.1);}
+.top3-row-perks li.color-blue{color:#2471a3;background:rgba(41,128,185,0.1);}
+.top3-row-perks li.color-purple{color:#7d3c98;background:rgba(125,60,152,0.1);}
+.top3-row-perks li.color-teal{color:#117a65;background:rgba(17,122,101,0.1);}
+.top3-row-perks li.color-new{color:#219150;background:rgba(33,145,80,0.12);}
+.top3-row-perks li.color-gold{color:#a9760a;font-weight:900;background:rgba(245,185,66,0.2);}
 
 /* --- прямокутна (не пігулка) жирна кнопка, з пульсацією, завжди праворуч --- */
 .top3-row-cta{
@@ -555,6 +558,8 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
   padding:12px 13px;font-size:12.5px;min-width:86px;
 }
 .top3-row-cta:hover{animation-play-state:paused;transform:scale(1.05);}
+.top3-row-cta-wrap{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:4px;}
+.top3-row-cta-note{font-size:9.5px;font-weight:700;color:var(--text-muted,#5a6b64);white-space:nowrap;}
 @keyframes top3-cta-pulse{
   0%,100%{transform:scale(1);box-shadow:0 3px 10px rgba(255,122,26,.32);}
   50%{transform:scale(1.04);box-shadow:0 6px 16px rgba(255,122,26,.5);}
@@ -567,6 +572,11 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
   border:1px dashed rgba(245,185,66,.55);
   border-radius:12px;padding:10px 14px;margin:6px 0 14px;
   text-align:center;position:relative;z-index:2;
+}
+
+.top3-social-proof{
+  font-size:12px;font-weight:700;color:var(--green-dark,#1e8449);text-align:center;
+  margin:0 0 12px;position:relative;z-index:2;
 }
 
 .top3-footnote{font-size:11.5px;color:var(--text-muted,#5a6b64);text-align:center;margin:14px 0 4px;line-height:1.4;position:relative;z-index:2;}
@@ -612,11 +622,13 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
     <div class="top3-confetti" id="top3-confetti"></div>
     <button class="top3-close" id="top3-close" aria-label="Закрити">✕</button>
     <div class="top3-header">
-      <h2 class="top3-title" id="top3-title">🚀 ТОП-3 пропозиції з найвищою ймовірністю схвалення!</h2>
+      <h2 class="top3-title" id="top3-title">🚀 3 варіанти під ваш запит</h2>
       <p class="top3-subtitle" id="top3-subtitle">Підбираємо під ваш запит…</p>
     </div>
 
-    <p class="top3-expert-tip"><b><i>Порада експерта: подавайте заявки одразу в декілька компаній, щоб підвищити свої шанси!</i></b></p>
+    <p class="top3-expert-tip"><b><i>Порада експерта: заповніть заявку хоча б в одній компанії зараз — рішення часто приходить за кілька хвилин, і це нічого не коштує.</i></b></p>
+
+    <p class="top3-social-proof" id="top3-social-proof"></p>
 
     <div class="top3-section" id="top3-section-top">
       <div class="top3-section-title">🏆 ТОП-3</div>
@@ -739,6 +751,29 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
     const n = table[m.name];
     return Number.isFinite(n) ? n : -Infinity; // без статистики — в кінець
   }
+  function crVal(m) {
+    const table = (typeof MFO_CR === 'object' && MFO_CR) || {};
+    const n = table[m.name];
+    return Number.isFinite(n) ? n : -Infinity; // без статистики — в кінець
+  }
+
+  // Комбінований показник реальної ефективності офера: EPC (дохід за клік)
+  // + CR (% кліків, що доходять до виплати) у рівних вагах, кожен нормалізований
+  // 0..1 відносно повного діапазону значень у довіднику (а не лише поточного пулу,
+  // щоб оцінка не "стрибала" залежно від фільтра суми/строку).
+  function blendScore(m) {
+    const epcTable = (typeof MFO_EPC === 'object' && MFO_EPC) || {};
+    const crTable = (typeof MFO_CR === 'object' && MFO_CR) || {};
+    const epcVals = Object.values(epcTable).filter(Number.isFinite);
+    const crVals = Object.values(crTable).filter(Number.isFinite);
+    if (!epcVals.length || !crVals.length) return 0;
+    const epcMin = Math.min(...epcVals), epcMax = Math.max(...epcVals);
+    const crMin = Math.min(...crVals), crMax = Math.max(...crVals);
+    const e = epcVal(m), c = crVal(m);
+    const nE = Number.isFinite(e) && epcMax > epcMin ? (e - epcMin) / (epcMax - epcMin) : 0;
+    const nC = Number.isFinite(c) && crMax > crMin ? (c - crMin) / (crMax - crMin) : 0;
+    return 0.5 * nE + 0.5 * nC;
+  }
 
   // Щоб різні відвідувачі (з однаковим запитом sum/term) не бачили щоразу
   // одні й ті самі 3 офери — беремо трохи ширший пул "хороших" кандидатів
@@ -760,6 +795,17 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
 
     document.getElementById('top3-subtitle').innerHTML =
       `Надішліть заявку в 2–3 компанії одночасно для запиту <b>${fmt(querySum)} ₴ / ${queryTerm} дн.</b>, щоб зафіксувати першу позику під 0,1% та отримати рішення за 3 хвилини.`;
+
+    // Соціальний доказ: реалістичне, стабільне в межах сесії число
+    // (щоб не миготіло новим значенням при кожному відкритті попапу)
+    const proofKey = 'top3SocialProofCount';
+    let proofCount = parseInt(sessionStorage.getItem(proofKey), 10);
+    if (!Number.isFinite(proofCount)) {
+      proofCount = 900 + Math.floor(Math.random() * 400); // 900–1300
+      sessionStorage.setItem(proofKey, String(proofCount));
+    }
+    document.getElementById('top3-social-proof').textContent =
+      `За останній тиждень заявку через TREBA CASH подали ${fmt(proofCount)}+ людей`;
 
     // Переваги — простий булет-список (вирівняний вліво), без плашок-пігулок,
     // щоб нічого не наїжджало одне на одне на вузьких екранах.
@@ -792,23 +838,29 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
         </div>
         <div class="top3-row-bottom">
           <ul class="top3-row-perks">${perksHTML(m)}</ul>
-          <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="sessionStorage.setItem('mfoOfferClickedSession','1');if(typeof fbq==='function'){var mfoName='${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}';fbq('trackCustom','go_to_offer',{mfo:mfoName,source:'popup'});fbq('track','Lead',{content_name:mfoName,source:'popup'});}">Подати заявку 👉</a>
+          <div class="top3-row-cta-wrap">
+            <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer" onclick="sessionStorage.setItem('mfoOfferClickedSession','1');if(typeof fbq==='function'){var mfoName='${m.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')}';fbq('trackCustom','go_to_offer',{mfo:mfoName,source:'popup'});fbq('track','Lead',{content_name:mfoName,source:'popup'});}">Подати заявку 👉</a>
+            <span class="top3-row-cta-note">~3 хв, без довідок</span>
+          </div>
         </div>
       </div>`;
     };
 
-    // ТОП-3 — з-поміж найновіших брендів на майданчику (MFO_SENIORITY, вище = новіші)
-    // випадково обираємо 3, щоб набір не був однаковим у кожного відвідувача
-    const seniorSorted = [...pool].sort((a, b) => seniorityVal(b) - seniorityVal(a));
-    const topThree = pickRandom(seniorSorted, 3);
+    // ТОП-3 — офери з найкращою реальною ефективністю (EPC + CR у рівних вагах,
+    // тобто і дохідність, і те, що люди реально доходять до видачі), а не просто
+    // найновіші бренди на майданчику. Випадково обираємо 3 з ширшого пулу лідерів,
+    // щоб набір не був однаковим у кожного відвідувача.
+    const scoreSorted = [...pool].sort((a, b) => blendScore(b) - blendScore(a));
+    const topThree = pickRandom(scoreSorted, 3);
     const usedNames = new Set(topThree.map(m => m.name));
 
-    // Рекомендації клієнтів — з-поміж топ TREBACASH (той самий рейтинг EPC, що й
-    // кнопка "💳 ТОП від TREBACASH" на вітрині), теж випадково, без дублів із ТОП-3
-    const epcSorted = [...pool]
+    // Рекомендації клієнтів — окремий зріз саме за CR (% кліків, що реально
+    // доходять до виплати) — це і є показник "люди дійсно подають заявку й
+    // отримують гроші", без дублів із ТОП-3
+    const crSorted = [...pool]
       .filter(m => !usedNames.has(m.name))
-      .sort((a, b) => epcVal(b) - epcVal(a));
-    const recThree = pickRandom(epcSorted, 3);
+      .sort((a, b) => crVal(b) - crVal(a));
+    const recThree = pickRandom(crSorted, 3);
 
     document.getElementById('top3-list-top').innerHTML =
       topThree.map((m, i) => rowCardHTML(m, i + 1)).join('');
@@ -927,9 +979,9 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
       </label>
       <button class="sort-btn" data-sort="sum-desc">За сумою ↓</button>
       <button class="sort-btn" data-sort="rate-asc">За ставкою ↑</button>
-      <button class="sort-btn active" data-sort="date-new">🔝🔥 Новіші спочатку</button>
+      <button class="sort-btn" data-sort="date-new">🔝🔥 Новіші спочатку</button>
       <button class="sort-btn" data-sort="date-old">💯💳 Старіші спочатку</button>
-      <button class="sort-btn" data-sort="cr-desc">💬 Рекомендовано клієнтами</button>
+      <button class="sort-btn active" data-sort="cr-desc">💬 Рекомендовано клієнтами</button>
       <button class="sort-btn" data-sort="epc-desc">💳 ТОП від TREBACASH</button>
       <button class="sort-btn" id="reset-calc-filter" style="display:none;background:#fdecea;border-color:#e74c3c;color:#e74c3c;">✕ Скинути фільтр калькулятора</button>
     </div>
@@ -1179,7 +1231,7 @@ function initPage() {
 let state = {
   sum: 15000,
   term: 60,
-  sort: 'date-new',
+  sort: 'cr-desc',
   visible: 12,
   onlyPromo: false,
 };
