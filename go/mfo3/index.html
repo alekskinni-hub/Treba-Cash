@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Завантаження...</title>
+
   <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s)
@@ -13,11 +14,12 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    
+
     fbq('init', '1667232161545034');
     fbq('track', 'Lead');
   </script>
 </head>
+
 <body>
   <script>
     const JSON_URL = '/mfo-live-data.json';
@@ -25,30 +27,69 @@
 
     async function redirectUser() {
       try {
-        const response = await fetch(JSON_URL);
+        const response = await fetch(JSON_URL, {
+          cache: 'no-store'
+        });
+
         const data = await response.json();
         const allOffers = data.offers || [];
 
-        // ДІАПАЗОН ДЛЯ МФО 1: з 1 по 14 офер (індекси 0-13)
-        const groupOffers = allOffers.slice(28, 43);
-        if (!groupOffers.length) throw new Error('No offers in group');
+        // ТІЛЬКИ ОФЕРИ ЗІ ШВИДКИМ РІШЕННЯМ
+        // Відбираємо офери, де badge прямо містить
+        // "Швидке рішення за хвилини".
+        const fastDecisionOffers = allOffers.filter(o =>
+          typeof o.badge === 'string' &&
+          o.badge.toLowerCase().includes('швидке рішення за хвилини')
+        );
 
-        let viewedIds = JSON.parse(localStorage.getItem('viewed_group_3') || '[]');
-        let available = groupOffers.filter(o => !viewedIds.includes(o.id));
-
-        // Якщо всі офери з цієї групи вже переглянуті — скидаємо історію групи
-        if (!available.length) {
-          viewedIds = [];
-          available = groupOffers;
+        if (!fastDecisionOffers.length) {
+          throw new Error('No fast-decision offers');
         }
 
-        // Беремо перший доступний з цієї групи
-        const target = available[0];
-        
-        viewedIds.push(target.id);
-        localStorage.setItem('viewed_group_1', JSON.stringify(viewedIds));
+        // Максимум TOP-10 оферів.
+        // Оскільки в JSON немає EPC/CR, використовуємо порядок
+        // оферів у live JSON як поточний пріоритет.
+        const topOffers = fastDecisionOffers.slice(0, 10);
 
-        let finalUrl = target.ref + '&utm_source=tg&utm_creative=btn_group3';
+        // Історія вже показаних оферів цієї групи
+        let viewedIds = JSON.parse(
+          localStorage.getItem('viewed_fast_decision_offers') || '[]'
+        );
+
+        // Видаляємо з історії офери, яких більше немає в актуальному списку
+        const topIds = new Set(topOffers.map(o => o.id));
+        viewedIds = viewedIds.filter(id => topIds.has(id));
+
+        // Беремо ті, що ще не показувалися
+        let available = topOffers.filter(
+          o => !viewedIds.includes(o.id)
+        );
+
+        // Коли всі показані — запускаємо ротацію заново
+        if (!available.length) {
+          viewedIds = [];
+          available = topOffers;
+        }
+
+        // Перший доступний офер
+        const target = available[0];
+
+        // Записуємо його в історію
+        viewedIds.push(target.id);
+
+        localStorage.setItem(
+          'viewed_fast_decision_offers',
+          JSON.stringify(viewedIds)
+        );
+
+        // UTM
+        const separator = target.ref.includes('?') ? '&' : '?';
+
+        const finalUrl =
+          target.ref +
+          separator +
+          'utm_source=tg&utm_creative=btn_group3';
+
         window.location.replace(finalUrl);
 
       } catch (err) {
