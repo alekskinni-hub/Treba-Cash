@@ -23,36 +23,107 @@
     const JSON_URL = '/mfo-live-data.json';
     const FALLBACK_URL = 'https://tds.pdl-profit.com?offerid=1147&affid=62311';
 
+    /*
+     * РОТАЦІЯ ЛИШЕ ОФЕРІВ З БЕЙДЖЕМ "🆕 Новий сервіс!"
+     *
+     * Логіка ідентична index (65):
+     * Новим сервісом вважається офер з MFO_SENIORITY >= 38.
+     * На поточний момент це:
+     * Aerocash, Ranok, FinClick, Ariba, Funnymoney, Freestyle Credit.
+     *
+     * Ротація:
+     * 1. Завантажуємо актуальні офери з /mfo-live-data.json.
+     * 2. Залишаємо ТІЛЬКИ "Новий сервіс".
+     * 3. Не показуємо той самий офер повторно, доки не пройдений весь пул.
+     * 4. Після проходження всіх нових сервісів історія скидається і цикл починається знову.
+     * 5. Історія зберігається окремо в localStorage, тому інші групи ротації не зачіпаються.
+     */
+
+    // Та сама межа, що використовується в index (65).
+    const NEW_OFFER_SENIORITY_THRESHOLD = 38;
+
+    // В index (65) MFO_SENIORITY визначає, який бренд має бейдж "Новий сервіс".
+    // Тут дублюємо тільки актуальні значення, щоб index (64) працював автономно.
+    const MFO_SENIORITY = {
+      "Aerocash": 43,
+      "Ranok": 42,
+      "FinClick": 41,
+      "Ariba": 40,
+      "Funnymoney": 39,
+      "Freestyle Credit": 38
+    };
+
+    const VIEWED_KEY = 'viewed_new_services';
+
+    function isNewOffer(offer) {
+      const seniority = MFO_SENIORITY[offer.name];
+      return typeof seniority === 'number'
+        && seniority >= NEW_OFFER_SENIORITY_THRESHOLD;
+    }
+
+    function readViewedIds() {
+      try {
+        const value = JSON.parse(localStorage.getItem(VIEWED_KEY) || '[]');
+        return Array.isArray(value) ? value : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveViewedIds(ids) {
+      localStorage.setItem(VIEWED_KEY, JSON.stringify(ids));
+    }
+
     async function redirectUser() {
       try {
-        const response = await fetch(JSON_URL);
+        const response = await fetch(JSON_URL, { cache: 'no-store' });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+
         const data = await response.json();
-        const allOffers = data.offers || [];
+        const allOffers = Array.isArray(data.offers) ? data.offers : [];
 
-        // ДІАПАЗОН ДЛЯ МФО 1: з 1 по 14 офер (індекси 0-13)
-        const groupOffers = allOffers.slice(0, 14);
-        if (!groupOffers.length) throw new Error('No offers in group');
+        // ВАЖЛИВО: тут немає slice(0,14) — беремо нові сервіси з усього актуального фіду.
+        const newServiceOffers = allOffers.filter(isNewOffer);
 
-        let viewedIds = JSON.parse(localStorage.getItem('viewed_group_1') || '[]');
-        let available = groupOffers.filter(o => !viewedIds.includes(o.id));
-
-        // Якщо всі офери з цієї групи вже переглянуті — скидаємо історію групи
-        if (!available.length) {
-          viewedIds = [];
-          available = groupOffers;
+        if (!newServiceOffers.length) {
+          throw new Error('No "Новий сервіс" offers available');
         }
 
-        // Беремо перший доступний з цієї групи
-        const target = available[0];
-        
-        viewedIds.push(target.id);
-        localStorage.setItem('viewed_group_1', JSON.stringify(viewedIds));
+        let viewedIds = readViewedIds();
 
-        let finalUrl = target.ref + '&utm_source=tg&utm_creative=btn_group1';
+        // Прибираємо з історії ID, яких вже немає в актуальному фіді.
+        const currentIds = new Set(newServiceOffers.map(o => o.id));
+        viewedIds = viewedIds.filter(id => currentIds.has(id));
+
+        // Доступні нові сервіси, які ще не ротувалися.
+        let available = newServiceOffers.filter(o => !viewedIds.includes(o.id));
+
+        // Коли всі нові сервіси пройдені — починаємо нове коло.
+        if (!available.length) {
+          viewedIds = [];
+          available = newServiceOffers;
+        }
+
+        // Беремо перший доступний "Новий сервіс".
+        const target = available[0];
+
+        viewedIds.push(target.id);
+        saveViewedIds(viewedIds);
+
+        // Зберігаємо існуючу UTM-логіку index (64).
+        const separator = target.ref.includes('?') ? '&' : '?';
+        const finalUrl =
+          target.ref +
+          separator +
+          'utm_source=tg&utm_creative=btn_new_service';
+
         window.location.replace(finalUrl);
 
       } catch (err) {
-        console.error(err);
+        console.error('New service rotation error:', err);
+
+        // Технічний fallback тільки якщо фід недоступний / некоректний
+        // або тимчасово немає нових сервісів.
         window.location.replace(FALLBACK_URL);
       }
     }
