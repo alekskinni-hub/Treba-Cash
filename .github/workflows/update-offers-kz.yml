@@ -1,0 +1,36 @@
+name: Update MFO KZ offers from PDL-Profit API
+
+on:
+  schedule:
+    # Ежедневно в 06:00 UTC (11:00 по Астане/Алматы, UTC+5)
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+    # Позволяет запустить вручную из вкладки Actions на GitHub
+
+permissions:
+  contents: write
+
+jobs:
+  update-offers-kz:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch KZ offers from PDL-Profit API
+        env:
+          PDL_API_KEY: ${{ secrets.PDL_API_KEY }}
+        run: python fetch_offers_kz.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add mfo-kz-live-data.json
+          git diff --staged --quiet && echo "No changes" || git commit -m "chore: update MFO KZ offers data ($(date -u +%Y-%m-%d))"
+          git push
