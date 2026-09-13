@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparador de créditos y microcréditos en línea en México | TrebaCash</title>
+<meta name="description" content="Compara créditos y microcréditos en línea en México: monto, plazo y CAT de distintas instituciones financieras en un solo lugar. No somos una entidad financiera ni otorgamos crédito directamente.">
+<meta name="robots" content="index, follow">
+<style>
+  :root{
+    --ink:#132024;
+    --ink-soft:#4b5c60;
+    --paper:#f6f4ee;
+    --card:#ffffff;
+    --line:#e3ded2;
+    --teal:#0f6e63;
+    --teal-dark:#0a4b44;
+    --gold:#b8863b;
+    --blue:#2f5d8a;
+    --purple:#6a4c93;
+    --green:#3c8a4c;
+    --red:#a5342a;
+    --radius:14px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.5;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px;}
+
+  /* ===== HEADER ===== */
+  header.site{
+    background:var(--teal-dark);
+    color:#fff;
+    padding:14px 0;
+  }
+  header.site .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;}
+  .brand{font-weight:700;font-size:1.15rem;letter-spacing:.2px;}
+  .brand small{display:block;font-weight:400;font-size:.72rem;opacity:.8;}
+  nav.site a{color:#fff;text-decoration:none;font-size:.92rem;margin-left:22px;opacity:.9;}
+  nav.site a:hover{opacity:1;text-decoration:underline;}
+
+  /* ===== HERO ===== */
+  .hero{
+    background:linear-gradient(180deg,var(--teal) 0%,var(--teal-dark) 100%);
+    color:#fff;
+    padding:52px 0 64px;
+  }
+  .hero h1{
+    font-size:clamp(1.7rem,3.4vw,2.5rem);
+    margin:0 0 14px;
+    max-width:680px;
+    font-weight:700;
+  }
+  .hero p{max-width:600px;font-size:1.02rem;opacity:.92;margin:0 0 22px;}
+  .hero-stats{display:flex;gap:34px;flex-wrap:wrap;margin-top:26px;}
+  .hero-stats div{min-width:120px;}
+  .hero-stats b{display:block;font-size:1.6rem;}
+  .hero-stats span{font-size:.82rem;opacity:.85;}
+  .disclaimer-pill{
+    display:inline-block;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:999px;
+    padding:7px 16px;
+    font-size:.8rem;
+    margin-bottom:18px;
+  }
+
+  /* ===== CALCULATOR ===== */
+  .calc{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:0 18px 40px rgba(15,40,35,.16);
+    padding:26px 26px 22px;
+    margin-top:-38px;
+    position:relative;
+    z-index:2;
+  }
+  .calc h2{margin:0 0 4px;font-size:1.15rem;}
+  .calc .sub{color:var(--ink-soft);font-size:.86rem;margin:0 0 18px;}
+  .calc-row{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:16px;}
+  @media(max-width:640px){.calc-row{grid-template-columns:1fr;}}
+  .calc-label{display:flex;justify-content:space-between;font-size:.86rem;margin-bottom:8px;}
+  .calc-label b{color:var(--teal-dark);}
+  input[type=range]{
+    -webkit-appearance:none;width:100%;height:6px;border-radius:4px;
+    background:var(--line);outline:none;
+  }
+  input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+    background:#fff;border:4px solid var(--teal);cursor:grab;
+    box-shadow:0 3px 10px rgba(15,110,99,.35);
+  }
+  input[type=range]::-moz-range-thumb{
+    width:22px;height:22px;border-radius:50%;background:#fff;
+    border:4px solid var(--teal);cursor:grab;
+  }
+  .calc-actions{display:flex;align-items:center;gap:14px;margin-top:6px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;border:none;border-radius:9px;padding:11px 22px;
+    font-size:.94rem;font-weight:600;cursor:pointer;text-decoration:none;
+  }
+  .btn-primary{background:var(--teal);color:#fff;}
+  .btn-primary:hover{background:var(--teal-dark);}
+  .btn-ghost{background:transparent;color:var(--teal-dark);border:1px solid var(--line);}
+
+  /* ===== RESULTS ===== */
+  .results-bar{
+    display:flex;justify-content:space-between;align-items:center;
+    margin:46px 0 18px;flex-wrap:wrap;gap:10px;
+  }
+  .results-bar h2{margin:0;font-size:1.3rem;}
+  #results-count{color:var(--ink-soft);font-size:.9rem;}
+
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+    gap:18px;margin-bottom:14px;
+  }
+  .mfo-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;display:flex;flex-direction:column;gap:12px;
+  }
+  .mfo-card-top{display:flex;align-items:center;gap:10px;}
+  .mfo-logo-wrap{width:46px;height:46px;flex:0 0 auto;border-radius:10px;overflow:hidden;background:#f1efe6;}
+  .mfo-logo-wrap img{width:100%;height:100%;object-fit:contain;}
+  .mfo-logo-fallback{
+    width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+    color:#fff;font-weight:700;font-size:.95rem;
+  }
+  .mfo-card-name{font-weight:700;font-size:1.02rem;flex:1;}
+  .mfo-badges-row{display:flex;flex-wrap:wrap;gap:6px;}
+  .mfo-badge{
+    font-size:.72rem;padding:4px 9px;border-radius:999px;font-weight:600;
+    color:#fff;
+  }
+  .color-blue{background:var(--blue);}
+  .color-purple{background:var(--purple);}
+  .color-teal{background:var(--teal);}
+  .color-green{background:var(--green);}
+  .color-gold{background:var(--gold);}
+  .mfo-stat-row{display:flex;justify-content:space-between;font-size:.88rem;padding:4px 0;border-bottom:1px dashed var(--line);}
+  .mfo-stat-row .k{color:var(--ink-soft);}
+  .mfo-stat-row .v{font-weight:600;}
+  .cat-toggle{
+    background:none;border:none;color:var(--teal-dark);font-size:.82rem;
+    text-align:left;padding:2px 0;cursor:pointer;text-decoration:underline;
+  }
+  .cat-panel{display:none;font-size:.8rem;color:var(--ink-soft);background:#f6f4ee;border-radius:8px;padding:10px;}
+  .cat-panel.open{display:block;}
+  .mfo-card-cta{margin-top:auto;}
+  .mfo-card-cta a{display:block;text-align:center;}
+  .legal-line{font-size:.72rem;color:#8a8378;}
+  #no-results{display:none;text-align:center;padding:34px 0;color:var(--ink-soft);}
+  #no-results.visible{display:block;}
+  #load-more{text-align:center;margin:18px 0 10px;}
+
+  /* ===== IMPORTANT NOTICE BOX (Google Ads / CONDUSEF) ===== */
+  .notice-box{
+    background:#fff7e6;
+    border:1.5px solid #e6b45a;
+    border-radius:var(--radius);
+    padding:20px 22px;
+    margin:40px 0;
+  }
+  .notice-box h3{margin:0 0 10px;font-size:1.02rem;color:#6b4a12;}
+  .notice-box p{margin:0 0 8px;font-size:.9rem;color:#4d3c1c;}
+  .notice-box ul{margin:8px 0 0;padding-left:20px;font-size:.88rem;color:#4d3c1c;}
+
+  /* ===== FAQ / INFO SECTIONS ===== */
+  .info-section{margin:44px 0;}
+  .info-section h2{font-size:1.2rem;margin-bottom:10px;}
+  .info-section p{color:var(--ink-soft);font-size:.94rem;max-width:760px;}
+
+  /* ===== LEGAL FIGURES (plazos, ejemplo de cálculo) — negro y en negrita a pedido ===== */
+  .legal-figure{color:#000;font-weight:800;}
+
+  /* ===== FAQ ACCORDION ===== */
+  .faq-list{border-top:1px solid var(--line);}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;cursor:pointer;
+    padding:16px 4px;font-size:.98rem;font-weight:700;color:var(--ink);
+    display:flex;justify-content:space-between;align-items:center;gap:12px;
+  }
+  .faq-icon{flex:0 0 auto;font-size:1.2rem;color:var(--teal);transition:transform .2s;}
+  .faq-item.open .faq-icon{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-item.open .faq-a{max-height:400px;}
+  .faq-a p{margin:0 4px 16px;color:var(--ink-soft);font-size:.9rem;max-width:720px;}
+
+  .disclaimer-box{
+    margin-top:22px;background:#f6f4ee;border:1.5px solid var(--line);border-radius:12px;
+    padding:16px 18px;
+  }
+  .disclaimer-box p{margin:0;color:var(--ink-soft);font-size:.86rem;max-width:none;}
+  .disclaimer-box b{color:var(--ink);}
+
+  /* ===== PARTNER LEGAL CARDS ===== */
+  .partners{margin:44px 0;}
+  .partners h2{font-size:1.2rem;margin-bottom:6px;}
+  .partners .sub{color:var(--ink-soft);font-size:.88rem;margin-bottom:18px;max-width:760px;}
+  .partner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
+  .partner-card{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:14px 16px;font-size:.82rem;
+  }
+  .partner-card b{display:block;font-size:.92rem;margin-bottom:4px;}
+  .partner-card .unverified{color:var(--red);font-weight:600;font-size:.76rem;display:block;margin-top:6px;}
+
+  /* ===== FOOTER ===== */
+  footer.site{background:var(--teal-dark);color:#dfe9e7;margin-top:60px;padding:38px 0 26px;font-size:.84rem;}
+  footer.site .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px;margin-bottom:26px;}
+  @media(max-width:720px){footer.site .cols{grid-template-columns:1fr;}}
+  footer.site h4{color:#fff;font-size:.9rem;margin:0 0 10px;}
+  footer.site p{margin:0 0 10px;opacity:.9;line-height:1.6;}
+  footer.site a{opacity:.9;}
+  .footer-legal{border-top:1px solid rgba(255,255,255,.18);padding-top:18px;opacity:.85;font-size:.76rem;line-height:1.7;}
+  .footer-legal p{margin:0 0 10px;}
+
+  /* ===== CALC RESULTS SUMMARY ===== */
+  .calc-results{display:none;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 6px;padding-top:16px;border-top:1px solid var(--line);}
+  @media(max-width:720px){.calc-results{grid-template-columns:repeat(2,1fr);}}
+  .calc-result{text-align:center;}
+  .calc-result b{display:block;font-size:1.2rem;color:var(--teal-dark);}
+  .calc-result span{font-size:.76rem;color:var(--ink-soft);}
+  .calc-hint{font-size:.76rem;color:var(--ink-soft);margin:10px 0 0;}
+
+  /* ===== FILTER / SORT ROW ===== */
+  .filter-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px;}
+  .filter-label{font-size:.86rem;font-weight:700;color:var(--ink-soft);margin-right:4px;}
+  .promo-filter-label{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;padding:8px 14px;border-radius:999px;border:2px solid var(--line);cursor:pointer;background:#fff;}
+  .promo-filter-label input{margin:0;}
+  .sort-btn{
+    display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:999px;
+    border:2px solid var(--line);background:#fff;color:var(--ink-soft);
+    font-size:.78rem;font-weight:700;cursor:pointer;transition:.15s;
+  }
+  .sort-btn:hover{border-color:var(--teal);color:var(--teal-dark);}
+  .sort-btn.active{background:var(--teal);color:#fff;border-color:transparent;}
+  #reset-calc-filter{background:#fdecea;border-color:#e0a29a;color:var(--red);}
+  .color-new{background:#219150;}
+
+  /* ===== TOP3 POPUP ===== */
+  .top3-overlay{
+    position:fixed;inset:0;background:rgba(10,25,22,.55);display:flex;align-items:center;justify-content:center;
+    padding:16px;z-index:999;opacity:0;pointer-events:none;transition:opacity .25s;
+  }
+  .top3-overlay.is-open{opacity:1;pointer-events:auto;}
+  .top3-modal{
+    background:#fff;border-radius:20px;max-width:480px;width:100%;max-height:88vh;overflow-y:auto;
+    padding:26px 22px 20px;position:relative;transform:translateY(12px) scale(.98);transition:transform .25s;
+  }
+  .top3-overlay.is-open .top3-modal{transform:translateY(0) scale(1);}
+  .top3-close{
+    position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;border:none;
+    background:rgba(19,32,36,.08);cursor:pointer;font-size:1rem;line-height:1;
+  }
+  .top3-confetti{position:absolute;inset:0 0 auto 0;height:110px;overflow:hidden;pointer-events:none;border-radius:20px 20px 0 0;}
+  .top3-confetti span{position:absolute;top:-10px;width:7px;height:7px;border-radius:2px;opacity:0;animation:top3-fall 1.5s ease-in forwards;}
+  @keyframes top3-fall{0%{opacity:1;transform:translateY(0) rotate(0);}100%{opacity:0;transform:translateY(140px) rotate(200deg);}}
+  .top3-header{position:relative;text-align:center;margin-bottom:14px;}
+  .top3-title{font-size:1.2rem;font-weight:700;margin:0 0 4px;color:var(--teal-dark);}
+  .top3-subtitle{font-size:.86rem;color:var(--ink-soft);margin:0;}
+  .top3-section{margin-bottom:12px;}
+  .top3-section-title{font-size:.78rem;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em;margin:0 0 8px;}
+  .top3-row{
+    display:flex;flex-direction:column;gap:8px;border:1.5px solid var(--line);border-radius:12px;
+    padding:12px;margin-bottom:9px;
+  }
+  .top3-row.rank-1{border-color:var(--teal);background:#f2f9f7;padding:14px;}
+  .top3-row-head{display:flex;align-items:center;gap:10px;}
+  .top3-row-rank{
+    width:24px;height:24px;border-radius:50%;background:var(--teal-dark);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex:0 0 auto;
+  }
+  .top3-row.rank-1 .top3-row-rank{width:28px;height:28px;background:var(--gold);}
+  .top3-logo{width:40px;height:40px;border-radius:9px;object-fit:contain;background:#f1efe6;flex:0 0 auto;}
+  .top3-logo-fallback{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.85rem;flex:0 0 auto;}
+  .top3-row-name{font-weight:700;font-size:.92rem;}
+  .top3-row-meta{font-size:.76rem;color:var(--ink-soft);}
+  .top3-row-cta{
+    display:block;text-align:center;background:var(--teal);color:#fff;border-radius:8px;
+    padding:9px;font-size:.84rem;font-weight:700;text-decoration:none;
+  }
+  .top3-footnote{font-size:.7rem;color:var(--ink-soft);text-align:center;margin-top:12px;}
+  .top3-all-link{display:block;text-align:center;margin-top:8px;font-size:.8rem;color:var(--teal-dark);text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<div class="top3-overlay" id="top3-overlay" aria-hidden="true">
+  <div class="top3-modal" role="dialog" aria-modal="true" aria-labelledby="top3-title">
+    <div class="top3-confetti" id="top3-confetti"></div>
+    <button class="top3-close" id="top3-close" aria-label="Cerrar">✕</button>
+    <div class="top3-header">
+      <h2 class="top3-title" id="top3-title">🎉 Tus 3 mejores opciones</h2>
+      <p class="top3-subtitle" id="top3-subtitle">Según el monto y plazo que buscaste</p>
+    </div>
+    <div class="top3-section">
+      <p class="top3-section-title">Recomendadas para tu búsqueda</p>
+      <div class="top3-list" id="top3-list-top"></div>
+    </div>
+    <div class="top3-section" id="top3-section-rec">
+      <p class="top3-section-title">💬 Recomendado por otros usuarios</p>
+      <div class="top3-list" id="top3-list-rec"></div>
+    </div>
+    <p class="top3-footnote">*CAT orientativo. El costo final depende del monto, plazo y perfil evaluado por cada institución.</p>
+    <p class="top3-footnote"><b>TrebaCash MX es un comparador informativo, no es un prestamista.</b> Verifica siempre las condiciones finales en el sitio de la institución elegida.</p>
+    <a class="top3-all-link" id="top3-all-link" href="#ofertas">Ver las 16 ofertas completas →</a>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brand">TrebaCash MX<small>Comparador independiente de crédito en línea</small></div>
+    <nav class="site">
+      <a href="#calculadora">Calculadora</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#info-importante">Información importante</a>
+      <a href="#faq">Preguntas frecuentes</a>
+      <a href="#socios">Nuestros socios</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="disclaimer-pill">TrebaCash no es una entidad financiera ni otorga créditos directamente</span>
+    <h1>Compara créditos y microcréditos en línea en México</h1>
+    <p>Monto, plazo y Costo Anual Total (CAT) de distintas instituciones y plataformas financieras, en un solo lugar, para que decidas con información clara antes de solicitar un crédito.</p>
+    <div class="hero-stats">
+      <div><b id="stat-offers">—</b><span>ofertas comparadas</span></div>
+      <div><b>1–365</b><span>días de plazo disponible</span></div>
+      <div><b>100%</b><span>en línea</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="calc" id="calculadora">
+    <h2>Encuentra un crédito según tu necesidad</h2>
+    <p class="sub">Ajusta el monto y el plazo. Los resultados son orientativos; el monto, plazo y CAT final los define cada institución al evaluar tu solicitud.</p>
+    <div class="calc-row">
+      <div>
+        <div class="calc-label"><span>Monto que necesitas</span><b id="calc-sum-val">15 000 MXN</b></div>
+        <div class="range-wrap"><input type="range" id="calc-sum" min="500" max="150000" step="500" value="15000"></div>
+      </div>
+      <div>
+        <div class="calc-label"><span>Plazo para pagar</span><b id="calc-term-val">30 días</b></div>
+        <div class="range-wrap"><input type="range" id="calc-term" min="1" max="365" step="1" value="30"></div>
+      </div>
+    </div>
+    <div class="calc-actions">
+      <button class="btn btn-primary" id="calc-apply">Buscar ofertas</button>
+    </div>
+    <div class="calc-results" id="calc-results-wrap">
+      <div class="calc-result"><b id="res-match">—</b><span>Ofertas coincidentes</span></div>
+      <div class="calc-result"><b id="res-minpay">—</b><span>Pago mínimo estimado*</span></div>
+      <div class="calc-result"><b id="res-avgrate">—</b><span>CAT promedio</span></div>
+      <div class="calc-result"><b id="res-best">—</b><span>Mejor oferta</span></div>
+    </div>
+    <p class="calc-hint">*Cálculo orientativo con la tasa más baja entre las ofertas coincidentes. Consulta el CAT exacto en el sitio de cada proveedor.</p>
+  </div>
+
+  <div class="results-bar" id="ofertas">
+    <h2>Ofertas disponibles</h2>
+    <span id="results-count">Cargando ofertas…</span>
+  </div>
+
+  <div class="filter-row">
+    <span class="filter-label">Ordenar:</span>
+    <label class="promo-filter-label" for="promo-filter-checkbox">
+      <input type="checkbox" id="promo-filter-checkbox">
+      🔥 Solo condiciones promocionales
+    </label>
+    <button class="sort-btn" data-sort="sum-desc">Por monto ↓</button>
+    <button class="sort-btn" data-sort="rate-asc">Por CAT ↑</button>
+    <button class="sort-btn active" data-sort="date-new">🔝🔥 Más nuevas primero</button>
+    <button class="sort-btn" data-sort="date-old">💯💳 Más antiguas primero</button>
+    <button class="sort-btn" data-sort="cr-desc">💬 Recomendado por clientes</button>
+    <button class="sort-btn" data-sort="epc-desc">💳 Top TrebaCash</button>
+    <button class="sort-btn" id="reset-calc-filter" style="display:none;">✕ Quitar filtro del calculador</button>
+  </div>
+
+  <div class="grid" id="mfo-grid"></div>
+  <p id="no-results">No encontramos ofertas con esos criterios. Prueba a ajustar el monto o el plazo.</p>
+  <div id="load-more"><button class="btn btn-ghost" id="load-more-btn">Ver más ofertas</button></div>
+
+  <div class="notice-box" id="info-importante">
+    <h3>⚠️ Información importante</h3>
+    <p>La información de este sitio tiene carácter meramente informativo. Todas las recomendaciones son resultado de análisis internos y no tienen carácter publicitario.</p>
+    <p>trebacash.site es una plataforma que te permite comparar y elegir productos crediticios (servicios de crédito). Con nuestro sitio puedes ahorrar tiempo al encontrar la mejor oferta de crédito para ti: puedes comparar fácilmente tasas de interés, condiciones de pago, comisiones y demás condiciones del crédito. Destacamos que trebacash.site <b>no es un banco, ni una Sociedad Financiera de Objeto Múltiple (SOFOM), ni un intermediario de crédito</b>. No te ofrecemos asesoría financiera, no negociamos ni gestionamos la firma de contratos de crédito, no vendemos productos financieros ni te otorgamos créditos directamente. Para obtener el servicio, el usuario es redirigido al sitio web de la institución financiera autorizada para otorgar el crédito. Te recomendamos revisar cuidadosamente las ofertas en el sitio de cada institución financiera. Al utilizar este sitio, podemos procesar tus datos personales conforme a lo indicado en nuestro Aviso de Privacidad.</p>
+    <p>Los montos, plazos, tasas de interés y demás datos publicados en este sitio tienen carácter exclusivamente informativo. Los proveedores pueden modificar sus condiciones sin previo aviso — la información vigente siempre está disponible en el sitio oficial de la empresa financiera correspondiente. El orden en que se muestran las ofertas puede depender de distintos factores: vigencia de la información, condiciones del crédito, popularidad del servicio, indicadores estadísticos y acuerdos de afiliación.</p>
+    <p>Antes de firmar un contrato de crédito, revisa cuidadosamente todas las condiciones: la tasa de interés, el CAT, las posibles comisiones, el calendario de pagos y las consecuencias de un atraso. El incumplimiento del contrato puede generar recargos, intereses moratorios y afectar negativamente tu historial crediticio.</p>
+    <p>Evalúa tu propia capacidad de pago y utiliza el crédito de forma responsable.</p>
+    <p>Los materiales de TrebaCash MX tienen carácter exclusivamente informativo y no constituyen asesoría financiera, legal o fiscal individualizada. Te recomendamos utilizar únicamente los servicios de empresas financieras que operen conforme a la legislación mexicana. Antes de compartir tus datos personales, revisa el aviso de privacidad y el contrato de crédito en el sitio oficial de la empresa elegida.</p>
+
+    <h3 style="margin-top:18px;">Plazos y costo del crédito</h3>
+    <p>El plazo mínimo de devolución entre las ofertas presentadas es de <span class="legal-figure">61 días</span>, y el máximo es de <span class="legal-figure">300 días</span>. El costo del crédito se compone de los intereses por el período real de uso del dinero; no se cobran comisiones adicionales por apertura ni por pago.</p>
+    <p>La Tasa Anual Total (CAT) se calcula considerando todos los pagos obligatorios. El valor máximo de CAT entre las ofertas del sitio se indica en el bloque "Condiciones de crédito" de cada oferta — compáralo con las condiciones del contrato antes de firmar.</p>
+    <p><b>Ejemplo:</b> <span class="legal-figure">crédito de $10,000 MXN a 90 días con una tasa de 0.01% diario — intereses: $90 MXN, total a devolver: $10,090 MXN, comisiones: $0 MXN.</span></p>
+
+    <ul>
+      <li>TrebaCash MX <b>no es un prestamista</b> ni una institución financiera: es un comparador que dirige al usuario a los sitios de terceros que sí otorgan el crédito.</li>
+      <li>Cada institución define sus propios requisitos, tasas, comisiones y CAT; consulta siempre el contrato de adhesión antes de aceptar.</li>
+      <li>Solicitar varios créditos a la vez o no pagar a tiempo puede afectar tu historial crediticio ante el Buró de Crédito.</li>
+    </ul>
+  </div>
+
+  <div class="info-section" id="faq">
+    <h2>Preguntas frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">¿Qué es TrebaCash MX?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>TrebaCash MX es un servicio informativo de comparación de ofertas de empresas financieras en México. No otorgamos créditos ni tomamos decisiones sobre su aprobación.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿El uso del servicio es gratuito?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Sí. Comparar ofertas de crédito y consultar la información del sitio es completamente gratuito para los usuarios.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Quién decide si se otorga el crédito?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>La decisión de aprobar o rechazar la solicitud la toma exclusivamente la empresa financiera, tras evaluar la solicitud según sus propios criterios.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Cómo se eligen las empresas que se comparan?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Publicamos información sobre empresas financieras que operan en el mercado mexicano. Antes de contratar un crédito, te recomendamos revisar con atención las condiciones del proveedor específico.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿TrebaCash MX garantiza que obtendré el crédito?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>No. La decisión final siempre la toma la institución financiera.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Cómo elijo la oferta más adecuada?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Toma en cuenta el monto máximo del crédito, el plazo, la Tasa Anual Total (CAT), las comisiones, las condiciones de pago y las posibles penalizaciones por atraso. Todo esto está detallado en "Condiciones principales del servicio" debajo de cada oferta de nuestros socios.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Es seguro solicitar el crédito a través de los socios?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>La solicitud se realiza directamente en el sitio de la empresa financiera elegida. Antes de compartir tus datos personales, te recomendamos leer el aviso de privacidad y los términos de uso del proveedor.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Por qué las condiciones pueden variar?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Las empresas financieras pueden modificar tasas de interés, promociones, montos disponibles y plazos de crédito. Las condiciones vigentes siempre están disponibles en el sitio oficial del proveedor.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿TrebaCash MX recibe alguna comisión de los socios?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>Sí. Si das clic al sitio de un socio y realizas ciertas acciones, TrebaCash MX puede recibir una comisión de afiliado. Esto no afecta el costo del crédito para el usuario ni cambia las condiciones ofrecidas por la empresa financiera.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Qué es el CAT y por qué importa?<span class="faq-icon">+</span></button>
+        <div class="faq-a"><p>El Costo Anual Total (CAT) es el indicador que exige la Comisión Nacional para la Protección y Defensa de los Usuarios de Servicios Financieros (CONDUSEF) para comparar el costo real de un crédito: incluye la tasa de interés más comisiones, seguros obligatorios y demás cargos, expresado como un porcentaje anual. Un CAT más alto significa un crédito más caro, aunque la tasa de interés anunciada parezca baja.</p></div>
+      </div>
+    </div>
+    <div class="disclaimer-box">
+      <p><b>Importante:</b> TrebaCash MX es un comparador informativo y <b>no es un prestamista</b>. No garantizamos la aprobación de ninguna solicitud — la decisión de otorgar el crédito, el monto, el plazo y la tasa la toma exclusivamente la institución financiera elegida, tras su propia evaluación. Este contenido no constituye asesoría financiera.</p>
+    </div>
+  </div>
+
+  <div class="partners" id="socios">
+    <h2>Nuestros socios</h2>
+    <p class="sub">Razón social, domicilio y contacto de cada institución que aparece en este comparador. Cuando el dato aparece como "en verificación", significa que aún no pudimos confirmarlo con una fuente oficial — pídelo directamente al proveedor antes de contratar.</p>
+    <div class="partner-grid" id="partners-grid"></div>
+  </div>
+
+</div>
+
+<!--
+  ⚠️ ПЕРЕД ЗАПУСКОМ GOOGLE ADS — ОБОВ'ЯЗКОВО ПЕРЕВІРТЕ:
+  Політика Google Ads Personal Loans (support.google.com/adspolicy/answer/15188216)
+  дозволяє рекламувати ЛИШЕ продукти зі строком повернення 61+ днів, незалежно
+  від таргетованої країни. Це стосується лід-генераторів так само, як і прямих
+  кредиторів. Картки нижче (MFO_DATA_FALLBACK) наразі показують реальні строки
+  21-30 днів для більшості офферів — це пряме порушення політики, якщо ці
+  картки/оффери будуть в рекламній кампанії Google Ads.
+  Варіанти вирішення:
+  1) Перед запуском реклами уточнити в кожного провайдера, чи є в них
+     варіант оплати на 61+ днів (напр. "повторний кредит"/продовження) —
+     і показувати саме цей строк замість короткого.
+  2) Виключити з рекламної кампанії (і, можливо, з публічної версії сторінки)
+     оффери, які не мають варіанту 61+ днів.
+  3) Не використовувати Google Ads для цього трафіку, лишити органічний/інші канали.
+  Це бізнес-рішення, яке не можна вирішити самим текстом на сторінці.
+-->
+<footer class="site">
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h4>TrebaCash MX</h4>
+        <p>Comparador independiente de créditos y microcréditos en línea disponibles en México. TrebaCash MX no otorga crédito, no es un banco, no es una Sociedad Financiera de Objeto Múltiple (SOFOM) ni ninguna otra entidad regulada por la Comisión Nacional Bancaria y de Valores (CNBV); su función es exclusivamente informativa y de comparación de ofertas de terceros.</p>
+      </div>
+      <div>
+        <h4>Enlaces</h4>
+        <p><a href="#calculadora">Calculadora</a></p>
+        <p><a href="#socios">Nuestros socios</a></p>
+        <p><a href="/aviso-de-privacidad">Aviso de privacidad</a></p>
+        <p><a href="/terminos-y-condiciones">Términos y condiciones</a></p>
+      </div>
+      <div>
+        <h4>Más información</h4>
+        <p><a href="https://www.condusef.gob.mx" target="_blank" rel="noopener">CONDUSEF</a></p>
+        <p><a href="https://www.buro.gob.mx" target="_blank" rel="noopener">Buró de Entidades Financieras</a></p>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p><b>Aviso legal:</b> trebacash.site es una plataforma de comparación de productos crediticios de terceros, con fines meramente informativos. No somos un banco, ni una Sociedad Financiera de Objeto Múltiple (SOFOM), ni un intermediario de crédito. No ofrecemos asesoría financiera, no negociamos ni gestionamos la firma de contratos de crédito, no vendemos productos financieros ni otorgamos crédito directamente. Al dar clic en "Solicitar" serás redirigido al sitio oficial de la institución financiera seleccionada, donde se aplican sus propios términos, condiciones, tasas de interés y Costo Anual Total (CAT).</p>
+      <p><b>Sobre los plazos mostrados:</b> los plazos que se muestran en el comparador van de 1 a 365 días conforme a la oferta vigente de cada institución. Verifica siempre el plazo mínimo y máximo, la tasa anual máxima y el ejemplo de costo total en el sitio del proveedor antes de contratar.</p>
+      <p><b>Uso responsable del crédito:</b> contratar un crédito implica una obligación de pago. Antes de solicitar, evalúa tu capacidad de pago y compara el CAT de varias opciones. Consulta gratuitamente tus derechos como usuario de servicios financieros en <a href="https://www.condusef.gob.mx" target="_blank" rel="noopener">condusef.gob.mx</a>.</p>
+      <p>© <span id="year"></span> TrebaCash MX. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   MFO_DATA_FALLBACK — datos de respaldo embebidos.
+   Se usan SOLO si mfo-live-data-mx.json no puede cargarse
+   (ver loadLiveDataAndInit). Mantenerlos actualizados a mano
+   de vez en cuando por si el workflow de GitHub Actions falla
+   por un periodo largo.
+   ========================================================= */
+const MFO_DATA_FALLBACK = [
+  {
+    "id": "solcredito",
+    "name": "Solcredito",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs17832?offerid=1166&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 12000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 0,
+    "rateMax": 0,
+    "badge": "Resolución en minutos",
+    "badgeColor": "teal",
+    "hasZeroBadge": true,
+    "goldBadgeText": "Primer préstamo al 0.01%*",
+    "legal": "FIIZY OÜ",
+    "rfc": null,
+    "address": "Pärnu mnt 18, 10141 Tallin, República de Estonia",
+    "phone": null,
+    "email": "clientes@solcredito.mx",
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://ariregister.rik.ee/est/company/12694462/Fiizy-O%C3%9C"
+  },
+  {
+    "id": "meprestamo",
+    "name": "MePrestamo",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs17912?offerid=3905&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 20000,
+    "term": 150,
+    "termRaw": 150,
+    "rateMin": 21.9,
+    "rateMax": 21.9,
+    "badge": "Hasta 4 meses para pagar",
+    "badgeColor": "purple",
+    "hasZeroBadge": false,
+    "goldBadgeText": null,
+    "legal": "HONOR DE CUERVO S.A. DE C.V.",
+    "rfc": null,
+    "address": null,
+    "phone": null,
+    "email": null,
+    "requisitesVerified": false,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://webapps.condusef.gob.mx/SIPRES/jsp/pub/index.jsp"
+  },
+  {
+    "id": "dineromon",
+    "name": "Dineromon",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs17c7d?offerid=2335&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 12000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 3.65,
+    "rateMax": 3.65,
+    "badge": "Resolución en minutos",
+    "badgeColor": "teal",
+    "hasZeroBadge": true,
+    "goldBadgeText": "Primer préstamo al 0.01%*",
+    "legal": "FIIZY OÜ",
+    "rfc": null,
+    "address": "Pärnu mnt 18, 10141 Tallin, República de Estonia",
+    "phone": null,
+    "email": "clientes@solcredito.mx",
+    "requisitesVerified": false,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://ariregister.rik.ee/est/company/12694462/Fiizy-O%C3%9C"
+  },
+  {
+    "id": "fiestacredito",
+    "name": "Fiestacredito",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs1717e?offerid=2880&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 150000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 3.65,
+    "rateMax": 3.65,
+    "badge": "Hasta 150 000 MXN",
+    "badgeColor": "blue",
+    "hasZeroBadge": true,
+    "goldBadgeText": "Primer préstamo al 0.01%*",
+    "legal": "Finceptiv OÜ",
+    "rfc": null,
+    "address": "Liivalaia tn 13, 10116 Tallin, República de Estonia",
+    "phone": null,
+    "email": "clientes@fiestacredito.mx",
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://ariregister.rik.ee/est/company/14563072/Finceptiv-O%C3%9C"
+  },
+  {
+    "id": "dineria",
+    "name": "Dineria",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs17e26?offerid=3356&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 35000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 36.5,
+    "rateMax": 36.5,
+    "badge": "Condiciones para nuevos clientes",
+    "badgeColor": "green",
+    "hasZeroBadge": false,
+    "goldBadgeText": null,
+    "legal": "PROXIMUS FINANCE, S. DE R.L. DE C.V.",
+    "rfc": "PFI160329D43",
+    "address": "Shakespeare No. 30, Col. Nueva Anzures, Alcaldía Miguel Hidalgo, C.P. 11590, Ciudad de México, México",
+    "phone": null,
+    "email": "info@dineria.mx",
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://burodeentidadesfinancieras.condusef.gob.mx"
+  },
+  {
+    "id": "credito365",
+    "name": "Credito365",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs175e6?offerid=2597&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 20000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 292,
+    "rateMax": 292,
+    "badge": "Condiciones para nuevos clientes",
+    "badgeColor": "green",
+    "hasZeroBadge": false,
+    "goldBadgeText": null,
+    "legal": "CREDITO365, S.A.P.I. DE C.V.",
+    "rfc": null,
+    "address": "Rousseau 14, Piso 1, Anzures, Miguel Hidalgo, C.P. 11590, Ciudad de México, México",
+    "phone": null,
+    "email": null,
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://webapps.condusef.gob.mx/SIPRES/jsp/pub/index.jsp"
+  },
+  {
+    "id": "vasxlana",
+    "name": "Vasxlana",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs17f8d?offerid=3959&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 30000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 36.5,
+    "rateMax": 36.5,
+    "badge": "Condiciones para nuevos clientes",
+    "badgeColor": "green",
+    "hasZeroBadge": false,
+    "goldBadgeText": null,
+    "legal": "TURBOPESO, S.A. DE C.V.",
+    "rfc": null,
+    "address": "Av. Pdte. Masaryk 111, Oficina 1082, Polanco III Secc., Miguel Hidalgo, C.P. 11560, Ciudad de México, México",
+    "phone": null,
+    "email": null,
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://burodeentidadesfinancieras.condusef.gob.mx"
+  },
+  {
+    "id": "prestomin",
+    "name": "Prestomin",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs1748b?offerid=3358&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 35000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 3.65,
+    "rateMax": 3.65,
+    "badge": "Condiciones para nuevos clientes",
+    "badgeColor": "green",
+    "hasZeroBadge": true,
+    "goldBadgeText": "Primer préstamo al 0.01%*",
+    "legal": "SOFI DIGITAL MX, S.A. DE C.V.",
+    "rfc": null,
+    "address": "Shakespeare No. 21, Piso 5, Despacho 501-B, Col. Anzures, Alcaldía Miguel Hidalgo, C.P. 11590, Ciudad de México, México",
+    "phone": "55 85 26 40 07",
+    "email": "info@prestomin.mx",
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://webapps.condusef.gob.mx/SIPRES/jsp/pub/index.jsp"
+  },
+  {
+    "id": "vivus",
+    "name": "Vivus",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs173ff?offerid=3127&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 300,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 0,
+    "rateMax": 0,
+    "badge": "Resolución en minutos",
+    "badgeColor": "teal",
+    "hasZeroBadge": true,
+    "goldBadgeText": "Primer préstamo al 0.01%*",
+    "legal": "Traffic Control OÜ",
+    "rfc": null,
+    "address": "Laeva tn 2, 10111 Tallin, República de Estonia",
+    "phone": null,
+    "email": null,
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://ariregister.rik.ee/est/company/11501857/Traffic-Control-O%C3%9C"
+  },
+  {
+    "id": "lanu",
+    "name": "Lanu",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs1732b?offerid=3360&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 35000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 3.65,
+    "rateMax": 3.65,
+    "badge": "Condiciones para nuevos clientes",
+    "badgeColor": "green",
+    "hasZeroBadge": true,
+    "goldBadgeText": "Primer préstamo al 0.01%*",
+    "legal": "SOFI DIGITAL MX, S.A. DE C.V.",
+    "rfc": null,
+    "address": "Shakespeare No. 21, Piso 5, Despacho 501-B, Col. Anzures, Alcaldía Miguel Hidalgo, C.P. 11590, Ciudad de México, México",
+    "phone": null,
+    "email": "info@lanu.mx",
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://webapps.condusef.gob.mx/SIPRES/jsp/pub/index.jsp"
+  },
+  {
+    "id": "cozmo",
+    "name": "Cozmo",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs171fc?offerid=3655&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 2000,
+    "term": 61,
+    "termRaw": 61,
+    "rateMin": 3.65,
+    "rateMax": 3.65,
+    "badge": "Resolución en minutos",
+    "badgeColor": "teal",
+    "hasZeroBadge": true,
+    "goldBadgeText": "Primer préstamo al 0.01%*",
+    "legal": "Digital Deck, S.A.P.I. de C.V., SOFOM, E.N.R.",
+    "rfc": "DDE220927IT6",
+    "address": "Montecito 38, Piso 8, Oficina 8, Colonia Nápoles, Alcaldía Benito Juárez, C.P. 03810, Ciudad de México, México",
+    "phone": "(56) 4185 0723",
+    "email": "digitaldeckmx@gmail.com",
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://webapps.condusef.gob.mx/SIPRES/jsp/pub/index.jsp"
+  },
+  {
+    "id": "alvos",
+    "name": "Alvos",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs171e5?offerid=3681&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 14000,
+    "term": 21,
+    "termRaw": 21,
+    "rateMin": 0,
+    "rateMax": 0,
+    "badge": "Resolución en minutos",
+    "badgeColor": "teal",
+    "hasZeroBadge": false,
+    "goldBadgeText": null,
+    "legal": "ANVL S.A. DE C.V.",
+    "rfc": null,
+    "address": "Av. Insurgentes Sur 1180, Int. 603, Col. Tlacoquemecatl del Valle, Alcaldía Benito Juárez, C.P. 03200, Ciudad de México, México",
+    "phone": null,
+    "email": "info@alvos.mx",
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://webapps.condusef.gob.mx/SIPRES/jsp/pub/index.jsp"
+  },
+  {
+    "id": "lanaclick",
+    "name": "Lanaclick",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs1758d?offerid=3957&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 30000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 36.5,
+    "rateMax": 36.5,
+    "badge": "Condiciones para nuevos clientes",
+    "badgeColor": "green",
+    "hasZeroBadge": false,
+    "goldBadgeText": null,
+    "legal": "TURBOPESO, S.A. DE C.V.",
+    "rfc": null,
+    "address": "Av. Pdte. Masaryk 111, Oficina 1082, Polanco III Secc., Miguel Hidalgo, C.P. 11560, Ciudad de México, México",
+    "phone": null,
+    "email": null,
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://burodeentidadesfinancieras.condusef.gob.mx"
+  },
+  {
+    "id": "credivenus",
+    "name": "Credivenus",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs17408?offerid=3961&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 30000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 36.5,
+    "rateMax": 36.5,
+    "badge": "Condiciones para nuevos clientes",
+    "badgeColor": "green",
+    "hasZeroBadge": false,
+    "goldBadgeText": null,
+    "legal": "TURBOPESO, S.A. DE C.V.",
+    "rfc": null,
+    "address": "Av. Pdte. Masaryk 111, Oficina 1082, Polanco III Secc., Miguel Hidalgo, C.P. 11560, Ciudad de México, México",
+    "phone": null,
+    "email": null,
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://burodeentidadesfinancieras.condusef.gob.mx"
+  },
+  {
+    "id": "credipleno",
+    "name": "Credipleno",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs17170?offerid=3963&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 30000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 36.5,
+    "rateMax": 36.5,
+    "badge": "Condiciones para nuevos clientes",
+    "badgeColor": "green",
+    "hasZeroBadge": false,
+    "goldBadgeText": null,
+    "legal": "TURBOPESO, S.A. DE C.V.",
+    "rfc": null,
+    "address": "Av. Pdte. Masaryk 111, Oficina 1082, Polanco III Secc., Miguel Hidalgo, C.P. 11560, Ciudad de México, México",
+    "phone": null,
+    "email": null,
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://burodeentidadesfinancieras.condusef.gob.mx"
+  },
+  {
+    "id": "turbopeso",
+    "name": "Turbopeso",
+    "logo": null,
+    "ref": "https://tds.pdl-profit.com/h/rs17114?offerid=3965&c=0d0352e419462d220fda365c133333c99a2ea005",
+    "sum": 30000,
+    "term": 30,
+    "termRaw": 30,
+    "rateMin": 36.5,
+    "rateMax": 36.5,
+    "badge": "Condiciones para nuevos clientes",
+    "badgeColor": "green",
+    "hasZeroBadge": false,
+    "goldBadgeText": null,
+    "legal": "TURBOPESO, S.A. DE C.V.",
+    "rfc": null,
+    "address": "Av. Pdte. Masaryk 111, Oficina 1082, Polanco III Secc., Miguel Hidalgo, C.P. 11560, Ciudad de México, México",
+    "phone": null,
+    "email": null,
+    "requisitesVerified": true,
+    "epc": null,
+    "cr": null,
+    "registryUrl": "https://burodeentidadesfinancieras.condusef.gob.mx"
+  }
+];
+
+/* =========================================================
+   MFO_SENIORITY_MX — antigüedad orientativa de cada marca en
+   la red (1 = más antigua, 16 = más nueva). NO viene de la API
+   (PDL-Profit no entrega fecha de alta del oferta); se estimó
+   a partir del ID interno del oferta (id más bajo = oferta más
+   antigua en el sistema). Sirve solo para los botones "Más
+   nuevas/antiguas primero" y para la insignia "🆕 Nuevo servicio".
+   Revisar/ajustar si tienes fechas reales de alta por marca.
+   ========================================================= */
+const MFO_SENIORITY_MX = {
+  "Solcredito": 1,
+  "Dineromon": 2,
+  "Credito365": 3,
+  "Fiestacredito": 4,
+  "Vivus": 5,
+  "Dineria": 6,
+  "Prestomin": 7,
+  "Lanu": 8,
+  "Cozmo": 9,
+  "Alvos": 10,
+  "MePrestamo": 11,
+  "Lanaclick": 12,
+  "Vasxlana": 13,
+  "Credivenus": 14,
+  "Credipleno": 15,
+  "Turbopeso": 16
+};
+const NEW_OFFER_SENIORITY_THRESHOLD = 15;
+
+let MFO_DATA = [];
+const BATCH = 9;
+const state = { sum: 500, term: 5, visible: BATCH, sort: 'date-new', onlyPromo: false };
+let calcFilterActive = false;
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const PALETTE = ['#0f6e63','#2f5d8a','#6a4c93','#b8863b','#3c8a4c','#a5342a'];
+function fallbackColor(name){
+  let h = 0;
+  for (let i=0;i<name.length;i++) h = name.charCodeAt(i) + ((h<<5)-h);
+  return PALETTE[Math.abs(h) % PALETTE.length];
+}
+function initials(name){
+  return name.split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+}
+function fmt(n){ return Number(n).toLocaleString('es-MX'); }
+
+function isNewOffer(m){
+  const sr = MFO_SENIORITY_MX[m.name];
+  return typeof sr === 'number' && sr >= NEW_OFFER_SENIORITY_THRESHOLD;
+}
+
+function cardHTML(m, idx){
+  const fbColor = fallbackColor(m.name);
+  const uid = `cat-${idx}`;
+  const newOffer = isNewOffer(m);
+
+  let badgesHTML = '';
+  if (newOffer) {
+    badgesHTML += `<span class="mfo-badge color-new">🆕 Nuevo servicio</span>`;
+  }
+  badgesHTML += `<span class="mfo-badge color-${m.badgeColor}">${m.badge}</span>`;
+  if (m.hasZeroBadge && m.goldBadgeText) {
+    badgesHTML += `<span class="mfo-badge color-gold">🔥 ${m.goldBadgeText}</span>`;
+  }
+  const logoInner = (m.logo && m.logo.startsWith('http'))
+    ? `<img src="${m.logo}" alt="${m.name}" loading="lazy" onerror="this.onerror=null;this.parentElement.innerHTML='<div class=\\'mfo-logo-fallback\\' style=\\'background:${fbColor}\\'>${initials(m.name)}</div>';">`
+    : `<div class="mfo-logo-fallback" style="background:${fbColor}">${initials(m.name)}</div>`;
+
+  return `
+  <div class="mfo-card${newOffer ? ' mfo-card--new' : ''}">
+    <div class="mfo-card-top">
+      <div class="mfo-logo-wrap">${logoInner}</div>
+      <div class="mfo-card-name">${m.name}</div>
+    </div>
+    <div class="mfo-badges-row">${badgesHTML}</div>
+    <div class="mfo-card-body">
+      <div class="mfo-stat-row"><span class="k">Monto máximo</span><span class="v">hasta ${fmt(m.sum)} MXN</span></div>
+      ${m.repeatSum ? `<div class="mfo-stat-row"><span class="k">Crédito repetido</span><span class="v">hasta ${fmt(m.repeatSum)} MXN</span></div>` : ''}
+      <div class="mfo-stat-row"><span class="k">Plazo</span><span class="v">hasta ${m.term} días</span></div>
+      <div class="mfo-stat-row"><span class="k">CAT orientativo</span><span class="v">${fmt(m.rateMin)}% – ${fmt(m.rateMax)}%*</span></div>
+      <button class="cat-toggle" data-target="${uid}">¿Cómo se calculó este CAT?</button>
+      <div class="cat-panel" id="${uid}">
+        Cifra estimada para fines de comparación a partir de la tasa diaria informada por el proveedor; el CAT exacto depende del monto, plazo y perfil del solicitante — consúltalo en el sitio del proveedor antes de contratar.
+      </div>
+      ${m.legal ? `<div class="legal-line">${m.legal}</div>` : `<div class="legal-line">Razón social en verificación — <a href="https://www.buro.gob.mx" target="_blank" rel="noopener">consulta el Buró de Entidades Financieras</a></div>`}
+    </div>
+    <div class="mfo-card-cta">
+      <a class="btn btn-primary" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Solicitar →</a>
+    </div>
+  </div>`;
+}
+
+const grid = document.getElementById('mfo-grid');
+const resultsCount = document.getElementById('results-count');
+const noResultsEl = document.getElementById('no-results');
+const loadMoreWrap = document.getElementById('load-more');
+const loadMoreBtn = document.getElementById('load-more-btn');
+const resetBtn = document.getElementById('reset-calc-filter');
+const promoCheckbox = document.getElementById('promo-filter-checkbox');
+
+/* ====== SORTING ====== */
+function sortData(data){
+  const arr = [...data];
+  const seniorityVal = (m) => {
+    const r = MFO_SENIORITY_MX[m.name];
+    return Number.isFinite(r) ? r : -Infinity;
+  };
+  const rateVal = (m) => {
+    const n = Number(m.rateMin);
+    return Number.isFinite(n) && n > 0 ? n : Infinity;
+  };
+  const crVal = (m) => Number.isFinite(m.cr) ? m.cr : -Infinity;
+  const epcVal = (m) => Number.isFinite(m.epc) ? m.epc : -Infinity;
+  switch (state.sort) {
+    case 'sum-desc': return arr.sort((a,b) => b.sum - a.sum);
+    case 'rate-asc': return arr.sort((a,b) => rateVal(a) - rateVal(b));
+    case 'date-new': return arr.sort((a,b) => seniorityVal(b) - seniorityVal(a));
+    case 'date-old': return arr.sort((a,b) => seniorityVal(a) - seniorityVal(b));
+    case 'cr-desc': return arr.sort((a,b) => crVal(b) - crVal(a));
+    case 'epc-desc': return arr.sort((a,b) => epcVal(b) - epcVal(a));
+    default: return arr;
+  }
+}
+
+function renderGrid(){
+  let data = calcFilterActive
+    ? MFO_DATA.filter(m => m.sum >= state.sum && m.term >= state.term)
+    : MFO_DATA;
+
+  if (state.onlyPromo) {
+    data = data.filter(m => m.hasZeroBadge);
+  }
+
+  data = sortData(data);
+
+  const promoNote = state.onlyPromo ? ' con condiciones promocionales' : (calcFilterActive ? ' según tus criterios' : ' disponibles');
+  resultsCount.textContent = `${data.length} oferta${data.length===1?'':'s'}${promoNote}`;
+  resetBtn.style.display = calcFilterActive ? 'inline-flex' : 'none';
+
+  const toShow = data.slice(0, state.visible);
+  grid.innerHTML = toShow.map((m,i)=>cardHTML(m,i)).join('');
+
+  grid.querySelectorAll('.cat-toggle').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.getElementById(btn.dataset.target).classList.toggle('open');
+    });
+  });
+
+  noResultsEl.classList.toggle('visible', data.length===0);
+  loadMoreWrap.style.display = data.length > state.visible ? 'block' : 'none';
+  document.getElementById('stat-offers').textContent = MFO_DATA.length;
+}
+
+/* ====== CALCULATOR SLIDERS ====== */
+document.getElementById('calc-sum').addEventListener('input', e=>{
+  document.getElementById('calc-sum-val').textContent = fmt(e.target.value) + ' MXN';
+});
+document.getElementById('calc-term').addEventListener('input', e=>{
+  document.getElementById('calc-term-val').textContent = e.target.value + ' días';
+});
+
+const calcResultsWrap = document.getElementById('calc-results-wrap');
+const resMatch = document.getElementById('res-match');
+const resMinPay = document.getElementById('res-minpay');
+const resAvgRate = document.getElementById('res-avgrate');
+const resBest = document.getElementById('res-best');
+
+document.getElementById('calc-apply').addEventListener('click', ()=>{
+  state.sum = parseInt(document.getElementById('calc-sum').value, 10);
+  state.term = parseInt(document.getElementById('calc-term').value, 10);
+  state.visible = BATCH;
+  calcFilterActive = true;
+
+  const matches = MFO_DATA.filter(m => m.sum >= state.sum && m.term >= state.term);
+  calcResultsWrap.style.display = 'grid';
+  resMatch.textContent = matches.length;
+  if (matches.length > 0) {
+    const dailyRates = matches.map(m => (m.rateMin || 100) / 365).filter(r => r > 0);
+    const minDaily = dailyRates.length ? Math.min(...dailyRates) : 0;
+    const estPayment = state.sum * (1 + (minDaily/100) * state.term);
+    resMinPay.textContent = fmt(estPayment) + ' MXN';
+    const avgRate = matches.reduce((a,m) => a + (m.rateMin||0), 0) / matches.length;
+    resAvgRate.textContent = fmt(avgRate) + '%';
+    const best = matches.reduce((a,b) => (a.rateMin < b.rateMin ? a : b));
+    resBest.textContent = best.name;
+  } else {
+    resMinPay.textContent = '—';
+    resAvgRate.textContent = '—';
+    resBest.textContent = '—';
+  }
+
+  renderGrid();
+  document.getElementById('ofertas').scrollIntoView({behavior:'smooth', block:'start'});
+});
+
+resetBtn.addEventListener('click', ()=>{
+  calcFilterActive = false;
+  state.visible = BATCH;
+  renderGrid();
+});
+loadMoreBtn.addEventListener('click', ()=>{
+  state.visible += BATCH;
+  renderGrid();
+});
+
+/* ====== SORT BUTTONS + URL HASH ====== */
+const SORT_TO_HASH = { 'sum-desc':'monto', 'rate-asc':'cat', 'date-new':'nuevas', 'date-old':'antiguas', 'cr-desc':'recomendado', 'epc-desc':'top' };
+const HASH_TO_SORT = { 'monto':'sum-desc', 'cat':'rate-asc', 'nuevas':'date-new', 'antiguas':'date-old', 'recomendado':'cr-desc', 'top':'epc-desc' };
+function updateUrlHash(){
+  let hash = state.onlyPromo ? 'promo' : (SORT_TO_HASH[state.sort] || '');
+  const base = window.location.pathname + window.location.search;
+  history.replaceState(null, '', hash ? base + '#' + hash : base);
+}
+document.querySelectorAll('.sort-btn[data-sort]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.sort-btn[data-sort]').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    state.sort = btn.dataset.sort;
+    state.visible = BATCH;
+    updateUrlHash();
+    renderGrid();
+  });
+});
+promoCheckbox?.addEventListener('change', ()=>{
+  state.onlyPromo = promoCheckbox.checked;
+  state.visible = BATCH;
+  updateUrlHash();
+  renderGrid();
+});
+(function applyHashOnLoad(){
+  const hash = window.location.hash.replace('#','');
+  if (hash === 'promo') {
+    state.onlyPromo = true;
+    if (promoCheckbox) promoCheckbox.checked = true;
+  } else if (HASH_TO_SORT[hash]) {
+    state.sort = HASH_TO_SORT[hash];
+    document.querySelectorAll('.sort-btn[data-sort]').forEach(b=>{
+      b.classList.toggle('active', b.dataset.sort === state.sort);
+    });
+  }
+})();
+
+function renderPartners(){
+  const wrap = document.getElementById('partners-grid');
+  wrap.innerHTML = MFO_DATA.map(m => `
+    <div class="partner-card">
+      <b>${m.name}</b>
+      ${m.legal ? m.legal : '<i>Razón social en verificación — <a href="https://www.buro.gob.mx" target="_blank" rel="noopener">Buró de Entidades Financieras</a></i>'}<br>
+      ${m.address ? m.address : ''}
+      ${m.rfc ? `<br>RFC: ${m.rfc}` : ''}
+      ${m.email ? `<br>${m.email}` : ''}
+      ${m.phone ? `<br>${m.phone}` : ''}
+      ${m.registryUrl ? `<br><a href="${m.registryUrl}" target="_blank" rel="noopener">Verificar en registro oficial →</a>` : ''}
+      ${!m.requisitesVerified ? '<span class="unverified">⚠️ Dato aún no verificado con fuente oficial</span>' : ''}
+    </div>
+  `).join('');
+}
+
+/* ====== TOP3 POPUP (para tráfico que llega con ?sum=&term= en la URL,
+   ej. desde un quiz/landing previo). Se muestra una sola vez por sesión. ====== */
+function initTop3Popup(){
+  const overlay = document.getElementById('top3-overlay');
+  if (!overlay) return;
+  const params = new URLSearchParams(window.location.search);
+  const querySum = parseInt(params.get('sum'), 10);
+  const queryTerm = parseInt(params.get('term'), 10);
+  if (isNaN(querySum) || isNaN(queryTerm)) return;
+  if (sessionStorage.getItem('top3PopupShownMX')) return;
+  if (!MFO_DATA.length) return;
+
+  function spawnConfetti(){
+    const wrap = document.getElementById('top3-confetti');
+    if (!wrap) return;
+    const colors = ['#0f6e63','#2f5d8a','#b8863b','#3c8a4c','#6a4c93'];
+    let html = '';
+    for (let i=0;i<24;i++){
+      const left = Math.random()*100;
+      const delay = (Math.random()*0.5).toFixed(2);
+      const dur = (1.1 + Math.random()*0.7).toFixed(2);
+      html += `<span style="left:${left}%;background:${colors[i%colors.length]};animation-delay:${delay}s;animation-duration:${dur}s;"></span>`;
+    }
+    wrap.innerHTML = html;
+  }
+  function openModal(){
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden','false');
+    sessionStorage.setItem('top3PopupShownMX','1');
+    spawnConfetti();
+    if (typeof fbq === 'function') {
+      fbq('trackCustom', 'QuizResultViewed', { sum: querySum, term: queryTerm });
+    }
+  }
+  function closeModal(){
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden','true');
+  }
+
+  function pickRandom(sortedArr, count){
+    const pool = sortedArr.slice(0, Math.max(count, Math.min(16, sortedArr.length)));
+    for (let i = pool.length-1; i>0; i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return pool.slice(0, count);
+  }
+
+  const rowCardHTML = (m, rank) => {
+    const fbColor = fallbackColor(m.name);
+    const logoInner = (m.logo && m.logo.startsWith('http'))
+      ? `<img class="top3-logo" src="${m.logo}" alt="${m.name}" onerror="this.onerror=null;this.outerHTML='<div class=\\'top3-logo-fallback\\' style=\\'background:${fbColor}\\'>${initials(m.name)}</div>';">`
+      : `<div class="top3-logo-fallback" style="background:${fbColor}">${initials(m.name)}</div>`;
+    return `
+    <div class="top3-row rank-${Math.min(rank,3)}">
+      <div class="top3-row-head">
+        <span class="top3-row-rank">${rank}</span>
+        ${logoInner}
+        <div>
+          <div class="top3-row-name">${m.name}</div>
+          <div class="top3-row-meta">hasta ${fmt(m.sum)} MXN / ${m.term} días</div>
+        </div>
+      </div>
+      <a class="top3-row-cta" href="${m.ref}" target="_blank" rel="sponsored nofollow noopener noreferrer">Solicitar →</a>
+    </div>`;
+  };
+
+  let pool = MFO_DATA.filter(m => m.sum >= querySum && m.term >= queryTerm);
+  if (pool.length === 0) pool = MFO_DATA.slice();
+
+  document.getElementById('top3-subtitle').innerHTML = `Para tu búsqueda: <b>${fmt(querySum)} MXN / ${queryTerm} días</b>`;
+
+  const seniorSorted = [...pool].sort((a,b) => (MFO_SENIORITY_MX[b.name]||0) - (MFO_SENIORITY_MX[a.name]||0));
+  const topThree = pickRandom(seniorSorted, 3);
+  const usedNames = new Set(topThree.map(m => m.name));
+
+  const crEpcSorted = [...pool]
+    .filter(m => !usedNames.has(m.name))
+    .sort((a,b) => ((b.cr ?? b.epc ?? -Infinity) - (a.cr ?? a.epc ?? -Infinity)));
+  const recThree = pickRandom(crEpcSorted, 3);
+
+  document.getElementById('top3-list-top').innerHTML = topThree.map((m,i)=>rowCardHTML(m,i+1)).join('');
+  const recSection = document.getElementById('top3-section-rec');
+  if (recThree.length > 0) {
+    document.getElementById('top3-list-rec').innerHTML = recThree.map((m,i)=>rowCardHTML(m,i+1)).join('');
+    recSection.style.display = '';
+  } else {
+    recSection.style.display = 'none';
+  }
+
+  openModal();
+  document.getElementById('top3-close').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e)=>{ if (e.target === overlay) closeModal(); });
+  document.getElementById('top3-all-link').addEventListener('click', () => closeModal());
+}
+
+/* ====== CARGA DE DATOS EN VIVO + FALLBACK ====== */
+async function loadLiveDataAndInit(){
+  try {
+    const res = await fetch('/mfo-live-data-mx.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    if (!Array.isArray(json.offers) || json.offers.length === 0) throw new Error('Empty offers');
+    MFO_DATA = json.offers;
+    console.log(`✅ Cargadas ${MFO_DATA.length} ofertas en vivo (generado: ${json.generatedAt})`);
+  } catch (err) {
+    console.warn('⚠️ No se pudo cargar mfo-live-data-mx.json, usando datos de respaldo:', err);
+    MFO_DATA = MFO_DATA_FALLBACK;
+  }
+  renderGrid();
+  renderPartners();
+  initTop3Popup();
+}
+
+/* ====== FAQ ACCORDION ====== */
+document.querySelectorAll('.faq-item').forEach(item=>{
+  const btn = item.querySelector('.faq-q');
+  btn.addEventListener('click', ()=>{
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+loadLiveDataAndInit();
+</script>
+</body>
+</html>
