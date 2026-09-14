@@ -680,5 +680,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       });
   })();
 </script>
+  <script>
+// ===== АВТОСКРОЛ ДО БЛОКУ З ОФЕРАМИ (плавніший за нативний smooth) =====
+(function () {
+  var target = document.getElementById('offers-highlight');
+  if (!target) return;
+
+  // Показуємо статтю користувачу 1.4с, потім плавно "підводимо" до офферів
+  var DELAY_MS = 1400;
+  var DURATION_MS = 900; // тривалість самої анімації скролу
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function smoothScrollTo(targetY, duration) {
+    var startY = window.pageYOffset;
+    var diff = targetY - startY;
+    var startTime = null;
+
+    function step(currentTime) {
+      if (startTime === null) startTime = currentTime;
+      var elapsed = currentTime - startTime;
+      var progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + diff * easeInOutCubic(progress));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function scrollToOffers() {
+    var header = document.getElementById('main-header');
+    var headerHeight = header ? header.offsetHeight : 0;
+    var targetY = target.getBoundingClientRect().top + window.pageYOffset - headerHeight - 16;
+    smoothScrollTo(targetY, DURATION_MS);
+  }
+
+  window.addEventListener('load', function () {
+    setTimeout(scrollToOffers, DELAY_MS);
+  });
+})();
+</script>
 </body>
 </html>
