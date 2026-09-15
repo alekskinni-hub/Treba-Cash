@@ -89,13 +89,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 html { scroll-behavior: smooth; }
 body { font-family: var(--font-body); background: var(--surface); color: var(--ink); font-size: 16px; line-height: 1.75; -webkit-font-smoothing: antialiased; }
 
-.header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.82); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(39,174,96,0.12); padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 30px rgba(30,39,46,0.05); }
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.82); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(39,174,96,0.12); padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 8px 30px rgba(30,39,46,0.05); }
 .header.scrolled { box-shadow: 0 4px 24px rgba(39,174,96,0.13); }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .logo-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .logo-icon img { width: 100%; height: 100%; object-fit: contain; }
 .logo-text { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 900; color: var(--text); }
 .logo-text span { color: var(--green); }
+.nav { display: flex; gap: 6px; align-items: center; }
+.nav a { font-size: 13px; font-weight: 600; color: var(--ink-muted); text-decoration: none; padding: 6px 12px; border-radius: 8px; transition: color .2s, background .2s; }
+.nav a:hover { color: var(--green); background: rgba(39,174,96,0.08); }
+.btn-header { display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(90deg, var(--green), var(--green-light)); color: #fff !important; text-decoration: none; font-size: 13px; font-weight: 700; padding: 10px 20px; border-radius: 10px; box-shadow: 0 4px 16px rgba(39,174,96,0.35); }
+.btn-header:hover { transform: translateY(-2px); }
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; }
+.mobile-nav { display: none; position: fixed; top: 68px; left: 0; right: 0; background: #fff; padding: 16px 24px; border-bottom: 1px solid rgba(39,174,96,0.12); flex-direction: column; gap: 4px; z-index: 999; }
+.mobile-nav.open { display: flex; }
+.mobile-nav a { font-size: 15px; font-weight: 600; color: var(--text); text-decoration: none; padding: 10px 0; border-bottom: 1px solid #f0f0f0; }
+@media (max-width: 768px) { .nav { display: none; } .btn-header { display: none; } .hamburger { display: flex; } }
 .skip-link { position: absolute; left: -999px; top: 8px; z-index: 2000; background: var(--green); color: #fff; padding: 10px 14px; border-radius: 10px; text-decoration: none; font-weight: 700; }
 .skip-link:focus { left: 12px; }
 
@@ -188,7 +199,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="logo-icon"><img src="/assets/logo-icon.png" alt="TrebaCash" width="36" height="36"></div>
     <div class="logo-text">TREBA <span>CASH</span></div>
   </a>
+  <nav class="nav">
+    <a href="/porivnyannya-mfo-mx/">Inicio</a>
+    <a href="/porivnyannya-mfo-mx/quienes-somos/">Quiénes somos</a>
+    <a href="/porivnyannya-mfo-mx/aviso-de-privacidad/">Aviso de Privacidad</a>
+    <a href="/porivnyannya-mfo-mx/terminos-y-condiciones/">Términos y Condiciones</a>
+  </nav>
+  <a href="/porivnyannya-mfo-mx/#mfo-grid-anchor" class="btn-header">Ver ofertas →</a>
+  <div class="hamburger" id="hamburger" onclick="document.getElementById('mobile-nav').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
 </header>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="/porivnyannya-mfo-mx/">Inicio</a>
+  <a href="/porivnyannya-mfo-mx/quienes-somos/">Quiénes somos</a>
+  <a href="/porivnyannya-mfo-mx/aviso-de-privacidad/">Aviso de Privacidad</a>
+  <a href="/porivnyannya-mfo-mx/terminos-y-condiciones/">Términos y Condiciones</a>
+  <a href="/porivnyannya-mfo-mx/#mfo-grid-anchor" style="color:var(--green);">Ver ofertas →</a>
+</div>
 
 <main id="main">
 
@@ -445,8 +473,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p style="margin-top: 10px;">*El plazo mínimo de 62 días se indica considerando la posibilidad de una prórroga gratuita o programada del crédito. El incumplimiento de las obligaciones frente al acreedor puede generar recargos/intereses moratorios y afectar tu historial crediticio. TrebaCash no es un acreedor y no establece estas condiciones — las determina la legislación mexicana aplicable y el contrato de cada institución.</p>
         <div style="margin-top: 14px;">
           <p style="font-weight: 600; color: rgba(255,255,255,0.6); margin-bottom: 6px;">Socios (instituciones verificadas en registros oficiales de México/Estonia):</p>
-          <p>Datos completos (razón social, RFC, domicilio, contacto y enlace de verificación en registro oficial) en la sección "Datos de nuestros socios" del <a href="/porivnyannya-mfo-mx/" style="color:rgba(255,255,255,0.55);">comparador</a>.</p>
+          <p>Ver también el detalle completo con enlaces de verificación en la sección "Datos de nuestros socios" del <a href="/porivnyannya-mfo-mx/" style="color:rgba(255,255,255,0.55);">comparador</a>.</p>
         </div>
+      </div>
+      <div style="margin-top:30px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.07);">
+        <p style="font-weight:600;color:rgba(255,255,255,0.6);margin-bottom:12px;">Socios (razón social, RFC, registro/supervisión y contacto — verificados en registros oficiales de México/Estonia, ver detalle y enlaces en <a href="/porivnyannya-mfo-mx/#socios" style="color:rgba(255,255,255,0.55);">"Datos de nuestros socios"</a> y en <a href="/porivnyannya-mfo-mx/quienes-somos/" style="color:rgba(255,255,255,0.55);">Quiénes somos</a>):</p>
+        <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;">
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Alvos — ANVL S.A. DE C.V. · En verificación en CONDUSEF/SIPRES · info@alvos.mx</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Cozmo — Digital Deck, S.A.P.I. de C.V., SOFOM, E.N.R. · RFC DDE220927IT6 · CONDUSEF/SIPRES, Clave de Registro 695817, alta 14/04/2023 · digitaldeckmx@gmail.com</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Credipleno — TURBOPESO, S.A. DE C.V. · No confirmado en SIPRES — declara supervisión vía PROFECO · correo no publicado</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Credito365 — CREDITO365, S.A.P.I. DE C.V. · En verificación · correo no publicado</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Credivenus — TURBOPESO, S.A. DE C.V. · No confirmado en SIPRES — declara supervisión vía PROFECO · correo no publicado</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Dineria — PROXIMUS FINANCE, S. DE R.L. DE C.V. · RFC PFI160329D43 · PROFECO · info@dineria.mx</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Dineromon — FIIZY OÜ · e-Äriregister (Estonia) N.º 12694462 · clientes@solcredito.mx</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Fiestacredito — Finceptiv OÜ · e-Äriregister (Estonia) N.º 14563072 · clientes@fiestacredito.mx</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Lanaclick — TURBOPESO, S.A. DE C.V. · No confirmado en SIPRES — declara supervisión vía PROFECO · correo no publicado</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Lanu — SOFI DIGITAL MX, S.A. DE C.V. · CONDUSEF/SIPRES, RECA 6915 (fecha de alta no confirmada) · info@lanu.mx</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">MePrestamo — Honor de Cuervo S.A. de C.V. · En verificación (ver nota de diligencia debida en Quiénes somos) · correo no publicado</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Prestomin — SOFI DIGITAL MX, S.A. DE C.V. · CONDUSEF/SIPRES, RECA 6915 (fecha de alta no confirmada) · info@prestomin.mx</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Solcredito — FIIZY OÜ · e-Äriregister (Estonia) N.º 12694462 · clientes@solcredito.mx</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Turbopeso — TURBOPESO, S.A. DE C.V. · No confirmado en SIPRES — declara supervisión vía PROFECO · correo no publicado</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Vasxlana — TURBOPESO, S.A. DE C.V. · No confirmado en SIPRES — declara supervisión vía PROFECO · correo no publicado</li>
+          <li style="font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;">Vivus — Traffic Control OÜ · e-Äriregister (Estonia) N.º 11501857 · correo no publicado</li>
+        </ul>
       </div>
     </div>
     <hr class="footer-divider">
