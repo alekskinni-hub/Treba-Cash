@@ -64,7 +64,8 @@
     "country": "Estonia (operación dirigida a México)",
     "verified": true,
     "source": "Registro oficial e-Äriregister (Registro Mercantil de Estonia), código 12694462: https://ariregister.rik.ee/est/company/12694462/Fiizy-O%C3%9C — dirección ACTUALIZADA respecto al documento del socio (que indicaba Toom-Kooli 1, 10130, ya obsoleta).",
-    "registryUrl": "https://ariregister.rik.ee/est/company/12694462/Fiizy-O%C3%9C"
+    "registryUrl": "https://ariregister.rik.ee/est/company/12694462/Fiizy-O%C3%9C",
+    "note": "⚠️ КОНФЛІКТ ДЖЕРЕЛ: e-Äriregister (держреєстр Естонії) показує адресу Pärnu mnt 18, 10141 Tallinn; офіційний футер solcredito.mx показує ІНШУ адресу — Tartu mnt 10, 10145 Tallinn. Обидва — першоджерела, не збігаються. Використано адресу з реєстру як юридично пріоритетну, але перед публікацією варто перевірити vручну (можливо, нещодавній переїзд). Також: офіційний Aviso solcredito.mx описує Solcredito як 'motor de búsqueda de financiación' (вони самі — агрегатор/лід-ген, не прямий кредитор): 'Solcredito no es un prestamista y no gestiona u otorga préstamos'. Тобто FIIZY OÜ — відповідальний за САЙТ/бренд Solcredito, а не обов'язково фінальний кредитор, який видасть гроші — це ще один шар посередництва всередині їхньої власної мережі партнерів."
   },
   "Dineromon": {
     "legal": "FIIZY OÜ",
@@ -76,7 +77,7 @@
     "verified": false,
     "source": "Misma persona moral que Solcredito según e-Äriregister (código 12694462): https://ariregister.rik.ee/est/company/12694462/Fiizy-O%C3%9C — dirección confirmada, pero el email de contacto sigue siendo idéntico al de Solcredito en la fuente original, posible error de copiado sin confirmar.",
     "registryUrl": "https://ariregister.rik.ee/est/company/12694462/Fiizy-O%C3%9C",
-    "note": "CONFIRMAR con el afiliado antes de publicar: el correo de contacto parece duplicado del de Solcredito."
+    "note": "CONFIRMAR con el afiliado antes de publicar: el correo de contacto parece duplicado del de Solcredito. Та сама структура і той самий нюанс посередництва, що й у Solcredito (обидва — FIIZY OÜ), плюс той самий конфлікт адрес."
   },
   "Fiestacredito": {
     "legal": "Finceptiv OÜ",
