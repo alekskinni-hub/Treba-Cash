@@ -72,13 +72,24 @@ html{scroll-behavior:smooth;}
 body{font-family:'Manrope',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
 
 /* ===== HEADER (без навігації — сторінка окрема, не пов'язана з меню основного сайту) ===== */
-.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(39,174,96,0.12);padding:0 24px;height:68px;display:flex;align-items:center;justify-content:center;}
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(39,174,96,0.12);padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;}
 .header.scrolled{box-shadow:0 8px 30px rgba(13,21,18,0.08);}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .logo-icon{width:36px;height:36px;}
 .logo-icon img{width:100%;height:100%;object-fit:contain;}
 .logo-text{font-family:'Unbounded',sans-serif;font-size:15px;font-weight:900;color:var(--text);}
 .logo-text span{color:var(--green);}
+.nav{display:flex;gap:6px;align-items:center;}
+.nav a{font-size:13px;font-weight:600;color:var(--ink-soft,#5a6b64);text-decoration:none;padding:6px 12px;border-radius:8px;transition:color .2s,background .2s;}
+.nav a:hover{color:var(--green);background:rgba(39,174,96,0.08);}
+.btn-header{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(90deg,var(--green),var(--green-light));color:#fff!important;text-decoration:none;font-size:13px;font-weight:700;padding:10px 20px;border-radius:10px;box-shadow:0 4px 16px rgba(39,174,96,0.35);}
+.btn-header:hover{transform:translateY(-2px);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text);border-radius:2px;}
+.mobile-nav{display:none;position:fixed;top:68px;left:0;right:0;background:#fff;padding:16px 24px;border-bottom:1px solid rgba(39,174,96,0.12);flex-direction:column;gap:4px;z-index:999;}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{font-size:15px;font-weight:600;color:var(--text);text-decoration:none;padding:10px 0;border-bottom:1px solid #f0f0f0;}
+@media(max-width:768px){.nav{display:none;}.btn-header{display:none;}.hamburger{display:flex;}}
 .container{max-width:1280px;margin:0 auto;padding:0 24px;}
 .skip-link{position:absolute;left:-999px;top:8px;z-index:2000;background:var(--green);color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;}
 .skip-link:focus{left:12px;}
@@ -240,6 +251,8 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .footer-bottom a{color:rgba(255,255,255,0.4);text-decoration:none;}
 .footer-bottom a:hover{color:var(--green);}
 .footer-partners{margin-top:10px;}
+.footer-partners-full ul li{font-size:10.5px;color:rgba(255,255,255,0.5);line-height:1.6;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.footer-partners-full ul li:last-child{border-bottom:none;}
 @media(max-width:900px){.footer-inner{grid-template-columns:1fr;gap:24px;}}
 
 @media(max-width:640px){
@@ -395,7 +408,24 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header class="header" id="main-header">
   <a href="/porivnyannya-mfo-mx/" class="logo"><div class="logo-icon"><img src="/assets/logo-icon.png" alt="TrebaCash" width="36" height="36"></div><div class="logo-text">TREBA <span>CASH</span></div></a>
+  <nav class="nav">
+    <a href="/porivnyannya-mfo-mx/">Inicio</a>
+    <a href="/porivnyannya-mfo-mx/quienes-somos/">Quiénes somos</a>
+    <a href="/porivnyannya-mfo-mx/aviso-de-privacidad/">Aviso de Privacidad</a>
+    <a href="/porivnyannya-mfo-mx/terminos-y-condiciones/">Términos y Condiciones</a>
+  </nav>
+  <a href="#mfo-grid-anchor" class="btn-header">Ver ofertas →</a>
+  <div class="hamburger" id="hamburger" onclick="document.getElementById('mobile-nav').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
 </header>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="/porivnyannya-mfo-mx/">Inicio</a>
+  <a href="/porivnyannya-mfo-mx/quienes-somos/">Quiénes somos</a>
+  <a href="/porivnyannya-mfo-mx/aviso-de-privacidad/">Aviso de Privacidad</a>
+  <a href="/porivnyannya-mfo-mx/terminos-y-condiciones/">Términos y Condiciones</a>
+  <a href="#mfo-grid-anchor" style="color:var(--green);">Ver ofertas →</a>
+</div>
 
 <main id="main">
 
@@ -542,11 +572,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div>
         <p style="font-weight:600;color:rgba(255,255,255,0.6);margin-bottom:10px;">Condiciones de servicio de los socios:</p>
         <p>Las condiciones exactas (monto, plazo, tasa) de cada socio están en las tarjetas de oferta arriba y en el contrato de la institución elegida. Los límites legales generales de plazo y tasa están en el bloque destacado sobre este pie de página.</p>
-        <div class="footer-partners" style="margin-top:14px;">
-          <p style="font-weight:600;color:rgba(255,255,255,0.6);margin-bottom:6px;">Socios (instituciones verificadas en registros oficiales de México/Estonia):</p>
-          <p id="footer-partners-text">Cargando datos de socios…</p>
-        </div>
       </div>
+    </div>
+
+    <div class="footer-partners-full" style="margin-top:30px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.07);">
+      <p style="font-weight:600;color:rgba(255,255,255,0.6);margin-bottom:12px;">Socios (razón social, RFC, registro/supervisión y contacto — verificados en registros oficiales de México/Estonia, ver detalle y enlaces en <a href="/porivnyannya-mfo-mx/#socios" style="color:rgba(255,255,255,0.55);">"Datos de nuestros socios"</a> y en <a href="/porivnyannya-mfo-mx/quienes-somos/" style="color:rgba(255,255,255,0.55);">Quiénes somos</a>):</p>
+      <ul style="list-style:none;padding:0;margin:0;display:grid;gap:6px;">
+        <li>Alvos — ANVL S.A. DE C.V. · En verificación en CONDUSEF/SIPRES · info@alvos.mx</li>
+        <li>Cozmo — Digital Deck, S.A.P.I. de C.V., SOFOM, E.N.R. · RFC DDE220927IT6 · CONDUSEF/SIPRES, Clave de Registro 695817, alta 14/04/2023 · digitaldeckmx@gmail.com</li>
+        <li>Credipleno — TURBOPESO, S.A. DE C.V. · No confirmado en SIPRES — declara supervisión vía PROFECO · correo no publicado</li>
+        <li>Credito365 — CREDITO365, S.A.P.I. DE C.V. · En verificación · correo no publicado</li>
+        <li>Credivenus — TURBOPESO, S.A. DE C.V. · No confirmado en SIPRES — declara supervisión vía PROFECO · correo no publicado</li>
+        <li>Dineria — PROXIMUS FINANCE, S. DE R.L. DE C.V. · RFC PFI160329D43 · PROFECO · info@dineria.mx</li>
+        <li>Dineromon — FIIZY OÜ · e-Äriregister (Estonia) N.º 12694462 · clientes@solcredito.mx</li>
+        <li>Fiestacredito — Finceptiv OÜ · e-Äriregister (Estonia) N.º 14563072 · clientes@fiestacredito.mx</li>
+        <li>Lanaclick — TURBOPESO, S.A. DE C.V. · No confirmado en SIPRES — declara supervisión vía PROFECO · correo no publicado</li>
+        <li>Lanu — SOFI DIGITAL MX, S.A. DE C.V. · CONDUSEF/SIPRES, RECA 6915 (fecha de alta no confirmada) · info@lanu.mx</li>
+        <li>MePrestamo — Honor de Cuervo S.A. de C.V. · En verificación (ver nota de diligencia debida en Quiénes somos) · correo no publicado</li>
+        <li>Prestomin — SOFI DIGITAL MX, S.A. DE C.V. · CONDUSEF/SIPRES, RECA 6915 (fecha de alta no confirmada) · info@prestomin.mx</li>
+        <li>Solcredito — FIIZY OÜ · e-Äriregister (Estonia) N.º 12694462 · clientes@solcredito.mx</li>
+        <li>Turbopeso — TURBOPESO, S.A. DE C.V. · No confirmado en SIPRES — declara supervisión vía PROFECO · correo no publicado</li>
+        <li>Vasxlana — TURBOPESO, S.A. DE C.V. · No confirmado en SIPRES — declara supervisión vía PROFECO · correo no publicado</li>
+        <li>Vivus — Traffic Control OÜ · e-Äriregister (Estonia) N.º 11501857 · correo no publicado</li>
+      </ul>
     </div>
     <hr class="footer-divider">
     <div class="footer-bottom">
@@ -830,13 +878,11 @@ if (requisitesGrid) {
   requisitesGrid.innerHTML = sortedByName.map(requisiteCardHTML).join('');
 }
 
-const footerPartnersText = document.getElementById('footer-partners-text');
-if (footerPartnersText) {
-  const parts = [...MFO_DATA]
-    .sort((a, b) => a.name.localeCompare(b.name, 'es'))
-    .map(m => `${m.name} — ${m.legal || 'razón social en verificación'}`);
-  footerPartnersText.textContent = parts.join('; ') + '. Datos completos en la sección "Datos de nuestros socios" arriba.';
-}
+/* Примітка: динамічний генератор footer-partners-text прибраний — список
+   партнерів у футері тепер статичний HTML (кожен партнер окремим рядком
+   з юрособою/RFC/реєстром/email), а не JS, що клеїв усе в один текстовий
+   блок з живих MFO_DATA. Так надійніше і легше проконтролювати точність
+   формулювань для кожного бренду вручну. */
 
 }
 
