@@ -346,165 +346,81 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .requisite-card .req-nbu-link{display:inline-block;margin-top:8px;font-size:11.5px;color:var(--green-dark);font-weight:800;text-decoration:none;}
 .requisite-card .req-nbu-link:hover{text-decoration:underline;}
 
-/* ===== CSS: Бічний віджет-смартлінк ===== */
-.sw-widget{
-  position:fixed;
-  top:50%;right:22px;
-  transform:translateY(-50%) translateX(24px);
-  width:300px;
-  z-index:850;
-  font-family:'Manrope',sans-serif;
-  opacity:0;pointer-events:none;
-  transition:opacity .5s ease, transform .5s cubic-bezier(.2,.8,.3,1);
+/* ===== CSS: Telegram-віджет (десктоп — бічна картка, мобільний — exit-intent модалка) ===== */
+:root{ --tg:#229ED9; --tg-dark:#1b7fb3; }
+.tgw-card{
+  position:relative;background:var(--white,#fff);border-radius:22px;
+  padding:22px 20px 20px;box-shadow:0 20px 50px rgba(13,21,18,.16),0 4px 14px rgba(13,21,18,.06);
+  border:1px solid rgba(39,174,96,.12);max-height:90vh;overflow-y:auto;
 }
-.sw-widget.is-visible{
-  opacity:1;pointer-events:auto;
-  transform:translateY(-50%) translateX(0);
-}
+.tgw-close{position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;border:none;background:rgba(26,36,33,.06);color:var(--text-muted,#5a6b64);font-size:14px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;}
+.tgw-close:hover{background:rgba(26,36,33,.12);color:var(--text,#1a2421);}
+.tgw-icon-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.tgw-icon{width:44px;height:44px;border-radius:13px;flex:0 0 44px;background:linear-gradient(135deg,var(--tg),#3ab6ed);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(34,158,217,.35);position:relative;}
+.tgw-icon svg{width:22px;height:22px;}
+.tgw-icon .ping{position:absolute;inset:-5px;border-radius:16px;border:2px solid var(--tg);opacity:0;animation:tgw-ping 2.6s ease-out infinite;}
+@keyframes tgw-ping{0%{opacity:.55;transform:scale(.9);}75%{opacity:0;transform:scale(1.28);}100%{opacity:0;}}
+.tgw-live{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:var(--green-dark,#1e8449);background:rgba(39,174,96,.1);padding:4px 9px;border-radius:999px;}
+.tgw-live .d{width:6px;height:6px;border-radius:50%;background:var(--green,#27ae60);box-shadow:0 0 0 0 var(--green-glow,rgba(46,204,113,.35));animation:tgw-pulse 2s infinite;}
+@keyframes tgw-pulse{0%{box-shadow:0 0 0 0 rgba(46,204,113,.35);}70%{box-shadow:0 0 0 8px rgba(46,204,113,0);}100%{box-shadow:0 0 0 0 rgba(46,204,113,0);}}
+.tgw-headline{font-family:'Unbounded',sans-serif;font-weight:900;font-size:19px;line-height:1.3;letter-spacing:-.01em;margin:0 0 10px;color:var(--text,#1a2421);}
+.tgw-count{color:var(--green-dark,#1e8449);}
+.tgw-sub{font-size:14px;color:var(--text-muted,#5a6b64);line-height:1.55;margin:0 0 18px;}
+.tgw-sub b{color:var(--text,#1a2421);font-weight:800;}
+.tgw-cta{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;background:linear-gradient(135deg,var(--tg),var(--tg-dark));color:#fff;font-family:'Manrope',sans-serif;font-weight:800;font-size:15px;padding:15px 18px;border:none;border-radius:14px;cursor:pointer;text-decoration:none;box-shadow:0 10px 24px rgba(34,158,217,.4);transition:transform .18s,box-shadow .18s;}
+.tgw-cta:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(34,158,217,.48);}
+.tgw-cta svg{width:18px;height:18px;flex:0 0 18px;}
+.tgw-fineprint{text-align:center;font-size:11.5px;color:#93a29c;margin:12px 0 0;}
 
-.sw-card{
-  position:relative;
-  border-radius:24px;
-  padding:3px;
-  background:linear-gradient(135deg,var(--green,#27ae60),var(--gold,#f5b942),var(--green-light,#2ecc71));
-  background-size:220% 220%;
-  animation:swGradientShift 6s ease-in-out infinite;
-  box-shadow:0 20px 50px rgba(13,21,18,0.25);
-}
-@keyframes swGradientShift{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
+.tgw-top3{display:none;}
+.tgw-top3-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.tgw-top3-title{font-family:'Unbounded',sans-serif;font-weight:800;font-size:11.5px;color:var(--text,#1a2421);}
+.tgw-top3-list{display:flex;flex-direction:column;gap:6px;}
+.tgw-row{display:flex;align-items:center;gap:8px;background:var(--bg,#f4f9f6);border-radius:12px;padding:6px 9px;}
+.tgw-rank{width:20px;height:20px;border-radius:50%;flex:0 0 20px;display:flex;align-items:center;justify-content:center;font-family:'Unbounded',sans-serif;font-weight:900;font-size:10px;color:#fff;}
+.tgw-rank[data-r="1"]{background:linear-gradient(135deg,#ffd76a,#f5a623);box-shadow:0 3px 8px rgba(245,166,35,.4);}
+.tgw-rank[data-r="2"]{background:linear-gradient(135deg,#d7dee2,#9aa7ad);box-shadow:0 3px 8px rgba(120,140,150,.3);}
+.tgw-rank[data-r="3"]{background:linear-gradient(135deg,#e3a97a,#b9723f);box-shadow:0 3px 8px rgba(180,110,60,.3);}
+.tgw-row-logo{flex:1;min-width:0;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fff;border:1px solid rgba(26,36,33,.06);}
+.tgw-row-logo img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.tgw-row-logo.is-fallback{font-family:'Unbounded',sans-serif;font-weight:800;font-size:13px;color:#fff;}
+.tgw-row-cta{flex:0 0 auto;font-family:'Manrope',sans-serif;font-weight:800;font-size:11px;color:#fff;background:linear-gradient(90deg,var(--green,#27ae60),var(--green-light,#2ecc71));padding:8px 14px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:transform .15s;}
+.tgw-row-cta:hover{transform:translateY(-1px);}
 
-.sw-inner{
-  position:relative;
-  background:var(--white,#fff);
-  border-radius:21px;
-  padding:16px 16px 14px;
-  overflow:hidden;
-}
+/* ---- Десктоп: докована бічна картка ---- */
+#tg-widget{position:fixed;z-index:850;right:22px;top:50%;width:300px;transform:translateY(-50%) translateX(350px);opacity:0;transition:transform .65s cubic-bezier(.16,1.32,.4,1), opacity .5s ease;}
+#tg-widget.is-visible{transform:translateY(-50%) translateX(0);opacity:1;}
+#tg-widget.is-collapsed{transform:translateY(-50%) translateX(268px);}
+#tg-widget .tgw-card{animation:tgw-breathe 4.5s ease-in-out infinite;}
+@keyframes tgw-breathe{0%,100%{box-shadow:0 20px 50px rgba(13,21,18,.16),0 4px 14px rgba(13,21,18,.06);}50%{box-shadow:0 22px 58px rgba(39,174,96,.22),0 4px 16px rgba(13,21,18,.08);}}
+.tgw-tab{position:absolute;left:-46px;top:50%;transform:translateY(-50%);width:46px;height:120px;background:linear-gradient(135deg,var(--tg),var(--tg-dark));border-radius:14px 0 0 14px;display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:-6px 6px 20px rgba(34,158,217,.3);}
+#tg-widget.is-collapsed .tgw-tab{display:flex;}
+#tg-widget.is-collapsed .tgw-card{visibility:hidden;pointer-events:none;}
+.tgw-tab span{writing-mode:vertical-rl;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.03em;}
+.tgw-overlay{display:none;}
 
-.sw-close{
-  position:absolute;top:8px;right:8px;
-  width:24px;height:24px;border-radius:50%;
-  border:none;background:rgba(13,21,18,0.06);
-  font-size:13px;cursor:pointer;color:var(--text,#1a2421);
-  display:flex;align-items:center;justify-content:center;
-  z-index:2;
-}
-.sw-close:hover{background:rgba(13,21,18,0.12);}
-
-.sw-icon-wrap{
-  width:38px;height:38px;margin:0 auto 8px;
-  border-radius:12px;
-  background:linear-gradient(135deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  display:flex;align-items:center;justify-content:center;
-  font-size:18px;
-  animation:swFloat 2.6s ease-in-out infinite;
-  box-shadow:0 8px 18px rgba(39,174,96,.35);
-}
-@keyframes swFloat{
-  0%,100%{transform:translateY(0) rotate(0deg);}
-  50%{transform:translateY(-5px) rotate(-4deg);}
-}
-
-.sw-title{
-  text-align:center;font-size:15px;font-weight:900;
-  color:var(--text,#1a2421);margin:0 0 8px;line-height:1.25;padding-right:0;
-}
-.sw-title span{color:var(--green-dark,#1e8449);}
-
-.sw-subtitle{
-  text-align:center;font-size:13px;color:var(--text-muted,#5a6b64);
-  margin:0 0 16px;line-height:1.45;
-}
-
-/* Компактний рядок переваг замість вертикального списку */
-.sw-checklist{
-  list-style:none;margin:0 0 12px;padding:0;
-  display:flex;justify-content:center;gap:10px;flex-wrap:wrap;
-}
-.sw-checklist li{
-  display:flex;align-items:center;gap:4px;
-  font-size:10.5px;font-weight:700;color:var(--text-muted,#5a6b64);
-}
-.sw-checklist li::before{
-  content:'✓';flex:0 0 14px;height:14px;width:14px;
-  background:linear-gradient(120deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  color:#fff;border-radius:50%;font-size:9px;font-weight:900;
-  display:flex;align-items:center;justify-content:center;
-}
-
-/* Форма збору телефону всередині об'єднаного віджета */
-.sw-phone-form{display:flex;gap:6px;margin-bottom:8px;}
-.sw-phone-input{
-  flex:1;min-width:0;border:1.5px solid rgba(39,174,96,0.25);border-radius:11px;
-  padding:9px 10px;font-size:13px;font-family:'Manrope',sans-serif;
-  outline:none;color:var(--text,#1a2421);
-}
-.sw-phone-input:focus{border-color:var(--green,#27ae60);}
-.sw-phone-input.is-invalid{border-color:#e74c3c;}
-.sw-phone-btn{
-  flex:0 0 auto;white-space:nowrap;
-  background:linear-gradient(90deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  color:#fff;border:none;border-radius:11px;padding:0 14px;
-  font-size:12.5px;font-weight:800;cursor:pointer;font-family:'Manrope',sans-serif;
-}
-.sw-phone-btn:disabled{opacity:.6;cursor:default;}
-.sw-phone-error{font-size:10.5px;color:#e74c3c;margin:-4px 0 8px;display:none;}
-.sw-phone-error.is-visible{display:block;}
-.sw-consent{
-  font-size:9.5px;line-height:1.3;color:var(--text-muted,#5a6b64);
-  margin:0 0 12px;display:flex;gap:5px;align-items:flex-start;
-}
-.sw-consent input{margin-top:1px;flex:0 0 auto;}
-.sw-consent a{color:var(--green-dark,#1e8449);}
-
-.sw-alt-link{
-  display:block;text-align:center;text-decoration:none;
-  font-size:12px;font-weight:800;
-  color:var(--green-dark,#1e8449);
-  border:1.5px solid rgba(39,174,96,0.3);
-  border-radius:11px;padding:9px 10px;
-  margin-bottom:10px;
-}
-.sw-alt-link:hover{background:rgba(39,174,96,0.08);}
-.sw-alt-link small{display:block;font-weight:600;font-size:9.5px;opacity:.8;margin-top:1px;color:var(--text-muted,#5a6b64);}
-
-.sw-success{display:none;text-align:center;padding:6px 0 2px;}
-.sw-success.is-visible{display:block;}
-.sw-success b{color:var(--green-dark,#1e8449);font-size:14px;}
-.sw-success p{font-size:12px;color:var(--text-muted,#5a6b64);margin-top:4px;}
-
-.sw-footnote{
-  text-align:center;font-size:9.5px;color:var(--text-muted,#5a6b64);
-  margin-top:2px;line-height:1.35;
-}
-
-/* Респект налаштуванням доступності — без анімацій, якщо людина цього просить */
-@media (prefers-reduced-motion: reduce){
-  .sw-card, .sw-icon-wrap{ animation:none !important; }
-}
-
-/* ===== МОБІЛЬНА ВЕРСІЯ: липка панель знизу (лише смартлінк-CTA, форма телефону — окремим блоком sticky-cta) ===== */
+/* ---- Мобільний (≤900px): центрована exit-intent модалка ---- */
 @media (max-width:900px){
-  .sw-widget{
-    top:auto;bottom:0;right:0;left:0;
-    width:100%;
-    transform:translateY(100%);
-  }
-  .sw-widget.is-visible{ transform:translateY(0); }
-  .sw-card{ border-radius:20px 20px 0 0; }
-  .sw-inner{
-    border-radius:17px 17px 0 0;
-    display:flex;align-items:center;gap:12px;
-    padding:12px 14px;
-  }
-  .sw-icon-wrap{ width:44px;height:44px;font-size:20px;margin:0;flex-shrink:0; }
-  .sw-title{ font-size:13.5px;text-align:left;margin:0; }
-  .sw-subtitle,.sw-checklist,.sw-footnote,.sw-phone-form,.sw-consent,.sw-alt-link,.sw-success{ display:none; }
-  .sw-close{ top:6px;right:6px; }
+  #tg-widget{position:fixed;inset:0;width:auto;z-index:9500;display:flex;align-items:center;justify-content:center;padding:16px;transform:none;opacity:1;transition:none;pointer-events:none;}
+  #tg-widget .tgw-overlay{display:block;position:absolute;inset:0;background:rgba(13,21,18,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);opacity:0;transition:opacity .35s ease;}
+  #tg-widget.is-visible .tgw-overlay{opacity:1;}
+  #tg-widget .tgw-card{position:relative;width:100%;max-width:330px;border-radius:22px;padding:18px 16px 16px;opacity:0;transform:scale(.86);transition:opacity .4s ease,transform .45s cubic-bezier(.2,1.4,.4,1);animation:none;max-height:calc(100vh - 32px);}
+  #tg-widget.is-visible{pointer-events:auto;}
+  #tg-widget.is-visible .tgw-card{opacity:1;transform:scale(1);pointer-events:auto;}
+  #tg-widget .tgw-icon-row{margin-bottom:10px;}
+  #tg-widget .tgw-icon{width:38px;height:38px;border-radius:11px;flex:0 0 38px;}
+  #tg-widget .tgw-icon svg{width:19px;height:19px;}
+  #tg-widget .tgw-headline{font-size:16.5px;margin:0 0 6px;}
+  #tg-widget .tgw-sub{font-size:12.5px;margin:0 0 12px;line-height:1.45;}
+  #tg-widget .tgw-cta{padding:12px 16px;font-size:13.5px;}
+  #tg-widget .tgw-fineprint{display:none;}
+  #tg-widget .tgw-top3{display:block;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(26,36,33,.1);}
+  .tgw-tab{display:none !important;}
+}
+@media (prefers-reduced-motion: reduce){
+  #tg-widget .tgw-card{animation:none;}
+  .tgw-icon .ping,.tgw-live .d{animation:none;}
+  #tg-widget,#tg-widget .tgw-card,#tg-widget .tgw-overlay{transition:opacity .3s ease !important;}
 }
 </style>
 </head>
@@ -1719,174 +1635,204 @@ if (requisitesGrid) {
 </script>
 
 
-<!-- ===== ОБ'ЄДНАНИЙ БІЧНИЙ ВІДЖЕТ: форма (телефон) + смартлінк-CTA ===== -->
-<div class="sw-widget" id="sw-widget">
-  <div class="sw-card">
-    <div class="sw-inner">
-      <button class="sw-close" id="sw-close" aria-label="Закрити">✕</button>
-      <div class="sw-icon-wrap">⚡</div>
-      <p class="sw-title">Не хочете гортати <span>всі пропозиції?</span></p>
-
-      <ul class="sw-checklist">
-        <li>Ліцензовано НБУ</li>
-        <li>Без реєстрації</li>
-        <li>~1 хвилина</li>
-      </ul>
-
-      <div id="sw-form-wrap">
-        <form class="sw-phone-form" id="sw-phone-form">
-          <input type="tel" class="sw-phone-input" id="sw-phone-input" placeholder="+380 (XX) XXX XX XX" inputmode="tel" autocomplete="tel">
-          <button type="submit" class="sw-phone-btn" id="sw-phone-submit">Підібрати →</button>
-        </form>
-        <div class="sw-phone-error" id="sw-phone-error">Перевірте номер телефону</div>
-        <label class="sw-consent">
-          <input type="checkbox" id="sw-phone-consent" checked>
-          <span>Надаю згоду на <a href="/privacy" target="_blank" rel="noopener">обробку персональних даних</a></span>
-        </label>
-
-        <a class="sw-alt-link" id="sw-cta" href="#" target="_blank" rel="sponsored nofollow noopener noreferrer">
-          Або перейти без номера →
-          <small>Автопідбір найкращого варіанту</small>
-        </a>
+<!-- ===== TELEGRAM-ВІДЖЕТ: десктоп — бічна картка, мобільний — exit-intent модалка ===== -->
+<div id="tg-widget">
+  <div class="tgw-overlay" id="tgw-overlay"></div>
+  <div class="tgw-tab" id="tgw-tab"><span>Нові МФО</span></div>
+  <div class="tgw-card">
+    <button class="tgw-close" id="tgw-close" aria-label="Закрити">✕</button>
+    <div class="tgw-icon-row">
+      <div class="tgw-icon">
+        <span class="ping"></span>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M21.5 3.5L2.75 10.9c-1.2.47-1.19 1.13-.22 1.42l4.8 1.5 1.85 5.7c.22.62.37.87.76.87.34 0 .5-.16.7-.36l1.94-1.9 4.03 2.97c.74.41 1.28.2 1.47-.68l2.66-12.55c.28-1.08-.4-1.57-1.24-1.24z" fill="#fff"/></svg>
       </div>
+      <div class="tgw-live"><span class="d"></span> Оновлюється щодня</div>
+    </div>
+    <div class="tgw-body">
+      <p class="tgw-headline">Ще <span class="tgw-count" id="tgw-count">0</span> нових МФО зʼявилось цього тижня</p>
+      <p class="tgw-sub">Дайте відповідь на кілька коротких запитань у Telegram — і ми підберемо <b>МФО персонально під вашу ситуацію</b>.</p>
+      <a href="#" class="tgw-cta" id="tgw-cta" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M21.5 3.5L2.75 10.9c-1.2.47-1.19 1.13-.22 1.42l4.8 1.5 1.85 5.7c.22.62.37.87.76.87.34 0 .5-.16.7-.36l1.94-1.9 4.03 2.97c.74.41 1.28.2 1.47-.68l2.66-12.55c.28-1.08-.4-1.57-1.24-1.24z" fill="#fff"/></svg>
+        Почати персональний підбір
+      </a>
+      <p class="tgw-fineprint">Займе близько хвилини. Повністю безкоштовно.</p>
 
-      <div class="sw-success" id="sw-success">
-        <b>Дякуємо!</b>
-        <p>Ми підберемо для вас пропозиції найближчим часом.</p>
+      <div class="tgw-top3">
+        <div class="tgw-top3-head"><span class="tgw-top3-title">Сьогоднішній ТОП МФО</span></div>
+        <div class="tgw-top3-list" id="tgw-top3-list"></div>
       </div>
-
-      <p class="sw-footnote">TREBA CASH — агрегатор, не кредитор. Рішення про видачу ухвалює обрана МФО.</p>
     </div>
   </div>
 </div>
 
-
-<!-- ============ 3) JS (вставити в кінці, перед </body>) ============ -->
 <script>
-(function initSmartlinkWidget() {
-  // ⚠️ ЗАМІНІТЬ на ваш реальний смартлінк з кабінету pdl-profit:
-  const SMARTLINK_URL = 'https://track-pdlp.com/ml?affid=62311';
+(function initTelegramWidget() {
+  // ⚠️ ЗАМІНІТЬ на реальний username вашого Telegram-бота:
+  const BOT_URL = 'https://t.me/YOUR_BOT_USERNAME';
 
-  const widget = document.getElementById('sw-widget');
-  const cta = document.getElementById('sw-cta');
-  const closeBtn = document.getElementById('sw-close');
+  const widget = document.getElementById('tg-widget');
+  const closeBtn = document.getElementById('tgw-close');
+  const overlay = document.getElementById('tgw-overlay');
+  const tab = document.getElementById('tgw-tab');
+  const cta = document.getElementById('tgw-cta');
+  const countEl = document.getElementById('tgw-count');
   if (!widget || !cta) return;
 
-  // Не показуємо повторно, якщо вже закривали цю сесію
-  if (sessionStorage.getItem('swWidgetClosed')) return;
+  cta.href = BOT_URL;
 
-  // Формуємо URL смартлінку + власний sub-id для обліку конверсій саме з цього віджета
-  // (назву параметра sub-id уточніть у документації pdl-profit — часто це subid/sub1/click_id)
-  function buildSmartlinkUrl() {
-    try {
-      const url = new URL(SMARTLINK_URL);
-      url.searchParams.set('subid', 'sidebar_widget');
-
-      // Прокидаємо utm/click-id з поточної сторінки, якщо вони є (для наскрізної аналітики)
-      const incoming = new URLSearchParams(window.location.search);
-      incoming.forEach((value, key) => {
-        if (key.startsWith('utm_') || key === 'gclid' || key === 'fbclid') {
-          url.searchParams.set(key, value);
-        }
-      });
-      return url.toString();
-    } catch (e) {
-      return SMARTLINK_URL; // якщо URL некоректний — повертаємо як є, щоб посилання не зламалось
-    }
-  }
-  cta.href = buildSmartlinkUrl();
-
+  function isMobileMode() { return window.matchMedia('(max-width:900px)').matches; }
   function isTop3PopupOpen() {
-    const overlay = document.getElementById('top3-overlay');
-    return overlay ? overlay.classList.contains('is-open') : false;
+    const ov = document.getElementById('top3-overlay');
+    return ov ? ov.classList.contains('is-open') : false;
+  }
+  function alreadyClickedOffer() { return sessionStorage.getItem('tgOfferClicked') === '1'; }
+
+  // Клік на будь-який реальний офер (сітка МФО або попап топ-3 з квізу) —
+  // більше не турбуємо цього відвідувача нашим віджетом, він і так у потоці конверсії.
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.btn-primary, .top3-row-cta')) {
+      sessionStorage.setItem('tgOfferClicked', '1');
+    }
+  });
+
+  /* ====== ТОП-3 (реальні дані з MFO_DATA / mfo-live-data.json) ====== */
+  // "Новизна" визначається так само, як і в решті сайту — за таблицею
+  // MFO_SENIORITY (та сама, що й у попапі топ-3 з квізу), а не за
+  // датою додавання у фід, щоб визначення "нового" було єдиним на сайті.
+  function getNewestPool(n) {
+    const table = (typeof MFO_SENIORITY === 'object' && MFO_SENIORITY) || {};
+    const pool = (typeof MFO_DATA !== 'undefined' && Array.isArray(MFO_DATA)) ? MFO_DATA : [];
+    return pool
+      .filter(m => table[m.name] !== undefined)
+      .sort((a, b) => table[b.name] - table[a.name])
+      .slice(0, n);
   }
 
-  function tryReveal() {
-    if (sessionStorage.getItem('swWidgetClosed')) return;
-    if (isTop3PopupOpen()) return; // не показуємо одночасно з попапом топ-3
+  function pickRandom3(pool, excludeNames) {
+    const avail = pool.filter(o => !excludeNames.includes(o.name));
+    const src = avail.length >= 3 ? avail : pool;
+    const copy = [...src];
+    const picked = [];
+    while (picked.length < 3 && copy.length) {
+      const i = Math.floor(Math.random() * copy.length);
+      picked.push(copy.splice(i, 1)[0]);
+    }
+    return picked;
+  }
+
+  function logoOrFallback(m) {
+    const src = m.logo && m.logo.startsWith('http') ? m.logo : '/mfo-logos/' + m.logo;
+    const fb = (typeof fallbackColor === 'function') ? fallbackColor(m.name) : '#27ae60';
+    const ini = (typeof initials === 'function') ? initials(m.name) : m.name.slice(0, 2).toUpperCase();
+    // Якщо картинка лого не завантажиться — ховаємо img і показуємо
+    // кольоровий блок з ініціалами замість широкого банера-лого.
+    return m.logo
+      ? `<img src="${src}" alt="${m.name}" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('is-fallback');this.parentElement.style.background='${fb}';this.parentElement.textContent='${ini}';">`
+      : `<span style="background:${fb};width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Unbounded',sans-serif;font-weight:800;">${ini}</span>`;
+  }
+
+  let lastTop3Names = [];
+  function renderTop3(pool9) {
+    const list = document.getElementById('tgw-top3-list');
+    if (!list) return;
+    if (pool9.length < 3) return; // дані ще не підвантажились — просто не показуємо блок цього разу
+
+    let picked;
+    const stored = sessionStorage.getItem('tgTop3Picks');
+    if (stored) {
+      try {
+        const names = JSON.parse(stored);
+        picked = names.map(n => pool9.find(o => o.name === n)).filter(Boolean);
+      } catch (e) { picked = null; }
+    }
+    if (!picked || picked.length !== 3) {
+      picked = pickRandom3(pool9, lastTop3Names);
+      sessionStorage.setItem('tgTop3Picks', JSON.stringify(picked.map(p => p.name)));
+    }
+    lastTop3Names = picked.map(p => p.name);
+
+    list.innerHTML = picked.map((o, idx) => `
+      <div class="tgw-row">
+        <span class="tgw-rank" data-r="${idx + 1}">${idx + 1}</span>
+        <span class="tgw-row-logo" title="${o.name}">${logoOrFallback(o)}</span>
+        <a href="${o.ref}" class="tgw-row-cta" target="_blank" rel="sponsored nofollow noopener noreferrer">Перейти</a>
+      </div>
+    `).join('');
+  }
+
+  function animateCount(target) {
+    let cur = 0;
+    countEl.textContent = cur;
+    const step = () => {
+      cur += 1;
+      countEl.textContent = cur;
+      if (cur < target) requestAnimationFrame(() => setTimeout(step, 140));
+    };
+    requestAnimationFrame(() => setTimeout(step, 400));
+  }
+
+  function reveal() {
+    if (sessionStorage.getItem('tgSideWidgetClosed')) return;
+    if (sessionStorage.getItem('tgExitPopupClosed')) return;
+    if (alreadyClickedOffer()) return;
+    if (isTop3PopupOpen()) return;
+    const pool9 = getNewestPool(9);
+    widget.classList.add('is-visible');
+    animateCount(pool9.length || 4);
+    renderTop3(pool9);
+  }
+
+  function closeWidget() {
+    if (isMobileMode()) {
+      widget.classList.remove('is-visible');
+      sessionStorage.setItem('tgExitPopupClosed', '1');
+    } else {
+      widget.classList.add('is-collapsed');
+      sessionStorage.setItem('tgSideWidgetClosed', '1');
+    }
+  }
+  closeBtn.addEventListener('click', closeWidget);
+  overlay.addEventListener('click', closeWidget);
+  tab.addEventListener('click', () => {
+    widget.classList.remove('is-collapsed');
+    sessionStorage.removeItem('tgSideWidgetClosed');
+  });
+
+  /* ====== ДЕСКТОП: звичайний реველ (скрол>260 або 4с), як був у старого віджета ====== */
+  function tryRevealDesktop() {
+    if (isMobileMode()) return;
+    if (sessionStorage.getItem('tgSideWidgetClosed') || alreadyClickedOffer() || isTop3PopupOpen()) return;
     if (window.scrollY > 260) {
-      widget.classList.add('is-visible');
-      window.removeEventListener('scroll', tryReveal);
+      reveal();
+      window.removeEventListener('scroll', tryRevealDesktop);
     }
   }
+  window.addEventListener('scroll', tryRevealDesktop, { passive: true });
+  setTimeout(() => { if (!isMobileMode()) tryRevealDesktop(); }, 4000);
 
-  window.addEventListener('scroll', tryReveal, { passive: true });
-  // про всяк випадок перевіряємо ще й через 4с, якщо людина взагалі не скролить
-  setTimeout(tryReveal, 4000);
+  /* ====== МОБІЛЬНИЙ: справжній exit-intent (кнопка "Назад" + бездіяльність) ====== */
+  if (isMobileMode()) {
+    history.pushState({ tgGuard: true }, '', location.href);
+    window.addEventListener('popstate', () => {
+      if (!sessionStorage.getItem('tgExitPopupClosed') && !alreadyClickedOffer()) {
+        reveal();
+        history.pushState({ tgGuard: true }, '', location.href);
+      }
+    });
 
-  closeBtn.addEventListener('click', () => {
-    widget.classList.remove('is-visible');
-    sessionStorage.setItem('swWidgetClosed', '1');
-  });
-
-  /* ====== Форма збору телефону всередині цього ж віджета ====== */
-  const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyS_V0Dmk5tnKnqd3SzhECUlu654Fc_koinJ4kkPkCNucNQ6Pf5fCbH2Yz35fVfuLj9/exec';
-  const SUBMITTED_KEY = 'swWidgetSubmitted';
-
-  const form = document.getElementById('sw-phone-form');
-  const phoneInput = document.getElementById('sw-phone-input');
-  const submitBtn = document.getElementById('sw-phone-submit');
-  const errorEl = document.getElementById('sw-phone-error');
-  const consentEl = document.getElementById('sw-phone-consent');
-  const formWrap = document.getElementById('sw-form-wrap');
-  const successEl = document.getElementById('sw-success');
-
-  if (form && sessionStorage.getItem(SUBMITTED_KEY) === '1') {
-    formWrap.style.display = 'none';
-    successEl.classList.add('is-visible');
+    const INACTIVITY_MS = 25000;
+    let idleTimer = setTimeout(reveal, INACTIVITY_MS);
+    ['touchstart', 'scroll', 'click', 'keydown'].forEach(evt => {
+      document.addEventListener(evt, () => {
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(reveal, INACTIVITY_MS);
+      }, { passive: true });
+    });
   }
 
-  function isValidUaPhone(raw) {
-    const digits = raw.replace(/\D/g, '');
-    return /^380\d{9}$/.test(digits) || /^0\d{9}$/.test(digits);
-  }
-
-  function getUtmParam(name) {
-    try { return new URLSearchParams(window.location.search).get(name) || ''; }
-    catch (e) { return ''; }
-  }
-
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const phone = phoneInput.value.trim();
-
-    if (!isValidUaPhone(phone) || !consentEl.checked) {
-      phoneInput.classList.add('is-invalid');
-      errorEl.textContent = !consentEl.checked
-        ? 'Потрібна згода на обробку даних'
-        : 'Перевірте номер телефону';
-      errorEl.classList.add('is-visible');
-      return;
-    }
-    phoneInput.classList.remove('is-invalid');
-    errorEl.classList.remove('is-visible');
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = '…';
-
-    fetch(SHEETS_ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({
-        phone: phone,
-        page: window.location.href,
-        utm_source: getUtmParam('utm_source'),
-        utm_campaign: getUtmParam('utm_campaign'),
-        utm_term: getUtmParam('utm_term'),
-      }),
-    })
-      .catch(() => {})
-      .finally(() => {
-        sessionStorage.setItem(SUBMITTED_KEY, '1');
-        formWrap.style.display = 'none';
-        successEl.classList.add('is-visible');
-      });
-  });
-
-  phoneInput?.addEventListener('input', () => {
-    phoneInput.classList.remove('is-invalid');
-    errorEl.classList.remove('is-visible');
+  /* ====== ДЕСКТОП (бонус): класичний mouseleave до верху вікна ====== */
+  document.addEventListener('mouseout', (e) => {
+    if (!isMobileMode() && !e.relatedTarget && e.clientY < 10) reveal();
   });
 })();
 </script>
@@ -1984,221 +1930,11 @@ if (requisitesGrid) {
   .live-toast-wrap.is-visible{ transform:translateY(0) scale(1); }
 }
 
-/* ====== СТІКІ CTA-БАР (тільки мобільна версія) ====== */
-.sticky-cta{
-  display:block;
-  position:fixed;left:0;right:0;bottom:0;z-index:1200;
-  padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));
-  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,#fff 22%);
-}
-.sticky-cta-inner{
-  max-width:460px;margin:0 auto;
-  background:#fff;border:1px solid rgba(39,174,96,0.18);
-  border-radius:18px;padding:12px 14px;
-  box-shadow:0 10px 30px rgba(20,40,30,0.16);
-  transform:translateY(120%);opacity:0;transition:transform .35s ease, opacity .35s ease;
-  position:relative;
-}
-.sticky-cta.is-visible .sticky-cta-inner{ transform:translateY(0); opacity:1; }
-.sticky-cta-text{font-size:12.5px;line-height:1.3;font-weight:700;color:var(--text,#1a2421);margin-bottom:8px;padding-right:22px;}
-.sticky-cta-text b{color:var(--green-dark,#1e8449);}
-.sticky-cta-form{display:flex;gap:8px;}
-.sticky-cta-input{
-  flex:1;min-width:0;border:1.5px solid rgba(39,174,96,0.25);border-radius:12px;
-  padding:10px 12px;font-size:13.5px;font-family:'Manrope',sans-serif;
-  outline:none;color:var(--text,#1a2421);
-}
-.sticky-cta-input:focus{border-color:var(--green,#27ae60);}
-.sticky-cta-input.is-invalid{border-color:#e74c3c;}
-.sticky-cta-btn{
-  flex:0 0 auto;white-space:nowrap;
-  background:linear-gradient(90deg,var(--green,#27ae60),var(--green-light,#2ecc71));
-  color:#fff;border:none;border-radius:12px;padding:0 16px;
-  font-size:13px;font-weight:800;cursor:pointer;font-family:'Manrope',sans-serif;
-}
-.sticky-cta-btn:disabled{opacity:.6;cursor:default;}
-.sticky-cta-consent{
-  font-size:10px;line-height:1.3;color:var(--text-muted,#5a6b64);
-  margin-top:7px;display:flex;gap:6px;align-items:flex-start;
-}
-.sticky-cta-consent input{margin-top:2px;flex:0 0 auto;}
-.sticky-cta-consent a{color:var(--green-dark,#1e8449);}
-.sticky-cta-error{font-size:11px;color:#e74c3c;margin-top:5px;display:none;}
-.sticky-cta-error.is-visible{display:block;}
-.sticky-cta-success{display:none;text-align:center;padding:6px 0;}
-.sticky-cta-success.is-visible{display:block;}
-.sticky-cta-success b{color:var(--green-dark,#1e8449);font-size:13.5px;}
-.sticky-cta-close{
-  position:absolute;top:8px;right:8px;
-  width:22px;height:22px;border-radius:50%;border:none;
-  background:rgba(13,21,18,0.06);color:var(--text-muted,#5a6b64);
-  font-size:13px;line-height:1;cursor:pointer;
-}
-body.has-sticky-cta{ padding-bottom:118px; }
-/* На десктопі форма телефону вже показана в об'єднаному бічному віджеті (.sw-widget) —
-   окрема нижня панель тут більше не потрібна, це і прибирає "білу смугу" знизу. */
-@media (min-width: 901px){
-  .sticky-cta{ display:none !important; }
-  body.has-sticky-cta{ padding-bottom:0; }
-}
+/* Стара липка форма телефону (.sticky-cta) видалена — замінена на
+   exit-intent Telegram-модалку (#tg-widget), яка на мобільному й так
+   center-модалкою дублює цю функцію, тільки веде в Telegram-бота
+   замість збору номера напряму. */
 </style>
-
-<div class="sticky-cta" id="sticky-cta">
-  <div class="sticky-cta-inner">
-    <button class="sticky-cta-close" id="sticky-cta-close" aria-label="Приховати">✕</button>
-
-    <div id="sticky-cta-form-wrap">
-      <div class="sticky-cta-text">🔥 Залиш номер — підберемо <b>вигідні пропозиції МФО</b> під тебе</div>
-      <form class="sticky-cta-form" id="sticky-cta-form">
-        <input type="tel" class="sticky-cta-input" id="sticky-cta-phone" placeholder="+380 (XX) XXX XX XX" inputmode="tel" autocomplete="tel">
-        <button type="submit" class="sticky-cta-btn" id="sticky-cta-submit">Підібрати →</button>
-      </form>
-      <div class="sticky-cta-error" id="sticky-cta-error">Перевірте номер телефону</div>
-      <label class="sticky-cta-consent">
-        <input type="checkbox" id="sticky-cta-consent" checked>
-        <span>Натискаючи кнопку, надаю згоду на <a href="/privacy" target="_blank" rel="noopener">обробку персональних даних</a></span>
-      </label>
-    </div>
-
-    <div class="sticky-cta-success" id="sticky-cta-success">
-      <b>Дякуємо!</b><br>Ми підберемо для вас пропозиції найближчим часом.
-    </div>
-  </div>
-</div>
-
-<script>
-(function initStickyCta() {
-  const bar = document.getElementById('sticky-cta');
-  const closeBtn = document.getElementById('sticky-cta-close');
-  const form = document.getElementById('sticky-cta-form');
-  const phoneInput = document.getElementById('sticky-cta-phone');
-  const submitBtn = document.getElementById('sticky-cta-submit');
-  const errorEl = document.getElementById('sticky-cta-error');
-  const consentEl = document.getElementById('sticky-cta-consent');
-  const formWrap = document.getElementById('sticky-cta-form-wrap');
-  const successEl = document.getElementById('sticky-cta-success');
-  if (!bar || !form) return;
-
-  // === Вставте сюди URL Google Apps Script Web App (закінчується на /exec) ===
-  const SHEETS_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyS_V0Dmk5tnKnqd3SzhECUlu654Fc_koinJ4kkPkCNucNQ6Pf5fCbH2Yz35fVfuLj9/exec';
-
-  const DISMISS_KEY = 'stickyCtaDismissed';
-  const SUBMITTED_KEY = 'stickyCtaSubmitted';
-
-  if (sessionStorage.getItem(DISMISS_KEY) === '1') return;
-
-  // === Показ форми: перше з трьох подій ===
-  // 1) юзер прогорнув сторінку повз SCROLL_THRESHOLD px
-  // 2) юзер долистав до сітки МФО (#mfo-grid) — сигнал реального інтересу
-  // 3) страховка за часом, якщо жодне з двох не настало (TIMEOUT_FALLBACK_MS)
-  const SCROLL_THRESHOLD = 350;
-  const TIMEOUT_FALLBACK_MS = 8000;
-
-  let revealed = false;
-  function reveal() {
-    if (revealed) return;
-    revealed = true;
-    bar.classList.add('is-visible');
-    document.body.classList.add('has-sticky-cta');
-    window.removeEventListener('scroll', onScroll);
-    if (gridObserver) gridObserver.disconnect();
-  }
-
-  function onScroll() {
-    if (window.scrollY > SCROLL_THRESHOLD) reveal();
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-
-  let gridObserver = null;
-  const gridTarget = document.getElementById('mfo-grid');
-  if (gridTarget && 'IntersectionObserver' in window) {
-    gridObserver = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) reveal();
-    }, { threshold: 0.1 });
-    gridObserver.observe(gridTarget);
-  }
-
-  setTimeout(reveal, TIMEOUT_FALLBACK_MS);
-
-  function hide() {
-    bar.classList.remove('is-visible');
-    document.body.classList.remove('has-sticky-cta');
-    sessionStorage.setItem(DISMISS_KEY, '1');
-  }
-  closeBtn.addEventListener('click', hide);
-
-  // Якщо людина вже залишала номер у цій сесії — одразу показуємо стан "успішно"
-  if (sessionStorage.getItem(SUBMITTED_KEY) === '1') {
-    formWrap.style.display = 'none';
-    successEl.classList.add('is-visible');
-  }
-
-  function isValidUaPhone(raw) {
-    const digits = raw.replace(/\D/g, '');
-    // приймаємо 380XXXXXXXXX (12 цифр) або 0XXXXXXXXX (10 цифр, локальний формат)
-    return /^380\d{9}$/.test(digits) || /^0\d{9}$/.test(digits);
-  }
-
-  function getUtmParam(name) {
-    try {
-      return new URLSearchParams(window.location.search).get(name) || '';
-    } catch (e) { return ''; }
-  }
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const phone = phoneInput.value.trim();
-
-    if (!isValidUaPhone(phone) || !consentEl.checked) {
-      phoneInput.classList.add('is-invalid');
-      errorEl.textContent = !consentEl.checked
-        ? 'Потрібна згода на обробку даних'
-        : 'Перевірте номер телефону';
-      errorEl.classList.add('is-visible');
-      return;
-    }
-    phoneInput.classList.remove('is-invalid');
-    errorEl.classList.remove('is-visible');
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Надсилаємо…';
-
-    const payload = {
-      phone: phone,
-      page: window.location.href,
-      utm_source: getUtmParam('utm_source'),
-      utm_campaign: getUtmParam('utm_campaign'),
-      utm_term: getUtmParam('utm_term'),
-    };
-
-    fetch(SHEETS_ENDPOINT, {
-      method: 'POST',
-      mode: 'no-cors', // Apps Script не віддає CORS-заголовки — читати відповідь не можемо, і не потрібно
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload),
-    })
-      .catch(() => { /* no-cors — помилку мережі теж не побачимо, це очікувано */ })
-      .finally(() => {
-        sessionStorage.setItem(SUBMITTED_KEY, '1');
-        formWrap.style.display = 'none';
-        successEl.classList.add('is-visible');
-      });
-  });
-
-  phoneInput.addEventListener('input', () => {
-    phoneInput.classList.remove('is-invalid');
-    errorEl.classList.remove('is-visible');
-  });
-
-  // Ховаємо бар, коли відкривається попап "топ-3" з квізу, щоб не накладались одне на одне
-  const observer = new MutationObserver(() => {
-    const modalOpen = document.body.classList.contains('modal-open')
-      || document.getElementById('top3-overlay')?.classList.contains('is-open');
-    bar.style.display = modalOpen ? 'none' : '';
-  });
-  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
-})();
-</script>
 
 <div class="live-toast-wrap" id="live-toast">
   <div class="live-toast-border">
