@@ -346,7 +346,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .requisite-card .req-nbu-link{display:inline-block;margin-top:8px;font-size:11.5px;color:var(--green-dark);font-weight:800;text-decoration:none;}
 .requisite-card .req-nbu-link:hover{text-decoration:underline;}
 
-/* ===== CSS: Telegram-віджет (десктоп — бічна картка, мобільний — exit-intent модалка) ===== */
+/* ===== CSS: Telegram-віджет (десктоп — бічна картка, мобільний — центрована модалка через 10с) ===== */
 :root{ --tg:#229ED9; --tg-dark:#1b7fb3; }
 .tgw-card{
   position:relative;background:var(--white,#fff);border-radius:22px;
@@ -399,12 +399,14 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .tgw-tab span{writing-mode:vertical-rl;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.03em;}
 .tgw-overlay{display:none;}
 
-/* ---- Мобільний (≤900px): центрована exit-intent модалка ---- */
+/* ---- Мобільний (≤900px): центрована модалка (поява через 10с) ---- */
 @media (max-width:900px){
-  #tg-widget{position:fixed;inset:0;width:auto;z-index:9500;display:flex;align-items:center;justify-content:center;padding:16px;transform:none;opacity:1;transition:none;pointer-events:none;}
-  #tg-widget .tgw-overlay{display:block;position:absolute;inset:0;background:rgba(13,21,18,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);opacity:0;transition:opacity .35s ease;}
+  /* FIX: десктопні правила #tg-widget.is-visible / .is-collapsed (translateY(-50%)) мають вищу специфічність і зсували контейнер вгору на 50% — скидаємо їх на мобільному */
+  #tg-widget,#tg-widget.is-visible,#tg-widget.is-collapsed{transform:none !important;right:0 !important;top:0 !important;}
+  #tg-widget{position:fixed;top:0;left:0;right:0;bottom:0;width:auto;height:auto;z-index:9500;display:flex;align-items:center;justify-content:center;padding:16px;transform:none;opacity:1;transition:none;pointer-events:none;}
+  #tg-widget .tgw-overlay{display:block;position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(13,21,18,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);opacity:0;transition:opacity .35s ease;}
   #tg-widget.is-visible .tgw-overlay{opacity:1;}
-  #tg-widget .tgw-card{position:relative;width:100%;max-width:330px;border-radius:22px;padding:18px 16px 16px;opacity:0;transform:scale(.86);transition:opacity .4s ease,transform .45s cubic-bezier(.2,1.4,.4,1);animation:none;max-height:calc(100vh - 32px);}
+  #tg-widget .tgw-card{position:relative;width:100%;max-width:330px;border-radius:22px;padding:18px 16px 16px;opacity:0;transform:scale(.86);transition:opacity .4s ease,transform .45s cubic-bezier(.2,1.4,.4,1);animation:none;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);}
   #tg-widget.is-visible{pointer-events:auto;}
   #tg-widget.is-visible .tgw-card{opacity:1;transform:scale(1);pointer-events:auto;}
   #tg-widget .tgw-icon-row{margin-bottom:10px;}
@@ -1635,7 +1637,7 @@ if (requisitesGrid) {
 </script>
 
 
-<!-- ===== TELEGRAM-ВІДЖЕТ: десктоп — бічна картка, мобільний — exit-intent модалка ===== -->
+<!-- ===== TELEGRAM-ВІДЖЕТ: десктоп — бічна картка, мобільний — центрована модалка через 10с ===== -->
 <div id="tg-widget">
   <div class="tgw-overlay" id="tgw-overlay"></div>
   <div class="tgw-tab" id="tgw-tab"><span>Нові МФО</span></div>
@@ -1810,24 +1812,9 @@ if (requisitesGrid) {
   window.addEventListener('scroll', tryRevealDesktop, { passive: true });
   setTimeout(() => { if (!isMobileMode()) tryRevealDesktop(); }, 4000);
 
-  /* ====== МОБІЛЬНИЙ: справжній exit-intent (кнопка "Назад" + бездіяльність) ====== */
+  /* ====== МОБІЛЬНИЙ: проста поява через 10 секунд після завантаження ====== */
   if (isMobileMode()) {
-    history.pushState({ tgGuard: true }, '', location.href);
-    window.addEventListener('popstate', () => {
-      if (!sessionStorage.getItem('tgExitPopupClosed') && !alreadyClickedOffer()) {
-        reveal();
-        history.pushState({ tgGuard: true }, '', location.href);
-      }
-    });
-
-    const INACTIVITY_MS = 25000;
-    let idleTimer = setTimeout(reveal, INACTIVITY_MS);
-    ['touchstart', 'scroll', 'click', 'keydown'].forEach(evt => {
-      document.addEventListener(evt, () => {
-        clearTimeout(idleTimer);
-        idleTimer = setTimeout(reveal, INACTIVITY_MS);
-      }, { passive: true });
-    });
+    setTimeout(reveal, 10000);
   }
 
   /* ====== ДЕСКТОП (бонус): класичний mouseleave до верху вікна ====== */
@@ -1931,8 +1918,8 @@ if (requisitesGrid) {
 }
 
 /* Стара липка форма телефону (.sticky-cta) видалена — замінена на
-   exit-intent Telegram-модалку (#tg-widget), яка на мобільному й так
-   center-модалкою дублює цю функцію, тільки веде в Telegram-бота
+   Telegram-модалку (#tg-widget), яка на мобільному з'являється по
+   центру екрана через 10с після завантаження, і веде в Telegram-бота
    замість збору номера напряму. */
 </style>
 
