@@ -346,7 +346,7 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .requisite-card .req-nbu-link{display:inline-block;margin-top:8px;font-size:11.5px;color:var(--green-dark);font-weight:800;text-decoration:none;}
 .requisite-card .req-nbu-link:hover{text-decoration:underline;}
 
-/* ===== CSS: Telegram-віджет (десктоп — бічна картка, мобільний — exit-intent модалка) ===== */
+/* ===== CSS: Telegram-віджет (десктоп — бічна картка, мобільний — центрована модалка через 10с) ===== */
 :root{ --tg:#229ED9; --tg-dark:#1b7fb3; }
 .tgw-card{
   position:relative;background:var(--white,#fff);border-radius:22px;
@@ -381,11 +381,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .tgw-rank[data-r="1"]{background:linear-gradient(135deg,#ffd76a,#f5a623);box-shadow:0 3px 8px rgba(245,166,35,.4);}
 .tgw-rank[data-r="2"]{background:linear-gradient(135deg,#d7dee2,#9aa7ad);box-shadow:0 3px 8px rgba(120,140,150,.3);}
 .tgw-rank[data-r="3"]{background:linear-gradient(135deg,#e3a97a,#b9723f);box-shadow:0 3px 8px rgba(180,110,60,.3);}
-.tgw-row-logo{width:26px;height:26px;border-radius:8px;flex:0 0 26px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Unbounded',sans-serif;font-weight:800;font-size:10.5px;object-fit:contain;background:#fff;}
-.tgw-row-logo img{width:100%;height:100%;object-fit:contain;border-radius:8px;}
-.tgw-row-name{flex:1;min-width:0;font-weight:700;font-size:12.5px;color:var(--text,#1a2421);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.tgw-row-badge{font-size:9px;font-weight:800;color:var(--green-dark,#1e8449);background:rgba(39,174,96,.12);padding:2px 6px;border-radius:999px;flex:0 0 auto;}
-.tgw-row-cta{flex:0 0 auto;font-family:'Manrope',sans-serif;font-weight:800;font-size:11px;color:#fff;background:linear-gradient(90deg,var(--green,#27ae60),var(--green-light,#2ecc71));padding:6px 11px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:transform .15s;}
+.tgw-row-logo{flex:1;min-width:0;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#fff;border:1px solid rgba(26,36,33,.06);}
+.tgw-row-logo img{width:100%;height:100%;object-fit:contain;padding:4px;}
+.tgw-row-logo.is-fallback{font-family:'Unbounded',sans-serif;font-weight:800;font-size:13px;color:#fff;}
+.tgw-row-cta{flex:0 0 auto;font-family:'Manrope',sans-serif;font-weight:800;font-size:11px;color:#fff;background:linear-gradient(90deg,var(--green,#27ae60),var(--green-light,#2ecc71));padding:8px 14px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:transform .15s;}
 .tgw-row-cta:hover{transform:translateY(-1px);}
 
 /* ---- Десктоп: докована бічна картка ---- */
@@ -400,10 +399,10 @@ input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:50%;bac
 .tgw-tab span{writing-mode:vertical-rl;color:#fff;font-weight:800;font-size:12.5px;letter-spacing:.03em;}
 .tgw-overlay{display:none;}
 
-/* ---- Мобільний (≤900px): центрована exit-intent модалка ---- */
+/* ---- Мобільний (≤900px): центрована модалка (поява через 10с) ---- */
 @media (max-width:900px){
-  #tg-widget{position:fixed;inset:0;z-index:9500;display:flex;align-items:center;justify-content:center;padding:16px;transform:none;opacity:1;transition:none;pointer-events:none;}
-  #tg-widget .tgw-overlay{display:block;position:absolute;inset:0;background:rgba(13,21,18,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);opacity:0;transition:opacity .35s ease;}
+  #tg-widget{position:fixed;top:0;left:0;right:0;bottom:0;width:auto;height:100%;z-index:9500;display:flex;align-items:center;justify-content:center;padding:16px;transform:none;opacity:1;transition:none;pointer-events:none;}
+  #tg-widget .tgw-overlay{display:block;position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(13,21,18,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);opacity:0;transition:opacity .35s ease;}
   #tg-widget.is-visible .tgw-overlay{opacity:1;}
   #tg-widget .tgw-card{position:relative;width:100%;max-width:330px;border-radius:22px;padding:18px 16px 16px;opacity:0;transform:scale(.86);transition:opacity .4s ease,transform .45s cubic-bezier(.2,1.4,.4,1);animation:none;max-height:calc(100vh - 32px);}
   #tg-widget.is-visible{pointer-events:auto;}
@@ -1636,7 +1635,7 @@ if (requisitesGrid) {
 </script>
 
 
-<!-- ===== TELEGRAM-ВІДЖЕТ: десктоп — бічна картка, мобільний — exit-intent модалка ===== -->
+<!-- ===== TELEGRAM-ВІДЖЕТ: десктоп — бічна картка, мобільний — центрована модалка через 10с ===== -->
 <div id="tg-widget">
   <div class="tgw-overlay" id="tgw-overlay"></div>
   <div class="tgw-tab" id="tgw-tab"><span>Нові МФО</span></div>
@@ -1725,9 +1724,11 @@ if (requisitesGrid) {
     const src = m.logo && m.logo.startsWith('http') ? m.logo : '/mfo-logos/' + m.logo;
     const fb = (typeof fallbackColor === 'function') ? fallbackColor(m.name) : '#27ae60';
     const ini = (typeof initials === 'function') ? initials(m.name) : m.name.slice(0, 2).toUpperCase();
+    // Якщо картинка лого не завантажиться — ховаємо img і показуємо
+    // кольоровий блок з ініціалами замість широкого банера-лого.
     return m.logo
-      ? `<img src="${src}" alt="${m.name}" onerror="this.onerror=null;this.parentElement.style.background='${fb}';this.parentElement.textContent='${ini}';">`
-      : ini;
+      ? `<img src="${src}" alt="${m.name}" onerror="this.onerror=null;this.style.display='none';this.parentElement.classList.add('is-fallback');this.parentElement.style.background='${fb}';this.parentElement.textContent='${ini}';">`
+      : `<span style="background:${fb};width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Unbounded',sans-serif;font-weight:800;">${ini}</span>`;
   }
 
   let lastTop3Names = [];
@@ -1753,9 +1754,7 @@ if (requisitesGrid) {
     list.innerHTML = picked.map((o, idx) => `
       <div class="tgw-row">
         <span class="tgw-rank" data-r="${idx + 1}">${idx + 1}</span>
-        <span class="tgw-row-logo">${logoOrFallback(o)}</span>
-        <span class="tgw-row-name">${o.name}</span>
-        <span class="tgw-row-badge">new</span>
+        <span class="tgw-row-logo" title="${o.name}">${logoOrFallback(o)}</span>
         <a href="${o.ref}" class="tgw-row-cta" target="_blank" rel="sponsored nofollow noopener noreferrer">Перейти</a>
       </div>
     `).join('');
@@ -1811,24 +1810,9 @@ if (requisitesGrid) {
   window.addEventListener('scroll', tryRevealDesktop, { passive: true });
   setTimeout(() => { if (!isMobileMode()) tryRevealDesktop(); }, 4000);
 
-  /* ====== МОБІЛЬНИЙ: справжній exit-intent (кнопка "Назад" + бездіяльність) ====== */
+  /* ====== МОБІЛЬНИЙ: проста поява через 10 секунд після завантаження ====== */
   if (isMobileMode()) {
-    history.pushState({ tgGuard: true }, '', location.href);
-    window.addEventListener('popstate', () => {
-      if (!sessionStorage.getItem('tgExitPopupClosed') && !alreadyClickedOffer()) {
-        reveal();
-        history.pushState({ tgGuard: true }, '', location.href);
-      }
-    });
-
-    const INACTIVITY_MS = 25000;
-    let idleTimer = setTimeout(reveal, INACTIVITY_MS);
-    ['touchstart', 'scroll', 'click', 'keydown'].forEach(evt => {
-      document.addEventListener(evt, () => {
-        clearTimeout(idleTimer);
-        idleTimer = setTimeout(reveal, INACTIVITY_MS);
-      }, { passive: true });
-    });
+    setTimeout(reveal, 10000);
   }
 
   /* ====== ДЕСКТОП (бонус): класичний mouseleave до верху вікна ====== */
@@ -1932,8 +1916,8 @@ if (requisitesGrid) {
 }
 
 /* Стара липка форма телефону (.sticky-cta) видалена — замінена на
-   exit-intent Telegram-модалку (#tg-widget), яка на мобільному й так
-   center-модалкою дублює цю функцію, тільки веде в Telegram-бота
+   Telegram-модалку (#tg-widget), яка на мобільному з'являється по
+   центру екрана через 10с після завантаження, і веде в Telegram-бота
    замість збору номера напряму. */
 </style>
 
