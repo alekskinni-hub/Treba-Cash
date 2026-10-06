@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-05T13:50:08.408897+00:00",
+  "generatedAt": "2026-10-06T12:54:05.920907+00:00",
   "count": 14,
   "offers": [
     {
@@ -22,8 +22,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%",
-      "epc": 15.42,
-      "cr": 2.88
+      "epc": 13.91,
+      "cr": 2.63
     },
     {
       "id": 1456,
@@ -45,8 +45,8 @@
       "phone": null,
       "email": "support@kviku.kz",
       "apiTitle": "Мгновенный микрокредит на карту",
-      "epc": 115.25,
-      "cr": 7.22
+      "epc": 114.5,
+      "cr": 7.25
     },
     {
       "id": 1723,
@@ -68,8 +68,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%!",
-      "epc": 16.56,
-      "cr": 10.34
+      "epc": 17.4,
+      "cr": 10.91
     },
     {
       "id": 1834,
@@ -91,8 +91,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%!",
-      "epc": 18.24,
-      "cr": 2.27
+      "epc": 15.6,
+      "cr": 1.96
     },
     {
       "id": 1916,
@@ -114,31 +114,8 @@
       "phone": "+7 (778) 096 96 96",
       "email": "help@tengeda.kz",
       "apiTitle": "Деньги под рукой!",
-      "epc": 1.9,
-      "cr": 0.79
-    },
-    {
-      "id": 2351,
-      "name": "ACredit",
-      "logo": "https://pdl-profit.com/uploads/2024-06-19/file_6672f9655208d.png",
-      "ref": "https://tds.pdl-profit.com?offerid=2351&affid=62311",
-      "sum": 300000,
-      "term": 25,
-      "rateMin": 3.6,
-      "rateMax": 730.0,
-      "badge": "До 300 000 ₸ на карту",
-      "badgeColor": "blue",
-      "hasZeroBadge": true,
-      "goldBadgeText": "Первый займ под 0.01%*",
-      "legal": "ТОО «МФО \"AUTO SIYLIQ FINANCE\"»",
-      "bin": null,
-      "license": "№ 02.22.0008.М от 11.08.2022 г.",
-      "address": "A10M8X3, Республика Казахстан, г. Алматы, Ауэзовский район, ул. Кабдолова, дом № 16",
-      "phone": "+7 700 888 55 88",
-      "email": "info@acredit.kz",
-      "apiTitle": "Первый кредит 0,01%",
-      "epc": 12.12,
-      "cr": 2.31
+      "epc": 1.47,
+      "cr": 0.62
     },
     {
       "id": 2408,
@@ -160,8 +137,8 @@
       "phone": "8-800-004-5040",
       "email": "info@vivus.kz",
       "apiTitle": "Льготный период 7 дней!",
-      "epc": 25.51,
-      "cr": 1.95
+      "epc": 27.01,
+      "cr": 2.08
     },
     {
       "id": 2454,
@@ -183,8 +160,8 @@
       "phone": "+7 (771) 933 33 33",
       "email": "info@creditbar.kz",
       "apiTitle": "Новый сервис!",
-      "epc": 1.63,
-      "cr": 1.02
+      "epc": 1.92,
+      "cr": 1.2
     },
     {
       "id": 2552,
@@ -206,8 +183,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Новый сервис!",
-      "epc": 13.88,
-      "cr": 1.73
+      "epc": 13.1,
+      "cr": 1.65
     },
     {
       "id": 2600,
@@ -229,8 +206,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Быстрое одобрение",
-      "epc": 21.95,
-      "cr": 2.75
+      "epc": 20.34,
+      "cr": 2.58
     },
     {
       "id": 3380,
@@ -275,8 +252,8 @@
       "phone": "8 (800) 004-01-34",
       "email": "info@limecredit.kz",
       "apiTitle": "Промокод LIME70",
-      "epc": 5.33,
-      "cr": 0.55
+      "epc": 6.58,
+      "cr": 0.69
     },
     {
       "id": 3851,
@@ -298,8 +275,8 @@
       "phone": "+7 701 127 71 39",
       "email": "info@zaimbee.kz",
       "apiTitle": "До 3 минут",
-      "epc": 29.32,
-      "cr": 5.67
+      "epc": 31.63,
+      "cr": 6.16
     },
     {
       "id": 3923,
@@ -321,8 +298,31 @@
       "phone": "8 (800) 004-08-49",
       "email": "info@megazaim.com",
       "apiTitle": "Без документов и поручителей",
-      "epc": 1.98,
-      "cr": 0.21
+      "epc": 4.37,
+      "cr": 0.46
+    },
+    {
+      "id": 3979,
+      "name": "CashPerCredit",
+      "logo": "https://pdl-profit.com/uploads/2026-10-02/file_6abf9ec436590.png",
+      "ref": "https://tds.pdl-profit.com?offerid=3979&affid=62311",
+      "sum": 350000,
+      "term": 30,
+      "rateMin": 36.5,
+      "rateMax": 365.0,
+      "badge": "До 350 000 ₸ на карту",
+      "badgeColor": "blue",
+      "hasZeroBadge": true,
+      "goldBadgeText": "Первый займ под 0.1%*",
+      "legal": null,
+      "bin": null,
+      "license": null,
+      "address": null,
+      "phone": null,
+      "email": null,
+      "apiTitle": "Мгновенный микрокредит на карту",
+      "epc": 40.43,
+      "cr": 2.56
     }
   ]
 }
