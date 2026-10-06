@@ -744,7 +744,7 @@ div.top3-row-logo{background:var(--bg,#f4f9f6);}
 
   // Новий бренд на майданчику визначаємо так само, як і в картках на вітрині
   // (за таблицею MFO_SENIORITY, оголошеною в основному скрипті сторінки).
-  const NEW_OFFER_SENIORITY_THRESHOLD = 38;
+  const NEW_OFFER_SENIORITY_THRESHOLD = 39;
   function isNewOffer(m) {
     const table = (typeof MFO_SENIORITY === 'object' && MFO_SENIORITY) || {};
     const sr = table[m.name];
@@ -1113,15 +1113,17 @@ let MFO_DATA = MFO_DATA_FALLBACK;
    Можете вільно редагувати/дописувати список у будь-який момент —
    ніяких інших змін в коді для цього не потрібно. */
 const MFO_SENIORITY = {
-  "Aerocash": 43,           // 2026, січень
-  "Ranok": 42,              // 2026
-  "FinClick": 41,           // 2026
-  "Ariba": 40,              // 2026, березень
-  "Funnymoney": 39,         // 2026
-  "Freestyle Credit": 38,   // 2025 (юр. особа ТОВ «МАНІВЕО ШВИДКА ФІНАНСОВА ДОПОМОГА»)
-  "Rocketmoney": 37,        // 2025
-  "Lehko": 36,              // 2024, березень
-  "Turbogroshi": 35,        // 2024, друга половина
+  "Minibank": 45,           // 2026 (новий бренд)
+  "Aerocash": 44,         // 2026, січень
+  "Ranok": 43,            // 2026
+  "FinClick": 42,         // 2026
+  "Ariba": 41,            // 2026, березень
+  "Funnymoney": 40,       // 2026
+  "Freestyle Credit": 39, // 2025 (юр. особа ТОВ «МАНІВЕО ШВИДКА ФІНАНСОВА ДОПОМОГА»)
+  "Rocketmoney": 38,      // 2025
+  "Lehko": 37,            // 2024, березень
+  "Turbogroshi": 36,      // 2024, друга половина
+  "Firstcredit": 35,        // 11-те місце в "Новіші спочатку"
   "Treba": 34,              // 2023, лютий
   "SelfieCredit": 33,       // 2021, вересень
   "Mybiz": 32,              // 2021, листопад
@@ -1463,7 +1465,7 @@ const resultsCount = document.getElementById('results-count');
 const noResultsEl = document.getElementById('no-results');
 const loadMoreBtn = document.getElementById('load-more-btn');
 
-const NEW_OFFER_SENIORITY_THRESHOLD = 38;
+const NEW_OFFER_SENIORITY_THRESHOLD = 39;
 function isNewOffer(m) {
   const sr = MFO_SENIORITY[m.name];
   return typeof sr === 'number' && sr >= NEW_OFFER_SENIORITY_THRESHOLD;
