@@ -22,6 +22,9 @@
     /*
      * РОТАЦІЯ 5 ОФЕРІВ: Pango UA, Ranok UA, MyCredit UA, Minibank UA, Creditplus UA
      *
+     * Розподіл: випадковий (random) — кожен користувач отримує випадковий офер.
+     * localStorage не використовується.
+     *
      * UTM-логіка:
      * - Якщо в адресному рядку вже є utm_source/utm_medium/utm_campaign — беруться вони.
      * - Якщо параметрів немає — підставляються дефолтні (для SMS-розсилки).
@@ -31,16 +34,9 @@
      *   utm_source=sms
      *   utm_medium=sms
      *   utm_campaign=trebacash_sms
-     *
-     * Ротація:
-     * 1. Беремо офери зі статичного списку.
-     * 2. Не показуємо той самий офер повторно, доки не пройдений весь пул.
-     * 3. Після проходження всіх 5 — цикл починається знову.
-     * 4. Історія зберігається в localStorage.
      */
 
     const FALLBACK_URL = 'https://tds.pdl-profit.com?offerid=1147&affid=62311';
-    const VIEWED_KEY   = 'viewed_5offers';
 
     // ── Дефолтні UTM (застосовуються коли посилання без міток) ──────────────
     const DEFAULT_UTM = {
@@ -83,44 +79,11 @@
       return result.toString();
     }
 
-    function readViewedIds() {
-      try {
-        const value = JSON.parse(localStorage.getItem(VIEWED_KEY) || '[]');
-        return Array.isArray(value) ? value : [];
-      } catch (e) {
-        return [];
-      }
-    }
-
-    function saveViewedIds(ids) {
-      try {
-        localStorage.setItem(VIEWED_KEY, JSON.stringify(ids));
-      } catch (e) { /* ігноруємо помилки localStorage */ }
-    }
-
     function redirectUser() {
       try {
-        const currentIds = new Set(OFFERS.map(o => o.id));
-
-        let viewedIds = readViewedIds();
-
-        // Прибираємо з історії ID, яких вже немає в актуальному списку
-        viewedIds = viewedIds.filter(id => currentIds.has(id));
-
-        // Доступні офери, які ще не ротувалися
-        let available = OFFERS.filter(o => !viewedIds.includes(o.id));
-
-        // Коли всі пройдені — починаємо нове коло
-        if (!available.length) {
-          viewedIds = [];
-          available = OFFERS;
-        }
-
-        // Беремо перший доступний офер
-        const target = available[0];
-
-        viewedIds.push(target.id);
-        saveViewedIds(viewedIds);
+        // Випадковий індекс — кожен користувач отримує свій офер
+        const randomIndex = Math.floor(Math.random() * OFFERS.length);
+        const target      = OFFERS[randomIndex];
 
         const utmString = buildUtmString();
         const separator = target.ref.includes('?') ? '&' : '?';
