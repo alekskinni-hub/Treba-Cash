@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-19T11:48:51.052070+00:00",
-  "count": 42,
+  "generatedAt": "2026-10-20T10:47:31.910317+00:00",
+  "count": 41,
   "offers": [
     {
       "id": 1147,
@@ -303,25 +303,6 @@
       "legal": "ТОВ «СЕЛФІ КРЕДИТ»",
       "edrpou": "43979069",
       "address": "04070, м. Київ, вул. Сковороди Григорія, 1",
-      "phone": null,
-      "email": null
-    },
-    {
-      "id": 2230,
-      "name": "Mybiz",
-      "logo": "https://pdl-profit.com/uploads/2022-07-22/file_62dab4b3c7f51.png",
-      "ref": "https://tds.pdl-profit.com?offerid=2230&affid=62311",
-      "sum": 10000,
-      "term": 56,
-      "rateMin": 3.6,
-      "rateMax": 730.0,
-      "badge": "Вигідні умови для нових клієнтів",
-      "badgeColor": "green",
-      "hasZeroBadge": true,
-      "goldBadgeText": "Перша позика під 0.01%*",
-      "legal": null,
-      "edrpou": null,
-      "address": null,
       "phone": null,
       "email": null
     },
