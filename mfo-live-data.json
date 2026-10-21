@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-20T10:47:31.910317+00:00",
-  "count": 41,
+  "generatedAt": "2026-10-21T10:59:09.907834+00:00",
+  "count": 42,
   "offers": [
     {
       "id": 1147,
@@ -767,6 +767,25 @@
       "name": "Minibank",
       "logo": "https://pdl-profit.com/uploads/2026-09-14/file_6aa7c57fa0b82.png",
       "ref": "https://tds.pdl-profit.com?offerid=3967&affid=62311",
+      "sum": 50000,
+      "term": 30,
+      "rateMin": 36.5,
+      "rateMax": 365.0,
+      "badge": "До 50 000 ₴ на картку",
+      "badgeColor": "blue",
+      "hasZeroBadge": true,
+      "goldBadgeText": "Перша позика під 0.1%*",
+      "legal": null,
+      "edrpou": null,
+      "address": null,
+      "phone": null,
+      "email": null
+    },
+    {
+      "id": 3993,
+      "name": "Finstep.Space",
+      "logo": "https://pdl-profit.com/uploads/2026-10-15/file_6ad0ccf64eaed.png",
+      "ref": "https://tds.pdl-profit.com?offerid=3993&affid=62311",
       "sum": 50000,
       "term": 30,
       "rateMin": 36.5,
