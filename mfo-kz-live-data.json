@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T11:18:41.637490+00:00",
+  "generatedAt": "2026-10-22T11:17:59.253131+00:00",
   "count": 14,
   "offers": [
     {
@@ -22,8 +22,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%",
-      "epc": 10.51,
-      "cr": 2.72
+      "epc": 10.69,
+      "cr": 2.83
     },
     {
       "id": 1456,
@@ -45,8 +45,8 @@
       "phone": null,
       "email": "support@kviku.kz",
       "apiTitle": "Мгновенный микрокредит на карту",
-      "epc": 39.17,
-      "cr": 2.45
+      "epc": 44.07,
+      "cr": 2.74
     },
     {
       "id": 1723,
@@ -68,8 +68,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%!",
-      "epc": 7.98,
-      "cr": 5.0
+      "epc": 10.02,
+      "cr": 6.25
     },
     {
       "id": 1834,
@@ -91,8 +91,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%!",
-      "epc": 15.94,
-      "cr": 2.0
+      "epc": 22.96,
+      "cr": 2.87
     },
     {
       "id": 1916,
@@ -137,8 +137,8 @@
       "phone": "8-800-004-5040",
       "email": "info@vivus.kz",
       "apiTitle": "Льготный период 7 дней!",
-      "epc": 31.05,
-      "cr": 2.19
+      "epc": 30.29,
+      "cr": 2.18
     },
     {
       "id": 2454,
@@ -160,8 +160,8 @@
       "phone": "+7 (771) 933 33 33",
       "email": "info@creditbar.kz",
       "apiTitle": "Новый сервис!",
-      "epc": 2.5,
-      "cr": 1.57
+      "epc": 2.6,
+      "cr": 1.62
     },
     {
       "id": 2552,
@@ -183,8 +183,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Новый сервис!",
-      "epc": 8.4,
-      "cr": 1.05
+      "epc": 9.99,
+      "cr": 1.25
     },
     {
       "id": 2600,
@@ -206,8 +206,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Быстрое одобрение",
-      "epc": 19.36,
-      "cr": 2.3
+      "epc": 19.44,
+      "cr": 2.32
     },
     {
       "id": 3380,
@@ -252,31 +252,8 @@
       "phone": "8 (800) 004-01-34",
       "email": "info@limecredit.kz",
       "apiTitle": "Промокод LIME70",
-      "epc": 9.11,
-      "cr": 0.93
-    },
-    {
-      "id": 3851,
-      "name": "Zaimbee",
-      "logo": "https://pdl-profit.com/uploads/2026-05-18/file_6a0ab7eff119d.jpg",
-      "ref": "https://tds.pdl-profit.com?offerid=3851&affid=62311",
-      "sum": 170000,
-      "term": 30,
-      "rateMin": 3.6,
-      "rateMax": 3.6,
-      "badge": "До 170 000 ₸ на карту",
-      "badgeColor": "blue",
-      "hasZeroBadge": true,
-      "goldBadgeText": "Первый займ под 0.01%*",
-      "legal": "ТОО «Микрофинансовая организация «SurfKaz Finance»",
-      "bin": "250340025650",
-      "license": "№ 02.25.0010.М от 30.10.2025 г.",
-      "address": "050022, Республика Казахстан, г. Алматы, Алмалинский район, ул. Шевченко, д. 90, нежилое помещение 94",
-      "phone": "+7 701 127 71 39",
-      "email": "info@zaimbee.kz",
-      "apiTitle": "До 3 минут",
-      "epc": 26.69,
-      "cr": 5.02
+      "epc": 7.64,
+      "cr": 0.77
     },
     {
       "id": 3923,
@@ -298,8 +275,8 @@
       "phone": "8 (800) 004-08-49",
       "email": "info@megazaim.com",
       "apiTitle": "Без документов и поручителей",
-      "epc": 8.75,
-      "cr": 0.88
+      "epc": 9.14,
+      "cr": 0.92
     },
     {
       "id": 3979,
@@ -321,8 +298,31 @@
       "phone": null,
       "email": null,
       "apiTitle": "Мгновенный микрокредит на карту",
-      "epc": 7.0,
-      "cr": 0.44
+      "epc": 6.97,
+      "cr": 0.43
+    },
+    {
+      "id": 3995,
+      "name": "Kredit24",
+      "logo": "https://pdl-profit.com/uploads/2026-10-21/file_6ad8793e53998.png",
+      "ref": "https://tds.pdl-profit.com?offerid=3995&affid=62311",
+      "sum": 20000,
+      "term": 30,
+      "rateMin": 36.5,
+      "rateMax": 365.0,
+      "badge": "Выгодные условия для новых клиентов",
+      "badgeColor": "green",
+      "hasZeroBadge": true,
+      "goldBadgeText": "Первый займ под 0.1%*",
+      "legal": null,
+      "bin": null,
+      "license": null,
+      "address": null,
+      "phone": null,
+      "email": null,
+      "apiTitle": "Решение за 5 минут!",
+      "epc": 0.0,
+      "cr": 0.0
     }
   ]
 }
