@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-25T10:31:15.443940+00:00",
-  "count": 43,
+  "generatedAt": "2026-10-26T12:04:06.332556+00:00",
+  "count": 42,
   "offers": [
     {
       "id": 1147,
@@ -208,25 +208,6 @@
       "legal": "ТОВ «MILOAN»",
       "edrpou": "40484607",
       "address": "м. Київ, вул. Багговутівська, 17-21",
-      "phone": null,
-      "email": null
-    },
-    {
-      "id": 1687,
-      "name": "Нові кредити",
-      "logo": "https://pdl-profit.com/uploads/2021-03-10/file_6048a5332c7a0.png",
-      "ref": "https://tds.pdl-profit.com?offerid=1687&affid=62311",
-      "sum": 10000,
-      "term": 15,
-      "rateMin": 365.0,
-      "rateMax": 365.0,
-      "badge": "Швидке рішення за хвилини",
-      "badgeColor": "teal",
-      "hasZeroBadge": false,
-      "goldBadgeText": null,
-      "legal": "ТОВ «ФК «Нові Кредити»",
-      "edrpou": "42152351",
-      "address": "02002, м. Київ, вул. Митрополита Андрея Шептицького, 4А",
       "phone": null,
       "email": null
     },
