@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-30T12:16:55.086375+00:00",
-  "count": 13,
+  "generatedAt": "2026-10-31T11:48:06.437767+00:00",
+  "count": 14,
   "offers": [
     {
       "id": 1159,
@@ -22,8 +22,31 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%",
-      "epc": 4.94,
-      "cr": 1.93
+      "epc": 5.18,
+      "cr": 2.07
+    },
+    {
+      "id": 1456,
+      "name": "Kviku",
+      "logo": "https://pdl-profit.com/uploads/2024-05-18/file_6649071d9c25e.png",
+      "ref": "https://tds.pdl-profit.com?offerid=1456&affid=62311",
+      "sum": 145000,
+      "term": 180,
+      "rateMin": 21.9,
+      "rateMax": 365.0,
+      "badge": "Длительный срок возврата",
+      "badgeColor": "purple",
+      "hasZeroBadge": true,
+      "goldBadgeText": "Первый займ под 0.06%*",
+      "legal": "ТОО «Микрофинансовая организация «MFO№1»",
+      "bin": "200840009915",
+      "license": "№ 01.21.0021.М от 08.04.2021 г.",
+      "address": "г. Астана, р-н Байконыр, ул. А. Иманова, 19, оф. 1002",
+      "phone": null,
+      "email": "support@kviku.kz",
+      "apiTitle": "Мгновенный микрокредит на карту",
+      "epc": 45.8,
+      "cr": 2.83
     },
     {
       "id": 1723,
@@ -45,8 +68,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%!",
-      "epc": 9.67,
-      "cr": 6.06
+      "epc": 7.6,
+      "cr": 4.76
     },
     {
       "id": 1834,
@@ -68,8 +91,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%!",
-      "epc": 20.03,
-      "cr": 2.5
+      "epc": 15.86,
+      "cr": 1.98
     },
     {
       "id": 1916,
@@ -114,8 +137,8 @@
       "phone": "+7 (771) 933 33 33",
       "email": "info@creditbar.kz",
       "apiTitle": "Новый сервис!",
-      "epc": 3.07,
-      "cr": 1.92
+      "epc": 2.86,
+      "cr": 1.79
     },
     {
       "id": 2552,
@@ -137,8 +160,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Новый сервис!",
-      "epc": 19.67,
-      "cr": 2.46
+      "epc": 16.47,
+      "cr": 2.06
     },
     {
       "id": 2600,
@@ -160,8 +183,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Быстрое одобрение",
-      "epc": 16.68,
-      "cr": 1.99
+      "epc": 16.64,
+      "cr": 1.98
     },
     {
       "id": 3380,
@@ -206,8 +229,8 @@
       "phone": "8 (800) 004-01-34",
       "email": "info@limecredit.kz",
       "apiTitle": "Промокод LIME70",
-      "epc": 8.41,
-      "cr": 0.84
+      "epc": 9.15,
+      "cr": 0.91
     },
     {
       "id": 3923,
@@ -229,8 +252,8 @@
       "phone": "8 (800) 004-08-49",
       "email": "info@megazaim.com",
       "apiTitle": "Без документов и поручителей",
-      "epc": 5.47,
-      "cr": 0.55
+      "epc": 6.23,
+      "cr": 0.62
     },
     {
       "id": 3979,
@@ -275,8 +298,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Работает 24/7",
-      "epc": 0.0,
-      "cr": 0.0
+      "epc": 52.53,
+      "cr": 37.5
     },
     {
       "id": 3995,
@@ -298,8 +321,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Решение за 5 минут!",
-      "epc": 32.34,
-      "cr": 1.91
+      "epc": 30.82,
+      "cr": 1.82
     }
   ]
 }
