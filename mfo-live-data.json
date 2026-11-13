@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-12T14:28:17.296489+00:00",
-  "count": 42,
+  "generatedAt": "2026-11-13T13:45:37.289379+00:00",
+  "count": 43,
   "offers": [
     {
       "id": 1147,
@@ -794,6 +794,25 @@
       "badgeColor": "blue",
       "hasZeroBadge": true,
       "goldBadgeText": "Перша позика під 0.1%*",
+      "legal": null,
+      "edrpou": null,
+      "address": null,
+      "phone": null,
+      "email": null
+    },
+    {
+      "id": 4031,
+      "name": "FreshCash",
+      "logo": "https://pdl-profit.com/uploads/2026-11-11/file_6af4340f3b80e.png",
+      "ref": "https://tds.pdl-profit.com?offerid=4031&affid=62311",
+      "sum": 50000,
+      "term": 120,
+      "rateMin": 365.0,
+      "rateMax": 365.0,
+      "badge": "До 50 000 ₴ на картку",
+      "badgeColor": "blue",
+      "hasZeroBadge": false,
+      "goldBadgeText": null,
       "legal": null,
       "edrpou": null,
       "address": null,
