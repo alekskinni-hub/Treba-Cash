@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-15T13:33:43.178655+00:00",
-  "count": 13,
+  "generatedAt": "2026-11-16T15:01:24.508958+00:00",
+  "count": 15,
   "offers": [
     {
       "id": 1159,
@@ -22,8 +22,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%",
-      "epc": 8.54,
-      "cr": 3.34
+      "epc": 8.7,
+      "cr": 3.39
     },
     {
       "id": 1456,
@@ -45,8 +45,31 @@
       "phone": null,
       "email": "support@kviku.kz",
       "apiTitle": "Мгновенный микрокредит на карту",
-      "epc": 80.25,
-      "cr": 4.89
+      "epc": 59.92,
+      "cr": 3.65
+    },
+    {
+      "id": 1723,
+      "name": "Zaimer",
+      "logo": "https://pdl-profit.com/uploads/2025-03-07/file_67cab7697001d.png",
+      "ref": "https://tds.pdl-profit.com?offerid=1723&affid=62311",
+      "sum": 90000,
+      "term": 120,
+      "rateMin": 3.6,
+      "rateMax": 91.2,
+      "badge": "Длительный срок возврата",
+      "badgeColor": "purple",
+      "hasZeroBadge": true,
+      "goldBadgeText": "Первый займ под 0.01%*",
+      "legal": "ТОО \"МФО \"Робокэш.кз\"",
+      "bin": "200940013491",
+      "license": "№ 02.21.0032.М от 16.03.2021 г. (подтверждено независимо: zaimer.kz/about/documents, листинг KASE, gdezaim.kz)",
+      "address": "A05F4E4, Республика Казахстан, г. Алматы, Алмалинский район, ул. Монгольская, д. 44",
+      "phone": null,
+      "email": null,
+      "apiTitle": "Ставка от 0.01%!",
+      "epc": 21.03,
+      "cr": 12.9
     },
     {
       "id": 1834,
@@ -68,8 +91,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%!",
-      "epc": 9.14,
-      "cr": 1.12
+      "epc": 7.42,
+      "cr": 0.91
     },
     {
       "id": 1916,
@@ -114,8 +137,31 @@
       "phone": "+7 700 888 55 88",
       "email": "info@acredit.kz",
       "apiTitle": "Первый кредит 0,01%",
-      "epc": 7.37,
-      "cr": 3.01
+      "epc": 7.45,
+      "cr": 3.04
+    },
+    {
+      "id": 2454,
+      "name": "Creditbar",
+      "logo": "https://pdl-profit.com/uploads/2024-12-30/file_67726a6504826.png",
+      "ref": "https://tds.pdl-profit.com?offerid=2454&affid=62311",
+      "sum": 172000,
+      "term": 90,
+      "rateMin": 3.6,
+      "rateMax": 547.5,
+      "badge": "До 172 000 ₸ на карту",
+      "badgeColor": "blue",
+      "hasZeroBadge": true,
+      "goldBadgeText": "Первый займ под 0.01%*",
+      "legal": "ТОО «Микрофинансовая организация «CreditBar (КредитБар)»",
+      "bin": "220940011323",
+      "license": "№ 01.23.0001.M от 20.03.2023 г.",
+      "address": "Z05H9B0, Республика Казахстан, г. Астана, район «Есиль», ул. Дінмұхамед Қонаев, здание № 12/1, встроенное помещение 27",
+      "phone": "+7 (771) 933 33 33",
+      "email": "info@creditbar.kz",
+      "apiTitle": "Новый сервис!",
+      "epc": 1.6,
+      "cr": 0.98
     },
     {
       "id": 2552,
@@ -137,8 +183,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Новый сервис!",
-      "epc": 18.58,
-      "cr": 2.28
+      "epc": 12.33,
+      "cr": 1.51
     },
     {
       "id": 2600,
@@ -160,8 +206,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Быстрое одобрение",
-      "epc": 10.1,
-      "cr": 1.36
+      "epc": 10.75,
+      "cr": 1.47
     },
     {
       "id": 3380,
@@ -183,8 +229,8 @@
       "phone": "+7 700 888 00 28",
       "email": "info@microcash.kz",
       "apiTitle": "Без справок",
-      "epc": 0.0,
-      "cr": 0.0
+      "epc": 61.21,
+      "cr": 5.88
     },
     {
       "id": 3615,
@@ -206,8 +252,8 @@
       "phone": "8 (800) 004-01-34",
       "email": "info@limecredit.kz",
       "apiTitle": "Промокод LIME70",
-      "epc": 2.68,
-      "cr": 0.26
+      "epc": 3.82,
+      "cr": 0.37
     },
     {
       "id": 3923,
@@ -229,8 +275,8 @@
       "phone": "8 (800) 004-08-49",
       "email": "info@megazaim.com",
       "apiTitle": "Без документов и поручителей",
-      "epc": 8.13,
-      "cr": 0.8
+      "epc": 6.94,
+      "cr": 0.68
     },
     {
       "id": 3979,
@@ -275,8 +321,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Работает 24/7",
-      "epc": 16.31,
-      "cr": 11.89
+      "epc": 17.35,
+      "cr": 12.56
     },
     {
       "id": 3995,
@@ -298,8 +344,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Решение за 5 минут!",
-      "epc": 21.89,
-      "cr": 1.22
+      "epc": 22.97,
+      "cr": 1.29
     }
   ]
 }
