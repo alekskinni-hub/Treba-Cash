@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-19T15:22:05.238164+00:00",
-  "count": 15,
+  "generatedAt": "2026-11-20T14:59:13.799056+00:00",
+  "count": 16,
   "offers": [
     {
       "id": 1159,
@@ -22,8 +22,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%",
-      "epc": 7.4,
-      "cr": 2.89
+      "epc": 6.64,
+      "cr": 2.61
     },
     {
       "id": 1456,
@@ -45,8 +45,8 @@
       "phone": null,
       "email": "support@kviku.kz",
       "apiTitle": "Мгновенный микрокредит на карту",
-      "epc": 62.79,
-      "cr": 3.83
+      "epc": 57.43,
+      "cr": 3.53
     },
     {
       "id": 1723,
@@ -68,8 +68,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%!",
-      "epc": 10.86,
-      "cr": 6.67
+      "epc": 5.52,
+      "cr": 3.45
     },
     {
       "id": 1834,
@@ -91,8 +91,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Ставка от 0.01%!",
-      "epc": 12.21,
-      "cr": 1.5
+      "epc": 12.69,
+      "cr": 1.56
     },
     {
       "id": 1916,
@@ -137,8 +137,8 @@
       "phone": "+7 700 888 55 88",
       "email": "info@acredit.kz",
       "apiTitle": "Первый кредит 0,01%",
-      "epc": 9.57,
-      "cr": 3.91
+      "epc": 10.0,
+      "cr": 4.13
     },
     {
       "id": 2454,
@@ -160,8 +160,8 @@
       "phone": "+7 (771) 933 33 33",
       "email": "info@creditbar.kz",
       "apiTitle": "Новый сервис!",
-      "epc": 2.27,
-      "cr": 1.39
+      "epc": 2.04,
+      "cr": 1.27
     },
     {
       "id": 2552,
@@ -183,8 +183,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Новый сервис!",
-      "epc": 10.3,
-      "cr": 1.26
+      "epc": 10.71,
+      "cr": 1.32
     },
     {
       "id": 2600,
@@ -206,8 +206,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Быстрое одобрение",
-      "epc": 12.28,
-      "cr": 1.56
+      "epc": 12.92,
+      "cr": 1.63
     },
     {
       "id": 3380,
@@ -229,7 +229,7 @@
       "phone": "+7 700 888 00 28",
       "email": "info@microcash.kz",
       "apiTitle": "Без справок",
-      "epc": 60.99,
+      "epc": 60.08,
       "cr": 5.88
     },
     {
@@ -252,8 +252,8 @@
       "phone": "8 (800) 004-01-34",
       "email": "info@limecredit.kz",
       "apiTitle": "Промокод LIME70",
-      "epc": 8.43,
-      "cr": 0.83
+      "epc": 10.0,
+      "cr": 1.0
     },
     {
       "id": 3923,
@@ -275,8 +275,8 @@
       "phone": "8 (800) 004-08-49",
       "email": "info@megazaim.com",
       "apiTitle": "Без документов и поручителей",
-      "epc": 7.56,
-      "cr": 0.74
+      "epc": 7.36,
+      "cr": 0.73
     },
     {
       "id": 3979,
@@ -321,8 +321,8 @@
       "phone": null,
       "email": null,
       "apiTitle": "Работает 24/7",
-      "epc": 17.13,
-      "cr": 12.29
+      "epc": 17.15,
+      "cr": 12.36
     },
     {
       "id": 3995,
@@ -344,8 +344,31 @@
       "phone": null,
       "email": null,
       "apiTitle": "Решение за 5 минут!",
-      "epc": 28.29,
-      "cr": 1.59
+      "epc": 28.25,
+      "cr": 1.58
+    },
+    {
+      "id": 4045,
+      "name": "Aicredit",
+      "logo": "https://pdl-profit.com/uploads/2026-11-18/file_6afd79acba6ba.png",
+      "ref": "https://tds.pdl-profit.com?offerid=4045&affid=62311",
+      "sum": 10000,
+      "term": 45,
+      "rateMin": 109.5,
+      "rateMax": 109.5,
+      "badge": "Длительный срок возврата",
+      "badgeColor": "purple",
+      "hasZeroBadge": true,
+      "goldBadgeText": "Первый займ под 0.3%*",
+      "legal": null,
+      "bin": null,
+      "license": null,
+      "address": null,
+      "phone": null,
+      "email": null,
+      "apiTitle": "Новый оффер!",
+      "epc": 0.0,
+      "cr": 0.0
     }
   ]
 }
