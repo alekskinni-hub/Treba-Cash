@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T13:54:00.122601+00:00",
+  "generatedAt": "2026-11-23T17:04:39.641762+00:00",
   "count": 43,
   "offers": [
     {
@@ -350,13 +350,13 @@
       "logo": "https://pdl-profit.com/uploads/2026-09-21/file_6ab1282420f42.png",
       "ref": "https://tds.pdl-profit.com?offerid=2239&affid=62311",
       "sum": 150000,
-      "term": 169,
-      "rateMin": 365.0,
+      "term": 360,
+      "rateMin": 3.6,
       "rateMax": 365.0,
       "badge": "До 150 000 ₴ на картку",
       "badgeColor": "blue",
-      "hasZeroBadge": false,
-      "goldBadgeText": null,
+      "hasZeroBadge": true,
+      "goldBadgeText": "Перша позика під 0.01%*",
       "legal": "ТОВ «БІЗНЕС ПОЗИКА»",
       "edrpou": "41084239",
       "address": "м. Київ, вул. Ген. Алмазова, 13, оф. 524",
